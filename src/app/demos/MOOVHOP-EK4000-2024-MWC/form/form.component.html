@@ -1,0 +1,26 @@
+<p>RENSEIGNEZ VOS INFORMATIONS</p>
+<input type="text" ngModel="champ1" id="name">
+<label for="tel">Numéro de téléphone</label>
+
+<div>
+    <h1> CRÉER UN COMPTE </h1>
+    <h3>Vérifiez et complétez vos informations !</h3>
+    <div class="allElement">
+        <form>
+            <section>
+                <label for="name"><b>Nom et Prénom</b></label>
+                <input type="text" name="name" ngModel="champ1" value="Gelly Valentin">
+            </section>
+            <br>
+            <section>
+                <label for="tel"><b>Numéro de téléphone</b></label>
+                <input id="tel" name="tel" ngModel="champ2" type="tel">
+            </section>
+        </form>
+    </div>
+    <div class="nextStep" (click)="createUser()">
+        Etape Suivante
+    </div>
+
+
+</div>

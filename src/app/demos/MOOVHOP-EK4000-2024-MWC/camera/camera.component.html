@@ -1,0 +1,16 @@
+
+<div>
+    <h1> PRISE DE LA PHOTO</h1>
+    <h3>Positionnez-vous devant la caméra</h3>
+
+    <section class="retourCamera">
+        <section class="countdownSection" id="countdownSection">
+            <img src="./assets/MOOVHOP-EK4000-2023-RNTP/countdown.gif" alt="countdown" id="countdownAnimation">
+            <p id="countdown">{{countdown}}</p>
+        </section>
+        
+        <img *ngIf="this.scanVisited==1;" id="previewA" [src]="previewImageProfile"  class="profileImg">
+        <img *ngIf="this.scanVisited==2;" id="previewA" [src]="previewImageScanIdA"  class="profileImg">
+        <img *ngElse="this.scanVisited==3" id="previewB" [src]="previewImageScanIdB"  class="profileImg">
+    </section>
+  </div>

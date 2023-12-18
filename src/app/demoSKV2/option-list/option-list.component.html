@@ -1,0 +1,240 @@
+<!-- CHOIX DES DEMOS -->
+
+<div class="demoChoice demoSettings" *ngIf="currentMenu === 'demo' || ''">
+  <div class="labiziChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> Labizi </h3>
+      <p> Application de gestion de file pour laboratoire </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/labiziHomepage">
+  </div>
+  <div class="moovHop8000Choice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop - version EK8000</h3>
+      <p> Application transports - version complète </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovHopHomepage">
+  </div>
+  <div class="moovHop1000Choice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop - version EK1000 </h3>
+      <p> Démo transports - version simplifiée </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovopRecupCard">
+  </div>
+  
+</div>
+
+<!-- PARCOURS CLIENTS -->
+
+<div class="customerExperienceChoice scrollable-container" *ngIf="currentMenu === 'parcoursClient'">
+  <div class="labiziJaiRdvChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> Labizi </h3>
+      <p> Démo santé - scan de code bar et paiement simulé </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png" routerLink="/labiziQrCode">
+  </div>
+  <div class="labiziJePrendsRdvChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> Labizi </h3>
+      <p> Démo santé - scan de carte vitale et impression du ticket de file </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/labiziCarteVitale">
+  </div>
+  <div class="moovHop1000ScanThenRecupCard">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop - version EK1000</h3>
+      <p> Démo transports - scan qr code et distribution carte RFID </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovopRecupCard">
+  </div>
+  <div class="moovHop8000BuyUseCaseChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop - version EK8000</h3>
+      <p> Démo transports - achat de titres de transports: pass ou ticket à l'unité </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovHopBuyUseCaseChooseTravel">
+  </div>
+  <div class="moovHop8000ReloadUseCaseChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop - version EK8000 </h3>
+      <p> Démo transports - rechargement de votre pass de transports </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovHopReloadUseCaseYourNeed">
+  </div>
+</div>
+
+<div class="featuresChoice featureSettings scrollable-container" *ngIf="currentMenu === 'fonctionnalites'">
+  <div class="testChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> Labizi - scan de qr code </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png" routerLink="/labiziQrCode">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> Labizi - Paiment simulé </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png" routerLink="/labiziPay">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> Labizi - Lecture de carte vitale </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/labiziCarteVitale">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> Labizi - impression de reçu (suite à un paiement) </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/labiziValidatedPayment">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop version EK1000 - scan de qr code </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png" routerLink="/moovopQrCode">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop version EK1000 - distribution de carte RFID </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovopCongratulations">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop version EK8000 - distribution de carte RFID </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovHopBuyUseCaseCongratulationsTwo">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop version EK8000 - Impression de tickets </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovHopBuyUseCaseCongratulations">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop version EK8000 - formulaire d'utilisation du clavier </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovHopBuyUseCaseCreateAccForm">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop version EK8000 - Scan de carte d'identité (ancien format) </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovHopBuyUseCaseOlderCIScan">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop version EK8000 - Scan de carte d'identité (nouveau format) </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovHopBuyUseCaseNewerCIScan">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Moov'Hop version EK8000 - Lecture de carte RFID </h3>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/moovHopRealoadUseCaseConnection">
+  </div>
+</div>
+
+<!-- TEST IVQ -->
+
+<div class="testIvqChoice scrollable-container testSettings" *ngIf="currentMenu === 'tests'">
+  <div class="testChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Lecteur de code bar </h3>
+      <p> Lecture de code bar et affichage status en TR</p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png" routerLink="/barcodeTest">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/MoovHop/logo-app.png" class="demoImage">
+    <div class="description">
+      <h3> Formulaire </h3>
+      <p> Formulaire avec utilisation du clavier virtuel et impression de documents </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png" routerLink="/formTest">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> Gallerie </h3>
+      <p> Gallerie d'images </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png" routerLink="/galleryTest">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> Lumière </h3>
+      <p> Allumage de la coiffe </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png" routerLink="/lightTest">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> TouchPad </h3>
+      <p> Dessinez en toute créativité </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png" routerLink="/touchpadTest">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> Sketchpad </h3>
+      <p> Jouez avec une boule de papier </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/skecthpadTest">
+  </div>
+  <div class="testChoice">
+    <img src="./assets/Labizi/Logo.png" class="demoImage">
+    <div class="description">
+      <h3> Video Call </h3>
+      <p> Appel virtuel pour tester les périphériques de sorties </p>
+    </div>
+    <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png"
+      routerLink="/videoCallTest">
+  </div>
+</div>

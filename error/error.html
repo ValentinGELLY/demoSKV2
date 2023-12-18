@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://localhost:5000/api/System/JsScript"></script>
+    <title>Diaporama Catalogue IPM</title>
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        img {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            margin-top: -10px;
+            margin-left: -10px;
+            z-index: 1;
+        }
+
+        #previous {
+            position: absolute;
+            left: 0;
+            width: 30%;
+            height: 30%;
+            z-index: 2;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #next {
+            position: absolute;
+            right: 0;
+            width: 30%;
+            height: 30%;
+            z-index: 2;
+            top: 50%;
+            transform: translate(50%, -50%);
+        }
+
+
+        #goToDemo {
+            position: absolute;
+            z-index: 3;
+            width: 15%;
+            height: 20%;
+            right: 0;
+            margin-top: -10px;
+        }
+
+
+        #Error {
+            width: 100%;
+            height: 70%;
+            background-color: rgb(205, 205, 205);
+
+        }
+
+        #PopUpAlertRestart {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+
+
+        #PopUpAlertRestart button {
+            margin-top: 25px;
+        }
+
+        #closeBTN {
+            width: fit-content;
+            height: fit-content;
+            right: 5px;
+            position: absolute;
+            top: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-left: 0;
+            padding: 0;
+        }
+
+        li:before {
+            content: '-';
+
+        }
+
+        li {
+            display: flex;
+        }
+
+        .PopUpError {
+            position: fixed;
+            left: 0;
+            top: 95%;
+            width: 5%;
+            height: 15%;
+            z-index: 2;
+        }
+
+        #moovHopCriticalService {
+            position: absolute;
+            width: 15%;
+            background: white;
+            height: 40%;
+            top: 79%;
+            display: none;
+            justify-content: center;
+            flex-direction: column;
+            transform: translate(0, -50%);
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 3px 12.5px 1.5px #dddddd;
+            border-radius: 15px;
+            z-index: 2;
+        }
+
+        .moovHopCriticalService {
+            position: fixed;
+            display: flex;
+
+            label {
+                color: red;
+                font-family: 'GothamLight';
+            }
+
+            left: 5%;
+            top: 90%;
+            text-align: center;
+            width: 45%;
+            height: 5%;
+        }
+
+
+        #popUpManualCard{
+            position: absolute;
+            width: 15%;
+            background: white;
+            height: 15%;
+            display: none;
+            justify-content: center;
+            flex-direction: column;
+            transform: translate(0, -50%);
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 3px 12.5px 1.5px #dddddd;
+            border-radius: 15px;
+            z-index: 2;
+        }
+
+
+        #moovHopUndefinedServices {
+
+            display: flex;
+            color: red;
+            top: 80%;
+            left: 5%;
+            width: 45%;
+            height: 5%;
+        }
+
+        #moovHopTempUnavailableService {
+
+            display: flex;
+            color: violet;
+            top: 85%;
+            left: 5%;
+            width: 45%;
+            height: 5%;
+        }
+
+        .moovHopWarningServices {
+
+            display: flex;
+            color: orange;
+            top: 75%;
+            left: 5%;
+            width: 65%;
+            height: 5%;
+        }
+
+        #cardDispenserMessage {
+            width: 60%;
+        }
+
+        h3 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <a id="goToDemo" onclick="returnToDemo()">
+    </a>
+
+    <img id="diapo" src="IPM-FICHES-PRODUITS/Diapositive01.PNG" alt="">
+    <div id="previous" onclick="previousDiapo()">
+
+    </div>
+    <div id="next" onclick="nextDiapo()">
+
+    </div>
+
+
+    
+
+
+    <div class="PopUpError" id="PopUpErrorSection" onclick="showPopUp()"></div>
+    <!-- affichage services en status critical -->
+    <div id="moovHopCriticalService">
+        <h3>Erreur : </h3>
+        <button id="closeBTN" onclick="closePopUp()">Fermer</button>
+
+        <div id="PopUpAlertRestart">
+            <!-- affichage services en status critical -->
+            <div id="Error">
+                <ul>
+                    <li id="stringServiceStatusCritical"><label class="moovHopWarningServices"
+                            id="stringServiceStatusCriticallabel">
+                        </label></li>
+                    <li id="arrayServiceStatusTempUnavailable"><label
+                            id="arrayServiceStatusTempUnavailableLabel">
+                        </label></li>
+                    <li id="messageBarcodeReading"><label class="moovHopWarningServices"
+                            id="messageBarcodeReadingLabel">
+                        </label></li>
+                    <li id="messageReceiptPrinter"><label class="moovHopWarningServices"
+                            id="messageReceiptPrinterLabel">
+                        </label></li>
+                    <li id="messagePrinter"><label class="moovHopWarningServices" id="messagePrinterLabel">
+                        </label></li>
+                    <li id="messageCameraShooting"><label class="moovHopWarningServices"
+                            id="messageCameraShootingLabel">
+                        </label></li>
+                    <li id="messageDocumentScanning"><label class="moovHopWarningServices"
+                            id="messageDocumentScanningLabel">
+                        </label></li>
+                    <li id="messageTicketPrinting"><label class="moovHopWarningServices"
+                            id="messageTicketPrintingLabel">
+                        </label></li>
+                    <li id="messageCardDispensing"><label class="moovHopWarningServices"
+                            id="messageCardDispensingLabel">
+                        </label></li>
+                    <li id="messageContactLessReading"><label class="moovHopWarningServices"
+                            id="messageContactLessReadingLabel">
+                        </label></li>
+                    <li id="messageCardPayment"><label class="moovHopWarningServices"
+                            id="messageCardPaymentLabel">
+                        </label></li>
+
+
+
+                </ul>
+            </div>
+            <div style="width: 100%; display: flex;justify-content: space-around;">
+                <button onclick="restart()">Redémarrer</button>
+                <button id="btnManualCard" onclick="changePayment()">Paiement Manuel</button>
+            </div>
+            
+        </div>
+    </div>
+</body>
+<footer>
+    <script>
+        timer: any = 60000;
+
+        interval: any;
+
+        let diapo = document.getElementById("diapo");
+        interval = setInterval(() => {
+            nextDiapo();
+        }, 60000);
+
+        function previousDiapo() {
+            // comment récupérer la src de l'image d'id diapo ?
+            // comment récupérer la src de l'image d'id diapo ?
+            let diapo = document.getElementById("diapo");
+            let src = diapo?.getAttribute("src");
+            let numDiapo = "";
+            link = src?.split(".")[0];
+            // get the two last character from link
+
+            console.log();
+
+            numDiapo = link.slice(-2);
+            console.log(numDiapo);
+            if (numDiapo[0] !== "1") {
+
+                if (numDiapo !== "01") {
+                    let numNextDiapo = parseInt(numDiapo) - 1;
+                    numNextDiapo = "0" + numNextDiapo;
+                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive" + numNextDiapo + ".png")
+                } else {
+                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive14.png")
+                }
+
+
+            } else {
+                if (numDiapo === '10') {
+                    let numNextDiapo = "09";
+                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive" + numNextDiapo + ".png")
+                } else {
+                    let numNextDiapo = parseInt(numDiapo) - 1;
+                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive" + numNextDiapo + ".png")
+                }
+
+            }
+
+            clearInterval(interval);
+            interval = setInterval(() => {
+                previousDiapo();
+            }, 60000);
+            console.log("previousDiapo", numDiapo);
+        }
+
+        function nextDiapo() {
+            let diapo = document.getElementById("diapo");
+            let src = diapo?.getAttribute("src");
+            let numDiapo = "";
+            link = src?.split(".")[0];
+            
+            console.log();
+            numDiapo = link.slice(-2);
+            console.log(numDiapo);
+            if (numDiapo !== "14") {
+                let numNextDiapo = parseInt(numDiapo) + 1;
+                if( parseInt(numDiapo) >= 9){
+                    numNextDiapo = parseInt(numDiapo)+1;
+                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive" + numNextDiapo + ".png")
+                }else{
+                    numNextDiapo = "0" + numNextDiapo;
+                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive" + numNextDiapo + ".png")
+                }
+            } else {
+                
+                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive01.png")
+            }
+
+            clearInterval(interval);
+            interval = setInterval(() => {
+                previousDiapo();
+            }, 60000);
+            console.log("previousDiapo", numDiapo);
+        }
+
+        function changePayment(){
+            let btnManualCard = document.getElementById("btnManualCard");
+            if(localStorage.getItem('automaticCard') === 'true'){
+                // Pour définir une valeur
+                localStorage.setItem('automaticCard', 'false');
+                btnManualCard.textContent="Paiement Manuel"
+            }else{
+                localStorage.setItem('automaticCard', 'true');
+                btnManualCard.textContent="Paiement Automatique"
+            }
+        }
+
+
+
+       
+
+
+        function returnToDemo() {
+            Kiosk.demoSKV2.setApplicationStatus({
+                "status": "Ok",
+                "statusDetail": "",
+                "statusDescription": ""
+            });
+        }
+
+        function restart() {
+            let confirmation = window.confirm("Redémarer la borne ?")
+            if (confirmation) {
+                Kiosk.restart();
+            }
+        }
+
+        function showPopUp() {
+            let popUp = document.getElementById("moovHopCriticalService");
+            if (popUp != null) {
+                popUp.style.display = "block";
+                                
+                switch (Kiosk["ReceiptPrinting"].status) {
+                    case 'Critical':
+                        document.getElementById("messageReceiptPrinterLabel").textContent = "ReceiptPrinting" + Kiosk["ReceiptPrinting"].statusDetail;
+                        break
+                    case 'Warning':
+                        document.getElementById("messageReceiptPrinterLabel").textContent = "ReceiptPrinting" + Kiosk["ReceiptPrinting"].statusDetail;
+                        break
+                    default:
+                        document.getElementById("messageReceiptPrinterLabel").textContent = '';
+                }
+                switch (Kiosk["CardDispensing"].status) {
+                    case 'Critical':
+                        document.getElementById("messageCardDispensingLabel").textContent = "CardDispensing" + Kiosk["CardDispensing"].statusDetail;
+                        break
+                    case 'Warning':
+                        document.getElementById("messageCardDispensingLabel").textContent = "CardDispensing" + Kiosk["CardDispensing"].statusDetail;
+                        break
+                    default:
+                        document.getElementById("messageCardDispensingLabel").textContent = '';
+                }
+                switch (Kiosk["TicketPrinting"].status) {
+                    case 'Critical':
+                        document.getElementById("messageTicketPrintingLabel").textContent = "TicketPrinting" + Kiosk["TicketPrinting"].statusDetail;
+                        break
+                    case 'Warning':
+                        document.getElementById("messageTicketPrintingLabel").textContent = "TicketPrinting" + Kiosk["TicketPrinting"].statusDetail;
+                        break
+                    default:
+                        document.getElementById("messageTicketPrintingLabel").textContent = '';
+                }
+
+                switch (Kiosk["BarcodeReading"].status) {
+                    case 'Critical':
+                        document.getElementById("messageBarcodeReadingLabel").textContent = "BarcodeReading" + Kiosk["BarcodeReading"].statusDetail;
+                        break
+                    default:
+                        document.getElementById("messageBarcodeReadingLabel").textContent = '';
+                }
+                switch (Kiosk["CameraShooting"].status) {
+                    case 'Critical':
+                        document.getElementById("messageCameraShootingLabel").textContent = "CameraShooting" + Kiosk["CameraShooting"].statusDetail;
+                        break
+                    default:
+                        document.getElementById("messageCameraShootingLabel").textContent = '';
+                }
+                switch (Kiosk["DocumentScanning"].status) {
+                    case 'Critical':
+                        document.getElementById("messageDocumentScanningLabel").textContent = "DocumentScanning" + Kiosk["DocumentScanning"].statusDetail;
+                        break
+                    default:
+                        document.getElementById("messageDocumentScanningLabel").textContent = '';
+                }
+
+                switch (Kiosk["ContactLessReading"].status) {
+                    case 'Critical':
+                        document.getElementById("messageContactLessReadingLabel").textContent = "ContactLessReading" + Kiosk["ContactLessReading"].statusDetail;
+                        break
+                    default:
+                        document.getElementById("messageContactLessReadingLabel").textContent = '';
+                }
+                switch (Kiosk["CardPayment"].status) {
+                    case 'Critical':
+                        document.getElementById("messageCardPaymentLabel").textContent = "CardPayment" + Kiosk["CardPayment"].statusDetail;
+                        break
+                    default:
+                        document.getElementById("messageCardPaymentLabel").textContent = '';
+                }
+
+
+            }
+        }
+
+        function closePopUp() {
+            let popUp = document.getElementById("moovHopCriticalService");
+            if (popUp != null) {
+                popUp.style.display = "none";
+            }
+        }
+
+    </script>
+    
+</footer>
+
+</html>

@@ -1,0 +1,22 @@
+
+<div>
+  <h1> CRÉER UN COMPTE </h1>
+  <h3>{{isScanFinished? "Scan finalisé" : "Photo prise"}}</h3>
+  <h3 style="color: red; display: none;" id="error">Erreur d'enregistrement</h3>
+  <h3 style="color: red; display: none;" id="too_far">Erreur : rapprochez vous de la caméra</h3>
+    <img *ngIf="this.scanVisited==1" id="capture"  class="img-fluid" [src]="previewImageProfile" />
+    <img *ngIf="this.scanVisited==2" id="preview"  class="img-fluid" [src]="previewImageScanIdA" />
+    <img *ngIf="this.scanVisited==3" id="preview"  class="img-fluid" [src]="previewImageScanIdB" />
+  <div class="nextStep" id="restartButton"  (click)="resetVisits()">
+    Recommencer
+  </div>
+  <div *ngIf="this.scanVisited==1" class="nextStep" id="confirmButton" (click)="addFaceUser()" >
+   Confirmer
+  </div>
+  <div *ngIf="this.scanVisited==2" class="nextStep" id="confirmButton" (click)="navigateTo('/cameraIdentification')" >
+    Verso
+  </div>
+  <div *ngIf="this.scanVisited==3" class="nextStep" id="confirmButton" (click)="addScanId()" >
+    Confirmer
+  </div>
+</div>
