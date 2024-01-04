@@ -61,3 +61,12 @@ h3{
 body{
   width: fit-content !important;
 }
+
+.profileImg{
+  position: fixed;
+  top: 61%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  height: 45%;
+}

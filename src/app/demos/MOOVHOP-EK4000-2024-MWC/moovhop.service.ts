@@ -13,7 +13,7 @@ export class MoovhopService {
 
     idUserToCheck: string="";
     nameUserToCheck: string="";
-    firstname: string="";
+    firstnameUserToCheck: string="";
     idChecks: string = "";
     referenceId: string = "";
 
@@ -22,6 +22,10 @@ export class MoovhopService {
     previewImageProfile: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
     previewImageScanIdA: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
     previewImageScanIdB: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+
+    previewImageScanIdADef:string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+    previewImageScanIdBDef:string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+
 
     timeScanIdA: Date = new Date();
     timeScanIdB: Date = new Date();
@@ -33,6 +37,7 @@ export class MoovhopService {
     scanVisited: number = 0;
 
     LineChoosed: number = 1;
+    errorSaveIdCard: boolean = false;
 
     ActionChoosed: number = 1;
 

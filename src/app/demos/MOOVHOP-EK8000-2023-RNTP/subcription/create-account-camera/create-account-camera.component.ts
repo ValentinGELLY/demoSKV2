@@ -69,7 +69,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
       __this.timeoutScanner();
     } else if (!this.isScanFinished && this.router.url === "/createAccountCamera8000") {
       let __this = this;
-      console.log("test");
+
 
       __this.skService.addEventListener("CameraShooting", "previewStart", this.onPreview)
       __this.skService.startCameraPreview();

@@ -169,7 +169,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
         if (this.router.url === "/createAccountCamera") {
           this.skService.removeEventListener('DocumentScanning', 'previewStart', this.onPreview);
           this.skService.stopDocumentPreview();
-          this.router.navigate(['/createAccountScanFinish'])
+          this.router.navigate(['/createAccountScanFinish']);
           clearInterval(this.interval2);
         }
       }

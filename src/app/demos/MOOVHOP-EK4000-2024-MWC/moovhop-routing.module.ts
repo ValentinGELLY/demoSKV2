@@ -6,6 +6,7 @@ import { CameraComponent } from './camera/camera.component';
 import { CheckValidationComponent } from './check-validation/check-validation.component';
 import { FaceResultComponent } from './face-result/face-result.component';
 import { FormComponent} from './form/form.component';
+import {CommonModule} from '@angular/common';
 
 export const routes: Routes = [
   { path: 'homepageEK4000MWC', component: HomepageComponent },
@@ -17,7 +18,10 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes),
+    CommonModule
+  ],
   exports: [RouterModule]
 })
 

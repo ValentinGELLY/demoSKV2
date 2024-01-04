@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MoovhopService } from '../moovhop.service';
 import { Router } from '@angular/router';
 import { GenericComponent } from 'src/app/demos/generic/generic.component';
@@ -22,40 +22,37 @@ export class CameraComponent extends GenericComponent implements OnInit, AfterVi
   previewImageScanIdB: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
   previewImageProfile: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
 
+  errorScanIdCard: boolean = this.moovhopService.errorSaveIdCard;
 
-  countdown: number = 5;
+  countdown: number = 10;
   imageCapture: string = "";
   isImageCaptured: boolean = false;
 
-  scanVisited: number = this.moovhopService.scanVisited;
+  scanVisited: number = 0;
 
   override ngOnInit(): void {
-    /*this.moovhopService.scanVisited++;
-    if (this.moovhopService.scanVisited === 3) {
-      this.moovhopService.isScanFinished = false;
-      document.getElementById("capture")!.style.setProperty("clip", "rect(250px, auto, auto, auto)");
-    }
-    else {
-      this.moovhopService.isScanFinished = true;
-    }
-    this.isScanFinished = this.moovhopService.isScanFinished;
+    this.scanVisited = this.moovhopService.scanVisited;
+    this.moovhopService.scanVisited++;
+    this.scanVisited = this.moovhopService.scanVisited;
 
     let _this = this;
     // TODO faire appel à un lightdelay: suivant le type de lecteur de document qu'on a
     _this.skService.addEventApplication("demoSKV2", "début de vie du composant MoovHopBuyUseCaseScanNewerIdentityCardComponent");
-  */ }
+  }
 
 
 
   ngAfterViewInit(): void {
+
     /**
      * Déclenchement de l'appel à DocumentScanning.preview()
       */
     let __this = this;
     if ((this.scanVisited == 2 || this.scanVisited == 3) && this.router.url === "/cameraIdentification") {
-      // Écoute de l'événement de surveillance de la transaction Cash
+      console.log("scanVisited : ", this.scanVisited);
+
       __this.skService.addEventListener("DocumentScanning", "previewStart", this.onPreview);
-      __this.skService.addEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
+      __this.skService.addEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture);
       __this.skService.addEventListener("DocumentScanning", "previewStop", this.onPreview);
 
       // Démarrage de la prévisualisation
@@ -63,7 +60,7 @@ export class CameraComponent extends GenericComponent implements OnInit, AfterVi
 
       // décompte du timer
       __this.timeoutScanner();
-    } else if (this.scanVisited == 1 && this.router.url === "/cameraIdentification") {
+    } else if (this.scanVisited === 1 && this.router.url === "/cameraIdentification") {
       let __this = this;
       __this.skService.addEventListener("CameraShooting", "previewStart", this.onPreview)
       __this.skService.startCameraPreview();
@@ -73,6 +70,7 @@ export class CameraComponent extends GenericComponent implements OnInit, AfterVi
   }
 
   override onPreview = (e: any) => {
+
     switch (e.data.dataType) {
       case 'PreviewStarted':
         this.skService.addEventApplication("demoSKV2", "Preview du document réussie");
@@ -89,12 +87,14 @@ export class CameraComponent extends GenericComponent implements OnInit, AfterVi
         };
         break;
       case 'PreviewStopped':
-        setTimeout(() => {
-          this.skService.addEventApplication("demoSKV2", "arrêt prévisualisation du document");
-          this.skService.addEventApplication("demoSKV2", "capture du document");
-          this.skService.captureImageDocument();
-        }, 500);
+        console.log("PreviewStopped");
+        this.skService.removeEventListener("DocumentScanning",'previewStop', this.onPreview);
+        this.skService.addEventApplication("demoSKV2", "arrêt prévisualisation du document");
+        this.skService.addEventApplication("demoSKV2", "capture du document");
+
         break;
+
+
       case "PreviewStartError":
         /**
          * Evènement d'échec du démarrage de la prévisualisation
@@ -115,6 +115,8 @@ export class CameraComponent extends GenericComponent implements OnInit, AfterVi
         }
         break;
       default:
+        console.log(e.data.dataType);
+        
         console.error(e.data.code + ": " + e.data.description);
         break;
     }
@@ -131,22 +133,27 @@ export class CameraComponent extends GenericComponent implements OnInit, AfterVi
             }, 500);
           } else if (this.moovhopService.scanVisited === 2 && this.router.url === "/cameraIdentification") {
             setTimeout(() => {
+              console.log("capture document A");
               this.moovhopService.timeScanIdA = new Date();
-              this.moovhopService.previewImageScanIdA = this.skService.lastCaptureImageRaw();
+              this.moovhopService.previewImageScanIdADef = this.skService.lastCaptureImageRaw();
+              console.log("previewImageScanIdADef : ", this.moovhopService.previewImageScanIdADef);
             }, 500);
+            
           } else if (this.moovhopService.scanVisited === 3 && this.router.url === "/cameraIdentification") {
             setTimeout(() => {
+              console.log("capture document B");
               this.moovhopService.timeScanIdB = new Date();
-              this.moovhopService.previewImageScanIdB = this.skService.lastCaptureImageRaw();
+              this.moovhopService.previewImageScanIdBDef = this.skService.lastCaptureImageRaw();
+              console.log("previewImageScanIdBDef : ", this.moovhopService.previewImageScanIdBDef);
             }, 500);
           }
-
         }
         break;
       case 'ImageCaptureError':
         console.error(e.data.code + ": " + e.data.description);
         break;
     }
+    
   }
 
   previewImageUpdate = (preview: any): void => {
@@ -163,18 +170,20 @@ export class CameraComponent extends GenericComponent implements OnInit, AfterVi
   }
   interval2: any = null;
   timeoutScanner = () => {
+    console.log("timeoutScanner");
 
     this.interval2 = setInterval(() => {
-      if (this.countdown <= 5) {
+      if (this.countdown != 0) {
         if (this.countdown) {
           this.countdown--;
         }
 
       } else {
-        if (this.router.url === "/camera-identification") {
+        if (this.router.url === "/cameraIdentification") {
           this.skService.removeEventListener('DocumentScanning', 'previewStart', this.onPreview);
           this.skService.stopDocumentPreview();
-          this.router.navigate(['/face-result'])
+          this.router.navigate(['/faceResult']);
+          
           clearInterval(this.interval2);
         }
       }
@@ -185,9 +194,8 @@ export class CameraComponent extends GenericComponent implements OnInit, AfterVi
   interval3: any = null;
 
   timeoutCamera = () => {
-
     this.interval3 = setInterval(() => {
-      if (this.countdown <= 5) {
+      if (this.countdown != 0) {
         if (this.countdown) {
           this.countdown--;
         }
@@ -196,7 +204,7 @@ export class CameraComponent extends GenericComponent implements OnInit, AfterVi
         if (this.router.url === "/cameraIdentification") {
           this.skService.removeEventListener('CameraShooting', 'previewStart', this.onPreviewStart);
           this.skService.stopCameraPreview();
-          this.router.navigate(['/face-result'])
+          this.router.navigate(['/faceResult'])
           clearInterval(this.interval3);
         }
       }
@@ -209,7 +217,7 @@ export class CameraComponent extends GenericComponent implements OnInit, AfterVi
     let ___this = this;
     clearInterval(this.interval2);
     clearInterval(this.interval3);
-    
+
     ___this.skService.removeEventListener("CameraShooting", "previewStart", this.onPreviewStart)
     ___this.skService.addEventListener("CameraShooting", "previewStop", this.onPreviewStop);
     ___this.skService.addEventApplication("demoSKV2", "fin de prévisualisation vidéo");

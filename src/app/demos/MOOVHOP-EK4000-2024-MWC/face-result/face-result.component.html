@@ -1,22 +1,19 @@
 
 <div>
   <h1> CRÉER UN COMPTE </h1>
-  <h3>{{isScanFinished? "Scan finalisé" : "Photo prise"}}</h3>
-  <h3 style="color: red; display: none;" id="error">Erreur d'enregistrement</h3>
+  <h3>{{scanVisited!=1? "Scan finalisé" : "Photo prise"}}</h3>
+  <h3 style="color: red; display: none;" id="error">Erreur d'enregistrement de la carte vitale. Merci de Recommencer</h3>
   <h3 style="color: red; display: none;" id="too_far">Erreur : rapprochez vous de la caméra</h3>
-    <img *ngIf="this.scanVisited==1" id="capture"  class="img-fluid" [src]="previewImageProfile" />
-    <img *ngIf="this.scanVisited==2" id="preview"  class="img-fluid" [src]="previewImageScanIdA" />
-    <img *ngIf="this.scanVisited==3" id="preview"  class="img-fluid" [src]="previewImageScanIdB" />
-  <div class="nextStep" id="restartButton"  (click)="resetVisits()">
+        
+  <img id="previewA" [style.display]=" scanVisited==1 ? 'block' : 'none'" [src]="previewImageProfile" class="profileImg">
+  <img id="previewB" [style.display]=" scanVisited==2 ? 'block' : 'none'" [src]="imgScanIdA" class="profileImg">
+  <img id="previewC" [style.display]=" scanVisited==3 ? 'block' : 'none'" [src]="imgScanIdB" class="profileImg">
+  
+  <div class="nextStep" id="restartButton"  >
     Recommencer
   </div>
-  <div *ngIf="this.scanVisited==1" class="nextStep" id="confirmButton" (click)="addFaceUser()" >
+  <div class="nextStep" id="confirmButton"  >
    Confirmer
   </div>
-  <div *ngIf="this.scanVisited==2" class="nextStep" id="confirmButton" (click)="navigateTo('/cameraIdentification')" >
-    Verso
-  </div>
-  <div *ngIf="this.scanVisited==3" class="nextStep" id="confirmButton" (click)="addScanId()" >
-    Confirmer
-  </div>
+
 </div>

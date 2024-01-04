@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MoovhopService } from '../moovhop.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-form',
@@ -10,43 +11,53 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-
-
-  constructor(private moovHopService: MoovhopService, private router : Router, private http: HttpClient) { }
   champ1: string = '';
   champ2: string = '';
+
+  constructor(private moovHopService: MoovhopService, private router: Router, private http: HttpClient) { }
+  
+
   ngOnInit(): void {
   }
-/*
-  createUser(userId: string = this.champ1.replace(/ /g,''), nbTry: number = 0) {
-      const url = 'https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users';
-    
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==',
-        })
-      };
-    
-      const payload = {
-        "userId": userId,
-        "primaryPhone": this.champ2,
-      };
-    
-      this.http.post(url, payload, httpOptions)
-        .subscribe((data: any) => {
-          if (data.httpStatus === 400) {
-            this.createUser(userId + nbTry, nbTry++);
-          } else {
-            let jsonParsed = JSON.parse(JSON.stringify(data));
-            this.moovHopService.idUserToCheck = jsonParsed.id;
-            this.moovHopService.nameUserToCheck = this.champ1;
-            this.moovHopService.firstname = this.champ1.replace(/ /g, '');
-            this.router.navigate(['/camera-identification']);
-          }
-        }, error => {
-          console.error('Error:', error);
-        });
+
+  navigateTo(arg0: string) {
+    this.router.navigate([arg0]);
   }
-*/
+
+  createUser(userId:string = (<HTMLInputElement>document.getElementById("name")).value.replace(/ /g, ''),  nbTry: number = 0) {
+    /*
+    var tel = (<HTMLInputElement>document.getElementById("tel")).value;
+    console.log('userId: ', userId, 'tel: ', tel);
+    fetch("https://kwvwj-8080.csb.app/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users", {
+      method: "POST", 
+      
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
+      },
+      body: JSON.stringify({
+        "userId": userId+nbTry,
+        "primaryPhone": (<HTMLInputElement>document.getElementById("tel")).value,
+      })
+    })
+      .then((response) => {
+        return response.json();
+       })
+      .then((data) => {
+        if (data.httpStatus === 400) {
+          let nbTry2 = nbTry + 1;
+          this.createUser(userId, nbTry2);
+        } else {
+          console.log(data);
+          this.moovHopService.idUserToCheck = data.id;
+          this.moovHopService.nameUserToCheck = this.champ1;
+          this.router.navigate(['/cameraIdentification']);
+        }
+      })
+      .catch((error) => { 
+        console.log('error: ', error);
+      });*/
+      this.moovHopService.nameUserToCheck = this.champ1;
+      this.router.navigate(['/cameraIdentification']);
+  }
 }
