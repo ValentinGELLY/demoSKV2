@@ -12,15 +12,24 @@ export class CheckValidationComponent implements OnInit {
   
   name: string = this.moovhopService.nameUserToCheck;
   firstname: string = this.moovhopService.firstnameUserToCheck;
+  photoId: string = this.moovhopService.previewImageProfile;
+  scanIdA: string = this.moovhopService.previewImageScanIdADef;
+  scanIdB: string = this.moovhopService.previewImageScanIdBDef;
 
   constructor(private moovhopService : MoovhopService, private router : Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.checkValidation();
+    document.getElementById("retry")!.addEventListener("click", () => {
+      this.moovhopService.retry = true;
+      this.moovhopService.scanVisited = 0;
+      this.router.navigate(['/cameraIdentification']);
+    });
+
   }
 
   checkValidation() {
-    fetch("https://kwvwj-8080.csb.app/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/QTAzoE_c-LUDLnaSSWzFYs0OfQ/idchecks/"+this.moovhopService.idChecks+"/evaluation?evaluationPolicyName=policy-2",
+    fetch("https://kwvwj-8080.csb.app/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.moovhopService.idUserToCheck+"/idchecks/"+this.moovhopService.idChecks+"/evaluation?evaluationPolicyName=policy-2",
     {
       method: "POST",
       headers: {
@@ -35,53 +44,27 @@ export class CheckValidationComponent implements OnInit {
       .then((data) => {
         if (data.results.items[0].result !== "MATCH") {
           console.log(data.results.items[0].result)
+          document.getElementById("countdownAnimation")!.style.setProperty("display", "none");
           console.error("error Identité non validée");
-          document.getElementById("verif")!.innerHTML = "Identité non validée";
-          
+          document.getElementById("verif")!.innerHTML = "Identité non validée, veuiller recommencer";
+          document.getElementById("verif")!.style.setProperty("color", "red");
+          document.getElementById("retry")!.style.setProperty("display", "none");
         } else {
           document.getElementById("verif")!.innerHTML = " Identité validée";
-          this.getAllInformation();
+          //document.getElementById("informations")!.innerHTML = " Bienvenue : "+data.summary[data.summary.lenght-1].value;
+          document.getElementById("retry")!.style.setProperty("display", "block");
+          if(this.router.url === "/check-validation") {
+            setTimeout(() => {
+              this.router.navigate(['/homepageEK4000MWC']);
+            } 
+            , 7500);
+          }
         } 
+        
       })
       .catch((error) => { 
         console.log('error: ', error);
       })
     }
 
-    getAllInformation() {
-      fetch("https://kwvwj-8080.csb.app/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/QTAzoE_c-LUDLnaSSWzFYs0OfQ/idchecks/"+this.moovhopService.idChecks+"/documents/summary",
-      {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          "Authorization":"Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
-        }
-      }
-      )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.httpStatus == 404) {
-          console.error("error");
-          document.getElementById("error")!.style.setProperty("display", "block");
-        } else {
-          document.getElementById("informations")!.innerHTML = " Bienvenue : "+data.documentSummaries.fieldsSensitiveData["Surname And Given Names"].value;
-          setTimeout(() => {
-            this.router.navigate(['/homepageEK4000MWC']);
-          } 
-          , 7500);
-        }
-      })
-      .catch((error) => { 
-        console.log('error: ', error);
-      })
-    }
-    ngOnDestroy() {
-      this.moovhopService.nameUserToCheck = "";
-      this.moovhopService.firstnameUserToCheck = "";
-      this.moovhopService.idUserToCheck = "";
-      this.moovhopService.idChecks = "";
-      this.moovhopService.scanVisited = 0;
-    }
 }

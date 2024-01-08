@@ -38,6 +38,8 @@ export class CameraComponent extends GenericComponent implements OnInit, AfterVi
     let _this = this;
     // TODO faire appel à un lightdelay: suivant le type de lecteur de document qu'on a
     _this.skService.addEventApplication("demoSKV2", "début de vie du composant MoovHopBuyUseCaseScanNewerIdentityCardComponent");
+    
+ 
   }
 
 

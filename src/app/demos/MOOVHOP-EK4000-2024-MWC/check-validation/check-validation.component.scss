@@ -93,6 +93,20 @@ html{
     color: #fff;
   }
   
-  
-  
-  
+  #countdownAnimation{
+      position: fixed;
+      top: 61%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 250px;
+  }
+
+  #retry{
+    position: fixed;
+    top:5%;
+    left: 5%;
+    width: 100px;
+    height: 25px;
+    background-color: #A6ED8E;
+    border-radius: 25px;
+  }

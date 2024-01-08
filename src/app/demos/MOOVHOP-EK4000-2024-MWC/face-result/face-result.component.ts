@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MoovhopService } from '../moovhop.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SoftKioskService } from 'src/app/softkiosk.service';
 import { GenericComponent } from '../../generic/generic.component';
+import { IMAGE_LOADER } from '@angular/common';
 
 @Component({
   selector: 'app-face-result',
@@ -24,16 +25,13 @@ export class FaceResultComponent extends GenericComponent implements OnInit{
   previewImageScanIdA = this.moovhopService.previewImageScanIdA;
   previewImageScanIdB = this.moovhopService.previewImageScanIdB;
   previewImageProfile = this.moovhopService.previewImageProfile;
-
-  imgScanIdA = this.moovhopService.previewImageScanIdADef;
-  imgScanIdB = this.moovhopService.previewImageScanIdBDef;
-
+  imgScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+  imgScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
 
   scanVisited = this.moovhopService.scanVisited;
 
 
-  override ngOnInit() {
-    
+  override ngOnInit() {    
     this.skService.addEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
 
     this.isScanFinished = this.moovhopService.isScanFinished;
@@ -92,13 +90,14 @@ export class FaceResultComponent extends GenericComponent implements OnInit{
     switch (e.data.dataType) {
       case 'ImageCaptured':
         if (this.moovhopService.scanVisited === 2) {
-          this.imgScanIdA= 'data:image/png;base64, '  + this.skService.lastCaptureImageRaw();
-          this.moovhopService.previewImageScanIdADef = this.imgScanIdA;
+          this.moovhopService.previewImageScanIdADef= 'data:image/png;base64, '  + this.skService.lastCaptureImageRaw();
+          this.imgScanIdA = this.moovhopService.previewImageScanIdADef;
+          document.getElementById("images")!.innerHTML = "<img src='" + this.moovhopService.previewImageScanIdADef + "' alt='image' style='width: 100%; height: 100%;'>";
           console.log("previewImageScanIdADef : ", this.moovhopService.previewImageScanIdADef);
-          
         }else if (this.moovhopService.scanVisited === 3) {
-          this.imgScanIdB = 'data:image/png;base64, '  + this.skService.lastCaptureImageRaw();
-          this.moovhopService.previewImageScanIdBDef = this.imgScanIdB;
+          this.moovhopService.previewImageScanIdBDef = 'data:image/png;base64, '  + this.skService.lastCaptureImageRaw();
+          this.imgScanIdB = this.moovhopService.previewImageScanIdBDef;
+          document.getElementById("images")!.innerHTML = "<img src='" + this.moovhopService.previewImageScanIdBDef + "' alt='image' style='width: 100%; height: 100%;'>";
           console.log("previewImageScanIdBDef : ", this.moovhopService.previewImageScanIdBDef);
         }
         break;
@@ -120,7 +119,7 @@ export class FaceResultComponent extends GenericComponent implements OnInit{
 
 
   addFaceUser() {
-    /*fetch("https://kwvwj-8080.csb.app/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/QTAzoE_c-LUDLnaSSWzFYs0OfQ/face/samples", {
+    fetch("https://kwvwj-8080.csb.app/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/"+this.moovhopService.idUserToCheck+"/face/samples", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -138,12 +137,14 @@ export class FaceResultComponent extends GenericComponent implements OnInit{
         console.log(data);
         if (data.httpStatus === 400) {
           console.error("error");
-          document.getElementById("error")!.style.setProperty("display", "block");
-        } else if (data.items[0].usable == false) {
-          document.getElementById("too_far")!.style.setProperty("display", "block");
+          document.getElementById("error")!.style.setProperty("display","block");
+        }else if (data.items[0].usable == false) {
+          document.getElementById("too_far")!.style.setProperty("display","block");
           setTimeout(() => {
-            this.moovhopService.scanVisited = 0; 
-            this.router.navigate(['/cameraIdentification']);
+            if(this.router.url == "/faceResult"){
+              this.moovhopService.scanVisited = 0; 
+              this.router.navigate(['/cameraIdentification']);
+            }
           }, 5000);
         } else {
           console.log("success add face");
@@ -152,8 +153,7 @@ export class FaceResultComponent extends GenericComponent implements OnInit{
       })
       .catch((error) => {
         console.log('error: ', error);
-      })*/
-      this.router.navigate(['/cameraIdentification']);
+      })
   }
 
 
@@ -175,7 +175,7 @@ export class FaceResultComponent extends GenericComponent implements OnInit{
       redirect: 'follow' as RequestRedirect | undefined
     };
 
-    fetch("https://kwvwj-8080.csb.app/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/QTAzoE_c-LUDLnaSSWzFYs0OfQ/idchecks", requestOptions)
+    fetch("https://kwvwj-8080.csb.app/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.moovhopService.idUserToCheck+"/idchecks", requestOptions)
       .then(response => response.json())
       .then((data) => {
         console.log(data);
@@ -237,7 +237,7 @@ export class FaceResultComponent extends GenericComponent implements OnInit{
       redirect: 'follow'
     };
 
-    fetch("https://kwvwj-8080.csb.app/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/QTAzoE_c-LUDLnaSSWzFYs0OfQ/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false", requestOptions)
+    fetch("https://kwvwj-8080.csb.app/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.moovhopService.idUserToCheck+"/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false", requestOptions)
       .then(response => response.json())
       .then((data) => {
         console.log(data);

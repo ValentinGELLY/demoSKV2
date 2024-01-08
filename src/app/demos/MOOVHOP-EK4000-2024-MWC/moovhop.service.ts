@@ -43,6 +43,8 @@ export class MoovhopService {
 
     newerCiImageCapture: string = "";
 
+    retry: boolean=false;
+
 
     private moovHopRouterDic: any = {
     

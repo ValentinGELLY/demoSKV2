@@ -25,7 +25,7 @@ export class FormComponent implements OnInit {
   }
 
   createUser(userId:string = (<HTMLInputElement>document.getElementById("name")).value.replace(/ /g, ''),  nbTry: number = 0) {
-    /*
+    
     var tel = (<HTMLInputElement>document.getElementById("tel")).value;
     console.log('userId: ', userId, 'tel: ', tel);
     fetch("https://kwvwj-8080.csb.app/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users", {
@@ -56,8 +56,6 @@ export class FormComponent implements OnInit {
       })
       .catch((error) => { 
         console.log('error: ', error);
-      });*/
-      this.moovHopService.nameUserToCheck = this.champ1;
-      this.router.navigate(['/cameraIdentification']);
+      });
   }
 }
