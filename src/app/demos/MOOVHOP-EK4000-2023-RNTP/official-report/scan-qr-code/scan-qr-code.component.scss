@@ -80,10 +80,20 @@ h1 {
     height: 100px;
   }
 
-  img {
+  #loading {
     position: fixed;
     transform: translate(-50%, -50%);
     top: 62%;
     left: 50%;
     opacity: 0;
+    width: 8vw;
+  }
+
+  #borne{
+    position: fixed;
+    width: 20%;
+    top: 67%;
+    z-index: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }

@@ -10,6 +10,7 @@ import { SoftKioskService } from 'src/app/softkiosk.service';
 export class MoovhopService {
 
 
+    timeout: any = null;
     identityPicture: boolean = false;
     route: any = '/createAccountPersonalInformations';
 
@@ -88,6 +89,17 @@ export class MoovhopService {
         }
     }
 
+    timeoutNavigation() {
+        this.timeout = setTimeout(() => {
+            if(this.router.url !== '/homepageEK8000'){
+                this.navigateAfterDelay(0, "/homepageEK8000");
+            }
+        }, 120000);
+    }
+
+    resetTimeoutNavigation() {
+        clearTimeout(this.timeout);
+    }
 
 
     navigateAfterDelay(delay: number, goTo: string = "") {

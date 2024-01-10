@@ -23,7 +23,7 @@ export class PaymentCashComponent implements OnInit {
       if(_this.router.url === '/paymentCash'){
         _this.router.navigate(['/waitingScreen']);
       }
-    }, 10000);
+    }, 5000);
   }
 
 }

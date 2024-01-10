@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-payent-mobil-op',
+  selector: 'app-payment-mobile-op',
   templateUrl: './payment-mobile-op.component.html',
   styleUrls: ['./payment-mobile-op.component.scss', '../../moovhop.component.scss']
 })
@@ -14,7 +14,7 @@ export class PaymentMobileOpComponent {
   /*ngOnInit(){
     let _this=this;
     setTimeout(()=>{
-      _this.router.navigate(['/payentMobilOpValidation'])
+      _this.router.navigate(['/paymentMobileOpValidation'])
     },5000)
   }*/
 }

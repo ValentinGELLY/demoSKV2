@@ -9,6 +9,7 @@ import { SoftKioskService } from 'src/app/softkiosk.service';
 
 export class MoovhopService {
 
+    timeout: any = null;
     identityPicture: boolean = false;
     route: any = '/createAccountPersonalInformations';
 
@@ -103,6 +104,18 @@ export class MoovhopService {
             let img = new Image();
             img.src = images[i];
         }
+    }
+
+    timeoutNavigation() {
+        this.timeout = setTimeout(() => {
+            if(this.router.url !== '/homepageEK4000'){
+                this.navigateAfterDelay(0, "/homepageEK4000");
+            }
+        }, 120000);
+    }
+
+    resetTimeoutNavigation() {
+        clearTimeout(this.timeout);
     }
 
 

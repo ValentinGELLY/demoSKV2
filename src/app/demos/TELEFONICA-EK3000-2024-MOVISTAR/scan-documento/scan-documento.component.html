@@ -1,0 +1,17 @@
+<app-all-page-movistar></app-all-page-movistar>
+<h1 *ngIf="scanVisited==2">Haz une foto del anverso (frontal)</h1>
+<h1 *ngIf="scanVisited==3">Haz une foto del reverso (parte trasera)</h1>
+
+<h3>de tu documento</h3>
+<section>
+    <section id="countdownSection">
+        <p id="countdown">{{countdown}}</p>
+        <img *ngIf="scanVisited==2" src="../../assets/MOVISTAR-EK3000-2024-MOVISTAR/countdown.gif" alt="">
+    </section>
+    <img *ngIf="scanVisited==2" src="{{previewImageScanIdA}}" alt="" id="resultCapture">
+    <img *ngIf="scanVisited==3" src="{{previewImageScanIdA}}" alt="" id="resultCapture">
+</section>
+
+<div id="btnValidRetry">
+    <p>Coloca el documento sobre el cristal del escáner</p>
+</div>

@@ -11,12 +11,8 @@
             <p id="countdown">5</p>
         </section>
 
-        <img *ngIf="isScanFinished" id="preview" [src]="previewImageScanId" class="identityCard" loading="lazy">
+        <img *ngIf="isScanFinished" id="loadingPreview" [src]="previewImageScanId" class="identityCard" loading="lazy">
         <img *ngIf="!isScanFinished" id="capture" [src]="previewImageProfile" class="profileImg" loading="lazy">
 
-
-        <!--<div class="nextStep" id="restartButton" routerLink="/moovHopBuyUseCaseNewerCIScanTwoProgressing">
-        Recommencer
-        </div>-->
     </section>
 </div>

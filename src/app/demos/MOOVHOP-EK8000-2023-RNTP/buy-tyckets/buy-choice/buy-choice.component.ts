@@ -30,7 +30,7 @@ export class BuyChoiceComponent implements OnInit {
         break;
       case 10:
         this.moovhopService.ticketPrice = 8.00;
-        this.moovhopService.bnTickets = 10;
+        this.moovhopService.bnTickets = 3;
         this.moovhopService.textTickets = '<p style="text-align:center;">10 voyages</p>';
         break;
       case 24:

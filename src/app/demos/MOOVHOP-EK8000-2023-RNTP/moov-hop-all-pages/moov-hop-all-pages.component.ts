@@ -11,7 +11,7 @@ declare var Kiosk: any;
   templateUrl: './moov-hop-all-pages.component.html',
   styleUrls: ['./moov-hop-all-pages.component.scss', '../moovhop.component.scss']
 })
-export class MoovHopAllPagesComponent extends GenericComponent implements OnInit, OnDestroy{
+export class MoovHopAllPagesComponent extends GenericComponent implements OnInit, OnDestroy {
 
   chatBotLink = "./assets/MOOVHOP-EK4000-2023-RNTP/chatbot.png"
 
@@ -40,10 +40,16 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
     this.nextRoute2 = this.moovHopService.nextRoute;
   }
 
-  
+
 
 
   override ngOnInit() {
+    setTimeout(() => {
+      document.getElementById("loading")!.classList.add("removeWhite");
+    }, 50);
+
+    this.moovHopService.timeoutNavigation();
+
     setInterval(() => {
       var today = new Date();
       var date = today.getDate().toString().padStart(2, '0') + '/' + (today.getMonth() + 1).toString().padStart(2, '0') + '/' + today.getFullYear();
@@ -112,66 +118,68 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
       }, 20);
     }, 5000);
   }
-/*
+  /*
+    
   
+    testStatus = () => {
+      // à remplir avec les élément necessaire
+    }
+    
+    navigateHomepage = () => {
+      this.router.navigate(['/moovHopHomepage']);
+    }
+  
+    ngOnDestroy(): void {
+      let _this = this;
+      _this.skService.addEventApplication("demoSKV2", "fin de vie du composant moovHopAllpages");
+    }
+  */
 
-  testStatus = () => {
-    // à remplir avec les élément necessaire
+  onStatusChange = (e: any): void => {
+    switch (e.data.dataType) {
+      case "StatusChanged":
+        /**
+         * Sur changement de status
+         * Champs associés:
+         * @param {("Ok" | "Warning" | "Critical" | "Unknown" | "TempUnavailable")} e.data.status - Statut.
+         * @param {object} e.data.statusDetail - Statut détaillé.
+         * @param {string} e.data.statusDescription - Description du statut.
+         * @param {string} e.data.dataType - Type de l'événement (sa classe).
+         */
+
+        if (e.data.status === 'Critical') {
+          console.log("status: " + e.data.status);
+        }
+        break;
+    }
   }
-  
-  navigateHomepage = () => {
-    this.router.navigate(['/moovHopHomepage']);
+
+
+  navigateToError() {
+    Kiosk.demoSKV2.setApplicationStatus({
+      "status": "Critical",
+      "statusDetail": "",
+      "statusDescription": ""
+    });
   }
+
+  showPopUp() {
+    let popUp = document.getElementsByClassName("moovHopCriticalService")[0] as HTMLElement;
+    if (popUp != null) {
+      popUp.style.setProperty("display", "flex")
+    }
+  }
+
+  closePopUp() {
+    let popUp = document.getElementsByClassName("moovHopCriticalService")[0] as HTMLElement;
+    if (popUp != null) {
+      popUp.style.setProperty("display", "none")
+    }
+  }
+
 
   ngOnDestroy(): void {
-    let _this = this;
-    _this.skService.addEventApplication("demoSKV2", "fin de vie du composant moovHopAllpages");
+    document.getElementById("loading")!.classList.remove("removeWhite");
+    this.moovHopService.resetTimeoutNavigation();
   }
-*/
-
-onStatusChange = (e: any): void => {
-  switch (e.data.dataType) {
-    case "StatusChanged":
-      /**
-       * Sur changement de status
-       * Champs associés:
-       * @param {("Ok" | "Warning" | "Critical" | "Unknown" | "TempUnavailable")} e.data.status - Statut.
-       * @param {object} e.data.statusDetail - Statut détaillé.
-       * @param {string} e.data.statusDescription - Description du statut.
-       * @param {string} e.data.dataType - Type de l'événement (sa classe).
-       */
-
-      if (e.data.status === 'Critical') {
-        console.log("status: " + e.data.status);
-      }
-      break;
-  }
-}
-
-
-navigateToError() {
-  Kiosk.demoSKV2.setApplicationStatus({
-    "status": "Critical",
-    "statusDetail": "",
-    "statusDescription": ""
-  });
-}
-
-showPopUp(){
-  let popUp = document.getElementsByClassName("moovHopCriticalService")[0] as HTMLElement;
-  if(popUp!=null){
-    popUp.style.setProperty("display", "flex")
-  }
-} 
-
-closePopUp(){
-  let popUp = document.getElementsByClassName("moovHopCriticalService")[0] as HTMLElement;
-  if(popUp!=null){
-    popUp.style.setProperty("display", "none")
-  }
-}
-
-
-ngOnDestroy(): void {}
-
 }

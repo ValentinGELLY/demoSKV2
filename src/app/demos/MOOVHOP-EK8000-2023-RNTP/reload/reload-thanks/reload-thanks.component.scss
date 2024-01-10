@@ -49,6 +49,7 @@ h1 {
     transform: translate(-50%, -50%);
     width: 32%;
   }
+  
   p{
     position: fixed;
     font-weight: bold;
@@ -60,7 +61,4 @@ h1 {
     text-align: center;
     transform: translate(-50%, -50%);
     left: 50%;
-   }  
-   body{
-     width: fit-content !important;
-   }
+  }  

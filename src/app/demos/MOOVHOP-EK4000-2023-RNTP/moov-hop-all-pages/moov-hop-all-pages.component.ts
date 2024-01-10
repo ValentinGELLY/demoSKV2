@@ -49,6 +49,11 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
 
 
   override ngOnInit() {
+    setTimeout(() => {
+      document.getElementById("loading")!.classList.add("removeWhite");
+    }, 50);
+
+    this.moovHopService.timeoutNavigation();
     this.testStatus();
 
 
@@ -248,6 +253,9 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
   }
 
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {
+    document.getElementById("loading")!.classList.remove("removeWhite");
+    this.moovHopService.resetTimeoutNavigation();
+   }
 
 }

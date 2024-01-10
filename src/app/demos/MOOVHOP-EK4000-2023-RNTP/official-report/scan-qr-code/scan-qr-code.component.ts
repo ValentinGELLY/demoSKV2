@@ -36,7 +36,9 @@ export class ScanQrCodeComponent extends GenericComponent implements OnInit, OnD
 
         if (this.router.url == '/scanQrCode') {
           let loading = document.getElementById("loading");
+          let borne = document.getElementById("borne");
           if (loading) { loading.style.setProperty("opacity", "1"); }
+          if (borne) { borne.style.setProperty("opacity", "0"); }
           setTimeout(() => {
             if (this.router.url == '/scanQrCode') {
               this.moovhopService.QRCodeScaned = true;

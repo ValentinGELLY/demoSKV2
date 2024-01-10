@@ -4,7 +4,7 @@
   height: 100%;
   width: 100%;
   background-image: url('../../../../assets/MOOVHOP-EK4000-2023-RNTP/bg.png');
-  z-index: -2;
+  z-index: 0;
 }
 
 .moovHopSkip {
@@ -199,6 +199,25 @@ li:before {
 
 li {
   display: flex;
+}
+
+.white {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; 
+  height: 100vh; 
+  background-color: white;
+  margin: 0;
+  z-index: 10000000000;
+  opacity: 100;
+  transition: 0.5s;
+}
+
+.removeWhite{
+  transition: 0.5s;
+  opacity: 0;
+  pointer-events: none;
 }
 
 

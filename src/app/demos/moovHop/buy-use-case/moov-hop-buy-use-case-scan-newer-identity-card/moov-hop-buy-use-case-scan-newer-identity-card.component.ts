@@ -28,7 +28,6 @@ export class MoovHopBuyUseCaseScanNewerIdentityCardComponent extends GenericComp
     /**
      * Déclenchement de l'appel à DocumentScanning.preview() et traitement vidéo pendant 5 sec puis capture
       */
-     
     let __this = this;
     // Écoute de l'événement de surveillance de la transaction Cash
     __this.skService.addEventListener("DocumentScanning", "previewStart", this.onPreview);

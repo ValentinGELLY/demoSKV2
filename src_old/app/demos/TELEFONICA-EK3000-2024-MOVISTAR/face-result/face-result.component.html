@@ -1,0 +1,39 @@
+<app-all-page-movistar></app-all-page-movistar>
+<h1 *ngIf="scanVisited==1">¿ Todo correcto ?</h1>
+<h1 *ngIf="scanVisited==2">Anverso del documento capturado</h1>
+<h1 *ngIf="scanVisited==3">Reverso del documento capturado</h1>
+<h3 *ngIf="scanVisited==1">Comprueba que la foto está nítida</h3>
+<h3 *ngIf="scanVisited==2 || scanVisited==3 ">¿ Continuar o empezar de nuevo ?</h3>
+<img src="" alt="" id="resultCapture">
+
+
+
+<div id="btnValidRetry" *ngIf="scanVisited==1">
+    <div  onclick="resetScan()">
+        <img src="../../../../assets/MOVISTAR-EK3000-2024-MOVISTAR/Bouton-volver-foto.png" alt="" >
+    </div>
+
+    <div routerLink="/registry-document">
+        <img src="../../../../assets/MOVISTAR-EK3000-2024-MOVISTAR/Bouton-Foto-bien.png" alt="">
+    </div>
+</div>
+
+<div id="btnValidRetry" *ngIf="scanVisited==2">
+    <div  onclick="resetScan()">
+        <img src="../../../../assets/MOVISTAR-EK3000-2024-MOVISTAR/Bouton-nuevo.png" alt="">
+    </div>
+
+    <div routerLink="/scan-documento">
+        <img src="../../../../assets/MOVISTAR-EK3000-2024-MOVISTAR/Bouton-continuar.png" alt="">
+    </div>
+</div>
+
+<div id="btnValidRetry" *ngIf="scanVisited==3">
+    <div  onclick="resetScan()">
+        <img src="../../assets/MOVISTAR-EK3000-2024-MOVISTAR/Bouton-nuevo.png" alt="">
+    </div>
+
+    <div routerLink="/identity-validation">
+        <img src="../../assets/MOVISTAR-EK3000-2024-MOVISTAR/Bouton-continuar.png" alt="">
+    </div>
+</div>

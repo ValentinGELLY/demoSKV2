@@ -32,6 +32,7 @@ export class CreateAccountScanFinishComponent {
   }
 
   resetVisits(){
-    this.moovhopService.scanVisited = this.moovhopService.scanVisited--;
+    this.moovhopService.scanVisited -= 1;
+    this.moovhopService.navigateAfterDelay(0, "/createAccountCamera8000");
   }
 }

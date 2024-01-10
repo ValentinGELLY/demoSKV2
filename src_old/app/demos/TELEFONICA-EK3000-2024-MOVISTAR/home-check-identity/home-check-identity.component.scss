@@ -1,0 +1,37 @@
+#Picto-verifica-ID{
+    width: 28%;
+    margin-left: 68%;
+}
+
+h1{
+    margin-top: 10% !important;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+section{
+    margin-left: 7%;
+    margin-right: 7%;
+} 
+
+#procedureWay{
+    display: flex;
+}
+
+#textPart{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+#Bouton-continuar{
+    text-align: center;
+    margin-top: 4%;
+}
+
+#Bouton-continuar img{
+    width: 10%;
+}

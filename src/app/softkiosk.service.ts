@@ -6,8 +6,6 @@ declare var Kiosk: any;
 })
 export class SoftKioskService {
 
-  automaticCard: boolean = false;
-
   constructor() { }
 
   onStatusChange = (e: any): void => {
@@ -152,13 +150,13 @@ export class SoftKioskService {
 
   ticketPrintingPrintRawHtml(htmlReceipt: string) {
     Kiosk.TicketPrinting.printRawHtml({
-      html: htmlReceipt
+      "html": htmlReceipt
     })
   }
 
   ticketPrintingPrintRawPdf(rawPdf: string) {
     Kiosk.TicketPrinting.printRawPdf({
-      raw: rawPdf
+      "raw": rawPdf
     })
   }
 

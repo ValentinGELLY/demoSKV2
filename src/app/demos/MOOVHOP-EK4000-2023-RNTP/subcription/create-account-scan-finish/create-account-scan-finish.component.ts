@@ -1,22 +1,28 @@
 import { Component } from '@angular/core';
 import { MoovhopService } from '../../moovhop.service';
 import { Router } from '@angular/router';
+import { SoftKioskService } from 'src/app/softkiosk.service';
+import { GenericComponent } from 'src/app/demos/generic/generic.component';
+
 
 @Component({
   selector: 'app-create-account-scan-finish',
   templateUrl: './create-account-scan-finish.component.html',
   styleUrls: ['./create-account-scan-finish.component.scss', '../../moovHop.component.scss']
 })
-export class CreateAccountScanFinishComponent {
+export class CreateAccountScanFinishComponent extends GenericComponent {
 
-  constructor(private moovhopService: MoovhopService, private router: Router) { }
+  constructor(private moovhopService: MoovhopService, private router: Router, skService: SoftKioskService) {
+    super(skService);
+  }
   route : any = this.moovhopService.route;
   isScanFinished : boolean = false;
 
   previewImageScanId = this.moovhopService.previewImageScanId;
   previewImageProfile = this.moovhopService.previewImageProfile;
 
-  ngOnInit() {
+  override ngOnInit() {
+    this.skService.addEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
     console.log(this.route);
     this.isScanFinished = this.moovhopService.isScanFinished;
     let confirmButton = document.getElementById("confirmButton");
@@ -38,10 +44,28 @@ export class CreateAccountScanFinishComponent {
         img.style.setProperty("clip", "rect(250px, auto, auto, auto)");
       }
     }
+    else{
+      this.skService.captureImageDocument();
+    }
 
+  }
+
+  override onImageDocumentCapture = (e: any) => {
+    switch (e.data.dataType) {
+      case 'ImageCaptured':
+        this.previewImageScanId = 'data:image/png;base64, '  + this.skService.lastCaptureImageRaw();
+        break;
+      case 'ImageCaptureError':
+        console.error(e.data.code + ": " + e.data.description);
+        break;
+    }
   }
 
   resetVisits(){
     this.moovhopService.scanVisited -= 1;
+  }
+
+  ngOnDestroy(): void {
+    this.skService.removeEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
   }
 }

@@ -37,11 +37,14 @@ export class AppComponent implements OnInit {
       break;
       case 'MOOVHOP-EK8000-2023-RNTP':
         this.appService.setNextRoute('homepageEK8000');
-      break; 
-      case 'MOOVHOP-EK4000-2024-MWC':
-        this.appService.setNextRoute('homepageEK4000MWC');
       break;
-      default:
+      case 'TELEFONICA-EK3000-2024-MOVISTAR':
+        this.appService.setNextRoute('paginaPrincipal');
+      break;
+      case 'DemoSKV2':
+        this.appService.setNextRoute('demoSKV2Homepage');
+      break;
+            default:
         console.log("Vous allez être redirigé sur DemoSKV2");
         this.appService.setNextRoute('demoSKV2Homepage');
       break;

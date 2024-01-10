@@ -17,10 +17,6 @@ export class CreateAccountProofAddressComponent extends GenericComponent impleme
   
   previewImage: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
   countdown: number = 5;
-  imageCapture: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
-  isImageCaptured: boolean = false;
-
-
 
   ngAfterViewInit(){
     let ValidateButton = document.getElementById("ValidateButton");
@@ -37,8 +33,6 @@ export class CreateAccountProofAddressComponent extends GenericComponent impleme
     let __this = this;
     // Écoute de l'événement de surveillance de la transaction Cash
     __this.skService.addEventListener("DocumentScanning", "previewStart", this.onPreview);
-    __this.skService.addEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
-    __this.skService.addEventListener("DocumentScanning", "previewStop", this.onPreview);
     
     // Démarrage de la prévisualisation
     __this.skService.startDocumentPreview();
@@ -64,11 +58,6 @@ export class CreateAccountProofAddressComponent extends GenericComponent impleme
         };
         break;
       case 'PreviewStopped':
-        setTimeout(() => {
-          this.skService.addEventApplication("demoSKV2", "arrêt prévisualisation du document");
-          this.skService.addEventApplication("demoSKV2", "capture du document");
-          this.skService.captureImageDocument();
-        }, 500);
         break;
       default:
         console.error(e.data.code + ": " + e.data.description);
@@ -76,19 +65,6 @@ export class CreateAccountProofAddressComponent extends GenericComponent impleme
     }
   }
 
-  override onImageDocumentCapture = (e: any) => {
-    switch (e.data.dataType) {
-      case 'ImageCaptured':
-        this.isImageCaptured = true;
-        setTimeout(() => {
-          this.moovhopService.newerCiImageCapture = this.skService.lastCaptureImageRaw();
-        }, 500);
-        break;
-      case 'ImageCaptureError':
-        console.error(e.data.code + ": " + e.data.description);
-        break;
-    }
-  }
 
   previewImageUpdate = (preview: any): void => {
     this.previewImage = 'data:image/png;base64, ' + preview;
@@ -97,11 +73,8 @@ export class CreateAccountProofAddressComponent extends GenericComponent impleme
 
   timeoutScanner = () => {
     this.timeOut = setTimeout(() => {
-      
       if (this.router.url === "/createAccountProofAddress") {
         this.skService.removeEventListener('DocumentScanning', 'previewStart', this.onPreview);
-        this.skService.removeEventListener('DocumentScanning', 'imageCapture', this.onImageDocumentCapture);
-        this.skService.removeEventListener('DocumentScanning', 'previewStop', this.onPreview);
         this.skService.stopDocumentPreview();
         let ValidateButton = document.getElementById("ValidateButton");
         let ScanButton = document.getElementById("ScanButton");
@@ -118,8 +91,6 @@ export class CreateAccountProofAddressComponent extends GenericComponent impleme
 
   ngOnDestroy(){
     this.skService.removeEventListener('DocumentScanning', 'previewStart', this.onPreview);
-    this.skService.removeEventListener('DocumentScanning', 'imageCapture', this.onImageDocumentCapture);
-    this.skService.removeEventListener('DocumentScanning', 'previewStop', this.onPreview);
     this.skService.stopDocumentPreview();
     clearTimeout(this.timeOut);
   }

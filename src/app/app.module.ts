@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,9 +10,9 @@ import { LabiziModule } from './demos/labizi/labizi.module';
 import { MoovopModule } from './demos/moovop/moovop.module';
 import { MoovopModule as MoovHopModule8000 } from './demos/moovHop/moovHop.module';
 import { MoovHop4000Module as MoovHopModule4000 } from './demos/MOOVHOP-EK4000-2023-RNTP/moovhop.module';
+import { Telefonica3000MovistarModule as Telefonica3000 } from './demos/TELEFONICA-EK3000-2024-MOVISTAR/telefonica.module';
 import { RouterModule, Routes } from '@angular/router';
 import {CustomPreloadingStrategy} from './custom-preloading-strategy';
-import { MoovHop4000MWCRoutingModule } from './demos/MOOVHOP-EK4000-2024-MWC/moovhop-routing.module';
 
 const routes: Routes = [
     {
@@ -42,8 +41,7 @@ const routes: Routes = [
         MoovopModule,
         MoovHopModule8000,
         MoovHopModule4000,
-        MoovHop4000MWCRoutingModule,
-        HttpClientModule,
+        Telefonica3000
     ],
 })
 export class AppModule { }

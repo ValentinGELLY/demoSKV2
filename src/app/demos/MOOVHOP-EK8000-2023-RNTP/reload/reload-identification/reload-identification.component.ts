@@ -1,21 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GenericComponent } from 'src/app/demos/generic/generic.component';
+import { SoftKioskService } from 'src/app/softkiosk.service';
 
 @Component({
   selector: 'app-reload-identification',
   templateUrl: './reload-identification.component.html',
   styleUrls: ['./reload-identification.component.scss', '../../moovHop.component.scss']
 })
-export class ReloadIdentificationComponent implements OnInit {
+export class ReloadIdentificationComponent extends GenericComponent implements OnInit {
 
-  constructor( private router: Router ) { }
+  onCardDetected: any;
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      if(this.router.url == '/reloadIdentification'){
-        this.router.navigate(['reloadPersonalInformations'])
+  constructor(private router: Router, skService: SoftKioskService) {
+    super(skService);
+  }
+
+  override ngOnInit(): void {
+    this.onCardDetected = (e: any): void => {
+      switch (e.data.dataType) {
+        case 'CardDetected':
+        case 'CardDetectedDTO':
+          // traitement pour le changement de vue
+          if (this.router.url == '/reloadIdentification') {
+            let navEvent = new CustomEvent("moovHopNav", {
+              detail: {
+                "delay": 0,
+                "goTo": "/reloadPersonalInformations"
+              }
+            });
+            window.dispatchEvent(navEvent);
+          }
+          break;
+        default:
+          break;
       }
-    }, 5000);
+    }
+
+    this.skService.addEventListener("ContactlessReading", "cardDetect", this.onCardDetected);
+    super.ngOnInit();
+  }
+
+  ngOnDestroy(): void {
+    this.skService.addEventListener("ContactlessReading", "cardDetect", this.onCardDetected);
   }
 
 }

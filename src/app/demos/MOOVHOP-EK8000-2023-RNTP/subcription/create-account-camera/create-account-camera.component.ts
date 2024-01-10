@@ -20,14 +20,16 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
   route: any = this.moovhopService.route;
   isScanFinished: boolean = false;
 
-  previewImageScanId: string = "";
-  previewImageProfile: string = "";
+  previewImageScanId: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+  previewImageProfile: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
 
 
   countdown: number = 5;
   imageCapture: string = "";
   isImageCaptured: boolean = false;
 
+  documentTimeout: any = null;
+  cameraTimeout: any = null;
 
   override ngOnInit(): void {
     this.moovhopService.scanVisited++;
@@ -69,7 +71,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
       __this.timeoutScanner();
     } else if (!this.isScanFinished && this.router.url === "/createAccountCamera8000") {
       let __this = this;
-
+      console.log("test");
 
       __this.skService.addEventListener("CameraShooting", "previewStart", this.onPreview)
       __this.skService.startCameraPreview();
@@ -127,28 +129,6 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
     }
   }
 
-  override onImageDocumentCapture = (e: any) => {
-    switch (e.data.dataType) {
-      case 'ImageCaptured':
-        this.isImageCaptured = true;
-        if (this.router.url === '/createAccountCamera8000') {
-          if (this.moovhopService.scanVisited === 1) {
-            setTimeout(() => {
-              this.moovhopService.newerCiImageCapture = this.skService.lastCaptureImageRaw();
-            }, 500);
-          } else if (this.moovhopService.scanVisited === 2) {
-            setTimeout(() => {
-              this.moovhopService.newerCiImageCapture = this.skService.lastCaptureImageRaw();
-            }, 500);
-          }
-        }
-        break;
-      case 'ImageCaptureError':
-        console.error(e.data.code + ": " + e.data.description);
-        break;
-    }
-  }
-
   previewImageUpdate = (preview: any): void => {
     if (this.isScanFinished && this.router.url === "/createAccountCamera8000") {
       this.previewImageScanId = 'data:image/png;base64, ' + preview;
@@ -162,7 +142,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
   timeoutScanner = () => {
     let countdown = document.getElementById("countdown");
     let counter = 0;
-    let interval = setInterval(() => {
+    this.documentTimeout = setInterval(() => {
       if (counter <= 5) {
         if (countdown) {
           countdown.innerHTML = "" + (5 - counter);
@@ -173,7 +153,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
           this.skService.removeEventListener('DocumentScanning', 'previewStart', this.onPreview);
           this.skService.stopDocumentPreview();
           this.router.navigate(['/createAccountScanFinish8000'])
-          clearInterval(interval);
+          clearInterval(this.documentTimeout);
         }
       }
     }
@@ -184,7 +164,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
   timeoutCamera = () => {
     let countdown = document.getElementById("countdown");
     let counter = 0;
-    let interval = setInterval(() => {
+    this.cameraTimeout = setInterval(() => {
       if (counter <= 5) {
         if (countdown) {
           countdown.innerHTML = "" + (5 - counter);
@@ -195,7 +175,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
           this.skService.removeEventListener('CameraShooting', 'previewStart', this.onPreviewStart);
           this.skService.stopCameraPreview();
           this.router.navigate(['/createAccountScanFinish8000'])
-          clearInterval(interval);
+          clearInterval(this.cameraTimeout);
         }
       }
     }
@@ -216,5 +196,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
     ___this.skService.removeEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
     ___this.skService.removeEventListener("DocumentScanning", "previewStop", this.onPreview);
     ___this.skService.stopDocumentPreview();
+    clearInterval(this.documentTimeout);
+    clearInterval(this.cameraTimeout);
   }
 }

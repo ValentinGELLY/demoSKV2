@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-reload-thanks',
   templateUrl: './reload-thanks.component.html',
-  styleUrls: ['./reload-thanks.component.scss']
+  styleUrls: ['./reload-thanks.component.scss', '../../moovHop.component.scss']
 })
 export class ReloadThanksComponent implements OnInit {
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MoovhopService} from '../moovhop.service';
+declare var Kiosk: any;
 
 
 @Component({
@@ -9,16 +10,31 @@ import {MoovhopService} from '../moovhop.service';
 })
 export class HomepageComponent{
 
-  constructor( private moovhopService :MoovhopService) { }
+  constructor( private moovhopService :MoovhopService) {
+   }
 
   ngOnInit(): void {
+    this.moovhopService.textCB = '';
+    this.moovhopService.scanVisited = 0;
+    this.moovhopService.isScanFinished = false;
+    this.moovhopService.newerCiImageCapture = "";
+    this.moovhopService.previewImageScanId = "";
+    this.moovhopService.previewImageProfile = "";
+    this.moovhopService.whatSubscription = "";
+    this.moovhopService.ticketPrice = 1;
+    this.moovhopService.bnTickets = 1;
+    this.moovhopService.textTickets = '';
+    this.moovhopService.textSubscription = '';
+    this.moovhopService.ActionChoosed = 1;
+    this.moovhopService.TicketChoosed = 1;
+    this.moovhopService.htmlReceiptContent = '';
+
     this.moovhopService.preloadImages();
-    //Kiosk.Signaling.setLed({ 'color': 'Green', 'name': 'Leds' });
+    Kiosk.Signaling.setLed({ 'color': 'Green', 'name': 'Leds' });
 
     var maVariable = localStorage.getItem('automaticCard');
     console.log(maVariable);
-    this.moovhopService.automaticCard = maVariable || 'true'; 
-  
+    this.moovhopService.automaticCard = maVariable || 'true';  
   }
 
   ActionChoosed( num : number){

@@ -33,7 +33,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
     if (this.moovhopService.scanVisited === 2) {
       this.moovhopService.isScanFinished = false;
       let img = document.getElementById("capture");
-      if(img!=null){
+      if (img != null) {
         img.style.setProperty("clip", "rect(250px, auto, auto, auto)");
       }
     }
@@ -42,10 +42,6 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
     }
     this.isScanFinished = this.moovhopService.isScanFinished;
     console.log(this.route);
-
-    let _this = this;
-    // TODO faire appel à un lightdelay: suivant le type de lecteur de document qu'on a
-    _this.skService.addEventApplication("demoSKV2", "début de vie du composant MoovHopBuyUseCaseScanNewerIdentityCardComponent");
   }
 
 
@@ -66,10 +62,11 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
 
       // décompte du timer
       __this.timeoutScanner();
-    } else if(!this.isScanFinished && this.router.url === "/createAccountCamera") {
-      let __this = this;
+    } else if (!this.isScanFinished && this.router.url === "/createAccountCamera") {
+
       __this.skService.addEventListener("CameraShooting", "previewStart", this.onPreview)
       __this.skService.startCameraPreview();
+
       __this.timeoutCamera();
     }
 
@@ -123,34 +120,16 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
     }
   }
 
-  override onImageDocumentCapture = (e: any) => {
-    switch (e.data.dataType) {
-      case 'ImageCaptured':
-        this.isImageCaptured = true;
-        if(this.router.url === '/createAccountCamera'){
-          if(this.moovhopService.scanVisited === 2 && this.router.url === "/createAccountCamera"){
-            setTimeout(() => {
-              this.moovhopService.newerCiImageCapture = this.skService.lastCaptureImageRaw();
-            }, 500);
-          }else if( this.router.url === "/createAccountCamera" && this.moovhopService.scanVisited === 1){
-            setTimeout(() => {
-              this.moovhopService.newerCiImageCapture = this.skService.lastCaptureImageRaw();
-            }, 500);
-          }
-
-        }
-        break;
-      case 'ImageCaptureError':
-        console.error(e.data.code + ": " + e.data.description);
-        break;
-    }
-  }
-
   previewImageUpdate = (preview: any): void => {
     if (this.isScanFinished && this.router.url === "/createAccountCamera") {
       this.previewImageScanId = 'data:image/png;base64, ' + preview;
+      //on récupère l'id loadingPreview dans le html et on le change à preview
+      let img = document.getElementById("loadingPreview");
+      if (img != null) {
+        img.setAttribute("id", "preview");
+      }
       this.moovhopService.previewImageScanId = this.previewImageScanId;
-    } else if(!this.isScanFinished && this.router.url === "/createAccountCamera") {
+    } else if (!this.isScanFinished && this.router.url === "/createAccountCamera") {
       this.previewImageProfile = 'data:image/png;base64, ' + preview;
       this.moovhopService.previewImageProfile = this.previewImageProfile;
     }
@@ -169,7 +148,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
         if (this.router.url === "/createAccountCamera") {
           this.skService.removeEventListener('DocumentScanning', 'previewStart', this.onPreview);
           this.skService.stopDocumentPreview();
-          this.router.navigate(['/createAccountScanFinish']);
+          this.router.navigate(['/createAccountScanFinish'])
           clearInterval(this.interval2);
         }
       }
@@ -205,7 +184,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
     let ___this = this;
     clearInterval(this.interval2);
     clearInterval(this.interval3);
-  
+
     ___this.skService.removeEventListener("CameraShooting", "previewStart", this.onPreviewStart)
     ___this.skService.addEventListener("CameraShooting", "previewStop", this.onPreviewStop);
     ___this.skService.addEventApplication("demoSKV2", "fin de prévisualisation vidéo");

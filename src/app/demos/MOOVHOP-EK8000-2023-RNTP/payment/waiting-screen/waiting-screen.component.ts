@@ -12,6 +12,7 @@ import { extend } from 'jquery';
 export class WaitingScreenComponent {
   printCallback: any;
   printCallback2: any;
+  printCallbackTickets: any;
   htmlReceiptContent2: string = '';
   // il faut faire en sorte d'enregistrer un id pour définir les actionns réalisé ( si achat alors 1, si abonnement, 2 etc...) pour faire en sorte que le texte dans la page change
   // comme dans le waiting screen de l'EK4000 
@@ -47,49 +48,37 @@ export class WaitingScreenComponent {
       }
 
       this.htmlReceiptContent2 = '<html><meta charset="utf-8" >' +
-        '<body style="font-family:Arial; font-size: 1.2rem; font-kerning: 2px; text-rendering: optimizeLegibility;">' +
-        '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:20px; width:150px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK8000-2023-RNTP/logo-ipm.png" >' +
-        '<p style="text-align:center"> Merci de votre visite sur  notre stand aux RNTP 2023 !</p>' +
-        '<p style="text-align:center">Contactez-nous pour réaliser votre projet mobilité : </p>' +
+        '<body style="font-family: Verdana; font-size: 1rem; font-weight: bold;">' +
+        '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:5px; width:180px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK8000-2023-RNTP/logo-ipm.png" >' +
+        '<p style="text-align:center"> Merci de votre visite sur notre stand aux RNTP 2023 !</p>' +
+        '<p style="text-align:center">Contactez-nous pour réaliser votre projet mobilité</p>' +
         '<p style="text-align:center;"> Sylvain Perrin </p>' +
         '<p style="text-align:center;"> Responsable Commercial grands comptes </p>' +
         '<p style="text-align:center;"> 06 74 84 38 80 </p>' +
-        '<p style="text-align:center"> sylvain.perrin@impfrance.com </p>' +
-        '<div style="width:35%; text-align:center"><img src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK8000-2023-RNTP/qrTicket.png"></div>' +
+        '<p style="text-align:center"> sylvain.perrin@ipmfrance.com </p>' +
+        '<img style="width:70px; position: relative; left:38%;" src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK8000-2023-RNTP/qr_ipm.png">' +
         '</body>' +
         '</html>';
 
 
 
-      let counter = 0;
 
-
-      for (let index = 0; index < this.moovhopService.bnTickets; index++) {
-        this.printCallback = (e: any): any => {
-          let navEvent;
-          switch (e.data.dataType) {
-            case 'RawHtmlPrinted':
-              break;
-            case 'RawHtmlPrintError':
-              console.log('RawHtmlPrintError '+ e.data.code + ": " + e.data.description);
-              break;
-          }
-        }
-        this.skService.ticketPrintingPrintRawHtml(this.htmlReceiptContent2);
-      }
-
-      this.skService.addEventListener("TicketPrinting", "rawHtmlPrint", this.printCallback);
-      counter = 1;
-
-      this.printCallback2 = (e: any): any => {
+      this.printCallbackTickets = (e: any): any => {
         let navEvent;
+        let _this = this;
         switch (e.data.dataType) {
           case 'RawHtmlPrinted':
-            // traitement pour le changement de vue
-            if (this.router.url === "/waitingScreen") {
+            _this.moovhopService.resetTimeoutNavigation();
+            if (_this.moovhopService.bnTickets > 1) {
+              _this.skService.ticketPrintingPrintRawHtml(_this.htmlReceiptContent2);
+              _this.moovhopService.bnTickets -= 1;
+            }
+            else if (_this.router.url === "/waitingScreen" && _this.moovhopService.bnTickets <= 1) {
+              _this.skService.receiptPrintingPrintRawHtml(this.moovhopService.htmlReceiptContent);
+              // traitement pour le changement de vue
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
-                  "delay": 500,
+                  "delay": 0,
                   "goTo": "/getTicketReceipt"
                 }
               });
@@ -97,9 +86,13 @@ export class WaitingScreenComponent {
             }
             break;
           case 'RawHtmlPrintError':
-            if (this.router.url === "/waitingScreen") {
-              console.error(e.data.code + ": " + e.data.description);
-              this.handlePrintError(e.data.code);
+            _this.moovhopService.resetTimeoutNavigation();
+            if (_this.moovhopService.bnTickets > 1) {
+              _this.skService.ticketPrintingPrintRawHtml(_this.htmlReceiptContent2);
+              _this.moovhopService.bnTickets -= 1;
+            }
+            else if (_this.router.url === "/waitingScreen" && _this.moovhopService.bnTickets <= 1) {
+              _this.skService.receiptPrintingPrintRawHtml(this.moovhopService.htmlReceiptContent);
               // traitement pour le changement de vue
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
@@ -113,8 +106,8 @@ export class WaitingScreenComponent {
         }
       }
 
-      this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback2);
-      this.skService.receiptPrintingPrintRawHtml(this.moovhopService.htmlReceiptContent);
+      this.skService.ticketPrintingPrintRawHtml(this.htmlReceiptContent2);
+      this.skService.addEventListener("TicketPrinting", "rawHtmlPrint", this.printCallbackTickets);
 
     } // cas abonnement
     else if (this.moovhopService.ActionChoosed == 2) {
@@ -147,16 +140,15 @@ export class WaitingScreenComponent {
       this.skService.cardDispensingDispense();
 
 
-      let counter2 = 0;
       this.printCallback = (e: any): any => {
         let navEvent;
         switch (e.data.dataType) {
           case 'RawHtmlPrinted':
             // traitement pour le changement de vue
-            if (this.router.url === "/waitingScreen" && counter2 == 1) {
+            if (this.router.url === "/waitingScreen") {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
-                  "delay": 500,
+                  "delay": 0,
                   "goTo": "/getTicketReceipt"
                 }
               });
@@ -164,7 +156,7 @@ export class WaitingScreenComponent {
             }
             break;
           case 'RawHtmlPrintError':
-            if (this.router.url === "/waitingScreen" && counter2 == 1) {
+            if (this.router.url === "/waitingScreen") {
               console.error(e.data.code + ": " + e.data.description);
               this.handlePrintError(e.data.code);
               // traitement pour le changement de vue
@@ -210,16 +202,16 @@ export class WaitingScreenComponent {
           '</body>' +
           '</html>'
       }
-      let counter = 0;
+
       this.printCallback = (e: any): any => {
         let navEvent;
         switch (e.data.dataType) {
           case 'RawHtmlPrinted':
             // traitement pour le changement de vue
-            if (this.router.url === "/waitingScreen" && counter == 1) {
+            if (this.router.url === "/waitingScreen") {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
-                  "delay": 500,
+                  "delay": 0,
                   "goTo": "/reloadThanks"
                 }
               });
@@ -227,7 +219,7 @@ export class WaitingScreenComponent {
             }
             break;
           case 'RawHtmlPrintError':
-            if (this.router.url === "/waitingScreen" && counter == 1) {
+            if (this.router.url === "/waitingScreen") {
               console.error(e.data.code + ": " + e.data.description);
               this.handlePrintError(e.data.code);
               // traitement pour le changement de vue

@@ -1,0 +1,33 @@
+#resultCapture{
+    border: solid black 1px;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    height: 45%;
+}
+
+h1{
+    margin-top: 10% !important;
+}
+
+#btnValidRetry{
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 31%;
+    text-align: center;
+}
+
+#btnValidRetry div{
+    width: 30%;
+}
+
+#btnValidRetry div img {
+    width: 90%;
+}

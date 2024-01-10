@@ -52,10 +52,11 @@ h1 {
   
   #preview {
     position: fixed;
-    top: 61%;
+    top: 62%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 35%;
+    width: 39%;
+    clip: rect(2vw, 37vw, 26vw, 2vw);
   }
     
   body{

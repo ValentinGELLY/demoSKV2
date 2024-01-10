@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { HomepageComponent } from './homepage/homepage.component';
 import { PaymentSubscriptionConfirmationComponent } from './payment/payment-subscription-confirmation/payment-subscription-confirmation.component';
 import {PaymentCardComponent} from './payment/payment-card/payment-card.component';
@@ -17,6 +16,7 @@ import {CreateAccountProofAddressComponent} from './subcription/create-account-p
 import {CreateAccountSubscriptionChoiceComponent} from './subcription/create-account-subscription-choice/create-account-subscription-choice.component';
 import {CreateAccountScanFinishComponent} from './subcription/create-account-scan-finish/create-account-scan-finish.component';
 import {CreateAccountHelloComponent} from './subcription/create-account-hello/create-account-hello.component';
+
 import {PrintingMenuComponent} from './printing/printing-menu/printing-menu.component';
 import {PrintingInformationChoiceComponent} from './printing/printing-information-choice/printing-information-choice.component';
 import { PrintingMethodsGettingTimetableComponent } from './printing/printing-methods-getting-timetable/printing-methods-getting-timetable.component';
@@ -37,10 +37,10 @@ export const routes: Routes = [
   {path:'createAccountQRCodeScan', component:CreateAccountQRCodeScanComponent},
   {path:'paymentChoice' , component: PaymentChoiceComponent},
   {path:'paymentAppMobile',component:PaymentAppMobileComponent },
-  {path:'payentMobilOp', component:PaymentMobileOpComponent},
-  {path:'payentMobilOpValidation', component:PaymentMobileOpValidationComponent},
+  {path:'paymentMobileOp', component:PaymentMobileOpComponent},
+  {path:'paymentMobileOpValidation', component:PaymentMobileOpValidationComponent},
   {path:'createAccountMenu', component: CreateAccountMenuComponent},
-  {path:'createAccountCamera', component:CreateAccountCameraComponent},
+  {path:'createAccountCamera', component: CreateAccountCameraComponent},
   {path:'createAccountPersonalInformations', component:CreateAccountPersonalInformationsComponent},
   {path:'createAccountProofAddress', component:CreateAccountProofAddressComponent},
   {path:'createAccountSubscriptionChoice', component:CreateAccountSubscriptionChoiceComponent},

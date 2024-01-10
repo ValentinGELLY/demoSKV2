@@ -4,7 +4,7 @@
   <h3>{{isScanFinished? "Scan finalisé" : "Photo prise"}}</h3>
     <img *ngIf="isScanFinished" id="preview"  class="img-fluid" [src]="previewImageScanId" />
     <img *ngIf="!isScanFinished" id="capture"  class="img-fluid" [src]="previewImageProfile" />
-  <div class="nextStep" id="restartButton" routerLink="/createAccountCamera8000" (click)="resetVisits()">
+  <div class="nextStep" id="restartButton" (click)="resetVisits()">
     Recommencer
   </div>
   <div class="nextStep" id="confirmButton"routerLink= "{{isScanFinished?  '/createAccountInformationValidation' : '/createAccountHello8000'}}" >

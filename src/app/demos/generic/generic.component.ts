@@ -410,7 +410,6 @@ export class GenericComponent implements OnInit {
          * Champs associés:
          * @param {string} e.data.dataType - Type de l'événement (sa classe).
          */
-        
         break;
       case "PreviewStopError":
         /**

@@ -19,8 +19,6 @@ export class AppService implements OnInit {
   @Output() currentViewChange: EventEmitter<string> = new EventEmitter<string>();
   statusSubject: any;
 
-  
-
 
   constructor(private skService: SoftKioskService, private router: Router) {
 
