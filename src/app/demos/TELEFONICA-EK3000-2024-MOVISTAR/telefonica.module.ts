@@ -1,31 +1,54 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { AllPageMovistarComponent } from './ES/all-page-movistar/all-page-movistar.component';
+import { homePageTelefonica } from './ES/pagina-principal/pagina-principal.component';
+import { FullPrepaymentComponent } from './ES/full-prepayment/full-prepayment.component';
+import { PrepaidTariffsComponent } from './ES/prepaid-tariffs/prepaid-tariffs.component';
+import { WantContractComponent } from './ES/want-contract/want-contract.component';
+import { HomeCheckIdentityComponent } from './ES/home-check-identity/home-check-identity.component';
+import { FaceCaptureComponent } from './ES/face-capture/face-capture.component';
+import { FaceResultComponent } from './ES/face-result/face-result.component';
+import { RegistryDocumentComponent } from './ES/registry-document/registry-document.component';
+import { ScanDocumentoComponent } from './ES/scan-documento/scan-documento.component';
+import { IdentityValidationComponent } from './ES/identity-validation/identity-validation.component';
+import { WaitingScreenComponent } from './ES/waiting-screen/waiting-screen.component';
+import { InformationConsentComponent } from './ES/information-consent/information-consent.component';
+import { FormPersonalInformationComponent } from './ES/form-personal-information/form-personal-information.component';
+import { TestFormatComponent } from './ES/test-format/test-format.component';
+import { LegalConditionComponent } from './ES/legal-condition/legal-condition.component';
+import { PaymentComponent } from './ES/payment/payment.component';
+import { WelcomeComponent } from './ES/welcome/welcome.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { ValidationScreenComponent } from './ES/validation-screen/validation-screen.component';
+import { EnAllPageMovistarComponent } from './EN/all-page-movistar/all-page-movistar.component';
+import { EnHomeCheckIdentityComponent } from './EN/home-check-identity/home-check-identity.component';
+import { EnFaceCaptureComponent } from './EN/face-capture/face-capture.component';
+import { EnFaceResultComponent } from './EN/face-result/face-result.component';
+import { EnRegistryDocumentComponent } from './EN/registry-document/registry-document.component';
+import { EnScanDocumentoComponent } from './EN/scan-documento/scan-documento.component';
+import { EnWaitingScreenComponent } from './EN/waiting-screen/waiting-screen.component';
+import { EnIdentityValidationComponent } from './EN/identity-validation/identity-validation.component';
+import { EnInformationConsentComponent } from './EN/information-consent/information-consent.component';
+import { EnFormPersonalInformationComponent } from './EN/form-personal-information/form-personal-information.component';
+import { EnTestFormatComponent } from './EN/test-format/test-format.component';
+import { EnLegalConditionComponent } from './EN/legal-condition/legal-condition.component';
+import { EnPaymentComponent } from './EN/payment/payment.component';
+import { EnWelcomeComponent } from './EN/welcome/welcome.component';
+import { EnValidationScreenComponent } from './EN/validation-screen/validation-screen.component';
+import { EnFullPrepaymentComponent } from './EN/full-prepayment/full-prepayment.component';
+import { EnPrepaidTariffsComponent } from './EN/prepaid-tariffs/prepaid-tariffs.component';
+import { EnWantContractComponent } from './EN/want-contract/want-contract.component';
+import { EnHomePageTelefonica } from './EN/pagina-principal/pagina-principal.component';
 
-import { AllPageMovistarComponent } from './all-page-movistar/all-page-movistar.component';
-import { PaginaPrincipalComponent } from './pagina-principal/pagina-principal.component';
-import { FullPrepaymentComponent } from './full-prepayment/full-prepayment.component';
-import { PrepaidTariffsComponent } from './prepaid-tariffs/prepaid-tariffs.component';
-import { WantContractComponent } from './want-contract/want-contract.component';
-import { HomeCheckIdentityComponent } from './home-check-identity/home-check-identity.component';
-import { FaceCaptureComponent } from './face-capture/face-capture.component';
-import { FaceResultComponent } from './face-result/face-result.component';
-import { RegistryDocumentComponent } from './registry-document/registry-document.component';
-import { ScanDocumentoComponent } from './scan-documento/scan-documento.component';
-import { IdentityValidationComponent } from './identity-validation/identity-validation.component';
-import { WaitingScreenComponent } from './waiting-screen/waiting-screen.component';
-import { InformationConsentComponent } from './information-consent/information-consent.component';
-import { FormPersonalInformationComponent } from './form-personal-information/form-personal-information.component';
-import { TestFormatComponent } from './test-format/test-format.component';
-import { LegalConditionComponent } from './legal-condition/legal-condition.component';
-import { PaymentComponent } from './payment/payment.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 
 
 @NgModule({
   declarations: [
     AllPageMovistarComponent,
-    PaginaPrincipalComponent,
+    homePageTelefonica,
     FullPrepaymentComponent,
     PrepaidTariffsComponent,
     WantContractComponent,
@@ -42,10 +65,35 @@ import { WelcomeComponent } from './welcome/welcome.component';
     LegalConditionComponent,
     PaymentComponent,
     WelcomeComponent,
+    ValidationScreenComponent,
+    EnHomeCheckIdentityComponent,
+    EnFaceCaptureComponent,
+    EnFaceResultComponent,
+    EnRegistryDocumentComponent,
+    EnScanDocumentoComponent,
+    EnWaitingScreenComponent,
+    EnIdentityValidationComponent,
+    EnInformationConsentComponent,
+    EnFormPersonalInformationComponent,
+    EnTestFormatComponent,
+    EnLegalConditionComponent,
+    EnPaymentComponent,
+    EnWelcomeComponent,
+    EnValidationScreenComponent,
+    EnFullPrepaymentComponent,
+    EnPrepaidTariffsComponent,
+    EnWantContractComponent,
+    EnHomePageTelefonica,
+    EnAllPageMovistarComponent
+
   ],
   exports: [AllPageMovistarComponent],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    RouterModule,
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

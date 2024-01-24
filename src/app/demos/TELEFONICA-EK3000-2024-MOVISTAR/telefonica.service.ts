@@ -1,26 +1,39 @@
 import { Injectable } from "@angular/core";
-import { Router, ActivatedRoute} from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Injectable({
     providedIn: "root"
-    })
+})
 
 export class AppService {
 
     routesBackwards: any = {
-        "/full-prepayment": "/pagina-principal",
-        "/prepaid-tariffs": "/full-prepayment",
-        "/want-contract": "/prepaid-tariffs",
-        "/home-check-identity": "/want-contract",
-        "/face-result": "/home-check-identity",
-        "/registry-document": "/face-result",
-        "/scan-documento": "/registry-document",
-        "/identity-validation": "/registry-document",
-        "/information-consent": "/identity-validation",
-        "/form-personal-information": "/information-consent",
-        "/legal-condition": "/form-personal-information",
-        "/payment": "/legal-condition",
-        "/welcome": "/payment",
+        "/ES/fullPrepayment": "/ES/prepaidTariffs",
+        "/ES/prepaidTariffs": "/ES/paginaPrincipal",
+        "/ES/wantContract": "/ES/fullPrepayment",
+        "/ES/homeCheckIdentity": "/ES/wantContract",
+        "/ES/faceResult": "/ES/homeCheckIdentity",
+        "/ES/registry-document": "/ES/faceResult",
+        "/ES/scanDocumento": "/ES/registryDocument",
+        "/ES/identityValidation": "/ES/registryDocument",
+        "/ES/informationConsent": "/ES/identityValidation",
+        "/ES/formPersonalInformation": "/ES/informationConsent",
+        "/ES/legalCondition": "/ES/formPersonalInformation",
+        "/ES/payment": "/ES/legalCondition",
+        "/ES/welcome": "/ES/payment",
+        "/EN/fullPrepayment": "/EN/prepaidTariffs",
+        "/EN/prepaidTariffs": "/EN/paginaPrincipal",
+        "/EN/wantContract": "/EN/fullPrepayment",
+        "/EN/homeCheckIdentity": "/EN/wantContract",
+        "/EN/faceResult": "/EN/homeCheckIdentity",
+        "/EN/registry-document": "/EN/faceResult",
+        "/EN/scanDocumento": "/EN/registryDocument",
+        "/EN/identityValidation": "/EN/registryDocument",
+        "/EN/informationConsent": "/EN/identityValidation",
+        "/EN/formPersonalInformation": "/EN/informationConsent",
+        "/EN/legalCondition": "/EN/formPersonalInformation",
+        "/EN/payment": "/EN/legalCondition",
+        "/EN/welcome": "/EN/payment",
     };
 
     scanVisited: number = 1;
@@ -36,15 +49,28 @@ export class AppService {
     idChecks: string = "";
     referenceId: string = "";
     errorSaveIdCard: boolean = false;
+    hrefSensitiveData: string = "";
+    userName: string = "";
+    adress: string = "";
+    userFirstName: string = "";
+    nationality: string = "";
+    userSecondName: string = "";
+    numDocument: string = "";
+    postalCode: string = "";
+    documentoSelected: number = 0;
+    errorFace: boolean = false;
+    errorScanId: boolean = false;
+    eSIM: string = "";
+    identityValidate: boolean = false;
 
 
-    constructor(private router: Router, private route: ActivatedRoute) {}
+    constructor(private router: Router, private route: ActivatedRoute) { }
 
     navigateToHome() {
-        this.router.navigate(["/home"]);
+        this.router.navigate(["/paginaPrincipal"]);
     }
 
-    navigateBack(activeRoute:string) {
+    navigateBack(activeRoute: string) {
         this.router.navigate([this.routesBackwards[activeRoute]]);
     }
 

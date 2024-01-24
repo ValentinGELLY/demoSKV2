@@ -1,0 +1,20 @@
+<en-app-all-page-movistar></en-app-all-page-movistar>
+
+<main *ngIf="identityValidate">
+    <h1>Identity verification completed</h1>
+    <img src="./assets/TELEFONICA-EK3000-2024-MOVISTAR/EN/Check.png" alt="">
+    <div>
+        <p>We will guide you through the following steps</p>
+        <p>Do not close this page</p>
+    </div>
+    
+</main>
+<main *ngIf="!identityValidate">
+    <h1>Non-conforming photo </h1>
+    <img src="./assets/TELEFONICA-EK3000-2024-MOVISTAR/EN/ko.png" alt="">
+    <div>
+        <p>Please repeat the procedure.</p>
+        <p>Do not close this pagee</p>
+    </div>
+    
+</main>

@@ -6,12 +6,12 @@
 
 @font-face {
     font-family: GothamLight;
-    src: url(../../../assets/MOVISTAR-EK3000-2024-MOVISTAR/Gotham-Light.otf);
+    src: url(../../../assets/TELEFONICA-EK3000-2024-MOVISTAR/Gotham-Light.otf);
   }
 
 @font-face {
     font-family: Renogare;
-    src: url(../../../assets/MOVISTAR-EK3000-2024-MOVISTAR/Renogare.ttf);
+    src: url(../../../assets/TELEFONICA-EK3000-2024-MOVISTAR/Renogare.ttf);
 }
 
 p{
@@ -44,4 +44,8 @@ h3{
     font-size : 2.2em;
     font-weight: 100 !important;
     margin-bottom: 50px;
+}
+
+body{
+    height: fit-content !important;
 }
