@@ -39,10 +39,10 @@ export class AppComponent implements OnInit {
         this.appService.setNextRoute('homepageEK8000');
       break;
       case 'TELEFONICA-EK3000-2024-MOVISTAR':
-        this.appService.setNextRoute('ES/homePageTelefonica');
+        this.appService.setNextRoute('/ES/homePageTelefonica');
       break;
       case 'MOOVHOP-EK4000-2024-MWC':
-        this.appService.setNextRoute('MWC2024/homepageEK4000');
+        this.appService.setNextRoute('/MWC2024/homepageEK4000');
       break;
       case 'DemoSKV2':
         this.appService.setNextRoute('demoSKV2Homepage');

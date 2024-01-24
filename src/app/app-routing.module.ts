@@ -7,7 +7,7 @@ import { MoovHopRoutingModule as MoovHopEK8000Routing} from './demos/moovHop/moo
 import {MoovHop4000RoutingModule as MoovHopEK4000RoutingRNTP} from './demos/MOOVHOP-EK4000-2023-RNTP/moovhop-routing.module';
 import { MoovHop8000RoutingModule as MoovHopEK8000RoutingRNTP } from './demos/MOOVHOP-EK8000-2023-RNTP/moovhop-routing.module';
 import { TelefonicaEk3000MovistarRoutingModule as TelefonicaEK3000MovistarRouting } from './demos/TELEFONICA-EK3000-2024-MOVISTAR/telefonica-routing.module';
-import {MoovHop4000RoutingModuleMWC2024 } from './demos/MOOVHOP-EK4000-2024-MWC/moovhop-routing.module';
+import {MoovHop4000RoutingModuleMWC2024 as MoovHopEK4000RoutingMWC } from './demos/MOOVHOP-EK4000-2024-MWC/moovhop-routing.module';
 
 const routes: Routes = [
 ];
@@ -22,7 +22,7 @@ const routes: Routes = [
   MoovHopEK4000RoutingRNTP,
   MoovHopEK8000RoutingRNTP,
   TelefonicaEK3000MovistarRouting,
-  MoovHop4000RoutingModuleMWC2024
+  MoovHopEK4000RoutingMWC
   ],
   exports: [RouterModule]
 })

@@ -79,5 +79,5 @@ import { ThanksPaymentReportComponent } from './official-report/thanks-payment-r
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class MoovHop4000Module { }
+export class MoovHopModule4000MWC { }
 

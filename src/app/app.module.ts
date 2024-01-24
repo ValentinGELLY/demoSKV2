@@ -11,6 +11,7 @@ import { MoovopModule } from './demos/moovop/moovop.module';
 import { MoovopModule as MoovHopModule8000 } from './demos/moovHop/moovHop.module';
 import { MoovHop4000Module as MoovHopModule4000 } from './demos/MOOVHOP-EK4000-2023-RNTP/moovhop.module';
 import { Telefonica3000MovistarModule as Telefonica3000 } from './demos/TELEFONICA-EK3000-2024-MOVISTAR/telefonica.module';
+import { MoovHopModule4000MWC as MoovHopModule4000MWC } from './demos/MOOVHOP-EK4000-2024-MWC/moovhop.module';
 import { RouterModule, Routes } from '@angular/router';
 import {CustomPreloadingStrategy} from './custom-preloading-strategy';
 
@@ -41,7 +42,8 @@ const routes: Routes = [
         MoovopModule,
         MoovHopModule8000,
         MoovHopModule4000,
-        Telefonica3000
+        Telefonica3000,
+        MoovHopModule4000MWC
     ],
 })
 export class AppModule { }
