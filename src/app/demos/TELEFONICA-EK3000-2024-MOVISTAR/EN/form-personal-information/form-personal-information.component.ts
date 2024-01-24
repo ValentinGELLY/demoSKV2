@@ -48,8 +48,7 @@ export class EnFormPersonalInformationComponent implements AfterViewInit{
         element.addEventListener('blur', this.blur);
       }
     }
-    let options = document.getElementsByTagName('option');
-    options[this.typeDocument-1].selected = true;
+
   }
 
   continuar(): void {

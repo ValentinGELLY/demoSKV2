@@ -20,7 +20,9 @@ export class FormPersonalInformationComponent implements AfterViewInit{
   nationality = this.telefonica.nationality;
   numDocument = this.telefonica.numDocument;
   postalCode = this.telefonica.postalCode;
-  typeDocument = this.telefonica.documentoSelected;
+  typeDocument = "";
+  typeDocumentNum = this.telefonica.documentoSelected;
+
 
 
 
@@ -35,6 +37,7 @@ export class FormPersonalInformationComponent implements AfterViewInit{
     console.log(this.numDocument);
     console.log(this.postalCode);
     console.log(this.typeDocument);
+    console.log(this.typeDocumentNum);
   }
 
   ngAfterViewInit(): void {
@@ -48,8 +51,6 @@ export class FormPersonalInformationComponent implements AfterViewInit{
         element.addEventListener('blur', this.blur);
       }
     }
-    let options = document.getElementsByTagName('option');
-    options[this.typeDocument-1].selected = true;
   }
 
   continuar(): void {
@@ -114,7 +115,7 @@ export class FormPersonalInformationComponent implements AfterViewInit{
     this.telefonica.numDocument = this.numDocument;
     this.telefonica.postalCode = this.postalCode;
     this.telefonica.nationality = this.nationality;
-    this.telefonica.documentoSelected = this.typeDocument;
+    this.telefonica.documentoSelected = this.typeDocumentNum;
     this.telefonica.eSIM = this.eSIM;
     console.log(this.telefonica.adress);
     console.log(this.telefonica.userName);

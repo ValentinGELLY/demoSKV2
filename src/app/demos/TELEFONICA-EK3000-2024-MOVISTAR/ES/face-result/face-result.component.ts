@@ -56,13 +56,13 @@ export class FaceResultComponent extends GenericComponent {
   nextStep() {
     if (this.scanVisited === 1) {
       this.createUser();
-    } else if (this.scanVisited === 2 && this.telefonicaService.documentoSelected != 1) {
+    } else if (this.scanVisited === 2 && this.telefonicaService.documentoSelected != "pasaporte") {
       this.router.navigate(["/ES/scanDocumento"]);
-    } else if (this.scanVisited === 3 && this.telefonicaService.documentoSelected != 1) {
+    } else if (this.scanVisited === 3 && this.telefonicaService.documentoSelected != "pasaporte") {
       document.getElementById("loading")!.style.setProperty("display", "block");
       document.getElementById("loadingSection")!.style.setProperty("display", "block");
       this.addScanIdA();
-    } else if (this.scanVisited === 2 && this.telefonicaService.documentoSelected == 1) {
+    } else if (this.scanVisited === 2 && this.telefonicaService.documentoSelected == "pasaporte") {
       document.getElementById("loading")!.style.setProperty("display", "block");
       document.getElementById("loadingSection")!.style.setProperty("display", "block");
       this.addScanIdA();
@@ -257,7 +257,7 @@ export class FaceResultComponent extends GenericComponent {
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==");
 
-    if (this.telefonicaService.documentoSelected == 1) {
+    if (this.telefonicaService.documentoSelected == "pasaporte") {
       var raw = JSON.stringify({
         "captured": this.telefonicaService.timeScanIdA.toISOString(),
         "clientCapture": {

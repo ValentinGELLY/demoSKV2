@@ -133,7 +133,7 @@ export class WelcomeComponent extends GenericComponent {
     this.telefonicaService.userSecondName = "";
     this.telefonicaService.numDocument = "";
     this.telefonicaService.postalCode = "";
-    this.telefonicaService.documentoSelected = 0;
+    this.telefonicaService.documentoSelected = "";
     this.telefonicaService.errorFace = false;
     this.telefonicaService.errorScanId = false;
 

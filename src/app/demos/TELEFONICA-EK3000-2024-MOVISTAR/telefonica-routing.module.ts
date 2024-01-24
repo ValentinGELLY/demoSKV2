@@ -78,7 +78,6 @@ export const routes: Routes = [
   { path: 'EN/payment', component: EnPaymentComponent },
   { path: 'EN/welcome', component: EnWelcomeComponent },
   { path: 'EN/validationScreen', component: EnValidationScreenComponent },
-  { path: '**', redirectTo: 'ES/homePageTelefonica' }
 ];
 
 @NgModule({

@@ -24,6 +24,7 @@ Pour lancer la bonne démo, on peut entrer les paramètres suivants dans le cust
 "MoovHop8000" -> lancera MoovHop version EK8000 - AGIR 2023. Dans le répertoire Dist, son assets est dans application/assets/MoovHop (on y retrouve les images du front). 
 + "MoovHop4000" -> lancera MoovHop Version EK4000 - RNTP 2023.
 + "MoovHop8000-RNTP" -> lancera MoovHop Version EK 8000 - RNTP 2023
++ "TELEFONICA-EK3000-2024-MOVISTAR" -> lancera MoovHop Version EK 3000 - Telefonica 2024
 + "" -> lancera DemoSKV2 (interface client avec menu de choix de profil utilisateur et de demos/parcours client/fonctionnalites/test)
 et si vous rentrez n'importe quopi, et bien vous retomberez sur l'application DemoSKV2
 

@@ -57,7 +57,7 @@ export class AppService {
     userSecondName: string = "";
     numDocument: string = "";
     postalCode: string = "";
-    documentoSelected: number = 0;
+    documentoSelected: string = "";
     errorFace: boolean = false;
     errorScanId: boolean = false;
     eSIM: string = "";

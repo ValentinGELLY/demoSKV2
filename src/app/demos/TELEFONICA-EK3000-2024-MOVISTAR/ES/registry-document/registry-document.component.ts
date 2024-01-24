@@ -17,7 +17,7 @@ export class RegistryDocumentComponent extends GenericComponent{
     super(skService);
    }
    
-  selectDocument(documento: number){
+  selectDocument(documento: string){
     this.telefonicaService.documentoSelected = documento;
     this.router.navigate(["/ES/scanDocumento"]);
   }

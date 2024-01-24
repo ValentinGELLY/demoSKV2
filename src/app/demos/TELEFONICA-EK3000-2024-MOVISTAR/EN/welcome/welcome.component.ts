@@ -124,7 +124,7 @@ export class EnWelcomeComponent extends GenericComponent {
     this.telefonicaService.userSecondName = "";
     this.telefonicaService.numDocument = "";
     this.telefonicaService.postalCode = "";
-    this.telefonicaService.documentoSelected = 0;
+    this.telefonicaService.documentoSelected = "pasaporte";
     this.telefonicaService.errorFace = false;
     this.telefonicaService.errorScanId = false;
     this.telefonicaService.eSIM = "";
