@@ -11,7 +11,7 @@ export class MoovhopService {
 
     timeout: any = null;
     identityPicture: boolean = false;
-    route: any = '/createAccountPersonalInformations';
+    route: any = '/MWC2024/createAccountPersonalInformations';
 
     currentView = "";
 
@@ -41,33 +41,33 @@ export class MoovhopService {
 
     private moovHopRouterDic: any = {
         // use case achat d'un pass (création d'un compte)
-        '/homepageEK4000': '/createAccountMenu',
-        '/createAccountMenu': '/createAccountCamera',
-        '/createAccountCamera': 'createAccountScanFinish',
-        '/createAccountScanFinish': '/createAccountPersonalInformations',
-        '/createAccountPersonalInformations': '/createAccountHello',
-        '/createAccountHello': '/createAccountProofAddress',
-        '/createAccountProofAddress': '/createAccountSubscriptionChoice',
-        '/createAccountSubscriptionChoice': '/createAccountQRCodeYesNo',
-        '/createAccountQRCodeYesNo': '/createAccountQRCodeScan',
-        '/createAccountQRCodeScan': '/paymentChoice',
-        '/paymentChoice': '/paymentCB',
-        '/paymentCB': '/subscriptionConfirmation',
-        '/subscriptionConfirmation': '/homepageEK4000',
+        '/MWC2024/homepageEK4000': '/MWC2024/createAccountMenu',
+        '/MWC2024/createAccountMenu': '/MWC2024/createAccountCamera',
+        '/MWC2024/createAccountCamera': '/MWC2024/createAccountScanFinish',
+        '/MWC2024/createAccountScanFinish': '/MWC2024/createAccountPersonalInformations',
+        '/MWC2024/createAccountPersonalInformations': '/MWC2024/createAccountHello',
+        '/MWC2024/createAccountHello': '/MWC2024/createAccountProofAddress',
+        '/MWC2024/createAccountProofAddress': '/MWC2024/createAccountSubscriptionChoice',
+        '/MWC2024/createAccountSubscriptionChoice': '/MWC2024/createAccountQRCodeYesNo',
+        '/MWC2024/createAccountQRCodeYesNo': '/MWC2024/createAccountQRCodeScan',
+        '/MWC2024/createAccountQRCodeScan': '/MWC2024/paymentChoice',
+        '/MWC2024/paymentChoice': '/MWC2024/paymentCB',
+        '/MWC2024/paymentCB': '/MWC2024/subscriptionConfirmation',
+        '/MWC2024/subscriptionConfirmation': '/MWC2024/homepageEK4000',
 
         // use case impression d'une fiche horaire
-        '/printingMenu': '/printingInformationChoice',
-        '/printingInformationChoice': '/printingMethodsGettingTimetable',
-        '/printingMethodsGettingTimetable': '/printingScanQRcode',
-        '/printingScanQRcode': '/homepageEK4000',
+        '/MWC2024/printingMenu': '/MWC2024/printingInformationChoice',
+        '/MWC2024/printingInformationChoice': '/MWC2024/printingMethodsGettingTimetable',
+        '/MWC2024/printingMethodsGettingTimetable': '/MWC2024/printingScanQRcode',
+        '/MWC2024/printingScanQRcode': '/MWC2024/homepageEK4000',
 
 
         // use cas paiement d'une amende
-        '/identificationMenu': '/scanQrCode',
-        '/scanQrCode': '/identificationValidation',
-        '/identificationValidation': '/infromationSummary',
-        '/infromationSummary': '/paymentChoice',
-        '/thanksPaymentReport': '/homepageEK4000',
+        '/MWC2024/identificationMenu': '/MWC2024/scanQrCode',
+        '/MWC2024/scanQrCode': '/MWC2024/identificationValidation',
+        '/MWC2024/identificationValidation': '/MWC2024/infromationSummary',
+        '/MWC2024/infromationSummary': '/MWC2024/paymentChoice',
+        '/MWC2024/thanksPaymentReport': '/MWC2024/homepageEK4000',
 
 
     };
@@ -95,10 +95,10 @@ export class MoovhopService {
 
     preloadImages() {
         let images = [
-            "./assets/MOOVHOP-EK4000-2023-RNTP/cite1.png",
-            "./assets/MOOVHOP-EK4000-2023-RNTP/cite2.png",
-            "./assets/MOOVHOP-EK4000-2023-RNTP/cite3.png",
-            "./assets/MOOVHOP-EK4000-2023-RNTP/cite4.png",
+            "./assets/MOOVHOP-EK4000-2024-MWC/Bouton-line1.png",
+            "./assets/MOOVHOP-EK4000-2024-MWC/Bouton-line2.png",
+            "./assets/MOOVHOP-EK4000-2024-MWC/Bouton-line3.png",
+            "./assets/MOOVHOP-EK4000-2024-MWC/Bouton-line4.png",
         ];
         for (let i = 0; i < images.length; i++) {
             let img = new Image();
@@ -108,8 +108,8 @@ export class MoovhopService {
 
     timeoutNavigation() {
         this.timeout = setTimeout(() => {
-            if(this.router.url !== '/homepageEK4000'){
-                this.navigateAfterDelay(0, "/homepageEK4000");
+            if(this.router.url !== '/MWC2024/homepageEK4000'){
+                this.navigateAfterDelay(0, "/MWC2024/homepageEK4000");
             }
         }, 120000);
     }

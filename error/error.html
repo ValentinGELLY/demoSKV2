@@ -200,7 +200,7 @@
     <a id="goToDemo" onclick="returnToDemo()">
     </a>
 
-    <img id="diapo" src="IPM-FICHES-PRODUITS/Diapositive01.PNG" alt="">
+    <img id="diapo" src="" alt="">
     <div id="previous" onclick="previousDiapo()">
 
     </div>
@@ -254,9 +254,6 @@
                     <li id="messageCardPayment"><label class="moovHopWarningServices"
                             id="messageCardPaymentLabel">
                         </label></li>
-
-
-
                 </ul>
             </div>
             <div style="width: 100%; display: flex;justify-content: space-around;">
@@ -270,10 +267,22 @@
 <footer>
     <script>
         timer: any = 60000;
+        language: string = "FR";
+        let customerData = Kiosk.customerData;
+        let customerDataKey = Object.keys(customerData)[0]
+        if (customerData[customerDataKey] == "MOOVHOP-EK4000-2024-MWC" || customerData[customerDataKey] == "TELEFONICA-EK3000-2024-MOVISTAR") {
+            this.language = "EN";
+        } else {
+            this.language = "FR";
+        }
+
+
 
         interval: any;
 
         let diapo = document.getElementById("diapo");
+        let srcLink = "IPM-FICHES-PRODUITS-"+this.language+"/Diapositive01.png"
+        diapo?.setAttribute("src", srcLink)
         interval = setInterval(() => {
             nextDiapo();
         }, 60000);
@@ -296,19 +305,23 @@
                 if (numDiapo !== "01") {
                     let numNextDiapo = parseInt(numDiapo) - 1;
                     numNextDiapo = "0" + numNextDiapo;
-                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive" + numNextDiapo + ".png")
+                    srcLink = "IPM-FICHES-PRODUITS-"+this.language+"/Diapositive"+numNextDiapo+".png"
+                    diapo?.setAttribute("src", srcLink)
                 } else {
-                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive14.png")
+                    srcLink = "IPM-FICHES-PRODUITS-"+this.language+"/Diapositive14.png"
+                    diapo?.setAttribute("src", srcLink)
                 }
 
 
             } else {
                 if (numDiapo === '10') {
                     let numNextDiapo = "09";
-                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive" + numNextDiapo + ".png")
+                    srcLink = "IPM-FICHES-PRODUITS-"+this.language+"/Diapositive" + numNextDiapo + ".png"
+                    diapo?.setAttribute("src", srcLink)
                 } else {
                     let numNextDiapo = parseInt(numDiapo) - 1;
-                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive" + numNextDiapo + ".png")
+                    srcLink = "IPM-FICHES-PRODUITS-"+this.language+"/Diapositive" + numNextDiapo + ".png"
+                    diapo?.setAttribute("src", srcLink)
                 }
 
             }
@@ -333,14 +346,17 @@
                 let numNextDiapo = parseInt(numDiapo) + 1;
                 if( parseInt(numDiapo) >= 9){
                     numNextDiapo = parseInt(numDiapo)+1;
-                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive" + numNextDiapo + ".png")
+                    srcLink = "IPM-FICHES-PRODUITS-"+language+"/Diapositive" + numNextDiapo + ".png"
+                    diapo?.setAttribute("src", srcLink)
                 }else{
                     numNextDiapo = "0" + numNextDiapo;
-                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive" + numNextDiapo + ".png")
+                    srcLink = "IPM-FICHES-PRODUITS-"+language+"/Diapositive" + numNextDiapo + ".png"
+
+                    diapo?.setAttribute("src", srcLink)
                 }
             } else {
-                
-                    diapo?.setAttribute("src", "IPM-FICHES-PRODUITS/Diapositive01.png")
+                srcLink = "IPM-FICHES-PRODUITS-"+language+"/Diapositive01.png"
+                diapo?.setAttribute("src", srcLink)
             }
 
             clearInterval(interval);

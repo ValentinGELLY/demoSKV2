@@ -25,7 +25,7 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
 
     console.log(this.moovHopService.ActionChoosed);
 
-    if (this.router.url === "/waitingScreenPrinting") {
+    if (this.router.url === "/MWC2024/waitingScreenPrinting") {
       if (this.moovHopService.ActionChoosed == 1) {
         if (this.moovHopService.textCB != '') {
           this.moovHopService.htmlReceiptContent = '<html><meta charset="utf-8" >' +

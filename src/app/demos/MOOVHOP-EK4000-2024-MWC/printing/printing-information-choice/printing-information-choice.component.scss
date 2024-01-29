@@ -4,7 +4,7 @@ body{
 }
 
 h1 {
-  font-size: 4.5vw;
+  font-size: 4vw;
   position: fixed;
   top: 25%;
   left: 50%;
@@ -104,17 +104,12 @@ h3 {
 .allInput{
   position: absolute;
   display: flex;
-  width: 73.5%;
+  width: 72.5%;
   margin-top: 150px;
-  padding-right: 79px;
-  padding-left: 6px;
+  padding-right: 86px;
   justify-content: space-between;
 
 }
-
-
-
-
 
 .radio-box label {
   background-color: #fff;

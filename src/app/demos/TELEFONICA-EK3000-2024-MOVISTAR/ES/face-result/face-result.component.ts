@@ -37,17 +37,17 @@ export class FaceResultComponent extends GenericComponent {
 
   override ngOnInit() {
     console.log("scanVisited: " + this.scanVisited);
-    
+
     this.scanVisited = this.telefonicaService.scanVisited;
     if (this.scanVisited === 2 || this.scanVisited === 3) {
       this.skService.addEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
       this.skService.captureImageDocument();
     }
-    
+
   }
 
   ngAfterViewInit() {
-    if(this.scanVisited == 1){
+    if (this.scanVisited == 1) {
       document.getElementById("validFoto")!.style.setProperty("opacity", "1");
     }
   }
@@ -120,24 +120,22 @@ export class FaceResultComponent extends GenericComponent {
         return response.json();
       })
       .then(async (data) => {
+        console.log("create user");
         console.log(data);
-        
         this.telefonicaService.idUserToCheck = data.id;
-
         console.log(this.telefonicaService.previewImageProfile);
-        
         await this.rognerImageBase64(this.telefonicaService.previewImageProfile, 203, 35, 248, 411, (imageRogneeBase64) => {
           console.log(imageRogneeBase64);
-          let image2 = "data:image/png;base64, "+imageRogneeBase64;
+          let image2 = "data:image/png;base64, " + imageRogneeBase64;
           this.increaseImageSize(image2, 3)
-          .then((resizedBase64) => {
-            console.log(resizedBase64);
-            // Utilisez la base64 de l'image agrandie comme nécessaire
-            this.addFaceUser(resizedBase64);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+            .then((resizedBase64) => {
+              console.log(resizedBase64);
+              // Utilisez la base64 de l'image agrandie comme nécessaire
+              this.addFaceUser(resizedBase64);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
         })
 
 
@@ -200,11 +198,11 @@ export class FaceResultComponent extends GenericComponent {
         resolve(dataURL);
       };
     });
-  
 
-}
 
-  addFaceUser(imageRogneeBase64:string) {
+  }
+
+  addFaceUser(imageRogneeBase64: string) {
     fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/face/samples", {
       method: "POST",
       headers: {
@@ -223,8 +221,8 @@ export class FaceResultComponent extends GenericComponent {
         console.log(data);
         console.log("result : ", imageRogneeBase64);
         console.log("result type : ", typeof imageRogneeBase64);
-        
-        
+
+
 
         if (data.httpStatus === 400) {
           console.error("error");
@@ -233,7 +231,7 @@ export class FaceResultComponent extends GenericComponent {
             this.router.navigate(['/ES/validationScreen']);
           }
         } else if (data.items[0].usable == false) {
-          
+
           if (this.router.url == "/ES/faceResult") {
             this.telefonicaService.errorFace = true;
             this.router.navigate(['/ES/validationScreen']);
@@ -253,29 +251,73 @@ export class FaceResultComponent extends GenericComponent {
 
   addScanIdA() {
     var myHeaders = new Headers();
-
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==");
+    console.log("addScanIdA");
+    console.log('this.telefonicaService.previewImageScanIdADef ');
+    console.log(this.telefonicaService.previewImageScanIdADef.replace("data:image/png;base64, ", ""));
+    console.log('this.telefonicaService.previewImageScanIdBDef ');
+    console.log(this.telefonicaService.previewImageScanIdBDef.replace("data:image/png;base64, ", ""));
 
     if (this.telefonicaService.documentoSelected == "pasaporte") {
-      var raw = JSON.stringify({
-        "captured": this.telefonicaService.timeScanIdA.toISOString(),
-        "clientCapture": {
-          "images": [
-            {
-              "captured": this.telefonicaService.timeScanIdA.toISOString(),
-              "sensitiveData": {
-                "imageFormat": "JPG",
-                "value": this.telefonicaService.previewImageScanIdADef.replace("data:image/png;base64, ", "")
-              },
-              "subtype": "PROCESSED",
-              "type": "FRONT"
+      fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/idchecks/" + this.telefonicaService.idChecks + "/documents?isAsync=false",
+        {
+          method: 'POST',
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
+          },
+          body: JSON.stringify({
+            "captured": this.telefonicaService.timeScanIdA.toISOString(),
+            "clientCapture": {
+              "images": [
+                {
+                  "captured": this.telefonicaService.timeScanIdA.toISOString(),
+                  "sensitiveData": {
+                    "imageFormat": "JPG",
+                    "value": this.telefonicaService.previewImageScanIdADef.replace("data:image/png;base64, ", "")
+                  },
+                  "subtype": "PROCESSED",
+                  "type": "FRONT"
+                }
+              ]
             }
-          ]
+          })
         }
-      });
-    } else {
-      var raw = JSON.stringify({
+      )
+        .then(response => response.json())
+        .then((data) => {
+          console.log(data);
+          if (data.processingStatus == "FAILED") {
+            this.telefonicaService.scanVisited = 1;
+            document.getElementById("error")!.style.setProperty("display", "block");
+            this.telefonicaService.errorSaveIdCard = true;
+            this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
+            setTimeout(() => {
+              this.router.navigate(['/scanDocumento']);
+              this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+              this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+              this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+              this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+
+
+            }, 5000);
+          } else {
+            this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
+            console.log("add id card");
+            this.checkValidation()
+          }
+        })
+        .catch(error => console.log('error', error));
+    }
+     
+    else {
+  fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/idchecks/" + this.telefonicaService.idChecks + "/documents?isAsync=false",
+    {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
+      },
+      body: JSON.stringify({
         "captured": this.telefonicaService.timeScanIdA.toISOString(),
         "clientCapture": {
           "images": [
@@ -299,142 +341,134 @@ export class FaceResultComponent extends GenericComponent {
             }
           ]
         }
-      });
-    }
-
-    let requestOptions: RequestInit = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
-
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/idchecks/" + this.telefonicaService.idChecks + "/documents?isAsync=false", requestOptions)
-      .then(response => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.processingStatus == "FAILED") {
-          this.telefonicaService.scanVisited = 1;
-          document.getElementById("error")!.style.setProperty("display", "block");
-          this.telefonicaService.errorSaveIdCard = true;
-          this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
-          setTimeout(() => {
-            this.router.navigate(['/scanDocumento']);
-            this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
-            this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
-            this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
-            this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
-
-  
-          }, 5000);
-        } else {
-          this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
-          console.log("add id card");
-          this.checkValidation()
-        }
       })
-      .catch(error => console.log('error', error));
+    })
+    .then(response => response.json())
+    .then((data) => {
+      console.log(data);
+      if (data.processingStatus == "FAILED") {
+        this.telefonicaService.scanVisited = 1;
+        document.getElementById("error")!.style.setProperty("display", "block");
+        this.telefonicaService.errorSaveIdCard = true;
+        this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
+        setTimeout(() => {
+          this.router.navigate(['/scanDocumento']);
+          this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+          this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+          this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+          this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+
+
+        }, 5000);
+      } else {
+        this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
+        console.log("add id card");
+        this.checkValidation()
+      }
+    })
+    .catch(error => console.error('error', error));
+}
   }
 
-  checkValidation() {
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.telefonicaService.idUserToCheck+"/idchecks/"+this.telefonicaService.idChecks+"/evaluation?evaluationPolicyName=policy-2",
+checkValidation() {
+  fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/idchecks/" + this.telefonicaService.idChecks + "/evaluation?evaluationPolicyName=policy-2",
     {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization":"Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
+        "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
       }
     })
-      
+
     .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
 
-        if (data.results.items[0].result !== "MATCH") {
-          console.log(data.results.items[0].result)
-          this.telefonicaService.identityValidate = false;
-          this.router.navigate(['/ES/identityValidation']);
-        } else {
-          if(this.router.url === "/ES/faceResult") {
-            this.getAllInformation();
-            this.telefonicaService.identityValidate = true;
-          }
-        } 
-      })
-      .catch((error) => { 
-        console.log('error: ', error);
-      })
-    }
+      if (data.results.items[0].result !== "MATCH") {
+        console.log(data.results.items[0].result)
+        this.telefonicaService.identityValidate = false;
+        this.router.navigate(['/ES/identityValidation']);
+      } else {
+        if (this.router.url === "/ES/faceResult") {
+          this.getAllInformation();
+          this.telefonicaService.identityValidate = true;
+        }
+      }
+    })
+    .catch((error) => {
+      console.log('error: ', error);
+    })
+}
 
-  getAllInformation() {
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/"+this.telefonicaService.hrefSensitiveData,
+getAllInformation() {
+  fetch("https://zwk8o88.15.237.60.0.sslip.io/" + this.telefonicaService.hrefSensitiveData,
     {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization":"Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
+        "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
       }
     })
     .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log("get All informations");
-        
-        console.log(data.mrz);
+      return response.json();
+    })
+    .then((data) => {
+      console.log("get All informations");
 
-        for (let key in data.mrz) {
-          if (data.mrz.hasOwnProperty(key)) {
-            let element = data.mrz[key];            
-            switch (element.name) {
-              case "Document Number":
-                this.telefonicaService.numDocument = element.value;
-                break;
-              case "Surname":
-                this.telefonicaService.userName = element.value;
-                break;
-              case "Given Names":
-                this.telefonicaService.userFirstName = element.value.split(" ")[0];
-                if (element.value.split(" ")[1] != undefined) {
-                  this.telefonicaService.userSecondName = element.value.split(" ")[1];
-                }
-                break;
-              case "Nationality":
-                this.telefonicaService.nationality = element.value;
-                break;
-              // Ajoutez d'autres cas pour d'autres propriétés si nécessaire
-              default:
-                // Traitez les autres cas si nécessaire
-                break;
-            }
+      console.log(data.mrz);
+
+      for (let key in data.mrz) {
+        if (data.mrz.hasOwnProperty(key)) {
+          let element = data.mrz[key];
+          switch (element.name) {
+            case "Document Number":
+              this.telefonicaService.numDocument = element.value;
+              break;
+            case "Surname":
+              this.telefonicaService.userName = element.value;
+              break;
+            case "Given Names":
+              this.telefonicaService.userFirstName = element.value.split(" ")[0];
+              if (element.value.split(" ")[1] != undefined) {
+                this.telefonicaService.userSecondName = element.value.split(" ")[1];
+              }
+              break;
+            case "Nationality":
+              this.telefonicaService.nationality = element.value;
+              break;
+            // Ajoutez d'autres cas pour d'autres propriétés si nécessaire
+            default:
+              // Traitez les autres cas si nécessaire
+              break;
           }
         }
+      }
 
-        for (let key in data.mrz) {
-          if (data.mrz.hasOwnProperty(key)) {
-            let element = data.mrz[key];            
-            switch (element.name) {
-              case "Address":
-                let adress = element.value.replace("^", " ");
-                this.telefonicaService.adress = adress;
-                this.telefonicaService.postalCode = adress.split(" ")[adress.split(" ").length-2];
-                break;
-            }
+      for (let key in data.mrz) {
+        if (data.mrz.hasOwnProperty(key)) {
+          let element = data.mrz[key];
+          switch (element.name) {
+            case "Address":
+              let adress = element.value.replace("^", " ");
+              this.telefonicaService.adress = adress;
+              this.telefonicaService.postalCode = adress.split(" ")[adress.split(" ").length - 2];
+              break;
           }
         }
-        this.router.navigate(['/ES/identityValidation']);
-      })
-      .catch((error) => { 
-        console.log('error: ', error);
-      })
-  }
+      }
+      this.router.navigate(['/ES/identityValidation']);
+    })
+    .catch((error) => {
+      console.log('error: ', error);
+    })
+}
 
 
-  ngOnDestroy() {
-    this.skService.removeEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
+ngOnDestroy() {
+  this.skService.removeEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
 
-  }
+}
 
 }

@@ -53,6 +53,8 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
       document.getElementById("loading")!.classList.add("removeWhite");
     }, 50);
 
+    
+
     this.moovHopService.timeoutNavigation();
     this.testStatus();
 
@@ -79,8 +81,9 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
     if (document.getElementById('botText')!.innerHTML !== "") {
       return;
     }
+    
     // Son du chatbot
-    new Audio('./assets/MOOVHOP-EK4000-2023-RNTP/bot.m4a').play();
+    new Audio('./assets/MOOVHOP-EK4000-2024-MWC/audio-moovhop-EN.mp3').play();
 
     // Animation du chatbot
     const images = [
@@ -99,8 +102,9 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
 
     // Animation du texte du chatbot
     const phrases = [
-      "Bonjour !",
-      "Comment puis-je vous aider ?"
+      "Hello",
+      "Thank you for waiting a few seconds",
+      "An advisor will take your call"
     ];
     let phraseIndex = 0;
     let letterIndex = 0;
@@ -112,7 +116,7 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
         letterIndex = 0;
         if (phraseIndex === phrases.length) {
           clearInterval(intervalId2);
-          document.getElementById('botText')!.innerHTML = "Comment puis-je vous aider ?";
+          //document.getElementById('botText')!.innerHTML = "Comment puis-je vous aider ?";
         }
       }
     }, 50);
