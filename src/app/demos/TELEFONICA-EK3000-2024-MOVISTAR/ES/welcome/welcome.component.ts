@@ -21,42 +21,26 @@ export class WelcomeComponent extends GenericComponent {
 
   ngAfterViewInit(): void {
     if (this.telefonicaService.eSIM == "eSIM") {
+      let _this = this;
       this.htmlReceiptContent = '<html><meta charset="utf-8" >' +
         '<body style="font-family:Arial; font-size: 1.2rem; font-kerning: 2px; text-rendering: optimizeLegibility;">' +
         '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:20px; width:150px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/TELEFONICA-EK3000-2024-MOVISTAR/Logo-movistar-noir.png" >' +
         '<p style="text-align:center;">.....................</p>' +
         '<p style="text-align:center;">Escanee el código QR para obtener su eSIM.</p>' +
         '<p style="text-align:center;">.....................</p>' +
-        '<div style="width:100%; text-align:center;"><img src="http://localhost:5000/DemoSKV2/application/assets/TELEFONICA-EK3000-2024-MOVISTAR/QR-code-movistar.png"></div>' +
+        '<div style="width:25%; text-align:center; margin-left: auto;margin-right: auto;"><img style="width:100%"src="http://localhost:5000/DemoSKV2/application/assets/TELEFONICA-EK3000-2024-MOVISTAR/QR-code-movistar.png"></div>' +
         '</body>' +
         '</html>'
 
 
-      this.printCallback = (e: any): any => {
-        switch (e.data.dataType) {
-          case 'RawHtmlPrinted':
-            let navEvent = new CustomEvent("telefonicaNav", {
-              detail: {
-                "delay": 5000,
-                "goTo": "/ES/homePageTelefonica"
-              }
-            });
-            window.dispatchEvent(navEvent);
-            break;
-          case 'RawHtmlPrintError':
-            console.log("Erreur d'impression : " + e.data.code + " - " + e.data.description);
-            navEvent = new CustomEvent("telefonicaNav", {
-              detail: {
-                "delay": 5000,
-                "goTo": "/ES/homePageTelefonica"
-              }
-            });
-            window.dispatchEvent(navEvent);
-            break;
-        }
-      }
+      
       this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback)
       this.skService.receiptPrintingPrintRawHtml(this.htmlReceiptContent);
+      if( this.router.url === "/ES/welcome"){
+        setTimeout(function () {
+          _this.router.navigate(['/ES/homePageTelefonica']);
+        }, 5000);
+      }
     }else{
       let _this = this;
       _this.skService.addEventApplication("demoSKV2", "appel depuis moovopCongrat vers cardDispenseing");

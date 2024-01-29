@@ -55,6 +55,8 @@ export class FaceResultComponent extends GenericComponent {
 
   nextStep() {
     if (this.scanVisited === 1) {
+      document.getElementById("loading")!.style.setProperty("display", "block");
+      document.getElementById("loadingSection")!.style.setProperty("display", "block");
       this.createUser();
     } else if (this.scanVisited === 2 && this.telefonicaService.documentoSelected != "pasaporte") {
       this.router.navigate(["/ES/scanDocumento"]);
