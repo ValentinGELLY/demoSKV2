@@ -9,7 +9,7 @@ export class AppService {
 
     routesBackwards: any = {
         "/ES/fullPrepayment": "/ES/prepaidTariffs",
-        "/ES/prepaidTariffs": "/ES/paginaPrincipal",
+        "/ES/prepaidTariffs": "/ES/homePageTelefonica",
         "/ES/wantContract": "/ES/fullPrepayment",
         "/ES/homeCheckIdentity": "/ES/wantContract",
         "/ES/faceResult": "/ES/homeCheckIdentity",
@@ -22,7 +22,7 @@ export class AppService {
         "/ES/payment": "/ES/legalCondition",
         "/ES/welcome": "/ES/payment",
         "/EN/fullPrepayment": "/EN/prepaidTariffs",
-        "/EN/prepaidTariffs": "/EN/paginaPrincipal",
+        "/EN/prepaidTariffs": "/EN/homePageTelefonica",
         "/EN/wantContract": "/EN/fullPrepayment",
         "/EN/homeCheckIdentity": "/EN/wantContract",
         "/EN/faceResult": "/EN/homeCheckIdentity",

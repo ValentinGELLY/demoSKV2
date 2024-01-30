@@ -11,11 +11,11 @@ import { FaceCaptureComponent } from './ES/face-capture/face-capture.component';
 import { FaceResultComponent } from './ES/face-result/face-result.component';
 import { RegistryDocumentComponent } from './ES/registry-document/registry-document.component';
 import { ScanDocumentoComponent } from './ES/scan-documento/scan-documento.component';
-import { WaitingScreenComponent } from './ES/waiting-screen/waiting-screen.component';
+
 import { IdentityValidationComponent } from './ES/identity-validation/identity-validation.component';
 import { InformationConsentComponent } from './ES/information-consent/information-consent.component';
 import { FormPersonalInformationComponent } from './ES/form-personal-information/form-personal-information.component';
-import { TestFormatComponent } from './ES/test-format/test-format.component';
+
 import { LegalConditionComponent } from './ES/legal-condition/legal-condition.component';
 import { PaymentComponent } from './ES/payment/payment.component';
 import { WelcomeComponent } from './ES/welcome/welcome.component';
@@ -31,11 +31,9 @@ import { EnFaceCaptureComponent } from './EN/face-capture/face-capture.component
 import { EnFaceResultComponent } from './EN/face-result/face-result.component';
 import { EnRegistryDocumentComponent } from './EN/registry-document/registry-document.component';
 import { EnScanDocumentoComponent } from './EN/scan-documento/scan-documento.component';
-import { EnWaitingScreenComponent } from './EN/waiting-screen/waiting-screen.component';
 import { EnIdentityValidationComponent } from './EN/identity-validation/identity-validation.component';
 import { EnInformationConsentComponent } from './EN/information-consent/information-consent.component';
 import { EnFormPersonalInformationComponent } from './EN/form-personal-information/form-personal-information.component';
-import { EnTestFormatComponent } from './EN/test-format/test-format.component';
 import { EnLegalConditionComponent } from './EN/legal-condition/legal-condition.component';
 import { EnPaymentComponent } from './EN/payment/payment.component';
 import { EnWelcomeComponent } from './EN/welcome/welcome.component';
@@ -51,11 +49,11 @@ export const routes: Routes = [
   { path: 'ES/faceResult', component: FaceResultComponent },
   { path: 'ES/registryDocument', component: RegistryDocumentComponent },
   { path: 'ES/scanDocumento', component: ScanDocumentoComponent },
-  { path: 'ES/waitingScreen', component: WaitingScreenComponent },
+
   { path: 'ES/identityValidation', component: IdentityValidationComponent },
   { path: 'ES/informationConsent', component: InformationConsentComponent },
   { path: 'ES/formPersonalInformation', component: FormPersonalInformationComponent },
-  { path: 'ES/testFormat', component: TestFormatComponent },
+
   { path: 'ES/legalCondition', component: LegalConditionComponent },
   { path: 'ES/payment', component: PaymentComponent },
   { path: 'ES/welcome', component: WelcomeComponent },
@@ -69,11 +67,9 @@ export const routes: Routes = [
   { path: 'EN/faceResult', component: EnFaceResultComponent },
   { path: 'EN/registryDocument', component: EnRegistryDocumentComponent },
   { path: 'EN/scanDocumento', component: EnScanDocumentoComponent },
-  { path: 'EN/waitingScreen', component: EnWaitingScreenComponent },
   { path: 'EN/identityValidation', component: EnIdentityValidationComponent },
   { path: 'EN/informationConsent', component: EnInformationConsentComponent },
   { path: 'EN/formPersonalInformation', component: EnFormPersonalInformationComponent },
-  { path: 'EN/testFormat', component: EnTestFormatComponent },
   { path: 'EN/legalCondition', component: EnLegalConditionComponent },
   { path: 'EN/payment', component: EnPaymentComponent },
   { path: 'EN/welcome', component: EnWelcomeComponent },

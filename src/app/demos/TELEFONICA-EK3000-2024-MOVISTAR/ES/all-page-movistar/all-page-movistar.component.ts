@@ -18,6 +18,7 @@ export class AllPageMovistarComponent {
       document.getElementById("loadingWhite")!.classList.add("removeWhite");
     }, 50);
     this.PreviusPage = this.service.routesBackwards[this.router.url];
+    
     if (this.PreviusPage == undefined){
       this.PreviusPage = this.router.url;
     }

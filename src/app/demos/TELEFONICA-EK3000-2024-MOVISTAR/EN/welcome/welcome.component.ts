@@ -27,7 +27,7 @@ export class EnWelcomeComponent extends GenericComponent {
         '<p style="text-align:center;">.....................</p>' +
         '<p style="text-align:center;">Escanee el código QR para obtener su eSIM.</p>' +
         '<p style="text-align:center;">.....................</p>' +
-        '<div style="width:100%; text-align:center;"><img src="http://localhost:5000/DemoSKV2/application/assets/TELEFONICA-EK3000-2024-MOVISTAR/QR-code-movistar.png"></div>' +
+        '<div style="width:50%; text-align:center; margin-left: auto;margin-right: auto;"><img style="width:100%"src="http://localhost:5000/DemoSKV2/application/assets/TELEFONICA-EK3000-2024-MOVISTAR/QR-code-movistar.png"></div>' +
         '</body>' +
         '</html>'
 
@@ -52,7 +52,6 @@ export class EnWelcomeComponent extends GenericComponent {
       let _this = this;
       _this.skService.addEventApplication("demoSKV2", "appel depuis moovopCongrat vers cardDispenseing");
   
-      console.info("Valeur de _this: " + _this);
   
       console.log("on s'abonne à l'event cardDispense de la callback onCardDispense");
       _this.skService.addEventListener("CardDispensing", "cardDispense", this.onCardDispense);
@@ -80,10 +79,11 @@ export class EnWelcomeComponent extends GenericComponent {
       case 'CardDispensed':
         console.log("Carte retirée");
         // traitement pour le changement de vue
-        let navEvent = new CustomEvent("moovopNav", {
+        // tempo pour revenir à l'écran d'accueil
+        let navEvent = new CustomEvent("telefonica", {
           detail: {
-            "delay": 3000,
-            "goTo": "/moovopRecupCard"
+            "delay": 5000,
+            "goTo": "/EN/homePageTelefonica"
           }
         });
         window.dispatchEvent(navEvent);

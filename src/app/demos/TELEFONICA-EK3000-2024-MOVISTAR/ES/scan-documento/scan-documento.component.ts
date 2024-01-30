@@ -95,7 +95,6 @@ export class ScanDocumentoComponent extends GenericComponent {
         }
         break;
       default:
-        console.log(e.data.dataType);
 
         console.error(e.data.code + ": " + e.data.description);
         break;

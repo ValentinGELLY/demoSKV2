@@ -28,9 +28,6 @@ export class ValidationScreenComponent extends GenericComponent {
 
   override ngOnInit(): void {
 
-    console.log("errorFace: " + this.errorFace);
-    console.log("errorScanId: " + this.errorScanId);
-    console.log("scanVisited: " + this.scanVisited);
 
     
 
@@ -92,9 +89,7 @@ export class ValidationScreenComponent extends GenericComponent {
     fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.telefonicaService.idUserToCheck+"/idchecks", requestOptions)
       .then(response => response.json())
       .then((data) => {
-        console.log(data);
         if (data.httpStatus == "409") {
-          console.log(nbTry);
           let nbTry2 = nbTry + 1;
           this.createIdCheck(nbTry2);
         }else{

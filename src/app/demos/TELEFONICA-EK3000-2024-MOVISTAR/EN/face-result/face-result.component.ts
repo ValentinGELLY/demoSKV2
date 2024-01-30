@@ -36,7 +36,6 @@ export class EnFaceResultComponent extends GenericComponent {
   }
 
   override ngOnInit() {
-    console.log("scanVisited: " + this.scanVisited);
     
     this.scanVisited = this.telefonicaService.scanVisited;
     if (this.scanVisited === 2 || this.scanVisited === 3) {
@@ -122,18 +121,14 @@ export class EnFaceResultComponent extends GenericComponent {
         return response.json();
       })
       .then(async (data) => {
-        console.log(data);
         
         this.telefonicaService.idUserToCheck = data.id;
 
-        console.log(this.telefonicaService.previewImageProfile);
         
         await this.rognerImageBase64(this.telefonicaService.previewImageProfile, 203, 35, 248, 411, (imageRogneeBase64) => {
-          console.log(imageRogneeBase64);
           let image2 = "data:image/png;base64, "+imageRogneeBase64;
           this.increaseImageSize(image2, 3)
           .then((resizedBase64) => {
-            console.log(resizedBase64);
             // Utilisez la base64 de l'image agrandie comme nécessaire
             this.addFaceUser(resizedBase64);
           })
@@ -222,9 +217,7 @@ export class EnFaceResultComponent extends GenericComponent {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        console.log("result : ", imageRogneeBase64);
-        console.log("result type : ", typeof imageRogneeBase64);
+
         
         
 
@@ -314,7 +307,6 @@ export class EnFaceResultComponent extends GenericComponent {
     fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/idchecks/" + this.telefonicaService.idChecks + "/documents?isAsync=false", requestOptions)
       .then(response => response.json())
       .then((data) => {
-        console.log(data);
         if (data.processingStatus == "FAILED") {
           this.telefonicaService.scanVisited = 1;
           this.telefonicaService.errorSaveIdCard = true;
@@ -351,10 +343,8 @@ export class EnFaceResultComponent extends GenericComponent {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
 
         if (data.results.items[0].result !== "MATCH") {
-          console.log(data.results.items[0].result)
           this.telefonicaService.identityValidate = false;
           this.router.navigate(['/EN/identityValidation']);
         } else {
@@ -382,9 +372,7 @@ export class EnFaceResultComponent extends GenericComponent {
         return response.json();
       })
       .then((data) => {
-        console.log("get All informations");
         
-        console.log(data.mrz);
 
         for (let key in data.mrz) {
           if (data.mrz.hasOwnProperty(key)) {

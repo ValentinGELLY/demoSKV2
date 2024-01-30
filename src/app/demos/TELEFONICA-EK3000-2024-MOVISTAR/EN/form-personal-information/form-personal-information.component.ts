@@ -94,7 +94,6 @@ export class EnFormPersonalInformationComponent implements AfterViewInit{
         document.getElementById("continuarSection2")!.style.display = "block";
         
       }
-      console.log(this.canContinue);
     }else{
       if(event.target.name != 'segundoapellido'){
         event.target.style.border = "none";
@@ -115,14 +114,7 @@ export class EnFormPersonalInformationComponent implements AfterViewInit{
     this.telefonica.nationality = this.nationality;
     this.telefonica.documentoSelected = this.typeDocument;
     this.telefonica.eSIM = this.eSIM;
-    console.log(this.telefonica.adress);
-    console.log(this.telefonica.userName);
-    console.log(this.telefonica.userFirstName);
-    console.log(this.telefonica.userSecondName);
-    console.log(this.telefonica.numDocument);
-    console.log(this.telefonica.postalCode);
-    console.log(this.telefonica.nationality);
-    console.log(this.telefonica.documentoSelected);
+
     this.route.navigate(['/EN/legalCondition']);
 
   }
