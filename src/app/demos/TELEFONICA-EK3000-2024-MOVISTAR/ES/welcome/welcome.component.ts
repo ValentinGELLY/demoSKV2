@@ -36,14 +36,15 @@ export class WelcomeComponent extends GenericComponent {
       
       this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback)
       this.skService.receiptPrintingPrintRawHtml(this.htmlReceiptContent);
-      if( this.router.url === "/ES/welcome"){
+      
         setTimeout(function () {
-          _this.router.navigate(['/ES/homePageTelefonica']);
-        }, 5000);
-      }
+          if(_this.router.url === "/ES/welcome"){
+            _this.router.navigate(['/ES/homePageTelefonica']);
+          }
+        }, 10000);
+      
     }else{
       let _this = this;
-      _this.skService.addEventApplication("demoSKV2", "appel depuis moovopCongrat vers cardDispenseing");
   
   
       console.log("on s'abonne à l'event cardDispense de la callback onCardDispense");
@@ -53,11 +54,13 @@ export class WelcomeComponent extends GenericComponent {
       _this.skService.cardDispensingDispense();
   
       // tempo pour revenir à l'écran d'accueil
-      if( this.router.url === "/ES/welcome"){
+      
         setTimeout(function () {
-          _this.router.navigate(['/ES/homePageTelefonica']);
-        }, 5000);
-      }
+          if( _this.router.url === "/ES/welcome"){
+            _this.router.navigate(['/ES/homePageTelefonica']);
+          }
+        }, 10000);
+      
     }
   }
 
@@ -72,13 +75,7 @@ export class WelcomeComponent extends GenericComponent {
       case 'CardDispensed':
         console.log("Carte retirée");
         // traitement pour le changement de vue
-        let navEvent = new CustomEvent("telefonica", {
-          detail: {
-            "delay": 5000,
-            "goTo": "/ES/homePageTelefonica"
-          }
-        });
-        window.dispatchEvent(navEvent);
+        
         break;
       case 'CardDispenseError':
         switch (e.data.code) {
@@ -127,7 +124,6 @@ export class WelcomeComponent extends GenericComponent {
       let __this = this;
       console.log("on se désabonne à l'event cardDispense de la callback onCardDispense");
       __this.skService.removeEventListener("CardDispensing", "cardDispense", this.onCardDispense);
-      __this.skService.removeEventListener("BarcodeReading", "barcodeRead", this.onBarcodeRead);
       __this.skService.addEventApplication("demoSKV2", "fin de vie du composant moovopCongrats");
   
     }

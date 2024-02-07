@@ -17,10 +17,13 @@ export class EnAllPageMovistarComponent {
     setTimeout(() => {
       document.getElementById("loadingWhite")!.classList.add("removeWhite");
     }, 50);
+
     this.PreviusPage = this.service.routesBackwards[this.router.url];
-    if (this.PreviusPage == undefined){
+    
+    if (this.PreviusPage == undefined || this.router.url == "/EN/scanDocumento" ){
       this.PreviusPage = this.router.url;
     }
+
   }
 
 

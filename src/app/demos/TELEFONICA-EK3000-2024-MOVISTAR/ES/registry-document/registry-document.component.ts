@@ -16,6 +16,7 @@ export class RegistryDocumentComponent extends GenericComponent{
   constructor(private router: Router, skService: SoftKioskService, private telefonicaService: telefonicaService) {
     super(skService);
    }
+
    
   selectDocument(documento: string){
     this.telefonicaService.documentoSelected = documento;

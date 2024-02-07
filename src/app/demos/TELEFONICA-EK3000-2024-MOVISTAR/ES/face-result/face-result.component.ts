@@ -19,6 +19,7 @@ export class FaceResultComponent extends GenericComponent {
   imgScanIdA = this.previewImageScanIdA;
   imgScanIdB = this.previewImageScanIdB;
   scanVisited: number = this.telefonicaService.scanVisited;
+  documentName: string = "";
 
 
   constructor(private router: Router, private telefonicaService: telefonicaService, skService: SoftKioskService) {
@@ -30,12 +31,24 @@ export class FaceResultComponent extends GenericComponent {
     if (this.scanVisited == 1) {
       this.router.navigate(["/ES/faceCapture"]);
     } else if (this.scanVisited == 2 || this.scanVisited == 3) {
-      this.router.navigate(["/ES/scanDocumento"]);
+      if (this.telefonicaService.scanVisited == 2){
+        this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+      }else if (this.telefonicaService.scanVisited == 3){
+        this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+      }
       this.telefonicaService.scanVisited -= 1;
+      this.router.navigate(["/ES/scanDocumento"]);
     }
   }
 
   override ngOnInit() {
+    if(this.telefonicaService.documentoSelected == "pasaporte"){
+      this.documentName = "pasaporte";
+    }else if (this.telefonicaService.documentoSelected == "documentoDeIdentidad"){
+      this.documentName = "documento de identidad";
+    } else {
+      this.documentName = "permiso de conducir";
+    }
 
     this.scanVisited = this.telefonicaService.scanVisited;
     if (this.scanVisited === 2 || this.scanVisited === 3) {
@@ -48,6 +61,7 @@ export class FaceResultComponent extends GenericComponent {
   ngAfterViewInit() {
     if (this.scanVisited == 1) {
       document.getElementById("validFoto")!.style.setProperty("opacity", "1");
+      document.getElementById("btnValidRetry")!.style.setProperty("display", "block"); 
     }
   }
 
@@ -77,15 +91,17 @@ export class FaceResultComponent extends GenericComponent {
         if (this.telefonicaService.scanVisited === 2) {
           this.telefonicaService.previewImageScanIdADef = 'data:image/png;base64, ' + this.skService.lastCaptureImageRaw();
           this.imgScanIdA = this.telefonicaService.previewImageScanIdADef;
+          document.getElementById("btnValidRetry")!.style.setProperty("display", "block"); 
           //document.getElementById("images")!.innerHTML = "<img src='" + this.telefonicaService.previewImageScanIdADef + "' alt='image' style='width: 100%; height: 100%;'>";
           //console.log("previewImageScanIdADef : ", this.telefonicaService.previewImageScanIdADef);
         } else if (this.telefonicaService.scanVisited === 3) {
           this.telefonicaService.previewImageScanIdBDef = 'data:image/png;base64, ' + this.skService.lastCaptureImageRaw();
           this.imgScanIdB = this.telefonicaService.previewImageScanIdBDef;
+          document.getElementById("btnValidRetry")!.style.setProperty("display", "block"); 
           //document.getElementById("images")!.innerHTML = "<img src='" + this.telefonicaService.previewImageScanIdBDef + "' alt='image' style='width: 100%; height: 100%;'>";
           //console.log("previewImageScanIdBDef : ", this.telefonicaService.previewImageScanIdBDef);
         }
-        document.getElementById("validFoto")!.style.setProperty("opacity", "1");
+
         break;
       case 'ImageCaptureError':
         console.error(e.data.code + ": " + e.data.description);
@@ -94,8 +110,17 @@ export class FaceResultComponent extends GenericComponent {
   }
 
   resetVisits() {
-    this.telefonicaService.scanVisited -= 1;
-    this.router.navigate(["/ES/scanDocumento"]);
+    if (this.scanVisited == 1) {
+      this.router.navigate(["/ES/faceCapture"]);
+    } else if (this.scanVisited == 2 || this.scanVisited == 3) {
+      if (this.telefonicaService.scanVisited == 2){
+        this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+      }else if (this.telefonicaService.scanVisited == 3){
+        this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+      }
+      this.telefonicaService.scanVisited -= 1;
+      this.router.navigate(["/ES/scanDocumento"]);
+    }
   }
 
   navigateTo(arg0: string) {
@@ -274,182 +299,211 @@ export class FaceResultComponent extends GenericComponent {
             this.telefonicaService.scanVisited = 1;
             document.getElementById("error")!.style.setProperty("display", "block");
             this.telefonicaService.errorSaveIdCard = true;
-            this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
+
             setTimeout(() => {
-              this.router.navigate(['/scanDocumento']);
+              this.router.navigate(['/ES/scanDocumento']);
               this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
               this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
               this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
               this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
-
-
+              this.telefonicaService.scanVisited = 1;
             }, 5000);
           } else {
             this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
             this.checkValidation()
           }
         })
-        .catch(error => console.log('error', error));
-    }
-     
-    else {
-  fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/idchecks/" + this.telefonicaService.idChecks + "/documents?isAsync=false",
-    {
-      method: 'POST',
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
-      },
-      body: JSON.stringify({
-        "captured": this.telefonicaService.timeScanIdA.toISOString(),
-        "clientCapture": {
-          "images": [
-            {
-              "captured": this.telefonicaService.timeScanIdA.toISOString(),
-              "sensitiveData": {
-                "imageFormat": "JPG",
-                "value": this.telefonicaService.previewImageScanIdADef.replace("data:image/png;base64, ", "")
-              },
-              "subtype": "PROCESSED",
-              "type": "FRONT"
-            },
-            {
-              "captured": this.telefonicaService.timeScanIdA.toISOString(),
-              "sensitiveData": {
-                "imageFormat": "JPG",
-                "value": this.telefonicaService.previewImageScanIdBDef.replace("data:image/png;base64, ", "")
-              },
-              "subtype": "PROCESSED",
-              "type": "BACK"
-            }
-          ]
+        .catch(error => {
+          console.error('error', error);
+          this.telefonicaService.scanVisited = 1;
+          document.getElementById("error")!.style.setProperty("display", "block");
+          this.telefonicaService.errorSaveIdCard = true;
+
+          setTimeout(() => {
+            this.router.navigate(['/ES/scanDocumento']);
+            this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+            this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+            this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+            this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+
+          }, 5000);
         }
-      })
-    })
-    .then(response => response.json())
-    .then((data) => {
-      if (data.processingStatus == "FAILED") {
-        this.telefonicaService.scanVisited = 1;
-        document.getElementById("error")!.style.setProperty("display", "block");
-        this.telefonicaService.errorSaveIdCard = true;
-        this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
-        setTimeout(() => {
-          this.router.navigate(['/scanDocumento']);
-          this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
-          this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
-          this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
-          this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+        );
 
+    }
+    else {
+      fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/idchecks/" + this.telefonicaService.idChecks + "/documents?isAsync=false",
+        {
+          method: 'POST',
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
+          },
+          body: JSON.stringify({
+            "captured": this.telefonicaService.timeScanIdA.toISOString(),
+            "clientCapture": {
+              "images": [
+                {
+                  "captured": this.telefonicaService.timeScanIdA.toISOString(),
+                  "sensitiveData": {
+                    "imageFormat": "JPG",
+                    "value": this.telefonicaService.previewImageScanIdADef.replace("data:image/png;base64, ", "")
+                  },
+                  "subtype": "PROCESSED",
+                  "type": "FRONT"
+                },
+                {
+                  "captured": this.telefonicaService.timeScanIdA.toISOString(),
+                  "sensitiveData": {
+                    "imageFormat": "JPG",
+                    "value": this.telefonicaService.previewImageScanIdBDef.replace("data:image/png;base64, ", "")
+                  },
+                  "subtype": "PROCESSED",
+                  "type": "BACK"
+                }
+              ]
+            }
+          })
+        })
+        .then(response => response.json())
+        .then((data) => {
+          if (data.processingStatus == "FAILED") {
+            this.telefonicaService.scanVisited = 1;
+            document.getElementById("error")!.style.setProperty("display", "block");
+            this.telefonicaService.errorSaveIdCard = true;
 
-        }, 5000);
-      } else {
-        this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
-        console.log("add id card");
-        this.checkValidation()
-      }
-    })
-    .catch(error => console.error('error', error));
-}
+            setTimeout(() => {
+              this.router.navigate(['/ES/registryDocument']);
+              this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+              this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+              this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+              this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+
+            }, 5000);
+
+          } else {
+            this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
+            console.log("add id card");
+            this.checkValidation()
+          }
+        })
+        .catch(error => {
+          console.error('error', error);
+          this.telefonicaService.scanVisited = 1;
+          document.getElementById("error")!.style.setProperty("display", "block");
+          this.telefonicaService.errorSaveIdCard = true;
+
+          setTimeout(() => {
+            this.router.navigate(['/ES/scanDocumento']);
+            this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+            this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+            this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+            this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+
+          }, 5000);
+        }
+        );
+    }
   }
 
-checkValidation() {
-  fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/idchecks/" + this.telefonicaService.idChecks + "/evaluation?evaluationPolicyName=policy-2",
-    {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
-      }
-    })
+  checkValidation() {
+    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/idchecks/" + this.telefonicaService.idChecks + "/evaluation?evaluationPolicyName=policy-2",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
+        }
+      })
 
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
 
-      if (data.results.items[0].result !== "MATCH") {
-        console.log(data.results.items[0].result)
-        this.telefonicaService.identityValidate = false;
+        if (data.results.items[0].result !== "MATCH") {
+          console.log(data.results.items[0].result)
+          this.telefonicaService.identityValidate = false;
+          this.router.navigate(['/ES/identityValidation']);
+        } else {
+          if (this.router.url === "/ES/faceResult") {
+            this.getAllInformation();
+            this.telefonicaService.identityValidate = true;
+          }
+        }
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      })
+  }
+
+  getAllInformation() {
+    fetch("https://zwk8o88.15.237.60.0.sslip.io/" + this.telefonicaService.hrefSensitiveData,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
+        }
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log("get All informations");
+
+
+        for (let key in data.mrz) {
+          if (data.mrz.hasOwnProperty(key)) {
+            let element = data.mrz[key];
+            switch (element.name) {
+              case "Document Number":
+                this.telefonicaService.numDocument = element.value;
+                break;
+              case "Surname":
+                this.telefonicaService.userName = element.value;
+                break;
+              case "Given Names":
+                this.telefonicaService.userFirstName = element.value.split(" ")[0];
+                if (element.value.split(" ")[1] != undefined) {
+                  this.telefonicaService.userSecondName = element.value.split(" ")[1];
+                }
+                break;
+              case "Nationality":
+                this.telefonicaService.nationality = element.value;
+                break;
+              // Ajoutez d'autres cas pour d'autres propriétés si nécessaire
+              default:
+                // Traitez les autres cas si nécessaire
+                break;
+            }
+          }
+        }
+
+        for (let key in data.mrz) {
+          if (data.mrz.hasOwnProperty(key)) {
+            let element = data.mrz[key];
+            switch (element.name) {
+              case "Address":
+                let adress = element.value.replace("^", " ");
+                this.telefonicaService.adress = adress;
+                this.telefonicaService.postalCode = adress.split(" ")[adress.split(" ").length - 2];
+                break;
+            }
+          }
+        }
         this.router.navigate(['/ES/identityValidation']);
-      } else {
-        if (this.router.url === "/ES/faceResult") {
-          this.getAllInformation();
-          this.telefonicaService.identityValidate = true;
-        }
-      }
-    })
-    .catch((error) => {
-      console.log('error: ', error);
-    })
-}
-
-getAllInformation() {
-  fetch("https://zwk8o88.15.237.60.0.sslip.io/" + this.telefonicaService.hrefSensitiveData,
-    {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
-      }
-    })
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log("get All informations");
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      })
+  }
 
 
-      for (let key in data.mrz) {
-        if (data.mrz.hasOwnProperty(key)) {
-          let element = data.mrz[key];
-          switch (element.name) {
-            case "Document Number":
-              this.telefonicaService.numDocument = element.value;
-              break;
-            case "Surname":
-              this.telefonicaService.userName = element.value;
-              break;
-            case "Given Names":
-              this.telefonicaService.userFirstName = element.value.split(" ")[0];
-              if (element.value.split(" ")[1] != undefined) {
-                this.telefonicaService.userSecondName = element.value.split(" ")[1];
-              }
-              break;
-            case "Nationality":
-              this.telefonicaService.nationality = element.value;
-              break;
-            // Ajoutez d'autres cas pour d'autres propriétés si nécessaire
-            default:
-              // Traitez les autres cas si nécessaire
-              break;
-          }
-        }
-      }
+  ngOnDestroy() {
+    this.skService.removeEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
 
-      for (let key in data.mrz) {
-        if (data.mrz.hasOwnProperty(key)) {
-          let element = data.mrz[key];
-          switch (element.name) {
-            case "Address":
-              let adress = element.value.replace("^", " ");
-              this.telefonicaService.adress = adress;
-              this.telefonicaService.postalCode = adress.split(" ")[adress.split(" ").length - 2];
-              break;
-          }
-        }
-      }
-      this.router.navigate(['/ES/identityValidation']);
-    })
-    .catch((error) => {
-      console.log('error: ', error);
-    })
-}
-
-
-ngOnDestroy() {
-  this.skService.removeEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
-
-}
+  }
 
 }

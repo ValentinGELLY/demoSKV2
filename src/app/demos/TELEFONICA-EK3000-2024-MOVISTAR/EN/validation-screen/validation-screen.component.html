@@ -6,10 +6,10 @@
     <h1 class="goodFaceCapture" *ngIf="!errorFace && scanVisited==1">Compliant photo </h1>
     <h1 class="badFaceCapture" *ngIf="errorFace && scanVisited==1">Non-conforming photo </h1>
     <img *ngIf="(!errorFace && scanVisited==1) || (!errorScanId && (scanVisited==3 || scanVisited==2))"
-        src="./assets/TELEFONICA-EK3000-2024-MOVISTAR/Check.png" alt="" class="goodCapture">
+        src="./assets/TELEFONICA-EK3000-2024-MOVISTAR/Check.png" alt=""  loading="lazy" class="goodCapture">
 
     <img *ngIf="(errorFace && scanVisited==1) || (errorScanId && (scanVisited==3 || scanVisited==2))"
-        src="./assets/TELEFONICA-EK3000-2024-MOVISTAR/ko.png" alt="" class="badCapture">
+        src="./assets/TELEFONICA-EK3000-2024-MOVISTAR/ko.png" alt=""  loading="lazy" class="badCapture">
     <section>
         <div>
             <p class="goodDocumentoCapture" *ngIf="!errorScanId && (scanVisited==3 || scanVisited==2)">We will guide you through the following steps</p>
@@ -23,7 +23,7 @@
             <p class="goodFaceCapture" *ngIf="!errorFace && scanVisited==1">Do not close this page.</p>
         </div>
         <div>
-            <p class="badFaceCapture" *ngIf="errorFace && scanVisited==1">Por favor, repita el procedimiento.</p>
+            <p class="badFaceCapture" *ngIf="errorFace && scanVisited==1">Please repeat the procedure.</p>
             <p class="badFaceCapture" *ngIf="errorFace && scanVisited==1">Do not close this page.</p>
         </div>
     </section>

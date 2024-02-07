@@ -17,11 +17,19 @@ export class AllPageMovistarComponent {
     setTimeout(() => {
       document.getElementById("loadingWhite")!.classList.add("removeWhite");
     }, 50);
+
     this.PreviusPage = this.service.routesBackwards[this.router.url];
     
-    if (this.PreviusPage == undefined){
+    if (this.PreviusPage == undefined || this.router.url == "/ES/scanDocumento" ){
       this.PreviusPage = this.router.url;
     }
+
+    document.getElementById("back")!.addEventListener("click", () => {
+      if (this.router.url == "ES/faceResult" && this.service.scanVisited==3 ) {
+        this.service.scanVisited = 2;
+      }
+    });
+
   }
 
 

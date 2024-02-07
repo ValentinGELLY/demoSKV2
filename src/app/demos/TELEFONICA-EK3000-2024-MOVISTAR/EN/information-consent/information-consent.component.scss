@@ -100,3 +100,23 @@ input{
 #continuar{
     width: 12%;
 }
+
+
+#loadingSection{
+    display: none;
+    width: 100%;
+    background-color: white;
+    height: 100%;
+    position: fixed;
+    margin: 0;
+    opacity: 0.7;
+  }
+  
+  #loading{
+    display:none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1 !important;
+  }

@@ -10,10 +10,7 @@ export class PaymentMobileOpValidationComponent {
   constructor(private router: Router) { }
   timeOut: any;
   ngOnInit(){
-    let _this=this;
-    this.timeOut= setTimeout(()=>{
-      _this.router.navigate(['/MWC2024/waitingScreenPrinting'])
-    },5000)
+    
   }
 
   ngOnDestroy() {

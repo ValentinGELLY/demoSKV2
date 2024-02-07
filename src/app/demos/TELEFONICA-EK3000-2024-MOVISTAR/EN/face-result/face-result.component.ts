@@ -19,7 +19,7 @@ export class EnFaceResultComponent extends GenericComponent {
   imgScanIdA = this.previewImageScanIdA;
   imgScanIdB = this.previewImageScanIdB;
   scanVisited: number = this.telefonicaService.scanVisited;
-
+  documentName:string ="";
 
   constructor(private router: Router, private telefonicaService: telefonicaService, skService: SoftKioskService) {
     super(skService);
@@ -30,13 +30,27 @@ export class EnFaceResultComponent extends GenericComponent {
     if (this.scanVisited == 1) {
       this.router.navigate(["/EN/faceCapture"]);
     } else if (this.scanVisited == 2 || this.scanVisited == 3) {
-      this.router.navigate(["/EN/scanDocumento"]);
+      if (this.telefonicaService.scanVisited == 2){
+        this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+      }else if (this.telefonicaService.scanVisited == 3){
+        this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+      }
       this.telefonicaService.scanVisited -= 1;
+      this.router.navigate(["/EN/scanDocumento"]);
     }
   }
 
   override ngOnInit() {
-    
+    if(this.telefonicaService.documentoSelected == "pasaporte"){
+      this.documentName = "passport";
+    }else if (this.telefonicaService.documentoSelected == "documentoDeIdentidad"){
+      this.documentName = "identity document";
+    } else {
+      this.documentName = "driving license";
+    }
+
+
+
     this.scanVisited = this.telefonicaService.scanVisited;
     if (this.scanVisited === 2 || this.scanVisited === 3) {
       this.skService.addEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
@@ -48,6 +62,7 @@ export class EnFaceResultComponent extends GenericComponent {
   ngAfterViewInit() {
     if(this.scanVisited == 1){
       document.getElementById("validFoto")!.style.setProperty("opacity", "1");
+      document.getElementById("btnValidRetry")!.style.setProperty("display", "block"); 
     }
   }
 
@@ -85,7 +100,7 @@ export class EnFaceResultComponent extends GenericComponent {
           //document.getElementById("images")!.innerHTML = "<img src='" + this.telefonicaService.previewImageScanIdBDef + "' alt='image' style='width: 100%; height: 100%;'>";
           //console.log("previewImageScanIdBDef : ", this.telefonicaService.previewImageScanIdBDef);
         }
-        document.getElementById("validFoto")!.style.setProperty("opacity", "1");
+        document.getElementById("btnValidRetry")!.style.setProperty("display", "block"); 
         break;
       case 'ImageCaptureError':
         console.error(e.data.code + ": " + e.data.description);
@@ -309,17 +324,16 @@ export class EnFaceResultComponent extends GenericComponent {
       .then((data) => {
         if (data.processingStatus == "FAILED") {
           this.telefonicaService.scanVisited = 1;
-          this.telefonicaService.errorSaveIdCard = true;
-          this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
-          setTimeout(() => {
-            this.router.navigate(['/scanDocumento']);
-            this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
-            this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
-            this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
-            this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+            document.getElementById("error")!.style.setProperty("display", "block");
+            this.telefonicaService.errorSaveIdCard = true;
+            setTimeout(() => {
+              this.router.navigate(['/EN/registryDocument']);
+              this.telefonicaService.previewImageScanIdBDef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+              this.telefonicaService.previewImageScanIdADef = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+              this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
+              this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png"
 
-  
-          }, 5000);
+            }, 5000);
         } else {
           this.telefonicaService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
           console.log("add id card");

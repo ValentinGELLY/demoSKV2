@@ -53,13 +53,18 @@ export class ScanDocumentoComponent extends GenericComponent {
 
     switch (e.data.dataType) {
       case 'PreviewStarted':
+        let n=0;
         this.skService.addEventApplication("demoSKV2", "Preview du document réussie");
         // Ouverture d'un WebSocket pour récupérer les images de prévisualisation
         let previewWebsocket = new WebSocket(e.data.serverUrl);
         // Écoute de l'événement de réception d'informations par le WebSocket
         previewWebsocket.onmessage = (preview) => {
-          // appel à la fonction de traitement de flux vidéo
-          this.previewImageUpdate(preview.data);
+          if(n==0){
+            n++;
+          }else{
+            // appel à la fonction de traitement de flux vidéo
+            this.previewImageUpdate(preview.data);
+          }
         };
 
         // Écoute de l'événement de fermeture du WebSocket
@@ -146,7 +151,7 @@ export class ScanDocumentoComponent extends GenericComponent {
   interval2: any = null;
 
   timeoutScanner = () => {
-    this.countdown = 5;
+    this.countdown = 7;
     console.log("timeoutScanner");
     this.interval2 = setInterval(() => {
       if (this.countdown != 0) {
@@ -174,6 +179,7 @@ export class ScanDocumentoComponent extends GenericComponent {
     ___this.skService.removeEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
     ___this.skService.removeEventListener("DocumentScanning", "previewStop", this.onPreview);
     ___this.skService.stopDocumentPreview();
+    
   }
 
 }

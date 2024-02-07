@@ -58,3 +58,15 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+
+#whiteHide{
+    position: fixed;
+    width: 140px;
+    height: 125px;
+    bottom: 28px;
+    left: 35px;
+    border-radius: 0 !important;
+    background-color: white;
+}

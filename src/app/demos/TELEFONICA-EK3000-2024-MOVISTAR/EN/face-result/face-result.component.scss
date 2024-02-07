@@ -32,8 +32,19 @@ h1 {
     left: 70%;
     transform: translate(-50%, -50%);
     width: 33%;
-    opacity: 0;
   }
+
+span.title{
+    font-family: Renogare;
+    font-size: 4em !important;
+    color: #275278;
+    text-align: center;
+    margin: 0;
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
   
 
 #validFoto img{
@@ -72,4 +83,8 @@ h1 {
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 1 !important;
+}
+
+#btnValidRetry{
+  display:none;
 }

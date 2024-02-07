@@ -39,6 +39,11 @@ export class EnValidationScreenComponent extends GenericComponent {
         if (this.route.url == '/EN/validationScreen') {
           this.telefonicaService.scanVisited = 0;
           this.route.navigate(['/EN/faceCapture']);
+          this.telefonicaService.previewImageProfile = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+          this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+          this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+          this.telefonicaService.previewImageScanIdBDef = "";
+          this.telefonicaService.previewImageScanIdADef = "";
         }
       }, 5000);
 
@@ -65,6 +70,11 @@ export class EnValidationScreenComponent extends GenericComponent {
       this.timeout = setTimeout(() => {
         if (this.route.url == '/EN/validationScreen') {
           this.route.navigate(['/EN/scanDocumento']);
+          this.telefonicaService.previewImageProfile = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+          this.telefonicaService.previewImageScanIdA = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+          this.telefonicaService.previewImageScanIdB = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+          this.telefonicaService.previewImageScanIdBDef = "";
+          this.telefonicaService.previewImageScanIdADef = "";
 
         }
       }, 5000);

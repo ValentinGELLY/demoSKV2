@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from "@angular/router";
     providedIn: "root"
 })
 
-export class AppService {
+export class AppService { 
 
     routesBackwards: any = {
         "/ES/fullPrepayment": "/ES/prepaidTariffs",
@@ -35,6 +35,8 @@ export class AppService {
         "/EN/payment": "/EN/legalCondition",
         "/EN/welcome": "/EN/payment",
     };
+
+    language: string = "ES";
 
     scanVisited: number = 1;
     previewImageProfile: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";

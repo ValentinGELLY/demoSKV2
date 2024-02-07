@@ -11,11 +11,9 @@ import { FaceCaptureComponent } from './ES/face-capture/face-capture.component';
 import { FaceResultComponent } from './ES/face-result/face-result.component';
 import { RegistryDocumentComponent } from './ES/registry-document/registry-document.component';
 import { ScanDocumentoComponent } from './ES/scan-documento/scan-documento.component';
-
 import { IdentityValidationComponent } from './ES/identity-validation/identity-validation.component';
 import { InformationConsentComponent } from './ES/information-consent/information-consent.component';
 import { FormPersonalInformationComponent } from './ES/form-personal-information/form-personal-information.component';
-
 import { LegalConditionComponent } from './ES/legal-condition/legal-condition.component';
 import { PaymentComponent } from './ES/payment/payment.component';
 import { WelcomeComponent } from './ES/welcome/welcome.component';
@@ -49,14 +47,13 @@ export const routes: Routes = [
   { path: 'ES/faceResult', component: FaceResultComponent },
   { path: 'ES/registryDocument', component: RegistryDocumentComponent },
   { path: 'ES/scanDocumento', component: ScanDocumentoComponent },
-
   { path: 'ES/identityValidation', component: IdentityValidationComponent },
   { path: 'ES/informationConsent', component: InformationConsentComponent },
   { path: 'ES/formPersonalInformation', component: FormPersonalInformationComponent },
-
   { path: 'ES/legalCondition', component: LegalConditionComponent },
   { path: 'ES/payment', component: PaymentComponent },
   { path: 'ES/welcome', component: WelcomeComponent },
+
   { path: 'ES/validationScreen', component: ValidationScreenComponent },
   { path: 'EN/homePageTelefonica', component: EnHomePageTelefonica },
   { path: 'EN/fullPrepayment', component: EnFullPrepaymentComponent },

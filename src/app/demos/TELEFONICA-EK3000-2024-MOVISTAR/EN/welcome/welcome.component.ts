@@ -25,7 +25,7 @@ export class EnWelcomeComponent extends GenericComponent {
         '<body style="font-family:Arial; font-size: 1.2rem; font-kerning: 2px; text-rendering: optimizeLegibility;">' +
         '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:20px; width:150px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/TELEFONICA-EK3000-2024-MOVISTAR/Logo-movistar-noir.png" >' +
         '<p style="text-align:center;">.....................</p>' +
-        '<p style="text-align:center;">Escanee el código QR para obtener su eSIM.</p>' +
+        '<p style="text-align:center;">Scan the QR code to get your eSIM.</p>' +
         '<p style="text-align:center;">.....................</p>' +
         '<div style="width:50%; text-align:center; margin-left: auto;margin-right: auto;"><img style="width:100%"src="http://localhost:5000/DemoSKV2/application/assets/TELEFONICA-EK3000-2024-MOVISTAR/QR-code-movistar.png"></div>' +
         '</body>' +
@@ -46,8 +46,10 @@ export class EnWelcomeComponent extends GenericComponent {
       this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback)
       this.skService.receiptPrintingPrintRawHtml(this.htmlReceiptContent);
       setTimeout(() => {
-        this.router.navigate(['/EN/homePageTelefonica']);
-      }, 5000);
+        if(this.router.url === "/EN/welcome"){
+          this.router.navigate(['/ES/homePageTelefonica']);
+        }
+      }, 10000);
     }else{
       let _this = this;
       _this.skService.addEventApplication("demoSKV2", "appel depuis moovopCongrat vers cardDispenseing");
@@ -60,11 +62,13 @@ export class EnWelcomeComponent extends GenericComponent {
       _this.skService.cardDispensingDispense();
   
       // tempo pour revenir à l'écran d'accueil
-      if( this.router.url === "/EN/welcome"){
+      
         setTimeout(function () {
-          _this.router.navigate(['/EN/homePageTelefonica']);
-        }, 5000);
-      }
+          if( _this.router.url === "/EN/welcome"){
+          _this.router.navigate(['/ES/homePageTelefonica']);
+        }
+        }, 10000);
+      
     }
   }
 
@@ -80,13 +84,7 @@ export class EnWelcomeComponent extends GenericComponent {
         console.log("Carte retirée");
         // traitement pour le changement de vue
         // tempo pour revenir à l'écran d'accueil
-        let navEvent = new CustomEvent("telefonica", {
-          detail: {
-            "delay": 5000,
-            "goTo": "/EN/homePageTelefonica"
-          }
-        });
-        window.dispatchEvent(navEvent);
+       
         break;
       case 'CardDispenseError':
         switch (e.data.code) {
@@ -135,7 +133,6 @@ export class EnWelcomeComponent extends GenericComponent {
       let __this = this;
       console.log("on se désabonne à l'event cardDispense de la callback onCardDispense");
       __this.skService.removeEventListener("CardDispensing", "cardDispense", this.onCardDispense);
-      __this.skService.removeEventListener("BarcodeReading", "barcodeRead", this.onBarcodeRead);
       __this.skService.addEventApplication("demoSKV2", "fin de vie du composant moovopCongrats");
   
     }
