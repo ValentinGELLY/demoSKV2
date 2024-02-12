@@ -5,7 +5,7 @@
 <h3 *ngIf="scanVisited==1">Check that the photo is clear</h3>
 <h3 *ngIf="scanVisited==2 || scanVisited==3 ">Continue or start again?</h3>
 
-<h3 style="color: red; display: none; z-index: 5;" id="error" class="erreur">Error registering your {{documentName}} card. Please try again</h3>
+<h3 style="color: red; display: none; z-index: 5;" id="error" class="erreur">Error capturing your {{documentName}}. Please try again</h3>
 
 <img *ngIf="scanVisited==1" src="{{ profileImage }}" alt="" id="resultCapture"  loading="lazy">
 <img *ngIf="scanVisited==2" src="{{ imgScanIdA }}" alt="" id="resultCapture" loading="lazy">

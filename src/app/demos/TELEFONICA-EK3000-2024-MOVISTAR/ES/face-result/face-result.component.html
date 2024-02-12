@@ -4,7 +4,7 @@
 <h1 *ngIf="scanVisited==3">Reverso del documento capturado</h1>
 <h3 *ngIf="scanVisited==1">Comprueba que la foto está nítida</h3>
 <h3 *ngIf="scanVisited==2 || scanVisited==3 ">¿Continuar o repetir?</h3>
-<h3 style="color: red; display: none; z-index: 5;" id="error" class="erreur">Error en el registro del {{documentName}}. Por favor, inténtelo de nuevo</h3>
+<h3 style="color: red; display: none; z-index: 5;" id="error" class="erreur">Error en la captura del {{documentName}}. Por favor, repite la operación</h3>
 <h3 style="color: red; display: none; z-index: 5;" id="too_far" class="erreur">Error: La foto no es válida</h3>
 
 <img *ngIf="scanVisited==1" src="{{ profileImage }}" alt=""  loading="lazy" id="resultCapture">

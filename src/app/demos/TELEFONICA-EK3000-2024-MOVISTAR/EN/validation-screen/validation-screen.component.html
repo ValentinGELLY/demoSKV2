@@ -13,18 +13,13 @@
     <section>
         <div>
             <p class="goodDocumentoCapture" *ngIf="!errorScanId && (scanVisited==3 || scanVisited==2)">We will guide you through the following steps</p>
-            <p class="goodDocumentoCapture" *ngIf="!errorScanId && (scanVisited==3 || scanVisited==2)">Do not close this page.</p>
         </div>
         <div>
             <p class="badDocumentoCapture" *ngIf="errorScanId && (scanVisited==3 || scanVisited==2)">Please repeat the procedure.</p>
-            <p class="badDocumentoCapture" *ngIf="errorScanId && (scanVisited==3 || scanVisited==2)">Do not close this page.</p>
         </div>
-        <div>
-            <p class="goodFaceCapture" *ngIf="!errorFace && scanVisited==1">Do not close this page.</p>
-        </div>
+
         <div>
             <p class="badFaceCapture" *ngIf="errorFace && scanVisited==1">Please repeat the procedure.</p>
-            <p class="badFaceCapture" *ngIf="errorFace && scanVisited==1">Do not close this page.</p>
         </div>
     </section>
 
