@@ -9,7 +9,7 @@ import { AppService } from '../../telefonica.service';
 })
 export class EnAllPageMovistarComponent {
 
-  PreviusPage: string = "";
+  PreviousPage: string = "";
 
   constructor(private router: Router, private service:AppService) { }
 
@@ -18,10 +18,10 @@ export class EnAllPageMovistarComponent {
       document.getElementById("loadingWhite")!.classList.add("removeWhite");
     }, 50);
 
-    this.PreviusPage = this.service.routesBackwards[this.router.url];
+    this.PreviousPage = this.service.routesBackwards[this.router.url];
     
-    if (this.PreviusPage == undefined || this.router.url == "/EN/scanDocumento" ){
-      this.PreviusPage = this.router.url;
+    if (this.PreviousPage == undefined || this.router.url == "/EN/scanDocumento" ){
+      this.PreviousPage = this.router.url;
     }
 
   }

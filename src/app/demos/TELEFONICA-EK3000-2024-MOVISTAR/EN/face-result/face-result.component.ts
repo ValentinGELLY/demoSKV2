@@ -44,7 +44,7 @@ export class EnFaceResultComponent extends GenericComponent {
     if(this.telefonicaService.documentoSelected == "pasaporte"){
       this.documentName = "passport";
     }else if (this.telefonicaService.documentoSelected == "documentoDeIdentidad"){
-      this.documentName = "identity document";
+      this.documentName = "identity card";
     } else {
       this.documentName = "driving license";
     }

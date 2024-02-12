@@ -12,20 +12,22 @@
     <section>
         <div>
             <p class="goodDocumentoCapture" *ngIf="!errorScanId && (scanVisited==3 || scanVisited==2)">Te guiaremos en los siguientes pasos</p>
-            <p class="goodDocumentoCapture" *ngIf="!errorScanId && (scanVisited==3 || scanVisited==2)">No cierres esta página.</p>
+
         </div>
         <div>
             <p class="badDocumentoCapture" *ngIf="errorScanId && (scanVisited==3 || scanVisited==2)">Por favor, repite el procedimiento.</p>
-            <p class="badDocumentoCapture" *ngIf="errorScanId && (scanVisited==3 || scanVisited==2)">No cierres esta
-                página.</p>
+
         </div>
         <div>
-            <p class="goodFaceCapture" *ngIf="!errorFace && scanVisited==1">No cierres esta página</p>
+
         </div>
         <div>
             <p class="badFaceCapture" *ngIf="errorFace && scanVisited==1">Por favor, repita el procedimiento.</p>
-            <p class="badFaceCapture" *ngIf="errorFace && scanVisited==1">No cierres esta página.</p>
         </div>
     </section>
 
 </main>
+
+<section id="whiteHide">
+    
+</section>
