@@ -6,7 +6,7 @@ import { MoovhopService } from '../../moovhop.service';
 @Component({
   selector: 'app-create-account-proof-address',
   templateUrl: './create-account-proof-address.component.html',
-  styleUrls: ['./create-account-proof-address.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./create-account-proof-address.component.scss', '../../moovhop.component.scss']
 })
 
 export class CreateAccountProofAddressComponent extends GenericComponent implements OnInit, AfterViewInit{

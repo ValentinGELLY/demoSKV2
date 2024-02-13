@@ -5,7 +5,7 @@ import { MoovhopService } from '../../moovhop.service';
 @Component({
   selector: 'app-payment-mobile-app',
   templateUrl: './payment-mobile-app.component.html',
-  styleUrls: ['./payment-mobile-app.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./payment-mobile-app.component.scss', '../../moovhop.component.scss']
 })
 export class PaymentMobileAppComponent implements OnInit {
 

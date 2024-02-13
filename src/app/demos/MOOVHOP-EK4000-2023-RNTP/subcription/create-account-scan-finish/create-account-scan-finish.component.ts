@@ -8,7 +8,7 @@ import { GenericComponent } from 'src/app/demos/generic/generic.component';
 @Component({
   selector: 'app-create-account-scan-finish',
   templateUrl: './create-account-scan-finish.component.html',
-  styleUrls: ['./create-account-scan-finish.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./create-account-scan-finish.component.scss', '../../moovhop.component.scss']
 })
 export class CreateAccountScanFinishComponent extends GenericComponent {
 

@@ -6,7 +6,7 @@ import { MoovhopService } from '../../moovhop.service';
 @Component({
   selector: 'app-payment-cash',
   templateUrl: './payment-cash.component.html',
-  styleUrls: ['./payment-cash.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./payment-cash.component.scss', '../../moovhop.component.scss']
 })
 export class PaymentCashComponent implements OnInit {
 

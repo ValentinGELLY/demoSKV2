@@ -5,7 +5,7 @@ import { MoovhopService } from '../../moovhop.service';
 @Component({
   selector: 'app-buy-choice',
   templateUrl: './buy-choice.component.html',
-  styleUrls: ['./buy-choice.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./buy-choice.component.scss', '../../moovhop.component.scss']
 })
 export class BuyChoiceComponent implements OnInit {
 

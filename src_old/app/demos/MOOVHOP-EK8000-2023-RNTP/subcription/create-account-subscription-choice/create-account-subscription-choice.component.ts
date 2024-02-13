@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-account-subscription-choice',
   templateUrl: './create-account-subscription-choice.component.html',
-  styleUrls: ['./create-account-subscription-choice.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./create-account-subscription-choice.component.scss', '../../moovhop.component.scss']
 })
 export class CreateAccountSubscriptionChoiceComponent {
 

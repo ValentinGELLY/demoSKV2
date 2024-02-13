@@ -7,7 +7,7 @@ import { SoftKioskService } from 'src/app/softkiosk.service';
 @Component({
   selector: 'app-create-account-camera',
   templateUrl: './create-account-camera.component.html',
-  styleUrls: ['./create-account-camera.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./create-account-camera.component.scss', '../../moovhop.component.scss']
 })
 export class CreateAccountCameraComponent extends GenericComponent implements OnInit, AfterViewInit {
 
