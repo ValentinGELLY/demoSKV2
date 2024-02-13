@@ -69,6 +69,8 @@ export class EnScanDocumentoComponent extends GenericComponent {
 
         // Écoute de l'événement de fermeture du WebSocket
         previewWebsocket.onclose = function () {
+          console.log("WebSocket closed");
+          console.log(previewWebsocket);
         };
         break;
       case 'PreviewStopped':

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-reload-identification',
   templateUrl: './reload-identification.component.html',
-  styleUrls: ['./reload-identification.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./reload-identification.component.scss', '../../moovhop.component.scss']
 })
 export class ReloadIdentificationComponent implements OnInit {
 

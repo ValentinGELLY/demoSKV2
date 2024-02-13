@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-get-tickets-receipt',
   templateUrl: './get-tickets-receipt.component.html',
-  styleUrls: ['./get-tickets-receipt.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./get-tickets-receipt.component.scss', '../../moovhop.component.scss']
 })
 export class GetTicketsReceiptComponent implements OnInit {
 

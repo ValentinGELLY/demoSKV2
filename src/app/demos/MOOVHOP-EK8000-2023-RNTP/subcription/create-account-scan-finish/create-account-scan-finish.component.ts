@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-account-scan-finish',
   templateUrl: './create-account-scan-finish.component.html',
-  styleUrls: ['./create-account-scan-finish.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./create-account-scan-finish.component.scss', '../../moovhop.component.scss']
 })
 export class CreateAccountScanFinishComponent {
 

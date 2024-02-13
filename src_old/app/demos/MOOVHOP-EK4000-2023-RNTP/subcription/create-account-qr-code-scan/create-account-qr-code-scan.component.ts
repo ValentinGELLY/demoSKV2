@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-account-qr-code-scan',
   templateUrl: './create-account-qr-code-scan.component.html',
-  styleUrls: ['./create-account-qr-code-scan.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./create-account-qr-code-scan.component.scss', '../../moovhop.component.scss']
 })
 export class CreateAccountQRCodeScanComponent extends GenericComponent implements OnInit, OnDestroy, AfterViewInit {
 

@@ -7,7 +7,7 @@ import { extend } from 'jquery';
 @Component({
   selector: 'app-waiting-screen',
   templateUrl: './waiting-screen.component.html',
-  styleUrls: ['./waiting-screen.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./waiting-screen.component.scss', '../../moovhop.component.scss']
 })
 export class WaitingScreenComponent {
   printCallback: any;

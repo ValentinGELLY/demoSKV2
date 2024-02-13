@@ -6,7 +6,7 @@ declare var Kiosk: any;
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.scss', '../moovHop.component.scss']
+  styleUrls: ['./homepage.component.scss', '../moovhop.component.scss']
 })
 export class HomepageComponent{
 

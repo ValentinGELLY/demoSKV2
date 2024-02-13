@@ -5,7 +5,7 @@ import { MoovhopService } from '../../moovhop.service';
 @Component({
   selector: 'app-create-account-hello',
   templateUrl: './create-account-hello.component.html',
-  styleUrls: ['./create-account-hello.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./create-account-hello.component.scss', '../../moovhop.component.scss']
 })
 export class CreateAccountHelloComponent {
 

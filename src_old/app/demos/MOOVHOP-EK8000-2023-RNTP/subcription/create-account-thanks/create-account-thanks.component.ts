@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-account-thanks',
   templateUrl: './create-account-thanks.component.html',
-  styleUrls: ['./create-account-thanks.component.scss', '../../moovHop.component.scss']
+  styleUrls: ['./create-account-thanks.component.scss', '../../moovhop.component.scss']
 })
 export class CreateAccountThanksComponent implements OnInit {
 
