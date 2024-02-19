@@ -12,13 +12,14 @@ import { SoftKioskService } from 'src/app/softkiosk.service';
 export class ScanDocumentoComponent extends GenericComponent {
   countdown: any;
 
+  previewImageScanIdA:string = './assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png'
+  previewImageScanIdB:string = './assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png'
 
   constructor(private router: Router, private telefonicaService: telefonicaService, skService: SoftKioskService) {
     super(skService);
   }
 
-  previewImageScanIdA: string = this.telefonicaService.previewImageScanIdA;
-  previewImageScanIdB: string = this.telefonicaService.previewImageScanIdB;
+ 
   interval: any;
 
   scanVisited: number = this.telefonicaService.scanVisited;
@@ -29,6 +30,9 @@ export class ScanDocumentoComponent extends GenericComponent {
   }
 
   ngAfterViewInit(): void {
+
+    this.previewImageScanIdA = this.telefonicaService.previewImageScanIdA;
+    this.previewImageScanIdB = this.telefonicaService.previewImageScanIdB;
     /**
          * Déclenchement de l'appel à DocumentScanning.preview()
           */

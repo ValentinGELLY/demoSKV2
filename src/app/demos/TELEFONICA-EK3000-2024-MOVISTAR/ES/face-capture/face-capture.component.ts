@@ -13,7 +13,7 @@ import { SoftKioskService } from 'src/app/softkiosk.service';
 })
 export class FaceCaptureComponent extends GenericComponent implements OnInit {
   countdown: any;
-  previewImageProfile: string = this.service.previewImageProfile;
+  previewImageProfile: string =  "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
 
   constructor(private route: Router, private service: telefonicaService, skService: SoftKioskService) {
     super(skService);
@@ -31,6 +31,7 @@ export class FaceCaptureComponent extends GenericComponent implements OnInit {
 
   ngAfterViewInit(): void {
     let __this = this;
+    this.previewImageProfile = this.service.previewImageProfile;
     if (this.route.url === "/ES/faceCapture") {
       __this.skService.addEventListener("CameraShooting", "previewStart", this.onPreview)
       __this.skService.startCameraPreview();
@@ -70,7 +71,6 @@ export class FaceCaptureComponent extends GenericComponent implements OnInit {
             // appel à la fonction de traitement de flux vidéo
             this.previewImageUpdate(preview.data);
           }
-          
         };
 
         // Écoute de l'événement de fermeture du WebSocket

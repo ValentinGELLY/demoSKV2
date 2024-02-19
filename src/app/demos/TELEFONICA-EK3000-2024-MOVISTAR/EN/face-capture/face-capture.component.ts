@@ -13,7 +13,7 @@ import { SoftKioskService } from 'src/app/softkiosk.service';
 })
 export class EnFaceCaptureComponent extends GenericComponent implements OnInit {
   countdown: any;
-  previewImageProfile: string = this.service.previewImageProfile;
+  previewImageProfile: string =  "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
 
   constructor(private route: Router, private service: telefonicaService, skService: SoftKioskService) {
     super(skService);
@@ -119,7 +119,6 @@ export class EnFaceCaptureComponent extends GenericComponent implements OnInit {
   ngOnDestroy(): void {
     let ___this = this;
     clearInterval(this.interval2);
-
     ___this.skService.removeEventListener("CameraShooting", "previewStart", this.onPreviewStart)
     ___this.skService.addEventListener("CameraShooting", "previewStop", this.onPreviewStop);
     ___this.skService.addEventApplication("demoSKV2", "fin de prévisualisation vidéo");

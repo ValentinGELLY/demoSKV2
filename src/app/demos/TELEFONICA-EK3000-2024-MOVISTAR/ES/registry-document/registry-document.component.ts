@@ -17,8 +17,15 @@ export class RegistryDocumentComponent extends GenericComponent{
     super(skService);
    }
 
+   override ngOnInit(): void {
+    this.telefonicaService.previewImageScanIdA = './assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png'
+    this.telefonicaService.previewImageScanIdB = './assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png'
+    this.telefonicaService.scanVisited = 1;
+  }
+
    
   selectDocument(documento: string){
+    
     this.telefonicaService.documentoSelected = documento;
     this.router.navigate(["/ES/scanDocumento"]);
   }

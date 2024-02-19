@@ -12,13 +12,15 @@ import { SoftKioskService } from 'src/app/softkiosk.service';
 export class EnScanDocumentoComponent extends GenericComponent {
   countdown: any;
 
+  previewImageScanIdA:string = './assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png'
+  previewImageScanIdB:string = './assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png'
+
 
   constructor(private router: Router, private telefonicaService: telefonicaService, skService: SoftKioskService) {
     super(skService);
   }
 
-  previewImageScanIdA: string = this.telefonicaService.previewImageScanIdA;
-  previewImageScanIdB: string = this.telefonicaService.previewImageScanIdB;
+ 
   interval: any;
 
   scanVisited: number = this.telefonicaService.scanVisited;
@@ -36,21 +38,17 @@ export class EnScanDocumentoComponent extends GenericComponent {
     this.scanVisited++;
     let __this = this;
     console.log("scanVisited : ", this.scanVisited);
-
     __this.skService.addEventListener("DocumentScanning", "previewStart", this.onPreview);
     __this.skService.addEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture);
     __this.skService.addEventListener("DocumentScanning", "previewStop", this.onPreview);
-
     // Démarrage de la prévisualisation
     __this.skService.startDocumentPreview();
-
     // décompte du timer
     __this.timeoutScanner();
   }
 
 
   override onPreview = (e: any) => {
-
     switch (e.data.dataType) {
       case 'PreviewStarted':
         let n=0;
@@ -66,7 +64,6 @@ export class EnScanDocumentoComponent extends GenericComponent {
             this.previewImageUpdate(preview.data);
           }
         };
-
         // Écoute de l'événement de fermeture du WebSocket
         previewWebsocket.onclose = function () {
           console.log("WebSocket closed");

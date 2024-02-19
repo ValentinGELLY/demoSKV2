@@ -18,9 +18,9 @@ export class AppComponent implements OnInit {
     // vérifier que la valeur n'est pas undefined ou mauvaise
     // switch sur les différents noms d'application
     // dans chaque case, naviguer sur la bonne page
-
+    //window.location.href = 'https://ltl39h-5000.csb.app/';
     let applicationToLaunch = this.getApplicationToLaunchFromMaintenance();
-
+    //this.appService.setNextRoute('/ES/homePageTelefonica');
     console.log(applicationToLaunch);
     switch (applicationToLaunch) {
       case 'Labizi':

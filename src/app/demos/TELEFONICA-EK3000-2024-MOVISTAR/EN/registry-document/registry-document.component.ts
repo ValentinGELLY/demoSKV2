@@ -18,6 +18,8 @@ export class EnRegistryDocumentComponent extends GenericComponent {
   }
 
   override ngOnInit(): void {
+    this.telefonicaService.previewImageScanIdA = './assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png'
+    this.telefonicaService.previewImageScanIdB = './assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png'
     this.telefonicaService.scanVisited = 1;
   }
   selectDocument(documento: string) {
