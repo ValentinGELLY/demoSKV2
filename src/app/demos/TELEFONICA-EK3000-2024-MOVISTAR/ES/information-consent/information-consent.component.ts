@@ -49,6 +49,24 @@ export class InformationConsentComponent {
       console.log("user deleted");
       this.route.navigate(['/ES/formPersonalInformation']);
     });
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==");
+
+
+    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/"+this.service.idUserToCheck, {
+      method: 'DELETE',
+      headers: myHeaders,
+      redirect: 'follow'
+    }     )
+      .then(response => response.text())
+      .then((result) => {
+        console.log("user deleted");
+        this.route.navigate(['/ES/formPersonalInformation']);
+      })
+      .catch(error => console.log('error', error));
+
+
   }
 
   ngOnDestroy() {

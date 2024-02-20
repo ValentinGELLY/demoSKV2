@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppService as telefonicaService } from '../../telefonica.service';
 
 @Component({
   selector: 'app-pagina-principal',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class homePageTelefonica {
 
+  constructor( private telefonicaService: telefonicaService) { }
+
+
+  ngOnInit(){
+    this.telefonicaService.preloadImages();
+  }
 }
