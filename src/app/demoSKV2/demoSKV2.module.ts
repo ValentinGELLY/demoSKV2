@@ -8,12 +8,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OptionListComponent } from './option-list/option-list.component'
 import { ChooseViewComponent } from './choose-view/choose-view.component';
 import { AllPagesAppComponent } from './all-pages-app/all-pages-app.component';
+import { CustomerExperienceChoiceComponent } from './customer-experience-choice/customer-experience-choice.component';
+import { FeaturesChoiceComponent } from './features-choice/features-choice.component';
+import { TestIvqChoiceComponent } from './test-ivq-choice/test-ivq-choice.component';
+import { AppDemoChoiceComponent } from './app-demo-choice/app-demo-choice.component';
 @NgModule({
   declarations: [
     HomepageComponent,
     ChooseViewComponent,
     AllPagesAppComponent,
     OptionListComponent,
+    CustomerExperienceChoiceComponent,
+    FeaturesChoiceComponent,
+    TestIvqChoiceComponent,
+    AppDemoChoiceComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,7 +29,8 @@ import { AllPagesAppComponent } from './all-pages-app/all-pages-app.component';
     MatSliderModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
   ],
   providers: []
 })

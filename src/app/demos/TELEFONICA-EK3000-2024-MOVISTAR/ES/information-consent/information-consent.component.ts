@@ -37,7 +37,7 @@ export class InformationConsentComponent {
 
 
   deleteUser() {
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/"+this.service.idUserToCheck, {
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/"+this.service.idUserToCheck, {
       method: 'DELETE',
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -54,7 +54,7 @@ export class InformationConsentComponent {
     myHeaders.append("Authorization", "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==");
 
 
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/"+this.service.idUserToCheck, {
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/"+this.service.idUserToCheck, {
       method: 'DELETE',
       headers: myHeaders,
       redirect: 'follow'

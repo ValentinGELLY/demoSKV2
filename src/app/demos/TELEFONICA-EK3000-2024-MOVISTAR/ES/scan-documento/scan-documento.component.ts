@@ -54,7 +54,7 @@ export class ScanDocumentoComponent extends GenericComponent {
 
 
   override onPreview = (e: any) => {
-
+    
     switch (e.data.dataType) {
       case 'PreviewStarted':
         let n=0;

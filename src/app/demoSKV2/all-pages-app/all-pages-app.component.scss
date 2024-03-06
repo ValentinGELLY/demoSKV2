@@ -176,33 +176,9 @@
   transform: translate(-50%, -50%);
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
-.labiziChoice {
-  display: flex;
-  flex-direction: row;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 2vw;
-  /* width: 66%;
-  height: 16%;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 30%; */
-}
-
-.moovHop8000Choice {
-  display: flex;
-  flex-direction: row;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
-  border-radius: 2vw;
-}
-
-.moovHop1000Choice {
-  display: flex;
-  flex-direction: row;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) ;
-  border-radius: 2vw;
-}
 
 .labiziChoice img, .moovHop8000Choice img, .moovHop1000Choice img {
   width: 6vw;

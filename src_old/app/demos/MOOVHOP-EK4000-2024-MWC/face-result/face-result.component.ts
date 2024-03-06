@@ -119,7 +119,7 @@ export class FaceResultComponent extends GenericComponent implements OnInit{
 
 
   addFaceUser() {
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/"+this.moovhopService.idUserToCheck+"/face/samples", {
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/"+this.moovhopService.idUserToCheck+"/face/samples", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -175,7 +175,7 @@ export class FaceResultComponent extends GenericComponent implements OnInit{
       redirect: 'follow' as RequestRedirect | undefined
     };
 
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.moovhopService.idUserToCheck+"/idchecks", requestOptions)
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.moovhopService.idUserToCheck+"/idchecks", requestOptions)
       .then(response => response.json())
       .then((data) => {
         console.log(data);
@@ -237,7 +237,7 @@ export class FaceResultComponent extends GenericComponent implements OnInit{
       redirect: 'follow'
     };
 
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.moovhopService.idUserToCheck+"/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false", requestOptions)
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.moovhopService.idUserToCheck+"/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false", requestOptions)
       .then(response => response.json())
       .then((data) => {
         console.log(data);

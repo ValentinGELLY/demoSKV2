@@ -28,7 +28,7 @@ export class FormComponent implements OnInit {
     
     var tel = (<HTMLInputElement>document.getElementById("tel")).value;
     console.log('userId: ', userId, 'tel: ', tel);
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users", {
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users", {
       method: "POST", 
       
       headers: {

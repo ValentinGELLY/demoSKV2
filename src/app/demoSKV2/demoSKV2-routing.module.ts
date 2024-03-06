@@ -11,6 +11,10 @@ import { LightComponent } from './tests-ivq/light/light.component';
 import { TouchComponent } from './tests-ivq/touch/touch.component';
 import { SketchpadComponent } from './tests-ivq/sketchpad/sketchpad.component';
 import { VideoCallComponent } from './tests-ivq/video-call/video-call.component';
+import { AppDemoChoiceComponent } from './app-demo-choice/app-demo-choice.component';
+import { TestIvqChoiceComponent } from './test-ivq-choice/test-ivq-choice.component';
+import { FeaturesChoiceComponent } from './features-choice/features-choice.component';
+import { CustomerExperienceChoiceComponent } from './customer-experience-choice/customer-experience-choice.component';
 
 
 const routes: Routes = [
@@ -24,7 +28,11 @@ const routes: Routes = [
   {path:'lightTest', component:LightComponent},
   {path:'touchpadTest', component:TouchComponent},
   {path:'skecthpadTest', component:SketchpadComponent},
-  {path:'videoCallTest', component:VideoCallComponent}
+  {path:'videoCallTest', component:VideoCallComponent},
+  {path:'customerExperienceChoice', component:CustomerExperienceChoiceComponent}, 
+  {path:'featuresChoice', component:FeaturesChoiceComponent},
+  {path:'testIvqChoice', component:TestIvqChoiceComponent},
+  { path: 'appDemoChoice', component: AppDemoChoiceComponent },
 ];
 
 @NgModule({

@@ -4,56 +4,50 @@
   width: 100%;
 }
 
-.rectangle25 {
+.container{
   background-color: #fff;
   height: 16.188vw;
   width: 16.188vw;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .25));
   border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconsChoiceView{
+  height: 9.115vw;
+  width: 7.656vw;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .25));
+  margin-top: 20px;
+}
+
+
+.rectangle25 {
   left: 18.49vw;
   top: 8.49vw;
   position: absolute;
 }
 
 .rectangle29 {
-  background-color: #ffffff;
-  height: 16.188vw;
-  width: 16.188vw;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 30px;
   top: 19.531vw;
   left: 41.406vw;
   position: absolute;
 }
 
 .rectangle27 {
-  background-color: #ffffff;
-  height: 16.188vw;
-  width: 16.188vw;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 30px;
   top: 30.219vw;
   left: 18.49vw;
   position: absolute;
 }
 
 .rectangle28 {
-  background-color: #ffffff;
-  height: 16.188vw;
-  width: 16.188vw;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 30px;
   top: 30.219vw;
   left: 65.417vw;
   position: absolute;
 }
 
 .rectangle26 {
-  background-color: #ffffff;
-  height: 16.188vw;
-  width: 16.188vw;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 30px;
   top: 8.49vw;
   left: 65.417vw;
   position: absolute;
@@ -174,31 +168,23 @@
   line-height: auto;
 }
 
-.image9 {
-  height: 9.115vw;
-  width: 7.656vw;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .25));
+.userIcons {
+
   left: 4.1vw;
   top: 2.8vw;
-  position: absolute;
+
 }
 
-.image10 {
-  height: 10.781vw;
-  width: 9.896vw;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .25));
+.marketingIcons {
   left: 3.5vw;
   top: 2vw;
-  position: absolute;
+
 }
 
-.image11 {
-  height: 9.792vw;
-  width: 9.635vw;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .25));
+.toolIcon {
   left: 3.219vw;
   top: 1.8vw;
-  position: absolute;
+
 }
 
 
@@ -211,26 +197,16 @@
   position: absolute;
 }
 
-.image13 {
+.plusIcon {
   height: 4.323vw;
-  width: 4.219vw;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .25));
+  width: 4.219vw;  
   left: 2.073vw;
   top: 2vw;
   position: absolute;
 }
 
-.image14 {
-  height: 18.646vw;
-  width: 12.448vw;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .25));
-  left: 1.802vw;
-  top: -1.5vw;
-  top: -2vw;
-  position: absolute;
-}
 
-.logoipm1 {
+.logoIpmSection {
   background-color: #ffffff;
   height: 3vw;
   width: 5vw;
@@ -240,6 +216,6 @@
   left: 0px;
 }
 
-.logoipm12 {
+.logoipm {
   width: 5vw;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { MoovopService } from '../moovop.service';
 import { GenericComponent } from '../../generic/generic.component';
 import { SoftKioskService } from 'src/app/softkiosk.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-moovop-qr-code',
@@ -11,7 +12,7 @@ import { SoftKioskService } from 'src/app/softkiosk.service';
 export class MoovopQrCodeComponent extends GenericComponent implements OnInit, OnDestroy, AfterViewInit {
 
   moovopService: MoovopService;
-  constructor(moovopService: MoovopService, skService: SoftKioskService) {
+  constructor(moovopService: MoovopService, skService: SoftKioskService, private router: Router) {
     super(skService);
     this.moovopService = moovopService;
   }
@@ -37,13 +38,10 @@ export class MoovopQrCodeComponent extends GenericComponent implements OnInit, O
         console.log("Code barre lu: " + e.data.barcode);
         console.log("je vais changer de page dans 1 seconde");
         // traitement pour le changement de vue
-        let navEvent = new CustomEvent("moovopNav", {
-          detail: {
-            "delay": 1000,
-            "goTo": "/moovopCongratulations"
-          }
-        });
-        window.dispatchEvent(navEvent);
+        
+        if(this.router.url === "/moovopQrCode"){
+          this.router.navigate(['/moovopCongratulations']);
+        }
         break;
       case 'BarcodeReadError':
         console.log("Erreur de lecture de code barre: " + e.data.code);

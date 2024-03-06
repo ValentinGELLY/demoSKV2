@@ -13,6 +13,10 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //document.getElementById("btnClickHere")!.addEventListener("click", this.clickHere);
+  }
+  clickHere() {
+    this.router.navigate(['/demoSKV2ChooseView']);
   }
 
 }

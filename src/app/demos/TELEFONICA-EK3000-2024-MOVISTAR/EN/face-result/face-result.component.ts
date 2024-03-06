@@ -122,7 +122,7 @@ export class EnFaceResultComponent extends GenericComponent {
   createUser() {
     let referenceId = new Date().toJSON();
 
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users", {
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -217,7 +217,7 @@ export class EnFaceResultComponent extends GenericComponent {
 }
 
   addFaceUser(imageRogneeBase64:string) {
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/face/samples", {
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/face/samples", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -319,7 +319,7 @@ export class EnFaceResultComponent extends GenericComponent {
       redirect: 'follow'
     };
 
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/idchecks/" + this.telefonicaService.idChecks + "/documents?isAsync=false", requestOptions)
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.telefonicaService.idUserToCheck + "/idchecks/" + this.telefonicaService.idChecks + "/documents?isAsync=false", requestOptions)
       .then(response => response.json())
       .then((data) => {
         if (data.processingStatus == "FAILED") {
@@ -344,7 +344,7 @@ export class EnFaceResultComponent extends GenericComponent {
   }
 
   checkValidation() {
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.telefonicaService.idUserToCheck+"/idchecks/"+this.telefonicaService.idChecks+"/evaluation?evaluationPolicyName=policy-2",
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.telefonicaService.idUserToCheck+"/idchecks/"+this.telefonicaService.idChecks+"/evaluation?evaluationPolicyName=policy-2",
     {
       method: "POST",
       headers: {
@@ -374,7 +374,7 @@ export class EnFaceResultComponent extends GenericComponent {
     }
 
   getAllInformation() {
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/"+this.telefonicaService.hrefSensitiveData,
+    fetch("https://cors.18.175.2.71.sslip.io/" + this.telefonicaService.hrefSensitiveData,
     {
       method: "GET",
       headers: {
@@ -392,18 +392,20 @@ export class EnFaceResultComponent extends GenericComponent {
           if (data.mrz.hasOwnProperty(key)) {
             let element = data.mrz[key];            
             switch (element.name) {
-              case "Document Number":
+              case "Personal Number":
                 this.telefonicaService.numDocument = element.value;
-                break;
+                break; 
               case "Surname":
-                this.telefonicaService.userName = element.value;
-                break;
-              case "Given Names":
-                this.telefonicaService.userFirstName = element.value.split(" ")[0];
-                if (element.value.split(" ")[1] != undefined) {
-                  this.telefonicaService.userSecondName = element.value.split(" ")[1];
+                let surname = element.value.split(" ");
+                this.telefonicaService.userFirstName = surname[0];
+                if (surname.length > 1) {
+                  this.telefonicaService.userSecondName = surname[1];
                 }
                 break;
+              case "Given Names":
+                this.telefonicaService.userName = element.value;
+                break;
+              
               case "Nationality":
                 this.telefonicaService.nationality = element.value;
                 break;

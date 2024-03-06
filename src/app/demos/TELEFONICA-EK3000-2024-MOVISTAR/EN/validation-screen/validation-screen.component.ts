@@ -99,7 +99,7 @@ export class EnValidationScreenComponent extends GenericComponent {
       redirect: 'follow' as RequestRedirect | undefined
     };
 
-    fetch("https://zwk8o88.15.237.60.0.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.telefonicaService.idUserToCheck+"/idchecks", requestOptions)
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.telefonicaService.idUserToCheck+"/idchecks", requestOptions)
       .then(response => response.json())
       .then((data) => {
         console.log(data);

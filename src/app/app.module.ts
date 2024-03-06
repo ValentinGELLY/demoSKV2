@@ -26,6 +26,10 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
+       /* CustomerExperienceChoiceComponent,
+        FeaturesChoiceComponent,
+        TestIvqChoiceComponent,
+        AppDemoChoiceComponent,*/
         
     ],
     providers: [CustomPreloadingStrategy],
