@@ -1,5 +1,17 @@
 <div id='desktop-6' class='desktop-6'>
-  <div id='rectangle25' class='container rectangle25' (click)="chooseView('user')">
+  <div class="main">
+    <div  class="allProfil">
+      <div id='{{item.rectangle}}' class='{{item.class}}' (click)='chooseView(item.name)' *ngFor="let item of arrayAccount; let i = index">
+        <img id='{{item.imgId}}' class='{{item.imgClass}}' src='{{item.imgSrc}}' />
+        <img id='{{item.secondImgId}}' class='{{item.imgClass2}}' src='{{item.secondImg}}' />
+        <div id='{{item.name}}' class='{{item.name}}'>{{item.text}}</div>
+      </div>
+    </div>
+  </div>
+  
+
+
+  <!--<div id='rectangle25' class='container rectangle25' (click)="chooseView('user')">
     <img id='userIcons' class='iconsChoiceView userIcons'
       src='./assets/DemoSKV2/all-pages-icon/user.png' />
 
@@ -40,7 +52,7 @@
 
     <div id='technique' class='technique'>
       Technique</div>
-  </div>
+  </div>-->
 
   <div id='rectangle23' class='container rectangle23'>
     <h2 class="choisissezunevue"> Choisissez une vue: </h2>

@@ -472,7 +472,7 @@ export class FaceResultComponent extends GenericComponent {
                 this.telefonicaService.userName = element.value;
                 break;
               
-              case "Nationality":
+              case "Issuing State Code":
                 this.telefonicaService.nationality = element.value;
                 break;
               // Ajoutez d'autres cas pour d'autres propriétés si nécessaire

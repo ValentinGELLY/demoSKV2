@@ -5,11 +5,13 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './test-ivq-choice.component.html',
   styleUrls: ['./test-ivq-choice.component.scss',"../option-list/option-list.component.scss"]
 })
-export class TestIvqChoiceComponent implements OnInit {
+export class TestIvqChoiceComponent {
 
   constructor() { }
+  
 
-  ngOnInit(): void {
-  }
+  
+  
+
 
 }

@@ -18,6 +18,8 @@ export class AppService implements OnInit {
   @Output() currentMenuChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() currentViewChange: EventEmitter<string> = new EventEmitter<string>();
   statusSubject: any;
+  idScriptSelected=0;
+  listScript: any;
 
 
   constructor(private skService: SoftKioskService, private router: Router) {

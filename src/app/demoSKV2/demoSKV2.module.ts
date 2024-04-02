@@ -12,6 +12,8 @@ import { CustomerExperienceChoiceComponent } from './customer-experience-choice/
 import { FeaturesChoiceComponent } from './features-choice/features-choice.component';
 import { TestIvqChoiceComponent } from './test-ivq-choice/test-ivq-choice.component';
 import { AppDemoChoiceComponent } from './app-demo-choice/app-demo-choice.component';
+import { FeatureRunComponent } from './feature-run/feature-run.component';
+
 @NgModule({
   declarations: [
     HomepageComponent,
@@ -22,6 +24,7 @@ import { AppDemoChoiceComponent } from './app-demo-choice/app-demo-choice.compon
     FeaturesChoiceComponent,
     TestIvqChoiceComponent,
     AppDemoChoiceComponent,
+    
   ],
   imports: [
     BrowserModule,

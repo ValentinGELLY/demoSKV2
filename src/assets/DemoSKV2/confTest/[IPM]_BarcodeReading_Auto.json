@@ -1,0 +1,24 @@
+{
+    "title": "BarCodeReading_auto",
+    "perifName": "BarCodeReading",
+    "JSFile": "BarcodeReading_auto.js",
+    "description":  "Détection et lecture de code barre en mode automatique",
+    "params": [],
+    "events": [
+        {
+            "name": "barcodeRead",
+            "description": "Code barre lu",
+            "switch":[
+                {
+                    "condition": "BarcodeRead",
+                    "desciption": "Code barre lu"
+                }
+            ]
+        }
+    ],
+    "perifUsed":[
+        {
+            "name": "BarcodeReading"
+        }
+    ]
+}

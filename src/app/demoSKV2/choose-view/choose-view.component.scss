@@ -22,37 +22,6 @@
   margin-top: 20px;
 }
 
-
-.rectangle25 {
-  left: 18.49vw;
-  top: 8.49vw;
-  position: absolute;
-}
-
-.rectangle29 {
-  top: 19.531vw;
-  left: 41.406vw;
-  position: absolute;
-}
-
-.rectangle27 {
-  top: 30.219vw;
-  left: 18.49vw;
-  position: absolute;
-}
-
-.rectangle28 {
-  top: 30.219vw;
-  left: 65.417vw;
-  position: absolute;
-}
-
-.rectangle26 {
-  top: 8.49vw;
-  left: 65.417vw;
-  position: absolute;
-}
-
 .rectangle23 {
   background-color: #ffffff;
   height: 4.323vw;
@@ -84,46 +53,20 @@
 }
 
 .utilisateur {
-  color: #000;
-  text-align: left;
-  vertical-align: text-top;
   font-size: 2.5vw;
   font-family: "MPlusRoundedBold";
-  width: 13.021vw;
-  height: 3.698vw;
-  position: absolute;
-  top: 12vw;
-  left: 1.5vw;
-  line-height: auto;
 }
 
 .ivq {
-  color: #000;
-  text-align: left;
-  vertical-align: text-top;
   font-size: 2.5vw;
-  font-family: "MPlusRoundedBold";
-  width: 4.219vw;
-  height: 3.698vw;
-  top: 12.5vw;
-  left: 5.5vw;
-  position: absolute;
-  line-height: auto;
+  font-family: MPlusRoundedBold;
 }
 
 .technique {
-  color: #000000;
-  text-align: left;
-  vertical-align: text-top;
   font-size: 2.5vw;
   font-family: 'MPlusRoundedBold';
-  width: 11.927vw;
-  height: 3.698vw;
-  position: absolute;
-  line-height: auto;
-  top: 86%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: fit-content;
+  text-align: center;
 }
 
 .avancee {
@@ -132,12 +75,6 @@
   vertical-align: text-top;
   font-size: 2.5vw;
   font-family: "MPlusRoundedBold";
-  width: 11.972vw;
-  height: 3.698vw;
-  top: 12.8vw;
-  position: absolute;
-  left: 2vw;
-  line-height: auto;
 }
 
 .technique2 {
@@ -218,4 +155,50 @@
 
 .logoipm {
   width: 5vw;
+}
+
+.main{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 75%;
+  top: 10%;
+  position: absolute;
+}
+
+.allProfil{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 85%;
+  height: 100%;
+  justify-content: center;
+}
+
+
+.left{
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.right{
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.middle{
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }

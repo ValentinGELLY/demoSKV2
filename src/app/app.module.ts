@@ -1,3 +1,4 @@
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,8 +13,9 @@ import { MoovopModule as MoovHopModule8000 } from './demos/moovHop/moovHop.modul
 import { MoovHop4000Module as MoovHopModule4000 } from './demos/MOOVHOP-EK4000-2023-RNTP/moovhop.module';
 import { Telefonica3000MovistarModule as Telefonica3000 } from './demos/TELEFONICA-EK3000-2024-MOVISTAR/telefonica.module';
 import { MoovHopModule4000MWC as MoovHopModule4000MWC } from './demos/MOOVHOP-EK4000-2024-MWC/moovhop.module';
-import { RouterModule, Routes } from '@angular/router';
 import {CustomPreloadingStrategy} from './custom-preloading-strategy';
+import { FeatureRunComponent } from './demoSKV2/feature-run/feature-run.component';
+
 
 const routes: Routes = [
     {
@@ -26,6 +28,7 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
+        FeatureRunComponent,
        /* CustomerExperienceChoiceComponent,
         FeaturesChoiceComponent,
         TestIvqChoiceComponent,
@@ -47,7 +50,9 @@ const routes: Routes = [
         MoovHopModule8000,
         MoovHopModule4000,
         Telefonica3000,
-        MoovHopModule4000MWC
+        MoovHopModule4000MWC,
+        
+        
     ],
 })
 export class AppModule { }

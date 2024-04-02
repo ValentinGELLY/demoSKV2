@@ -15,6 +15,7 @@ import { AppDemoChoiceComponent } from './app-demo-choice/app-demo-choice.compon
 import { TestIvqChoiceComponent } from './test-ivq-choice/test-ivq-choice.component';
 import { FeaturesChoiceComponent } from './features-choice/features-choice.component';
 import { CustomerExperienceChoiceComponent } from './customer-experience-choice/customer-experience-choice.component';
+import { FeatureRunComponent } from './feature-run/feature-run.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path:'featuresChoice', component:FeaturesChoiceComponent},
   {path:'testIvqChoice', component:TestIvqChoiceComponent},
   { path: 'appDemoChoice', component: AppDemoChoiceComponent },
+  {path:'featureRun', component:FeatureRunComponent},
 ];
 
 @NgModule({

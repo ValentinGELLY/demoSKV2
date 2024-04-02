@@ -1,0 +1,94 @@
+<img src="./assets/DemoSKV2/Hamburger_icon.svg.png" alt="" class="icons" id="hamburgerIcon">
+
+<img src="./assets/DemoSKV2/back.png" alt="" class="icons" id="backIcon">
+<main>
+    <div id="left">
+        <section id="doc">
+            <section id="title">
+                <h1>{{nomApp}}</h1>
+            </section>
+            <section class="documentation">
+                <p>{{getShortenedDescription()}}</p>
+                <button id="btnRead">Lire la suite ></button>
+            </section>
+        </section>
+        <section id="parametre">
+            
+            <h2>Paramètres : </h2>
+            <section class="editParam">
+                <p>Total Débit (en centimes)</p>
+                <input type="number" name="totalDeb" id="totalDebit">
+            </section>
+            <section class="editParam">
+                <button class="CancelDebit">Cancel Debit</button>
+            </section>
+        </section>
+        <section class="codeSection">
+            <section class="accordion">
+                <h2>Code</h2> <button id="copyBtn">Copy the code </button>
+                <div class="fleche"></div>
+            </section>
+            <div class="panel">
+                <pre>
+                    <code class="language-javascript">
+                    </code>
+                </pre>
+            </div>
+        </section>
+    </div>
+
+    <div id="right">
+        <section class="LogSection">
+            <section class="accordion">
+                <h2>Logs</h2>
+                <div class="fleche"></div>
+            </section>
+            <div class="panel">
+
+            </div>
+        </section>
+        <section id="status">
+            <section>
+                <h2>Status Services :</h2>
+                <div class="listStatus">
+                    <section class="logStatus" *ngFor="let item of nbService; let i = index">
+                        <section class="btnStatus">
+                            <h3>Status {{serviceUsed[i].name}} : <span id="status_{{serviceUsed[i].name}}">OK</span></h3>
+                            <div class="fleche"></div>
+                        </section>
+                        <div class="panel">
+
+                        </div>
+                    </section>
+                </div>
+            </section>
+            <section id="status">
+                <section>
+                    <h2>Status Périphériques :</h2>
+                    <div class="listStatus">
+                        <section class="logStatus" *ngFor="let item of nbPerif; let i = index">
+                            <section class="btnStatus">
+                                <h3>Status {{perifUsed[i].name}} : <span id="status_{{perifUsed[i].name}}">OK</span>
+                                </h3>
+                                <div class="fleche"></div>
+                            </section>
+                            <div class="panel">
+
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </div>
+</main>
+<div id="popUpDescritionPage">  
+    
+</div>
+<div id="popUpDescrition">
+    <h2 id="titlePopUpDescription">Description</h2>
+    <p id="idDescription">
+        {{description}}
+    </p>
+    <img src="./assets/DemoSKV2/all-pages-icon/cross.png" alt="" srcset="" id="crossPopUp">
+</div>
