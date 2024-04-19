@@ -5,3 +5,8 @@ node_modules
 
 application/*
 
+package-lock.json
+.gitignore
+package-lock.json
+package.json
+.vscode/settings.json

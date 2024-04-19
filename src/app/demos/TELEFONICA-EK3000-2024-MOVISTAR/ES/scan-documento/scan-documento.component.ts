@@ -167,7 +167,6 @@ export class ScanDocumentoComponent extends GenericComponent {
           this.skService.removeEventListener('DocumentScanning', 'previewStart', this.onPreview);
           this.skService.stopDocumentPreview();
           this.router.navigate(['/ES/faceResult']);
-
         }
       }
     }

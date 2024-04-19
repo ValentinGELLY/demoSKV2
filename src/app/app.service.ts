@@ -18,7 +18,7 @@ export class AppService implements OnInit {
   @Output() currentMenuChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() currentViewChange: EventEmitter<string> = new EventEmitter<string>();
   statusSubject: any;
-  idScriptSelected=0;
+  filename: string = "";
   listScript: any;
   filename: string = "";
 
@@ -103,5 +103,7 @@ export class AppService implements OnInit {
   changeView(view: string) {
     this.setCurrentView(view);
   }
+
+
 
 }
