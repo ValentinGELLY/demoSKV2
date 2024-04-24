@@ -55,7 +55,7 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
 
     
 
-    this.moovHopService.timeoutNavigation();
+    //this.moovHopService.timeoutNavigation();
     this.testStatus();
 
 

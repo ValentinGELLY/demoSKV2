@@ -13,8 +13,8 @@ export class PaymentAppMobileComponent {
   ngOnInit(){
     let _this=this;
     setTimeout(()=>{
-      if(_this.router.url === '/MWC2024/paymentAppMobile'){
-        _this.router.navigate(['/MWC2024/waitingScreenPrinting'])
+      if(_this.router.url === '/AGIR2024/paymentAppMobile'){
+        _this.router.navigate(['/AGIR2024/waitingScreenPrinting'])
       }
     },5000)
   }

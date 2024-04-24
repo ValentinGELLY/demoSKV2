@@ -38,7 +38,7 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
 
   constructor(skService: SoftKioskService, private appService: AppService, private moovHopService: MoovhopService, _router: Router) {
     super(skService);
-    this.moovHopNavigateTo = this.moovHopService.nextRoute;
+    this.moovHopNavigateTo = this.moovHopService.nextRoute();
     this.moovHopNavigateToPrevious = this.moovHopService.previousRoute;
     this.moovHopCurrentUrl = this.moovHopService.currentUrl;
     this.router = _router;

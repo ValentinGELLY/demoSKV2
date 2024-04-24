@@ -34,15 +34,15 @@ export class ScanQrCodeComponent extends GenericComponent implements OnInit, OnD
 
         // traitement pour le changement de vue
 
-        if (this.router.url == '/MWC2024/scanQrCode') {
+        if (this.router.url == '/AGIR2024/scanQrCode') {
           let loading = document.getElementById("loading");
           let borne = document.getElementById("borne");
           if (loading) { loading.style.setProperty("opacity", "1"); }
           if (borne) { borne.style.setProperty("opacity", "0"); }
           setTimeout(() => {
-            if (this.router.url == '/MWC2024/scanQrCode') {
+            if (this.router.url == '/AGIR2024/scanQrCode') {
               this.moovhopService.QRCodeScaned = true;
-              this.router.navigate(['/MWC2024/identificationValidation'])
+              this.router.navigate(['/AGIR2024/identificationValidation'])
             }
           }, 2000);
         }

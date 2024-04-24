@@ -13,8 +13,10 @@ import { MoovopModule as MoovHopModule8000 } from './demos/moovHop/moovHop.modul
 import { MoovHop4000Module as MoovHopModule4000 } from './demos/MOOVHOP-EK4000-2023-RNTP/moovhop.module';
 import { Telefonica3000MovistarModule as Telefonica3000 } from './demos/TELEFONICA-EK3000-2024-MOVISTAR/telefonica.module';
 import { MoovHopModule4000MWC as MoovHopModule4000MWC } from './demos/MOOVHOP-EK4000-2024-MWC/moovhop.module';
+import { MoovHopModule4000AGIR2024 } from './demos/MOOVHOP-EK4000-2024-AGIR/moovhop.module';
 import {CustomPreloadingStrategy} from './custom-preloading-strategy';
 import { FeatureRunComponent } from './demoSKV2/feature-run/feature-run.component';
+import { CreateAccountFaceCaptureComponent } from './demos/MOOVHOP-EK4000-2024-AGIR/subcription/create-account-face-capture/create-account-face-capture.component';
 
 
 const routes: Routes = [
@@ -51,6 +53,7 @@ const routes: Routes = [
         MoovHopModule4000,
         Telefonica3000,
         MoovHopModule4000MWC,
+        MoovHopModule4000AGIR2024,
         
         
     ],

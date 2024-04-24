@@ -32,6 +32,8 @@ import { InformationSummaryComponent } from './official-report/information-summa
 import { ScanQrCodeComponent } from './official-report/scan-qr-code/scan-qr-code.component';
 import { WaitingScreenPrintingComponent } from './printing/waiting-screen-printing/waiting-screen-printing.component';
 import { ThanksPaymentReportComponent } from './official-report/thanks-payment-report/thanks-payment-report.component';
+import { CreateAccountFaceCaptureComponent } from './subcription/create-account-face-capture/create-account-face-capture.component';
+import { CreateAccountValidationScreen} from './subcription/validation-screen/validation-screen.component';
 
 
 @NgModule({
@@ -65,6 +67,8 @@ import { ThanksPaymentReportComponent } from './official-report/thanks-payment-r
     ScanQrCodeComponent,
     WaitingScreenPrintingComponent,
     ThanksPaymentReportComponent,
+    CreateAccountValidationScreen,
+    CreateAccountFaceCaptureComponent
 
   ],
   exports:[MoovHopAllPagesComponent],
@@ -79,5 +83,5 @@ import { ThanksPaymentReportComponent } from './official-report/thanks-payment-r
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class MoovHopModule4000MWC { }
+export class MoovHopModule4000AGIR2024 { }
 

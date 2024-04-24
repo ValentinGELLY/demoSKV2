@@ -17,8 +17,8 @@ export class PrintingScanQRcodeComponent implements OnInit {
     this.lineChoosed = this.moovhopService.LineChoosed;
     this.img="./assets/MOOVHOP-EK4000-2023-RNTP/QRcode_fiche"+this.lineChoosed+".png"
     this.timeOut = setTimeout(() => {
-      if(this.router.url=="/MWC2024/printingScanQRcode"){
-        this.router.navigate(['/MWC2024/printingThanks']);
+      if(this.router.url=="/AGIR2024/printingScanQRcode"){
+        this.router.navigate(['/AGIR2024/printingThanks']);
       }
     }, 10000);
   }

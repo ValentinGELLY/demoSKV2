@@ -25,7 +25,7 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
 
     console.log(this.moovHopService.ActionChoosed);
 
-    if (this.router.url === "/MWC2024/waitingScreenPrinting") {
+    if (this.router.url === "/AGIR2024/waitingScreenPrinting") {
       if (this.moovHopService.ActionChoosed == 1) {
         if (this.moovHopService.textCB != '') {
           this.moovHopService.htmlReceiptContent = '<html><meta charset="utf-8" >' +
@@ -37,7 +37,7 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
             '<p style="text-align:center;" *ngIf="this.textCB!=\'\' ">' + this.moovHopService.textCB + '</p>' +
             '<p style="text-align:center;" *ngIf="this.textCB!=\'\' ">.....................</p>' +
             '<div style="width:100%; text-align:center"><img src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK4000-2023-RNTP/qr_ticket.jpg"></div>' +
-            '<p style="text-align:center;">Scan this QR code to pick up your season ticket at a branch or Click & Collect terminal!</p>' +
+            '<p style="text-align:center;">Récupérez votre carte d\'abonné en agence ou sur une borne de Click & Collect en scannant ce QR code !</p>' +
             '</body>' +
             '</html>'
             this.moovHopService.textCB = '';
@@ -49,7 +49,7 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
             '<p style="text-align:center;">' + this.moovHopService.priceSubscription + '€</p>' +
             '<p style="text-align:center;">.....................</p>' +
             '<div style="width:100%; text-align:center"><img src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK4000-2023-RNTP/qr_ticket.jpg"></div>' +
-            '<p style="text-align:center;">Scan this QR code to pick up your season ticket at a branch or Click & Collect terminal!</p>' +
+            '<p style="text-align:center;">Récupérez votre carte d\'abonné en agence ou sur une borne de Click & Collect en scannant ce QR code !</p>' +
             '</body>' +
             '</html>'
         }
@@ -57,26 +57,26 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
           let navEvent;
           switch (e.data.dataType) {
             case 'RawHtmlPrinted':
-              if (this.router.url === "/MWC2024/waitingScreenPrinting") {
+              if (this.router.url === "/AGIR2024/waitingScreenPrinting") {
                 // traitement pour le changement de vue
                 navEvent = new CustomEvent("moovHopNav", {
                   detail: {
                     "delay": 0,
-                    "goTo": "/MWC2024/subScriptionConfirmation"
+                    "goTo": "/AGIR2024/subScriptionConfirmation"
                   }
                 });
                 window.dispatchEvent(navEvent);
               }
               break;
             case 'RawHtmlPrintError':
-              if (this.router.url === "/MWC2024/waitingScreenPrinting") {
+              if (this.router.url === "/AGIR2024/waitingScreenPrinting") {
                 console.error(e.data.code + ": " + e.data.description);
                 this.handlePrintError(e.data.code);
                 // traitement pour le changement de vue
                 navEvent = new CustomEvent("moovHopNav", {
                   detail: {
                     "delay": 0,
-                    "goTo": "/MWC2024/subScriptionConfirmation"
+                    "goTo": "/AGIR2024/subScriptionConfirmation"
                   }
                 });
                 window.dispatchEvent(navEvent);
@@ -103,26 +103,26 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
           let navEvent;
           switch (e.data.dataType) {
             case 'RawPdfPrinted':
-              if (this.router.url === "/MWC2024/waitingScreenPrinting") {
+              if (this.router.url === "/AGIR2024/waitingScreenPrinting") {
                 // traitement pour le changement de vue
                 navEvent = new CustomEvent("moovHopNav", {
                   detail: {
                     "delay": 0,
-                    "goTo": "/MWC2024/printingThanks"
+                    "goTo": "/AGIR2024/printingThanks"
                   }
                 });
                 window.dispatchEvent(navEvent);
               }
               break;
             case 'RawPdfPrintError':
-              if (this.router.url === "/MWC2024/waitingScreenPrinting") {
+              if (this.router.url === "/AGIR2024/waitingScreenPrinting") {
                 console.error(e.data.code + ": " + e.data.description);
                 this.handlePrintError(e.data.code);
                 // traitement pour le changement de vue
                 navEvent = new CustomEvent("moovHopNav", {
                   detail: {
                     "delay": 0,
-                    "goTo": "/MWC2024/printingThanks"
+                    "goTo": "/AGIR2024/printingThanks"
                   }
                 });
                 window.dispatchEvent(navEvent);
@@ -158,25 +158,25 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
           switch (e.data.dataType) {
             case 'RawHtmlPrinted':
               // traitement pour le changement de vue
-              if (this.router.url === "/MWC2024/waitingScreenPrinting") {
+              if (this.router.url === "/AGIR2024/waitingScreenPrinting") {
                 navEvent = new CustomEvent("moovHopNav", {
                   detail: {
                     "delay": 0,
-                    "goTo": "/MWC2024/thanksPaymentReport"
+                    "goTo": "/AGIR2024/thanksPaymentReport"
                   }
                 });
                 window.dispatchEvent(navEvent);
               }
               break;
             case 'RawHtmlPrintError':
-              if (this.router.url === "/MWC2024/waitingScreenPrinting") {
+              if (this.router.url === "/AGIR2024/waitingScreenPrinting") {
                 console.error(e.data.code + ": " + e.data.description);
                 this.handlePrintError(e.data.code);
                 // traitement pour le changement de vue
                 navEvent = new CustomEvent("moovHopNav", {
                   detail: {
                     "delay": 0,
-                    "goTo": "/MWC2024/thanksPaymentReport"
+                    "goTo": "/AGIR2024/thanksPaymentReport"
                   }
                 });
                 window.dispatchEvent(navEvent);
@@ -212,7 +212,7 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
       // impression de la fiche horaire
       ___this.skService.removeEventListener("DocumentPrinting", "rawPdfPrint", this.formOnRawPdfPrint);
     } else {
-      this.router.navigate(['/MWC2024/thanksPaymentReport'])
+      this.router.navigate(['/AGIR2024/thanksPaymentReport'])
     }
 
 

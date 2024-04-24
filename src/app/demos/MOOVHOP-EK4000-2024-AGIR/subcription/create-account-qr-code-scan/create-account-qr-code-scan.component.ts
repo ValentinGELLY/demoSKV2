@@ -46,12 +46,12 @@ export class CreateAccountQRCodeScanComponent extends GenericComponent implement
   override onBarcodeRead = (e: any): void => {
     switch (e.data.dataType) {
       case 'BarcodeRead':
-        if (this.router.url == '/MWC2024/createAccountQRCodeScan') {
+        if (this.router.url == '/AGIR2024/createAccountQRCodeScan') {
           document.getElementById('textAdd')?.style.setProperty('opacity', '1');
           this.moovhopService.priceSubscription = this.moovhopService.priceSubscription*0.85
           let textSubscription = this.moovhopService.textSubscription;
           setTimeout(() => {
-            if (this.router.url == '/MWC2024/createAccountQRCodeScan') {
+            if (this.router.url == '/AGIR2024/createAccountQRCodeScan') {
               let _this = this;
               _this.skService.addEventListener("BarcodeReading", "barcodeRead", this.onBarcodeRead);
               _this.skService.barcodeReadingManual();
@@ -71,8 +71,7 @@ export class CreateAccountQRCodeScanComponent extends GenericComponent implement
               '<p style="text-align:center;">Collect your subscription card in an agency or at a Click & Collect terminal by scanning this QR code!</p>' +
               '</body>' +
               '</html>';
-              this.router.navigate(['/MWC2024/paymentChoice']);
-
+              this.router.navigate(['/AGIR2024/paymentChoice']);
             }
           }, 2000);
         }

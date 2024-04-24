@@ -13,8 +13,8 @@ export class ThanksPaymentReportComponent implements OnInit {
   ngOnInit(): void {
      
     this.timeOut = setTimeout(() => {
-      if (this.router.url === "/MWC2024/thanksPaymentReport") {
-        this.router.navigate(['/MWC2024/homepageEK4000'])
+      if (this.router.url === "/AGIR2024/thanksPaymentReport") {
+        this.router.navigate(['/AGIR2024/homepageEK4000'])
       }
     }, 5000);
 

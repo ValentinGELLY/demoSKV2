@@ -21,8 +21,8 @@ export class PaymentSubscriptionConfirmationComponent extends GenericComponent i
   ngAfterViewInit(): void {
     let __this = this;
     this.timeOut = setTimeout(() => {
-      if (__this.router.url === '/MWC2024/subScriptionConfirmation') {
-        __this.router.navigate(['/MWC2024/homepageEK4000']);
+      if (__this.router.url === '/AGIR2024/subScriptionConfirmation') {
+        __this.router.navigate(['/AGIR2024/homepageEK4000']);
       }
     }, 7000);
   }

@@ -11,7 +11,7 @@ export class MoovhopService {
 
     timeout: any = null;
     identityPicture: boolean = false;
-    route: any = '/MWC2024/createAccountPersonalInformations';
+    route: any = '/AGIR2024/createAccountPersonalInformations';
 
     currentView = "";
 
@@ -27,47 +27,52 @@ export class MoovhopService {
     QRCodeScaned: boolean = false;
 
 
-    whatSubscription: string = "";
+    whatSubscription: string = "1";
+    priceSubscription: number = 15;
+    textSubscription: string = '<p style="text-align:center;">Abonnement 1 semaine</p>';
+    
     paidWithCB: boolean = false;
-    priceSubscription: number = 0;
-
-
-    textSubscription: string = '<p style="text-align:center;">';
 
     heureCB: string = "";
 
     textCB: string = '';
 
 
+    // Gestions Reconnaissance facial
+    documentSelected: string = "IdCard";
+    faceCapture : string =""
+
+
+
+
     private moovHopRouterDic: any = {
         // use case achat d'un pass (création d'un compte)
-        '/MWC2024/homepageEK4000': '/MWC2024/createAccountMenu',
-        '/MWC2024/createAccountMenu': '/MWC2024/createAccountCamera',
-        '/MWC2024/createAccountCamera': '/MWC2024/createAccountScanFinish',
-        '/MWC2024/createAccountScanFinish': '/MWC2024/createAccountPersonalInformations',
-        '/MWC2024/createAccountPersonalInformations': '/MWC2024/createAccountHello',
-        '/MWC2024/createAccountHello': '/MWC2024/createAccountProofAddress',
-        '/MWC2024/createAccountProofAddress': '/MWC2024/reateAccountSubscriptionChoice',
-        '/MWC2024/createAccountSubscriptionChoice': '/MWC2024/createAccountQRCodeYesNo',
-        '/MWC2024/createAccountQRCodeYesNo': '/MWC2024/createAccountQRCodeScan',
-        '/MWC2024/createAccountQRCodeScan': '/MWC2024/paymentChoice',
-        '/MWC2024/paymentChoice': '/MWC2024/paymentCB',
-        '/MWC2024/paymentCB': '/MWC2024/subscriptionConfirmation',
-        '/MWC2024/subscriptionConfirmation': '/MWC2024/homepageEK4000',
+        '/AGIR2024/homepageEK4000': '/AGIR2024/createAccountMenu',
+        '/AGIR2024/createAccountMenu': '/AGIR2024/createAccountCamera',
+        '/AGIR2024/createAccountScanFinish': '/AGIR2024/createAccountPersonalInformations',
+        '/AGIR2024/createAccountPersonalInformations': '/AGIR2024/createAccountHello',
+        '/AGIR2024/createAccountHello': '/AGIR2024/createAccountProofAddress',
+        '/AGIR2024/createAccountProofAddress': '/AGIR2024/createAccountSubscriptionChoice',
+        '/AGIR2024/createAccountSubscriptionChoice': '/AGIR2024/createAccountQRCodeYesNo',
+        '/AGIR2024/createAccountQRCodeYesNo': '/AGIR2024/createAccountQRCodeScan',
+        '/AGIR2024/createAccountQRCodeScan': '/AGIR2024/paymentChoice',
+        '/AGIR2024/paymentChoice': '/AGIR2024/paymentCB',
+        '/AGIR2024/paymentCB': '/AGIR2024/subscriptionConfirmation',
+        '/AGIR2024/subscriptionConfirmation': '/AGIR2024/homepageEK4000',
 
         // use case impression d'une fiche horaire
-        '/MWC2024/printingMenu': '/MWC2024/printingInformationChoice',
-        '/MWC2024/printingInformationChoice': '/MWC2024/printingMethodsGettingTimetable',
-        '/MWC2024/printingMethodsGettingTimetable': '/MWC2024/printingScanQRcode',
-        '/MWC2024/printingScanQRcode': '/MWC2024/homepageEK4000',
+        '/AGIR2024/printingMenu': '/AGIR2024/printingInformationChoice',
+        '/AGIR2024/printingInformationChoice': '/AGIR2024/printingMethodsGettingTimetable',
+        '/AGIR2024/printingMethodsGettingTimetable': '/AGIR2024/printingScanQRcode',
+        '/AGIR2024/printingScanQRcode': '/AGIR2024/homepageEK4000',
 
 
         // use cas paiement d'une amende
-        '/MWC2024/identificationMenu': '/MWC2024/scanQrCode',
-        '/MWC2024/scanQrCode': '/MWC2024/identificationValidation',
-        '/MWC2024/identificationValidation': '/MWC2024/informationSummary',
-        '/MWC2024/informationSummary': '/MWC2024/paymentChoice',
-        '/MWC2024/thanksPaymentReport': '/MWC2024/homepageEK4000',
+        '/AGIR2024/identificationMenu': '/AGIR2024/scanQrCode',
+        '/AGIR2024/scanQrCode': '/AGIR2024/identificationValidation',
+        '/AGIR2024/identificationValidation': '/AGIR2024/informationSummary',
+        '/AGIR2024/informationSummary': '/AGIR2024/paymentChoice',
+        '/AGIR2024/thanksPaymentReport': '/AGIR2024/homepageEK4000',
 
 
     };
@@ -82,6 +87,29 @@ export class MoovhopService {
     }
     previewImageScanId: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
     previewImageProfile: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
+    nameUser: string = "";
+    idUserToCheck: string ="";
+    errorFace: boolean = false;
+    errorScanId: boolean = false;
+    previewImageScanIdA: string ="";
+    previewImageScanIdB: string ="";
+    previewImageScanIdADef: string ="";
+    previewImageScanIdBDef: string ="";
+    idChecks:string = "";
+    referenceId:string = "";
+
+    timeScanIdA:Date = new Date();
+    timeScanIdB:Date = new Date();
+
+    errorSaveIdCard:boolean = false;
+
+    hrefSensitiveData:string = '';
+
+    firstName:string = "";
+    birthday:string = "";
+
+    identityValidate:boolean = false;
+
 
 
     constructor(private router: Router, private appService: AppService, private _router: ActivatedRoute) {
@@ -95,10 +123,10 @@ export class MoovhopService {
 
     preloadImages() {
         let images = [
-            "./assets/MOOVHOP-EK4000-2024-MWC/Bouton-line1.png",
-            "./assets/MOOVHOP-EK4000-2024-MWC/Bouton-line2.png",
-            "./assets/MOOVHOP-EK4000-2024-MWC/Bouton-line3.png",
-            "./assets/MOOVHOP-EK4000-2024-MWC/Bouton-line4.png",
+            "./assets/MOOVHOP-EK4000-2024-RNTP/cite1.png",
+            "./assets/MOOVHOP-EK4000-2024-RNTP/cite2.png",
+            "./assets/MOOVHOP-EK4000-2024-RNTP/cite3.png",
+            "./assets/MOOVHOP-EK4000-2024-RNTP/cite4.png",
         ];
         for (let i = 0; i < images.length; i++) {
             let img = new Image();
@@ -108,8 +136,8 @@ export class MoovhopService {
 
     timeoutNavigation() {
         this.timeout = setTimeout(() => {
-            if(this.router.url !== '/MWC2024/homepageEK4000'){
-                this.navigateAfterDelay(0, "/MWC2024/homepageEK4000");
+            if(this.router.url !== '/AGIR2024/homepageEK4000'){
+                this.navigateAfterDelay(0, "/AGIR2024/homepageEK4000");
             }
         }, 120000);
     }

@@ -28,39 +28,43 @@ import { IdentificationValidationComponent } from './official-report/identificat
 import { ScanQrCodeComponent } from './official-report/scan-qr-code/scan-qr-code.component';
 import { WaitingScreenPrintingComponent } from './printing/waiting-screen-printing/waiting-screen-printing.component';
 import { ThanksPaymentReportComponent } from './official-report/thanks-payment-report/thanks-payment-report.component';
+import { CreateAccountFaceCaptureComponent } from './subcription/create-account-face-capture/create-account-face-capture.component';
+import { CreateAccountValidationScreen } from './subcription/validation-screen/validation-screen.component';
 
 export const routes: Routes = [
-  {path:'MWC2024/homepageEK4000', component: HomepageComponent},
-  {path:'MWC2024/subScriptionConfirmation', component: PaymentSubscriptionConfirmationComponent},
-  {path:'MWC2024/paymentCB', component: PaymentCardComponent},
-  {path:'MWC2024/createAccountQRCodeYesNo', component:CreateAccountQRCodeYesNoComponent},
-  {path:'MWC2024/createAccountQRCodeScan', component:CreateAccountQRCodeScanComponent},
-  {path:'MWC2024/paymentChoice' , component: PaymentChoiceComponent},
-  {path:'MWC2024/paymentAppMobile',component:PaymentAppMobileComponent },
-  {path:'MWC2024/paymentMobileOp', component:PaymentMobileOpComponent},
-  {path:'MWC2024/paymentMobileOpValidation', component:PaymentMobileOpValidationComponent},
-  {path:'MWC2024/createAccountMenu', component: CreateAccountMenuComponent},
-  {path:'MWC2024/createAccountCamera', component: CreateAccountCameraComponent},
-  {path:'MWC2024/createAccountPersonalInformations', component:CreateAccountPersonalInformationsComponent},
-  {path:'MWC2024/createAccountProofAddress', component:CreateAccountProofAddressComponent},
-  {path:'MWC2024/createAccountSubscriptionChoice', component:CreateAccountSubscriptionChoiceComponent},
-  {path:'MWC2024/createAccountScanFinish', component:CreateAccountScanFinishComponent},
-  {path:'MWC2024/createAccountHello', component:CreateAccountHelloComponent},
-  {path:'MWC2024/printingMenu', component:PrintingMenuComponent},
-  {path:'MWC2024/printingInformationChoice', component:PrintingInformationChoiceComponent},
-  {path:'MWC2024/printingMethodsGettingTimetable', component:PrintingMethodsGettingTimetableComponent},
-  {path:'MWC2024/printingThanks', component:PrintingThanksComponent},
-  {path:'MWC2024/printingScanQRcode', component:PrintingScanQRcodeComponent},
-  {path:'MWC2024/informationSummary', component:InformationSummaryComponent},
-  {path:'MWC2024/identificationMenu', component:IdentificationMenuComponent},
-  {path:'MWC2024/identificationValidation', component:IdentificationValidationComponent},
-  {path:'MWC2024/scanQrCode', component:ScanQrCodeComponent},
-  {path:'MWC2024/waitingScreenPrinting', component:WaitingScreenPrintingComponent},
-  {path:'MWC2024/thanksPaymentReport', component:ThanksPaymentReportComponent},
+  {path:'AGIR2024/homepageEK4000', component: HomepageComponent},
+  {path:'AGIR2024/subScriptionConfirmation', component: PaymentSubscriptionConfirmationComponent},
+  {path:'AGIR2024/paymentCB', component: PaymentCardComponent},
+  {path:'AGIR2024/createAccountQRCodeYesNo', component:CreateAccountQRCodeYesNoComponent},
+  {path:'AGIR2024/createAccountQRCodeScan', component:CreateAccountQRCodeScanComponent},
+  {path:'AGIR2024/paymentChoice' , component: PaymentChoiceComponent},
+  {path:'AGIR2024/paymentAppMobile',component:PaymentAppMobileComponent },
+  {path:'AGIR2024/paymentMobileOp', component:PaymentMobileOpComponent},
+  {path:'AGIR2024/paymentMobileOpValidation', component:PaymentMobileOpValidationComponent},
+  {path:'AGIR2024/createAccountMenu', component: CreateAccountMenuComponent},
+  {path:'AGIR2024/createAccountCamera', component: CreateAccountCameraComponent},
+  {path:'AGIR2024/createAccountPersonalInformations', component:CreateAccountPersonalInformationsComponent},
+  {path:'AGIR2024/createAccountProofAddress', component:CreateAccountProofAddressComponent},
+  {path:'AGIR2024/createAccountSubscriptionChoice', component:CreateAccountSubscriptionChoiceComponent},
+  {path:'AGIR2024/createAccountScanFinish', component:CreateAccountScanFinishComponent},
+  {path:'AGIR2024/createAccountHello', component:CreateAccountHelloComponent},
+  {path:'AGIR2024/printingMenu', component:PrintingMenuComponent},
+  {path:'AGIR2024/printingInformationChoice', component:PrintingInformationChoiceComponent},
+  {path:'AGIR2024/printingMethodsGettingTimetable', component:PrintingMethodsGettingTimetableComponent},
+  {path:'AGIR2024/printingThanks', component:PrintingThanksComponent},
+  {path:'AGIR2024/printingScanQRcode', component:PrintingScanQRcodeComponent},
+  {path:'AGIR2024/informationSummary', component:InformationSummaryComponent},
+  {path:'AGIR2024/identificationMenu', component:IdentificationMenuComponent},
+  {path:'AGIR2024/identificationValidation', component:IdentificationValidationComponent},
+  {path:'AGIR2024/scanQrCode', component:ScanQrCodeComponent},
+  {path:'AGIR2024/waitingScreenPrinting', component:WaitingScreenPrintingComponent},
+  {path:'AGIR2024/thanksPaymentReport', component:ThanksPaymentReportComponent},
+  {path:'AGIR2024/createAccountFaceCapture', component:CreateAccountFaceCaptureComponent},
+  {path:'AGIR2024/createAccountValidationScreen', component:CreateAccountValidationScreen}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class MoovHop4000RoutingModuleMWC2024 { }
+export class MoovHop4000RoutingModuleAGIR2024 { }

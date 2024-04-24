@@ -15,7 +15,7 @@ export class PaymentCardComponent extends GenericComponent {
     super(skService);
   }
 
-  cardInfoText: string = "INSERT YOUR CARD";
+  cardInfoText: string = "INSEREZ VOTRE CARTE";
 
   textCb: string = '';
 
@@ -45,12 +45,12 @@ export class PaymentCardComponent extends GenericComponent {
   async changeCardInfoText() {
     let _this = this;
     this.timeout= setTimeout(() => {
-      _this.cardInfoText = "ENTER YOUR CODE";
+      _this.cardInfoText = "TAPEZ VOTRE CODE";
       setTimeout(() => {
-        _this.cardInfoText = "AUTHORIZED PAYMENT";
+        _this.cardInfoText = "PAIEMENT AUTORISÉ";
         setTimeout(() => {
-          if (_this.router.url === '/MWC2024/paymentCB') {
-            _this.router.navigate(['/MWC2024/waitingScreenPrinting']);
+          if (_this.router.url === '/AGIR2024/paymentCB') {
+            _this.router.navigate(['/AGIR2024/waitingScreenPrinting']);
           }
         }, 2000);
       }, 2000);
