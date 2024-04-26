@@ -14,8 +14,8 @@ export class CreateAccountThanksComponent implements OnInit {
   ngOnInit(): void {
 
     setTimeout(() => {
-      if (this.router.url === '/createAccountThanks8000') {
-        this.router.navigate(['/homePageEK8000'])
+      if (this.router.url === '/RNTP2023/createAccountThanks8000') {
+        this.router.navigate(['/RNTP2023/homepage'])
       }
     }, 5000);
 

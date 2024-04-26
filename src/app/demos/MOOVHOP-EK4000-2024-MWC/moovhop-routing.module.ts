@@ -30,7 +30,7 @@ import { WaitingScreenPrintingComponent } from './printing/waiting-screen-printi
 import { ThanksPaymentReportComponent } from './official-report/thanks-payment-report/thanks-payment-report.component';
 
 export const routes: Routes = [
-  {path:'MWC2024/homepageEK4000', component: HomepageComponent},
+  {path:'MWC2024/homepage', component: HomepageComponent},
   {path:'MWC2024/subScriptionConfirmation', component: PaymentSubscriptionConfirmationComponent},
   {path:'MWC2024/paymentCB', component: PaymentCardComponent},
   {path:'MWC2024/createAccountQRCodeYesNo', component:CreateAccountQRCodeYesNoComponent},

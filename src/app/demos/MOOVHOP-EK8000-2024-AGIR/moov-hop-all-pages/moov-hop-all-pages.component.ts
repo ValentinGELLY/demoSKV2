@@ -29,7 +29,12 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
   arrayServiceStatusWarning: any;
   messageBarcode: string = "";
   messageCardDispenser: string = "";
-
+  moovopServices = ["BarcodeReading", "CardDispensing"];
+  messagePrinter: string = "";
+  messageReceiptPrinter: string = "";
+  messageBarcodeReading: string = "";
+  messageCameraShooting: string = "";
+  messageDocumentScanning: string = "";
 
   constructor(skService: SoftKioskService, private appService: AppService, private moovHopService: MoovhopService, _router: Router) {
     super(skService);
@@ -48,14 +53,19 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
       document.getElementById("loading")!.classList.add("removeWhite");
     }, 50);
 
-    this.moovHopService.timeoutNavigation();
+    
+
+    //this.moovHopService.timeoutNavigation();
+    this.testStatus();
+
 
     setInterval(() => {
       var today = new Date();
-      var date = today.getDate().toString().padStart(2, '0') + '/' + (today.getMonth() + 1).toString().padStart(2, '0') + '/' + today.getFullYear();
+      var date = (today.getMonth() + 1).toString().padStart(2, '0')+ '/' + today.getDate().toString().padStart(2, '0')  + '/' + today.getFullYear();
       var time = today.getHours().toString().padStart(2, '0') + ":" + today.getMinutes().toString().padStart(2, '0') + ":" + today.getSeconds().toString().padStart(2, '0');
-
-      document.getElementById('time')!.innerHTML = date + ' - ' + time;
+      if (document.getElementById('time')){
+        document.getElementById('time')!.innerHTML = date + ' - ' + time;
+      }
     }, 1000);
   }
 
@@ -72,8 +82,9 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
     if (document.getElementById('botText')!.innerHTML !== "") {
       return;
     }
+    
     // Son du chatbot
-    new Audio('./assets/MOOVHOP-EK4000-2023-RNTP/bot.m4a').play();
+    new Audio('./assets/MOOVHOP-EK4000-2024-AGIR/Audio_appli_MoovHop_FR.mp3').play();
 
     // Animation du chatbot
     const images = [
@@ -93,7 +104,8 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
     // Animation du texte du chatbot
     const phrases = [
       "Bonjour !",
-      "Comment puis-je vous aider ?"
+      "Merci de patientez quelque seconde...",
+      "Un conseiller va prendre votre appel."
     ];
     let phraseIndex = 0;
     let letterIndex = 0;
@@ -105,7 +117,7 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
         letterIndex = 0;
         if (phraseIndex === phrases.length) {
           clearInterval(intervalId2);
-          document.getElementById('botText')!.innerHTML = "Comment puis-je vous aider ?";
+          //document.getElementById('botText')!.innerHTML = "Comment puis-je vous aider ?";
         }
       }
     }, 50);
@@ -118,22 +130,8 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
       }, 20);
     }, 5000);
   }
-  /*
-    
-  
-    testStatus = () => {
-      // à remplir avec les élément necessaire
-    }
-    
-    navigateHomepage = () => {
-      this.router.navigate(['/moovHopHomepage']);
-    }
-  
-    ngOnDestroy(): void {
-      let _this = this;
-      _this.skService.addEventApplication("demoSKV2", "fin de vie du composant moovHopAllpages");
-    }
-  */
+
+
 
   onStatusChange = (e: any): void => {
     switch (e.data.dataType) {
@@ -154,6 +152,88 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
     }
   }
 
+  getServiceUndefined = (): void => {
+    let Appservices = this.skService.getServicesList();
+    for (let service in this.moovopServices) {
+      if (Appservices.hasOwnProperty(service) === false) {
+        this.stringServicesUndefined += service + " ";
+      }
+    };
+  }
+
+  getServicesNameCriticalStatusChanged = (): void => {
+    this.moovopServices.forEach((srvName: any) => {
+      this.skService.addStatusServicesEventListener(srvName, this.onStatusChange);
+      if (this.skService.getStatus(srvName) === 'Critical') {
+        this.stringServiceStatusCritical += srvName + ", ";
+      }
+    });
+  }
+
+  testStatus = () => {
+    // document printer 
+    this.skService.addStatusServicesEventListener("DocumentPrinting", (e: any) => {
+      console.log("DocumentPrinting",e.data.status);
+      
+      switch (e.data.status) {
+        case 'Critical':
+          this.messagePrinter = 'Imprimante, '+ e.data.statusDetail;
+          break
+        case 'Unknown':
+          this.messagePrinter = e.data.statusDescription;
+          break
+        default:
+          this.messagePrinter = '';
+      }
+    });
+    // Receipt printer 
+    this.skService.addStatusServicesEventListener("ReceiptPrinting", (e: any) => {
+      console.log("ReceiptPrinting",e.data.status);
+
+      switch (e.data.status) {
+        case 'Critical':
+          this.messageReceiptPrinter = 'Imprimante reçu, '+ e.data.statusDetail;
+          break
+        default:
+          this.messageReceiptPrinter = '';
+      }
+    });
+    // Barocde Reader
+    this.skService.addStatusServicesEventListener("BarcodeReading", (e: any) => {
+      console.log("BarcodeReading",e.data.status);
+      switch (e.data.status) {
+        case 'Critical':
+          this.messageBarcodeReading = 'Barcode, '+ e.data.statusDetail;
+          break
+        default:
+          this.messageBarcodeReading = '';
+      }
+    });
+    // webcam
+    this.skService.addStatusServicesEventListener("CameraShooting", (e: any) => {
+      console.log("CameraShooting",e.data.status);
+      switch (e.data.status) {
+        case 'Critical':
+          this.messageCameraShooting = 'Caméra, '+ e.data.statusDetail;
+          break
+        default:
+          this.messageCameraShooting = '';
+      }
+    });
+    // document scanner
+    this.skService.addStatusServicesEventListener("DocumentScanning", (e: any) => {
+      console.log("DocumentScanning",e.data.status);
+      switch (e.data.status) {
+        case 'Critical':
+          this.messageDocumentScanning = 'Scanner, '+ e.data.statusDetail;
+          break
+
+        default:
+          this.messageDocumentScanning = '';
+      }
+    });
+
+  }
 
   navigateToError() {
     Kiosk.demoSKV2.setApplicationStatus({
@@ -164,16 +244,16 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
   }
 
   showPopUp() {
-    let popUp = document.getElementsByClassName("moovHopCriticalService")[0] as HTMLElement;
+    let popUp = document.getElementById("moovHopCriticalService");
     if (popUp != null) {
-      popUp.style.setProperty("display", "flex")
+      popUp.style.setProperty("display",'block');
     }
   }
 
   closePopUp() {
-    let popUp = document.getElementsByClassName("moovHopCriticalService")[0] as HTMLElement;
+    let popUp = document.getElementById("moovHopCriticalService");
     if (popUp != null) {
-      popUp.style.setProperty("display", "none")
+      popUp.style.setProperty("display",'none');
     }
   }
 
@@ -181,5 +261,6 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
   ngOnDestroy(): void {
     document.getElementById("loading")!.classList.remove("removeWhite");
     this.moovHopService.resetTimeoutNavigation();
-  }
+   }
+
 }

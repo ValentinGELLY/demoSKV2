@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ReloadThanksComponent } from './reload/reload-thanks/reload-thanks.component';
 import { CreateAccountValidationScreen } from './subcription/validation-screen/validation-screen.component'
+import { CreateAccountFaceCaptureComponent } from './subcription/create-account-face-capture/create-account-face-capture.component';
 
 
 
@@ -52,7 +53,8 @@ import { CreateAccountValidationScreen } from './subcription/validation-screen/v
     ReloadPersonalInformationsComponent,
     CreateAccountScanFinishComponent,
     ReloadThanksComponent,
-    CreateAccountValidationScreen
+    CreateAccountValidationScreen,
+    CreateAccountFaceCaptureComponent
   ],
   exports:[MoovHopAllPagesComponent],
   imports: [
@@ -65,5 +67,5 @@ import { CreateAccountValidationScreen } from './subcription/validation-screen/v
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class MoovHop8000Module { }
+export class MoovHop8000ModuleAGIR2024 { }
 

@@ -22,7 +22,7 @@ export class PrintingThanksComponent extends GenericComponent implements OnInit,
     let __this = this;
     this.timeOut = setTimeout(() => {
       if (__this.router.url === '/printingThanks') {
-        __this.router.navigate(['/homepageEK4000']);
+        __this.router.navigate(['/homepage']);
       }
     }, 6000);
   }

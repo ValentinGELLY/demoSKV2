@@ -22,11 +22,11 @@ export class ReloadIdentificationComponent extends GenericComponent implements O
         case 'CardDetected':
         case 'CardDetectedDTO':
           // traitement pour le changement de vue
-          if (this.router.url == '/EK8000-2024-AGIR/reloadIdentification') {
+          if (this.router.url == '/EK80002024AGIR/reloadIdentification') {
             let navEvent = new CustomEvent("moovHopNav", {
               detail: {
                 "delay": 0,
-                "goTo": "/EK8000-2024-AGIR/reloadPersonalInformations"
+                "goTo": "/EK80002024AGIR/reloadPersonalInformations"
               }
             });
             window.dispatchEvent(navEvent);

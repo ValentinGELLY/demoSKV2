@@ -24,23 +24,23 @@ export class MoovhopService {
 
     private moovHopRouterDic: any = {
         // use case achat d'un pass (création d'un compte)
-        '/EK8000-2024-AGIR/homepageEK8000':'/EK8000-2024-AGIR/buyChoice',
-        '/EK8000-2024-AGIR/buyChoice': '/EK8000-2024-AGIR/paymentChoice8000',
-        '/EK8000-2024-AGIR/paymentChoice8000': '/EK8000-2024-AGIR/paymentCard',
-        '/EK8000-2024-AGIR/paymentCash': '/EK8000-2024-AGIR/waitingScreen',
-        '/EK8000-2024-AGIR/waitingScreen': '/EK8000-2024-AGIR/getTicketReceipt',
-        '/EK8000-2024-AGIR/getTicketReceipt': '/EK8000-2024-AGIR/homepageEK8000',
+        '/EK80002024AGIR/homepageEK':'/EK80002024AGIR/buyChoice',
+        '/EK80002024AGIR/buyChoice': '/EK80002024AGIR/paymentChoice',
+        '/EK80002024AGIR/paymentChoice': '/EK80002024AGIR/paymentCard',
+        '/EK80002024AGIR/paymentCash': '/EK80002024AGIR/waitingScreen',
+        '/EK80002024AGIR/waitingScreen': '/EK80002024AGIR/getTicketReceipt',
+        '/EK80002024AGIR/getTicketReceipt': '/EK80002024AGIR/homepageEK',
 
         // use case achat d'un pass (sans création d'un compte)
-        '/EK8000-2024-AGIR/createAccountMenu8000':'/EK8000-2024-AGIR/CreateAccountCamera8000',
-        '/EK8000-2024-AGIR/CreateAccountCamera8000':'/EK8000-2024-AGIR/CreateAccountHello8000',
-        '/EK8000-2024-AGIR/CreateAccountHello8000':'/EK8000-2024-AGIR/CreateAccountInformationValidation',
-        '/EK8000-2024-AGIR/CreateAccountInformationValidation':'/EK8000-2024-AGIR/CreateAccountSubscriptionChoice8000',
-        '/EK8000-2024-AGIR/CreateAccountSubscriptionChoice8000':'/EK8000-2024-AGIR/paymentChoice8000',
+        '/EK80002024AGIR/createAccountMenu':'/EK80002024AGIR/CreateAccountCamera',
+        '/EK80002024AGIR/CreateAccountCamera':'/EK80002024AGIR/CreateAccountHello',
+        '/EK80002024AGIR/CreateAccountHello':'/EK80002024AGIR/CreateAccountInformationValidation',
+        '/EK80002024AGIR/CreateAccountInformationValidation':'/EK80002024AGIR/CreateAccountSubscriptionChoice',
+        '/EK80002024AGIR/CreateAccountSubscriptionChoice':'/EK80002024AGIR/paymentChoice',
         
         //use case rechargement d'un pass
-        '/EK8000-2024-AGIR/reloadIdentification': '/EK8000-2024-AGIR/reloadPersonalInformations',
-        '/EK8000-2024-AGIR/reloadPersonalInformations': '/EK8000-2024-AGIR/createAccountSubscriptionChoice8000',
+        '/EK80002024AGIR/reloadIdentification': '/EK80002024AGIR/reloadPersonalInformations',
+        '/EK80002024AGIR/reloadPersonalInformations': '/EK80002024AGIR/createAccountSubscriptionChoice',
 
     };
 
@@ -63,6 +63,33 @@ export class MoovhopService {
     ActionChoosed: any;
     TicketChoosed: number = 1;
     htmlReceiptContent: string = '';
+
+    documentSelected: string = "IdCard";
+    faceCapture : string =""
+
+    nameUser: string = "";
+    idUserToCheck: string ="";
+    errorFace: boolean = false;
+    errorScanId: boolean = false;
+    previewImageScanIdA: string ="";
+    previewImageScanIdB: string ="";
+    previewImageScanIdADef: string ="";
+    previewImageScanIdBDef: string ="";
+    idChecks:string = "";
+    referenceId:string = "";
+
+    timeScanIdA:Date = new Date();
+    timeScanIdB:Date = new Date();
+
+    errorSaveIdCard:boolean = false;
+
+    hrefSensitiveData:string = '';
+
+    firstName:string = "";
+    birthday:string = "";
+
+    identityValidate:boolean = false;
+
 
     constructor(private router: Router, private appService: AppService, private _router: ActivatedRoute) {
         //navigation
@@ -91,8 +118,8 @@ export class MoovhopService {
 
     timeoutNavigation() {
         this.timeout = setTimeout(() => {
-            if(this.router.url !== '/homepageEK8000'){
-                this.navigateAfterDelay(0, "/homepageEK8000");
+            if(this.router.url !== '/homepageEK'){
+                this.navigateAfterDelay(0, "/homepage");
             }
         }, 120000);
     }

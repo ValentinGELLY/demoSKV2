@@ -16,7 +16,7 @@ import { MoovHopModule4000MWC as MoovHopModule4000MWC } from './demos/MOOVHOP-EK
 import { MoovHopModule4000AGIR2024 } from './demos/MOOVHOP-EK4000-2024-AGIR/moovhop.module';
 import {CustomPreloadingStrategy} from './custom-preloading-strategy';
 import { FeatureRunComponent } from './demoSKV2/feature-run/feature-run.component';
-import { CreateAccountFaceCaptureComponent } from './demos/MOOVHOP-EK4000-2024-AGIR/subcription/create-account-face-capture/create-account-face-capture.component';
+import { MoovHop8000ModuleAGIR2024 } from './demos/MOOVHOP-EK8000-2024-AGIR/moovhop.module';
 
 
 const routes: Routes = [
@@ -30,7 +30,6 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-        FeatureRunComponent,
        /* CustomerExperienceChoiceComponent,
         FeaturesChoiceComponent,
         TestIvqChoiceComponent,
@@ -54,6 +53,8 @@ const routes: Routes = [
         Telefonica3000,
         MoovHopModule4000MWC,
         MoovHopModule4000AGIR2024,
+        MoovHop8000ModuleAGIR2024
+
         
         
     ],

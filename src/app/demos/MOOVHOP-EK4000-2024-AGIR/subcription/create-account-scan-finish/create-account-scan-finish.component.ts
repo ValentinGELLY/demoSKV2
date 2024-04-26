@@ -35,15 +35,12 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
     if(this.scanVisited==1){
       this.router.navigate(['/AGIR2024/createAccountCamera']);
     }else if(this.scanVisited==2){
-      console.log(document.getElementById("loading"));
-      console.log(document.getElementById("loadingSection"));
-      document.getElementById("loading")!.style.setProperty("display", "block");
-      document.getElementById("loadingSection")!.style.setProperty("display", "block");
+      document.getElementById("loadingLogo")!.style.display = "block";
+      document.getElementById("loadingSection")!.style.display = "block";
       this.createUser();
     }else if(this.scanVisited==3){
-      document.getElementById("loading")!.style.setProperty("display", "block");
-      document.getElementById("loadingSection")!.style.setProperty("display", "block");
-      console.log("enregistrement face");
+      document.getElementById("loadingLogo")!.style.display = "block";
+      document.getElementById("loadingSection")!.style.display = "block";
       this.addFaceUser(this.moovhopService.faceCapture);
     }
   }

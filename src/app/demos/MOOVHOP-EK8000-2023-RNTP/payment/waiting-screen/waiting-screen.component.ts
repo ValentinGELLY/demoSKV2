@@ -73,7 +73,7 @@ export class WaitingScreenComponent {
               _this.skService.ticketPrintingPrintRawHtml(_this.htmlReceiptContent2);
               _this.moovhopService.bnTickets -= 1;
             }
-            else if (_this.router.url === "/waitingScreen" && _this.moovhopService.bnTickets <= 1) {
+            else if (_this.router.url === "/RNTP2023/waitingScreen" && _this.moovhopService.bnTickets <= 1) {
               _this.skService.receiptPrintingPrintRawHtml(this.moovhopService.htmlReceiptContent);
               // traitement pour le changement de vue
               navEvent = new CustomEvent("moovHopNav", {
@@ -91,13 +91,13 @@ export class WaitingScreenComponent {
               _this.skService.ticketPrintingPrintRawHtml(_this.htmlReceiptContent2);
               _this.moovhopService.bnTickets -= 1;
             }
-            else if (_this.router.url === "/waitingScreen" && _this.moovhopService.bnTickets <= 1) {
+            else if (_this.router.url === "/RNTP2023/waitingScreen" && _this.moovhopService.bnTickets <= 1) {
               _this.skService.receiptPrintingPrintRawHtml(this.moovhopService.htmlReceiptContent);
               // traitement pour le changement de vue
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
-                  "goTo": "/getTicketReceipt"
+                  "goTo": "/RNTP2023/getTicketReceipt"
                 }
               });
               window.dispatchEvent(navEvent);
@@ -145,25 +145,25 @@ export class WaitingScreenComponent {
         switch (e.data.dataType) {
           case 'RawHtmlPrinted':
             // traitement pour le changement de vue
-            if (this.router.url === "/waitingScreen") {
+            if (this.router.url === "/RNTP2023/waitingScreen") {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
-                  "goTo": "/getTicketReceipt"
+                  "goTo": "/RNTP2023/getTicketReceipt"
                 }
               });
               window.dispatchEvent(navEvent);
             }
             break;
           case 'RawHtmlPrintError':
-            if (this.router.url === "/waitingScreen") {
+            if (this.router.url === "/RNTP2023/waitingScreen") {
               console.error(e.data.code + ": " + e.data.description);
               this.handlePrintError(e.data.code);
               // traitement pour le changement de vue
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
-                  "goTo": "/getTicketReceipt"
+                  "goTo": "/RNTP2023/getTicketReceipt"
                 }
               });
               window.dispatchEvent(navEvent);
@@ -208,25 +208,25 @@ export class WaitingScreenComponent {
         switch (e.data.dataType) {
           case 'RawHtmlPrinted':
             // traitement pour le changement de vue
-            if (this.router.url === "/waitingScreen") {
+            if (this.router.url === "/RNTP2023/waitingScreen") {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
-                  "goTo": "/reloadThanks"
+                  "goTo": "/RNTP2023/reloadThanks"
                 }
               });
               window.dispatchEvent(navEvent);
             }
             break;
           case 'RawHtmlPrintError':
-            if (this.router.url === "/waitingScreen") {
+            if (this.router.url === "/RNTP2023/waitingScreen") {
               console.error(e.data.code + ": " + e.data.description);
               this.handlePrintError(e.data.code);
               // traitement pour le changement de vue
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
-                  "goTo": "/reloadThanks"
+                  "goTo": "/RNTP2023/reloadThanks"
                 }
               });
               window.dispatchEvent(navEvent);

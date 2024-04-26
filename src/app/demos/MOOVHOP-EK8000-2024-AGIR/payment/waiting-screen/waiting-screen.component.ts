@@ -79,7 +79,7 @@ export class WaitingScreenComponent {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
-                  "goTo": "/EK8000-2024-AGIR/getTicketReceipt"
+                  "goTo": "/EK80002024AGIR/getTicketReceipt"
                 }
               });
               window.dispatchEvent(navEvent);
@@ -97,7 +97,7 @@ export class WaitingScreenComponent {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
-                  "goTo": "/EK8000-2024-AGIR/getTicketReceipt"
+                  "goTo": "/EK80002024AGIR/getTicketReceipt"
                 }
               });
               window.dispatchEvent(navEvent);
@@ -149,7 +149,7 @@ export class WaitingScreenComponent {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
-                  "goTo": "/EK8000-2024-AGIR/getTicketReceipt"
+                  "goTo": "/EK80002024AGIR/getTicketReceipt"
                 }
               });
               window.dispatchEvent(navEvent);
@@ -212,7 +212,7 @@ export class WaitingScreenComponent {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
-                  "goTo": "/EK8000-2024-AGIR/reloadThanks"
+                  "goTo": "/EK80002024AGIR/reloadThanks"
                 }
               });
               window.dispatchEvent(navEvent);
@@ -226,7 +226,7 @@ export class WaitingScreenComponent {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
-                  "goTo": "/EK8000-2024-AGIR/reloadThanks"
+                  "goTo": "/EK80002024AGIR/reloadThanks"
                 }
               });
               window.dispatchEvent(navEvent);

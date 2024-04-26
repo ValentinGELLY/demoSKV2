@@ -13,7 +13,7 @@ import { GetTicketsReceiptComponent } from './payment/get-tickets-receipt/get-ti
 import { CreateAccountMenuComponent } from './subcription/create-account-menu/create-account-menu.component';
 import { CreateAccountCameraComponent } from './subcription/create-account-camera/create-account-camera.component';
 import { CreateAccountHelloComponent } from './subcription/create-account-hello/create-account-hello.component';
-import { CreateAccountInformationValidationComponent } from './subcription/create-account-information-validation/create-account-information-validation.component';
+import { CreateAccountPersonalInformationsComponent } from './subcription/create-account-personal-informations/create-account-personal-informations.component';
 import { CreateAccountSubscriptionChoiceComponent } from './subcription/create-account-subscription-choice/create-account-subscription-choice.component';
 import { CreateAccountThanksComponent } from './subcription/create-account-thanks/create-account-thanks.component';
 import { ReloadIdentificationComponent } from './reload/reload-identification/reload-identification.component';
@@ -21,32 +21,36 @@ import { ReloadPersonalInformationsComponent } from './reload/reload-personal-in
 import { WaitingScreenComponent } from './payment/waiting-screen/waiting-screen.component';
 import { CreateAccountScanFinishComponent } from './subcription/create-account-scan-finish/create-account-scan-finish.component';
 import { ReloadThanksComponent } from './reload/reload-thanks/reload-thanks.component';
+import { CreateAccountValidationScreen } from './subcription/validation-screen/validation-screen.component';
+import { CreateAccountFaceCaptureComponent } from './subcription/create-account-face-capture/create-account-face-capture.component';
 
 export const routes: Routes = [
-  {path: '/EK8000-2024-AGIR/homepageEK8000', component: HomepageComponent},
-  {path: '/EK8000-2024-AGIR/buyChoice', component: BuyChoiceComponent},
-  {path: '/EK8000-2024-AGIR/paymentChoice8000', component: PaymentChoiceComponent},
-  {path: '/EK8000-2024-AGIR/paymentCard', component: PaymentCardComponent},
-  {path: '/EK8000-2024-AGIR/paymentCash', component: PaymentCashComponent},
-  {path: '/EK8000-2024-AGIR/paymentAppMobile8000', component: PaymentMobilAppComponent},
-  {path: '/EK8000-2024-AGIR/paymentOpMobile', component: PaymentMobilOpComponent},
-  {path: '/EK8000-2024-AGIR/paymentOpMobileValidation8000', component: PaymentMobilOpValidationComponent},
-  {path: '/EK8000-2024-AGIR/getTicketReceipt', component: GetTicketsReceiptComponent},
-  {path: '/EK8000-2024-AGIR/createAccountMenu8000', component: CreateAccountMenuComponent},
-  {path: '/EK8000-2024-AGIR/createAccountCamera8000', component: CreateAccountCameraComponent},
-  {path: '/EK8000-2024-AGIR/createAccountHello8000', component: CreateAccountHelloComponent},
-  {path: '/EK8000-2024-AGIR/createAccountInformationValidation', component: CreateAccountInformationValidationComponent},
-  {path: '/EK8000-2024-AGIR/createAccountSubscriptionChoice8000', component: CreateAccountSubscriptionChoiceComponent},
-  {path: '/EK8000-2024-AGIR/createAccountThanks8000', component: CreateAccountThanksComponent},
-  {path: '/EK8000-2024-AGIR/reloadIdentification', component: ReloadIdentificationComponent},
-  {path: '/EK8000-2024-AGIR/reloadPersonalInformations', component: ReloadPersonalInformationsComponent},
-  {path: '/EK8000-2024-AGIR/waitingScreen', component: WaitingScreenComponent},
-  {path: '/EK8000-2024-AGIR/createAccountScanFinish8000', component: CreateAccountScanFinishComponent},
-  {path: '/EK8000-2024-AGIR/reloadThanks', component: ReloadThanksComponent},  
+  {path: 'EK80002024AGIR/homepage', component: HomepageComponent},
+  {path: 'EK80002024AGIR/buyChoice', component: BuyChoiceComponent},
+  {path: 'EK80002024AGIR/paymentChoice', component: PaymentChoiceComponent},
+  {path: 'EK80002024AGIR/paymentCard', component: PaymentCardComponent},
+  {path: 'EK80002024AGIR/paymentCash', component: PaymentCashComponent},
+  {path: 'EK80002024AGIR/paymentAppMobile', component: PaymentMobilAppComponent},
+  {path: 'EK80002024AGIR/paymentOpMobile', component: PaymentMobilOpComponent},
+  {path: 'EK80002024AGIR/paymentOpMobileValidation', component: PaymentMobilOpValidationComponent},
+  {path: 'EK80002024AGIR/getTicketReceipt', component: GetTicketsReceiptComponent},
+  {path: 'EK80002024AGIR/createAccountMenu', component: CreateAccountMenuComponent},
+  {path: 'EK80002024AGIR/createAccountCamera', component: CreateAccountCameraComponent},
+  {path: 'EK80002024AGIR/createAccountHello', component: CreateAccountHelloComponent},
+  {path: 'EK80002024AGIR/createAccountPersonalInformations', component: CreateAccountPersonalInformationsComponent},
+  {path: 'EK80002024AGIR/createAccountSubscriptionChoice', component: CreateAccountSubscriptionChoiceComponent},
+  {path: 'EK80002024AGIR/createAccountThanks', component: CreateAccountThanksComponent},
+  {path: 'EK80002024AGIR/reloadIdentification', component: ReloadIdentificationComponent},
+  {path: 'EK80002024AGIR/reloadPersonalInformations', component: ReloadPersonalInformationsComponent},
+  {path: 'EK80002024AGIR/waitingScreen', component: WaitingScreenComponent},
+  {path: 'EK80002024AGIR/createAccountScanFinish', component: CreateAccountScanFinishComponent},
+  {path: 'EK80002024AGIR/reloadThanks', component: ReloadThanksComponent},  
+  {path: 'EK80002024AGIR/createAccountValidationScreen', component: CreateAccountValidationScreen},
+  {path: 'EK80002024AGIR/createAccountFaceCapture', component: CreateAccountFaceCaptureComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class MoovHop8000RoutingModule { }
+export class MoovHop8000RoutingModuleAGIR2024 { }

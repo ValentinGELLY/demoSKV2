@@ -58,7 +58,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
      * Déclenchement de l'appel à DocumentScanning.preview()
       */
     let __this = this;
-    if (this.isScanFinished && this.router.url === "/createAccountCamera8000") {
+    if (this.isScanFinished && this.router.url === "/RNTP2023/createAccountCamera8000") {
       // Écoute de l'événement de surveillance de la transaction Cash
       __this.skService.addEventListener("DocumentScanning", "previewStart", this.onPreview);
       __this.skService.addEventListener("DocumentScanning", "imageCapture", this.onImageDocumentCapture)
@@ -69,7 +69,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
 
       // décompte du timer
       __this.timeoutScanner();
-    } else if (!this.isScanFinished && this.router.url === "/createAccountCamera8000") {
+    } else if (!this.isScanFinished && this.router.url === "/RNTP2023/createAccountCamera8000") {
       let __this = this;
       console.log("test");
 
@@ -130,10 +130,10 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
   }
 
   previewImageUpdate = (preview: any): void => {
-    if (this.isScanFinished && this.router.url === "/createAccountCamera8000") {
+    if (this.isScanFinished && this.router.url === "/RNTP2023/createAccountCamera8000") {
       this.previewImageScanId = 'data:image/png;base64, ' + preview;
       this.moovhopService.previewImageScanId = this.previewImageScanId;
-    } else if (!this.isScanFinished && this.router.url === "/createAccountCamera8000") {
+    } else if (!this.isScanFinished && this.router.url === "/RNTP2023/createAccountCamera8000") {
       this.previewImageProfile = 'data:image/png;base64, ' + preview;
       this.moovhopService.previewImageProfile = this.previewImageProfile;
     }
@@ -149,10 +149,10 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
         }
         counter++;
       } else {
-        if (this.router.url === "/createAccountCamera8000") {
+        if (this.router.url === "/RNTP2023/createAccountCamera8000") {
           this.skService.removeEventListener('DocumentScanning', 'previewStart', this.onPreview);
           this.skService.stopDocumentPreview();
-          this.router.navigate(['/createAccountScanFinish8000'])
+          this.router.navigate(['/RNTP2023/createAccountScanFinish8000'])
           clearInterval(this.documentTimeout);
         }
       }
@@ -171,10 +171,10 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
         }
         counter++;
       } else {
-        if (this.router.url === "/createAccountCamera8000") {
+        if (this.router.url === "/RNTP2023/createAccountCamera8000") {
           this.skService.removeEventListener('CameraShooting', 'previewStart', this.onPreviewStart);
           this.skService.stopCameraPreview();
-          this.router.navigate(['/createAccountScanFinish8000'])
+          this.router.navigate(['/RNTP2023/createAccountScanFinish8000'])
           clearInterval(this.cameraTimeout);
         }
       }

@@ -22,7 +22,7 @@ export class PaymentSubscriptionConfirmationComponent extends GenericComponent i
     let __this = this;
     this.timeOut = setTimeout(() => {
       if (__this.router.url === '/subScriptionConfirmation') {
-        __this.router.navigate(['/homepageEK4000']);
+        __this.router.navigate(['/homepage']);
       }
     }, 7000);
   }

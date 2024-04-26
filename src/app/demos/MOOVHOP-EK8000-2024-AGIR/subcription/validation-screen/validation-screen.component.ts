@@ -32,23 +32,23 @@ export class CreateAccountValidationScreen extends GenericComponent {
     this.identityValidate = this.moovhopService.identityValidate;
     if (this.identityValidate) {
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/AGIR2024/createAccountHello']);
+        this.route.navigate(['/EK80002024AGIR/createAccountHello']);
       }, 5000);
     }else if(this.moovhopService.errorSaveIdCard){
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/AGIR2024/createAccountMenu']);
+        this.route.navigate(['/EK80002024AGIR/createAccountMenu']);
       }, 5000);
     }else if (this.errorFace) {
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/AGIR2024/createAccountMenu']);
+        this.route.navigate(['/EK80002024AGIR/createAccountMenu']);
       }, 5000);
     }else if (this.scanVisited === 2 && !this.moovhopService.errorSaveIdCard) {
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/AGIR2024/createAccountPersonalInformations']);
+        this.route.navigate(['/EK80002024AGIR/createAccountPersonalInformations']);
       }, 5000);
     }else if (this.scanVisited === 3 && !this.identityValidate) {
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/AGIR2024/createAccountMenu']);
+        this.route.navigate(['/EK80002024AGIR/createAccountMenu']);
       }, 5000);
     }
     

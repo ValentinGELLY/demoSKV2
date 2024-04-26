@@ -15,8 +15,8 @@ export class PaymentMobilAppComponent implements OnInit {
     this.moovHopService.textCB='';
     let _this=this;
     setTimeout(()=>{
-      if(_this.router.url === '/paymentAppMobile8000'){
-        _this.router.navigate(['/waitingScreen'])
+      if(_this.router.url === '/RNTP2023/paymentAppMobile'){
+        _this.router.navigate(['/RNTP2023/waitingScreen'])
       }
     },5000)
   }

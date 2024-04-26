@@ -47,7 +47,7 @@ export class MoovhopService {
 
     private moovHopRouterDic: any = {
         // use case achat d'un pass (création d'un compte)
-        '/AGIR2024/homepageEK4000': '/AGIR2024/createAccountMenu',
+        '/AGIR2024/homepage': '/AGIR2024/createAccountMenu',
         '/AGIR2024/createAccountMenu': '/AGIR2024/createAccountCamera',
         '/AGIR2024/createAccountScanFinish': '/AGIR2024/createAccountPersonalInformations',
         '/AGIR2024/createAccountPersonalInformations': '/AGIR2024/createAccountHello',
@@ -58,13 +58,13 @@ export class MoovhopService {
         '/AGIR2024/createAccountQRCodeScan': '/AGIR2024/paymentChoice',
         '/AGIR2024/paymentChoice': '/AGIR2024/paymentCB',
         '/AGIR2024/paymentCB': '/AGIR2024/subscriptionConfirmation',
-        '/AGIR2024/subscriptionConfirmation': '/AGIR2024/homepageEK4000',
+        '/AGIR2024/subscriptionConfirmation': '/AGIR2024/homepage',
 
         // use case impression d'une fiche horaire
         '/AGIR2024/printingMenu': '/AGIR2024/printingInformationChoice',
         '/AGIR2024/printingInformationChoice': '/AGIR2024/printingMethodsGettingTimetable',
         '/AGIR2024/printingMethodsGettingTimetable': '/AGIR2024/printingScanQRcode',
-        '/AGIR2024/printingScanQRcode': '/AGIR2024/homepageEK4000',
+        '/AGIR2024/printingScanQRcode': '/AGIR2024/homepage',
 
 
         // use cas paiement d'une amende
@@ -72,7 +72,7 @@ export class MoovhopService {
         '/AGIR2024/scanQrCode': '/AGIR2024/identificationValidation',
         '/AGIR2024/identificationValidation': '/AGIR2024/informationSummary',
         '/AGIR2024/informationSummary': '/AGIR2024/paymentChoice',
-        '/AGIR2024/thanksPaymentReport': '/AGIR2024/homepageEK4000',
+        '/AGIR2024/thanksPaymentReport': '/AGIR2024/homepage',
 
 
     };
@@ -136,8 +136,8 @@ export class MoovhopService {
 
     timeoutNavigation() {
         this.timeout = setTimeout(() => {
-            if(this.router.url !== '/AGIR2024/homepageEK4000'){
-                this.navigateAfterDelay(0, "/AGIR2024/homepageEK4000");
+            if(this.router.url !== '/AGIR2024/homepage'){
+                this.navigateAfterDelay(0, "/AGIR2024/homepage");
             }
         }, 120000);
     }

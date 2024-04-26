@@ -32,7 +32,7 @@ import { CreateAccountFaceCaptureComponent } from './subcription/create-account-
 import { CreateAccountValidationScreen } from './subcription/validation-screen/validation-screen.component';
 
 export const routes: Routes = [
-  {path:'AGIR2024/homepageEK4000', component: HomepageComponent},
+  {path:'AGIR2024/homepage', component: HomepageComponent},
   {path:'AGIR2024/subScriptionConfirmation', component: PaymentSubscriptionConfirmationComponent},
   {path:'AGIR2024/paymentCB', component: PaymentCardComponent},
   {path:'AGIR2024/createAccountQRCodeYesNo', component:CreateAccountQRCodeYesNoComponent},

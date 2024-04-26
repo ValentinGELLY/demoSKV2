@@ -33,16 +33,16 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
 
   nextStep() {
     if(this.scanVisited==1){
-      this.router.navigate(['/AGIR2024/createAccountCamera']);
+      this.router.navigate(['/EK80002024AGIR/createAccountCamera']);
     }else if(this.scanVisited==2){
-      console.log(document.getElementById("loading"));
+      console.log(document.getElementById("loadingLogo"));
       console.log(document.getElementById("loadingSection"));
-      document.getElementById("loading")!.style.setProperty("display", "block");
-      document.getElementById("loadingSection")!.style.setProperty("display", "block");
+      document.getElementById("loadingLogo")!.style.display = "block";
+      document.getElementById("loadingSection")!.style.display = "block";
       this.createUser();
     }else if(this.scanVisited==3){
-      document.getElementById("loading")!.style.setProperty("display", "block");
-      document.getElementById("loadingSection")!.style.setProperty("display", "block");
+      document.getElementById("loadingLogo")!.style.display = "block";
+      document.getElementById("loadingSection")!.style.display = "block";
       console.log("enregistrement face");
       this.addFaceUser(this.moovhopService.faceCapture);
     }
@@ -57,9 +57,9 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
       this.moovhopService.scanVisited -= 1;
     }
     if (this.moovhopService.scanVisited == 1 || this.moovhopService.scanVisited == 0) {
-      this.router.navigate(['/AGIR2024/createAccountCamera']);
+      this.router.navigate(['/EK80002024AGIR/createAccountCamera']);
     }else if (this.moovhopService.scanVisited == 2) {
-      this.router.navigate(['/AGIR2024/createAccountFaceCapture']);
+      this.router.navigate(['/EK80002024AGIR/createAccountFaceCapture']);
     }
   }
 
@@ -149,17 +149,17 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
       })
       .then((data) => {
         if (data.httpStatus === 400) {
-          if (this.router.url == "/AGIR2024/createAccountScanFinish") {
+          if (this.router.url == "/EK80002024AGIR/createAccountScanFinish") {
             this.moovhopService.errorFace = true;
-            this.router.navigate(['/AGIR2024/createAccountValidationScreen']);
+            this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
           }
         } else if (data.items[0].usable == false) {
-          if (this.router.url == "/AGIR2024/createAccountScanFinish") {
+          if (this.router.url == "/EK80002024AGIR/createAccountScanFinish") {
             this.moovhopService.errorFace = true;
-            this.router.navigate(['/AGIR2024/createAccountValidationScreen']);
+            this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
           }
         } else {
-          if (this.router.url == "/AGIR2024/createAccountScanFinish") {
+          if (this.router.url == "/EK80002024AGIR/createAccountScanFinish") {
             this.moovhopService.errorFace = false;
             this.verifyFace();
           }
@@ -186,10 +186,10 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
     .then((data) => {
       if (data.results.items[0].result === "MATCH") {
         this.moovhopService.identityValidate = true;
-        this.router.navigate(['/AGIR2024/createAccountHello']);
+        this.router.navigate(['/EK80002024AGIR/createAccountHello']);
       } else {
         this.moovhopService.identityValidate = false;
-        this.router.navigate(['/AGIR2024/createAccountValidationScreen']);
+        this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
       }
     })
     .catch((error) => {
@@ -236,7 +236,7 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
           if (data.processingStatus == "FAILED") {
             this.moovhopService.errorSaveIdCard = true;
             setTimeout(() => {
-              this.router.navigate(['/AGIR2024/createAccountValidationScreen']);
+              this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
               this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
               this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
               this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
@@ -260,7 +260,7 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
           this.moovhopService.errorSaveIdCard = true;
 
           setTimeout(() => {
-            this.router.navigate(['/AGIR2024/createAccountMenu']);
+            this.router.navigate(['/EK80002024AGIR/createAccountMenu']);
             this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
             this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
             this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
@@ -276,8 +276,6 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
       console.log(this.moovhopService.previewImageScanIdADef.replace("data:image/png;base64, ", ""));
       console.log("scan2");
       console.log(this.moovhopService.previewImageScanIdBDef.replace("data:image/png;base64, ", ""));
-      
-      
       fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false",
         {
           method: 'POST',
@@ -317,7 +315,7 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
           if (data.processingStatus == "FAILED") {
             this.moovhopService.errorSaveIdCard = true;
             setTimeout(() => {
-              this.router.navigate(['/AGIR2024/createAccountValidationScreen']);
+              this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
               this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
               this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
               this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
@@ -338,7 +336,7 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
           this.moovhopService.errorSaveIdCard = true;
 
           setTimeout(() => {
-            this.router.navigate(['/AGIR2024/createAccountMenu']);
+            this.router.navigate(['/EK80002024AGIR/createAccountMenu']);
             this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
             this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
             this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
@@ -389,7 +387,7 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
             }
           }
         }
-        this.router.navigate(['/AGIR2024/createAccountValidationScreen']);
+        this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
       })
       .catch((error) => {
         console.log('error: ', error);

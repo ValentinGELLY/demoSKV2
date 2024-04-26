@@ -41,7 +41,7 @@ export class MoovhopService {
 
     private moovHopRouterDic: any = {
         // use case achat d'un pass (création d'un compte)
-        '/homepageEK4000': '/createAccountMenu',
+        '/homepage': '/createAccountMenu',
         '/createAccountMenu': '/createAccountCamera',
         '/createAccountCamera': 'createAccountScanFinish',
         '/createAccountScanFinish': '/createAccountPersonalInformations',
@@ -53,13 +53,13 @@ export class MoovhopService {
         '/createAccountQRCodeScan': '/paymentChoice',
         '/paymentChoice': '/paymentCB',
         '/paymentCB': '/subscriptionConfirmation',
-        '/subscriptionConfirmation': '/homepageEK4000',
+        '/subscriptionConfirmation': '/homepage',
 
         // use case impression d'une fiche horaire
         '/printingMenu': '/printingInformationChoice',
         '/printingInformationChoice': '/printingMethodsGettingTimetable',
         '/printingMethodsGettingTimetable': '/printingScanQRcode',
-        '/printingScanQRcode': '/homepageEK4000',
+        '/printingScanQRcode': '/homepage',
 
 
         // use cas paiement d'une amende
@@ -67,7 +67,7 @@ export class MoovhopService {
         '/scanQrCode': '/identificationValidation',
         '/identificationValidation': '/infromationSummary',
         '/infromationSummary': '/paymentChoice',
-        '/thanksPaymentReport': '/homepageEK4000',
+        '/thanksPaymentReport': '/homepage',
 
 
     };
@@ -108,8 +108,8 @@ export class MoovhopService {
 
     timeoutNavigation() {
         this.timeout = setTimeout(() => {
-            if(this.router.url !== '/homepageEK4000'){
-                this.navigateAfterDelay(0, "/homepageEK4000");
+            if(this.router.url !== '/homepage'){
+                this.navigateAfterDelay(0, "/homepage");
             }
         }, 120000);
     }

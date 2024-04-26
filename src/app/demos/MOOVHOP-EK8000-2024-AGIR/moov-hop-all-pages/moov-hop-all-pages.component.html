@@ -1,6 +1,5 @@
 <div id="loading" class="white">
 </div>
-
 <div class="moovHopDivBody">
 
   <h4 id="time"></h4>
@@ -11,19 +10,18 @@
   </div>
 
   <!-- bouton skip -->
-  <div class="moovHopSkip" [routerLink]='".."+moovHopNavigateTo'>
+  <div class="moovHopSkip" routerLink='{{moovHopNavigateTo}}'>
     Skip
   </div>
 
   <!-- logo Moovop -->
-  <div class="moovHopLogo" routerLink="/EK8000-2024-AGIR/homepageEK8000"> </div>
+  <div class="moovHopLogo" routerLink="/EK80002024AGIR/homepage"> </div>
 
   <!-- Diapo catalogue IPM-->
   <a class="IPMcatalog" (click)="navigateToError()"></a>
+
 <!--
   <div class="PopUpError" (click)="showPopUp()"></div>
-
-
    affichage services en status critical 
   <div class="moovHopCriticalService" id="moovHopCriticalService">
     <h3>Erreur : </h3>

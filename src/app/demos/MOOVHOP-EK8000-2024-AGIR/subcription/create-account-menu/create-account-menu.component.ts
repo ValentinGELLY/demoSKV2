@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MoovhopService } from '../../moovhop.service';
+import { GenericComponent } from 'src/app/demos/generic/generic.component';
 
 @Component({
   selector: 'app-create-account-menu',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateAccountMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor( private router: Router, private moovhopService: MoovhopService) { }
 
   ngOnInit(): void {
+    this.moovhopService.scanVisited = 0;
+    this.moovhopService.errorScanId = false;
+    this.moovhopService.errorFace = false;
+    this.moovhopService.isScanFinished = false;
+  }
+
+  selectDocument(document: string){
+    this.moovhopService.documentSelected = document;
+    this.router.navigate(["/EK80002024AGIR/createAccountCamera"]);
   }
 
 }

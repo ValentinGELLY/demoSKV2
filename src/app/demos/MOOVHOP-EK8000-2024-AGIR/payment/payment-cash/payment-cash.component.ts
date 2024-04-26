@@ -20,8 +20,8 @@ export class PaymentCashComponent implements OnInit {
   ngAfterViewInit(): void {
     let _this = this;
     setTimeout(() => {
-      if(_this.router.url === '/EK8000-2024-AGIR/paymentCash'){
-        _this.router.navigate(['/EK8000-2024-AGIR/waitingScreen']);
+      if(_this.router.url === '/EK80002024AGIR/paymentCash'){
+        _this.router.navigate(['/EK80002024AGIR/waitingScreen']);
       }
     }, 5000);
   }

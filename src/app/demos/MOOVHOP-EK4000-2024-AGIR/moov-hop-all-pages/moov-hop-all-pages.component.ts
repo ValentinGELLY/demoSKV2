@@ -83,7 +83,8 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
     }
     
     // Son du chatbot
-    new Audio('./assets/MOOVHOP-EK4000-2024-MWC/audio-moovhop-EN.mp3').play();
+    new Audio('./assets/MOOVHOP-EK4000-2024-AGIR/Audio_appli_MoovHop_FR.mp3').play();
+
 
     // Animation du chatbot
     const images = [
@@ -102,9 +103,9 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
 
     // Animation du texte du chatbot
     const phrases = [
-      "Hello",
-      "Thank you for waiting a few seconds",
-      "An advisor will take your call"
+      "Bonjour !",
+      "Merci de patientez quelque seconde...",
+      "Un conseiller va prendre votre appel."
     ];
     let phraseIndex = 0;
     let letterIndex = 0;

@@ -14,7 +14,7 @@ export class ThanksPaymentReportComponent implements OnInit {
      
     this.timeOut = setTimeout(() => {
       if (this.router.url === "/AGIR2024/thanksPaymentReport") {
-        this.router.navigate(['/AGIR2024/homepageEK4000'])
+        this.router.navigate(['/AGIR2024/homepage'])
       }
     }, 5000);
 

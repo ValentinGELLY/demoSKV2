@@ -56,7 +56,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
      * Déclenchement de l'appel à DocumentScanning.preview()
       */
     let __this = this;
-    if (this.router.url === "/AGIR2024/createAccountCamera") {
+    if (this.router.url === "/EK80002024AGIR/createAccountCamera") {
       // Écoute de l'événement de surveillance de la transaction Cash
       __this.skService.addEventListener("DocumentScanning", "previewStart", this.onPreview);
       __this.skService.addEventListener("DocumentScanning", "previewStop", this.onPreview);
@@ -126,7 +126,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
   }
 
   previewImageUpdate = (preview: any): void => {
-    if (this.router.url === "/AGIR2024/createAccountCamera") {
+    if (this.router.url === "/EK80002024AGIR/createAccountCamera") {
       if(this.scanVisited === 1){
         this.previewImageScanIdA = 'data:image/png;base64, ' + preview;
         this.moovhopService.previewImageScanIdA = this.previewImageScanIdA;
@@ -149,7 +149,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
         }
         counter++;
       } else {
-        if (this.router.url === "/AGIR2024/createAccountCamera") {
+        if (this.router.url === "/EK80002024AGIR/createAccountCamera") {
           this.skService.removeEventListener('DocumentScanning', 'previewStart', this.onPreview);
           this.skService.stopDocumentPreview();
           console.log("fin de prévisualisation vidéo");
@@ -168,7 +168,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
     
     switch (e.data.dataType) {
       case 'ImageCaptured':
-        if (this.router.url === "/AGIR2024/createAccountCamera") {
+        if (this.router.url === "/EK80002024AGIR/createAccountCamera") {
           this.imageCapture = 'data:image/png;base64, ' + this.skService.lastCaptureImageRaw();
           this.moovhopService.previewImageScanId = this.imageCapture;
           if(this.scanVisited === 1){
@@ -185,7 +185,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
           }
           this.isImageCaptured = true;
           this.skService.removeEventListener("DocumentScanning", "imageCapture", this.onCapture)
-          this.router.navigate(['/AGIR2024/createAccountScanFinish'])
+          this.router.navigate(['/EK80002024AGIR/createAccountScanFinish'])
         }
         break;
       case 'ImageCaptureError':

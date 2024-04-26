@@ -49,8 +49,8 @@ export class PaymentCardComponent extends GenericComponent {
       setTimeout(() => {
         _this.cardInfoText = "PAIEMENT AUTORISÉ";
         setTimeout(() => {
-          if (_this.router.url === '/EK8000-2024-AGIR/paymentCard') {
-            _this.router.navigate(['/EK8000-2024-AGIR/waitingScreen']);
+          if (_this.router.url === '/EK80002024AGIR/paymentCard') {
+            _this.router.navigate(['/EK80002024AGIR/waitingScreen']);
           }
         }, 2000);
       }, 2000);

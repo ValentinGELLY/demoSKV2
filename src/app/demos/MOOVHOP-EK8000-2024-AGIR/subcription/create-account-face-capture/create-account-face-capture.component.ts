@@ -29,7 +29,7 @@ export class CreateAccountFaceCaptureComponent extends GenericComponent implemen
 
   ngAfterViewInit(): void {
     let __this = this;
-    if(this.router.url === "/AGIR2024/createAccountFaceCapture"){
+    if(this.router.url === "/EK80002024AGIR/createAccountFaceCapture"){
       __this.skService.addEventListener("CameraShooting", "previewStart", this.onPreview)
       __this.skService.startCameraPreview();
       __this.timeoutCamera();
@@ -96,7 +96,7 @@ export class CreateAccountFaceCaptureComponent extends GenericComponent implemen
           countdown!.innerHTML = (parseInt(countdown!.innerHTML)-1).toString();
         }
       } else {
-        if (this.router.url === "/AGIR2024/createAccountFaceCapture") {
+        if (this.router.url === "/EK80002024AGIR/createAccountFaceCapture") {
           this.skService.stopCameraPreview();
           this.skService.removeEventListener('CameraShooting', 'previewStart', this.onPreview);
 
@@ -105,7 +105,7 @@ export class CreateAccountFaceCaptureComponent extends GenericComponent implemen
             this.increaseImageSize(image2, 3)
               .then((resizedBase64) => {
                 this.moovhopService.faceCapture = resizedBase64;
-                this.router.navigate(['/AGIR2024/createAccountScanFinish']);
+                this.router.navigate(['/EK80002024AGIR/createAccountScanFinish']);
               })
               .catch((error) => {
                 console.error(error);
