@@ -2,17 +2,7 @@
 .desktop-6 {
   background-color: #ececec;
   height: 100%;
-  width: 100%
-}
-
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 0px 0px;
   width: 100%;
-  font-size: 1.7vw;
-  height: 115%
 }
 
 
@@ -79,25 +69,25 @@
   justify-content: space-around;
 }
 
-.iconsChoiceView {
+.iconsChoiceView{
   height: 9.115vw;
   width: 7.656vw;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .25));
-  margin-top: 20px
+  margin-top: 20px;
 }
 
 .rectangle23 {
-  background-color: #fff;
+  background-color: #ffffff;
   height: 4.323vw;
   width: 100%;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .25));
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   top: 0;
-  left: 0
+  left: 0;
 }
 
 .choisissezunevue {
@@ -105,7 +95,7 @@
   text-align: center;
   font-size: 2vw;
   font-style: normal;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%,-50%);
   left: 50vw;
   width: 35vw;
   height: 4vw;
@@ -117,7 +107,7 @@
 
 .technique {
   height: fit-content;
-  text-align: center
+  text-align: center;
 }
 
 .avancee {
@@ -144,59 +134,76 @@
 .image12 {
   height: 9.792vw;
   width: 9.635vw;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .25));
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   left: 69.219vw;
   top: 31.5vw;
-  position: absolute
+  position: absolute;
 }
 
 .plusIcon {
   height: 4vw;
   left: 2vw;
   top: 2vw;
-  position: absolute
+  position: absolute;
 }
 
+
 .logoIpmSection {
-  background-color: #fff;
+  background-color: #ffffff;
   height: 3vw;
   width: 5vw;
-  padding: 0;
+  padding: 0px;
   position: absolute;
   top: 7px;
-  left: 0
+  left: 0px;
 }
 
 .logoipm {
-  width: 5vw
+  width: 5vw;
 }
 
-.main {
+.main{
   display: flex;
   justify-content: space-around;
   width: 100%;
   height: 75%;
   top: 10%;
-  position: absolute
+  position: absolute;
 }
 
-.allProfil {
+.allProfil{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   width: 85%;
   height: 100%;
-  justify-content: center
+  justify-content: center;
 }
 
-.left,
-.right,
-.middle {
+
+.left{
   height: 100%;
-  width: -moz-fit-content;
   width: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center
+  align-items: center;
+}
+
+.right{
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.middle{
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }

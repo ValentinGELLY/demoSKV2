@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { GenericComponent } from 'src/app/demos/generic/generic.component';
 import { SoftKioskService } from 'src/app/softkiosk.service';
@@ -53,7 +53,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   compteur: number = 0;
 
 
-  constructor(skService: SoftKioskService, private renderer: Renderer2, private appService: AppService) {
+  constructor(private cdr: ChangeDetectorRef, skService: SoftKioskService, private renderer: Renderer2, private appService: AppService) {
     super(skService);
   }
 
@@ -89,12 +89,9 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
         document.getElementById("popUpDescrition")!.style.display = "none";
       }, 500); // Same as the transition time
     });
+    this.getJavascriptFile(this.fileName);
     this.getjsonScript(this.fileName);
-
   }
-
-
-
 
   getShortenedDescription(): string {
     if (this.description.length <= 200) {
@@ -304,7 +301,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
       });
-    this.getJavascriptFile(this.fileName);
   }
 
   getStatusKeys(statusHistory: any): string[] {
@@ -392,6 +388,50 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
         this.listTestFunction = testFunctions;
         stopFunctions.forEach(name => console.log(name));
         this.listStopFunction = stopFunctions;
+        this.cdr.detectChanges();
+
+        console.log(this.listTestFunction);
+        console.log(this.listStopFunction);
+
+        let sectionStartAndStop = document.getElementById("startAndStop");
+
+        for (let index = 0; index < this.listStopFunction.length; index++) {
+          const element = this.listStopFunction[index];
+          sectionStartAndStop!.innerHTML += '<section class="section_test" >'+
+    '    <section>'+
+    '        <h3 id="userCaseTest1">User Case '+index+' :</h3>'+
+    '    </section>'+
+    '    <section class="btnSection">'+
+    '        <button class="playBtn" id="playBtn_test_'+index+'"'+
+    '            (click)="callFunctionFromScript('+this.listTestFunction[index]+', test_'+index+')">'+
+    '            Run </button>'+
+    '        <button class="stopBtn" id="stopBtn_test_'+index+'"'+
+    '            (click)="callFunctionFromScript('+element+',  test_'+index+')">'+
+    '            Stop</button>'+
+    '    </section>'+
+    '    <section class="LogTestAccordion log_test_'+index+'">'+
+    '        <section class="testLog_test">'+
+    '            <section class="accordion" id="accordion_Logs_test_'+index+'" (click)="showPanel(Logs_test_'+index+')">'+
+    '                <h2>Logs</h2>'+
+    '                <div class="fleche fleche_Logs_test_'+index+'"></div>'+
+    '            </section>'+
+    '            <div class="panel " id="panel_Logs_test_'+index+'">'+
+    '            </div>'+
+    '        </section>'+
+    '        <section class="ResultsLog_Results">'+
+    '            <section class="accordion" id="accordion_Logs_Results_'+index+'" (click)="showPanel(Logs_Results_test_'+index+')">'+
+    '                <h2>Results : <span id="last_Result_test_'+index+'"></span></h2>'+
+    '                <div class="fleche fleche_Logs_Results_test_'+index+'"></div>'+
+    '            </section>'+
+    '            <div class="panel" id="panel_Logs_Results_test_'+index+'">'+
+    '            </div>'+
+    '        </section>'+
+    '    </section>'+
+    '</section>'
+        }
+        
+
+
 
       })
       .catch(error => {
