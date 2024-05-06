@@ -73,7 +73,7 @@ export class WaitingScreenComponent {
               _this.skService.ticketPrintingPrintRawHtml(_this.htmlReceiptContent2);
               _this.moovhopService.bnTickets -= 1;
             }
-            else if (_this.router.url === "/waitingScreen" && _this.moovhopService.bnTickets <= 1) {
+            else if (_this.router.url === "/EK80002024AGIR/waitingScreen" && _this.moovhopService.bnTickets <= 1) {
               _this.skService.receiptPrintingPrintRawHtml(this.moovhopService.htmlReceiptContent);
               // traitement pour le changement de vue
               navEvent = new CustomEvent("moovHopNav", {
@@ -91,7 +91,7 @@ export class WaitingScreenComponent {
               _this.skService.ticketPrintingPrintRawHtml(_this.htmlReceiptContent2);
               _this.moovhopService.bnTickets -= 1;
             }
-            else if (_this.router.url === "/waitingScreen" && _this.moovhopService.bnTickets <= 1) {
+            else if (_this.router.url === "/EK80002024AGIR/waitingScreen" && _this.moovhopService.bnTickets <= 1) {
               _this.skService.receiptPrintingPrintRawHtml(this.moovhopService.htmlReceiptContent);
               // traitement pour le changement de vue
               navEvent = new CustomEvent("moovHopNav", {
@@ -145,7 +145,7 @@ export class WaitingScreenComponent {
         switch (e.data.dataType) {
           case 'RawHtmlPrinted':
             // traitement pour le changement de vue
-            if (this.router.url === "/waitingScreen") {
+            if (this.router.url === "/EK80002024AGIR/waitingScreen") {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
@@ -156,7 +156,7 @@ export class WaitingScreenComponent {
             }
             break;
           case 'RawHtmlPrintError':
-            if (this.router.url === "/waitingScreen") {
+            if (this.router.url === "/EK80002024AGIR/waitingScreen") {
               console.error(e.data.code + ": " + e.data.description);
               this.handlePrintError(e.data.code);
               // traitement pour le changement de vue
@@ -208,7 +208,7 @@ export class WaitingScreenComponent {
         switch (e.data.dataType) {
           case 'RawHtmlPrinted':
             // traitement pour le changement de vue
-            if (this.router.url === "/waitingScreen") {
+            if (this.router.url === "/EK80002024AGIR/waitingScreen") {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
@@ -219,7 +219,7 @@ export class WaitingScreenComponent {
             }
             break;
           case 'RawHtmlPrintError':
-            if (this.router.url === "/waitingScreen") {
+            if (this.router.url === "/EK80002024AGIR/waitingScreen") {
               console.error(e.data.code + ": " + e.data.description);
               this.handlePrintError(e.data.code);
               // traitement pour le changement de vue
