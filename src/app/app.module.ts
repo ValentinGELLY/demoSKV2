@@ -19,6 +19,7 @@ import { FeatureRunComponent } from './demoSKV2/feature-run/feature-run.componen
 import { MoovHop8000ModuleAGIR2024 } from './demos/MOOVHOP-EK8000-2024-AGIR/moovhop.module';
 
 
+
 const routes: Routes = [
     {
       path: 'homepageEK8000',
@@ -53,10 +54,7 @@ const routes: Routes = [
         Telefonica3000,
         MoovHopModule4000MWC,
         MoovHopModule4000AGIR2024,
-        MoovHop8000ModuleAGIR2024
-
-        
-        
+        MoovHop8000ModuleAGIR2024,        
     ],
 })
 export class AppModule { }

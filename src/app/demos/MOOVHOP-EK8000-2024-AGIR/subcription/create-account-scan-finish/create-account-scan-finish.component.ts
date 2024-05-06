@@ -15,8 +15,8 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
   constructor(private moovhopService: MoovhopService, private router: Router, skService: SoftKioskService) {
     super(skService);
   }
-  route : any = this.moovhopService.route;
-  
+  route: any = this.moovhopService.route;
+
   scanVisited = this.moovhopService.scanVisited;
 
   previewImageScanIdA = this.moovhopService.previewImageScanIdADef;
@@ -27,38 +27,53 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
     this.previewImageScanIdA = this.moovhopService.previewImageScanIdADef;
     this.previewImageScanIdB = this.moovhopService.previewImageScanIdBDef;
     this.previewImageProfile = this.moovhopService.faceCapture;
+
+
+
+
   }
 
 
 
   nextStep() {
-    if(this.scanVisited==1){
+    if (this.scanVisited == 1) {
       this.router.navigate(['/EK80002024AGIR/createAccountCamera']);
-    }else if(this.scanVisited==2){
-      console.log(document.getElementById("loadingLogo"));
+    } else if (this.scanVisited == 2) {
+      console.log(document.getElementById("loading"));
       console.log(document.getElementById("loadingSection"));
-      document.getElementById("loadingLogo")!.style.display = "block";
-      document.getElementById("loadingSection")!.style.display = "block";
+      document.getElementById("loadingLogo")!.style.setProperty("display", "block");
+      document.getElementById("loadingSection")!.style.setProperty("display", "block");
       this.createUser();
-    }else if(this.scanVisited==3){
-      document.getElementById("loadingLogo")!.style.display = "block";
-      document.getElementById("loadingSection")!.style.display = "block";
+    } else if (this.scanVisited == 3) {
+      document.getElementById("loadingLogo")!.style.setProperty("display", "block");
+      document.getElementById("loadingSection")!.style.setProperty("display", "block");
       console.log("enregistrement face");
-      this.addFaceUser(this.moovhopService.faceCapture);
+      this.increaseImageSize(this.moovhopService.previewImageProfile, 3)
+        .then((resizedBase64) => {
+          this.moovhopService.faceCapture = resizedBase64;
+          console.log("enregistrement face");
+          console.log(this.moovhopService.faceCapture);
+
+
+          this.addFaceUser(this.moovhopService.faceCapture);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   }
 
 
 
-  resetVisits(){
-    if(this.moovhopService.documentSelected=="passeport" && this.moovhopService.scanVisited==2){
-    this.moovhopService.scanVisited -= 2;
-    }else{
+  resetVisits() {
+    if (this.moovhopService.documentSelected == "passeport" && this.moovhopService.scanVisited == 2) {
+      this.moovhopService.scanVisited -= 2;
+    } else {
       this.moovhopService.scanVisited -= 1;
     }
     if (this.moovhopService.scanVisited == 1 || this.moovhopService.scanVisited == 0) {
       this.router.navigate(['/EK80002024AGIR/createAccountCamera']);
-    }else if (this.moovhopService.scanVisited == 2) {
+    } else if (this.moovhopService.scanVisited == 2) {
       this.router.navigate(['/EK80002024AGIR/createAccountFaceCapture']);
     }
   }
@@ -83,6 +98,8 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
         return response.json();
       })
       .then(async (data) => {
+        console.log("create user");
+
         this.moovhopService.idUserToCheck = data.id;
         this.createIdCheck();
       })
@@ -110,13 +127,14 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
       redirect: 'follow' as RequestRedirect | undefined
     };
 
-    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/"+this.moovhopService.idUserToCheck+"/idchecks", requestOptions)
+    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks", requestOptions)
       .then(response => response.json())
       .then((data) => {
         if (data.httpStatus == "409") {
           let nbTry2 = nbTry + 1;
           this.createIdCheck(nbTry2);
-        }else{
+        } else {
+          console.log("id check");
           this.moovhopService.idChecks = data.id;
           this.addDocuments();
         }
@@ -129,8 +147,60 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
   }
 
 
+  rognerImageBase64(imageBase64: string, x: number, y: number, largeur: number, hauteur: number, callback: (imageRogneeBase64: string) => void): void {
+    const image = new Image();
+    image.src = imageBase64;
+    let self = this;
+    image.onload = function () {
+      const canvas = document.createElement("canvas");
+      canvas.width = largeur;
+      canvas.height = hauteur;
 
-  
+      const context = canvas.getContext("2d");
+      if (context) {
+        context.drawImage(image, x, y, largeur, hauteur, 0, 0, largeur, hauteur);
+
+        const imageRogneeBase64 = canvas.toDataURL("image/png").split(',')[1];
+        // Appeler la fonction de rappel avec la chaîne base64 modifiée en paramètre
+        callback(imageRogneeBase64);
+
+      }
+
+    };
+
+  }
+
+  increaseImageSize(base64Image: string, scaleFactor: number): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+
+      img.src = base64Image;
+
+      img.onload = function () {
+        const canvas = document.createElement("canvas") as HTMLCanvasElement;
+        const ctx = canvas.getContext("2d");
+
+        if (!ctx) {
+          reject("Unable to get 2D context");
+          return;
+        }
+
+        const width = img.width * scaleFactor;
+        const height = img.height * scaleFactor;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        ctx.drawImage(img, 0, 0, width, height);
+
+        let quality = 0.8;
+        let dataURL = canvas.toDataURL("image/png", quality);
+
+        resolve(dataURL);
+      };
+    });
+  }
+
 
   addFaceUser(imageRogneeBase64: string) {
     fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/face/samples", {
@@ -151,12 +221,12 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
         if (data.httpStatus === 400) {
           if (this.router.url == "/EK80002024AGIR/createAccountScanFinish") {
             this.moovhopService.errorFace = true;
-            this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
+            this.router.navigate(['/EK80002024AGIR/validationScreen']);
           }
         } else if (data.items[0].usable == false) {
           if (this.router.url == "/EK80002024AGIR/createAccountScanFinish") {
             this.moovhopService.errorFace = true;
-            this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
+            this.router.navigate(['/EK80002024AGIR/validationScreen']);
           }
         } else {
           if (this.router.url == "/EK80002024AGIR/createAccountScanFinish") {
@@ -172,39 +242,36 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
 
   verifyFace() {
     fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/evaluation?evaluationPolicyName=policy-2",
-    {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
-      }
-    })
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
+        }
+      })
 
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      if (data.results.items[0].result === "MATCH") {
-        this.moovhopService.identityValidate = true;
-        this.router.navigate(['/EK80002024AGIR/createAccountHello']);
-      } else {
-        this.moovhopService.identityValidate = false;
-        this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
-      }
-    })
-    .catch((error) => {
-      console.log('error: ', error);
-    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.results.items[0].result === "MATCH") {
+          this.moovhopService.identityValidate = true;
+          this.router.navigate(['/EK80002024AGIR/createAccountHello']);
+        } else {
+          this.moovhopService.identityValidate = false;
+          this.router.navigate(['/EK80002024AGIR/validationScreen']);
+        }
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      })
   }
 
 
   addDocuments() {
     var myHeaders = new Headers();
-
-
     if (this.moovhopService.documentSelected == "passeport") {
       console.log("scan1");
-      console.log(this.moovhopService.previewImageScanIdBDef.replace("data:image/png;base64, ", ""));
       fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false",
         {
           method: 'POST',
@@ -224,86 +291,6 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
                   },
                   "subtype": "PROCESSED",
                   "type": "FRONT"
-                } 
-              ]
-            }
-          })
-        })
-        .then(response => response.json())
-        .then((data) => {
-          console.log("data", data);
-          
-          if (data.processingStatus == "FAILED") {
-            this.moovhopService.errorSaveIdCard = true;
-            setTimeout(() => {
-              this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
-              this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
-              this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
-              this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
-              this.moovhopService.previewImageScanIdB = "./assets/loadingPreview.png"
-            }, 5000);
-
-          } else {
-            
-            this.moovhopService.errorSaveIdCard = false;
-            this.moovhopService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
-            console.log("add id card");
-            this.getAllInformation();
-          }
-          
-          
-        })
-        .catch(error => {
-          console.error('error', error);
-          this.moovhopService.scanVisited = 0;
-          document.getElementById("error")!.style.setProperty("display", "block");
-          this.moovhopService.errorSaveIdCard = true;
-
-          setTimeout(() => {
-            this.router.navigate(['/EK80002024AGIR/createAccountMenu']);
-            this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
-            this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
-            this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
-            this.moovhopService.previewImageScanIdB = "./assets/loadingPreview.png"
-
-          }, 5000);
-        }
-        );
-
-    }
-    else {
-      console.log("scan1");
-      console.log(this.moovhopService.previewImageScanIdADef.replace("data:image/png;base64, ", ""));
-      console.log("scan2");
-      console.log(this.moovhopService.previewImageScanIdBDef.replace("data:image/png;base64, ", ""));
-      fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false",
-        {
-          method: 'POST',
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
-          },
-          body: JSON.stringify({
-            "captured": this.moovhopService.timeScanIdA.toISOString(),
-            "clientCapture": {
-              "images": [
-                {
-                  "captured": this.moovhopService.timeScanIdA.toISOString(),
-                  "sensitiveData": {
-                    "imageFormat": "JPG",
-                    "value": this.moovhopService.previewImageScanIdADef.replace("data:image/png;base64, ", "")
-                  },
-                  "subtype": "PROCESSED",
-                  "type": "FRONT"
-                },
-                {
-                  "captured": this.moovhopService.timeScanIdB.toISOString(),
-                  "sensitiveData": {
-                    "imageFormat": "JPG",
-                    "value": this.moovhopService.previewImageScanIdBDef.replace("data:image/png;base64, ", "")
-                  },
-                  "subtype": "PROCESSED",
-                  "type": "BACK"
                 }
               ]
             }
@@ -311,11 +298,11 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
         })
         .then(response => response.json())
         .then((data) => {
-          
+          console.log("data", data);
           if (data.processingStatus == "FAILED") {
             this.moovhopService.errorSaveIdCard = true;
             setTimeout(() => {
-              this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
+              this.router.navigate(['/EK80002024AGIR/validationScreen']);
               this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
               this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
               this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
@@ -328,6 +315,8 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
             console.log("add id card");
             this.getAllInformation();
           }
+
+
         })
         .catch(error => {
           console.error('error', error);
@@ -345,6 +334,161 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
           }, 5000);
         }
         );
+
+    }else {
+      // Premier fetch pour la capture FRONT
+      fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false", {
+        method: 'POST',
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
+        },
+        body: JSON.stringify({
+          "captured": this.moovhopService.timeScanIdA.toISOString(),
+          "clientCapture": {
+            "images": [{
+              "captured": this.moovhopService.timeScanIdA.toISOString(),
+              "sensitiveData": {
+                "imageFormat": "JPG",
+                "value": this.moovhopService.previewImageScanIdADef.replace("data:image/png;base64, ", "")
+              },
+              "subtype": "PROCESSED",
+              "type": "FRONT"
+            }]
+          }
+        })
+      })
+        .then(response => response.json())
+        .then((data) => {
+          if (data.processingStatus == "FAILED") {
+            this.moovhopService.errorSaveIdCard = true;
+            setTimeout(() => {
+              this.router.navigate(['/EK80002024AGIR/validationScreen']);
+              this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
+              this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
+              this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
+              this.moovhopService.previewImageScanIdB = "./assets/loadingPreview.png"
+            }, 5000);
+          } else {
+            // Premier fetch réussi, lancer le deuxième fetch pour la capture BACK
+            fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false", {
+              method: 'POST',
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
+              },
+              body: JSON.stringify({
+                "captured": this.moovhopService.timeScanIdB.toISOString(),
+                "clientCapture": {
+                  "images": [{
+                    "captured": this.moovhopService.timeScanIdB.toISOString(),
+                    "sensitiveData": {
+                      "imageFormat": "JPG",
+                      "value": this.moovhopService.previewImageScanIdBDef.replace("data:image/png;base64, ", "")
+                    },
+                    "subtype": "PROCESSED",
+                    "type": "BACK"
+                  }]
+                }
+              })
+            })
+              .then(response => response.json())
+              .then((data) => {
+                if (data.processingStatus == "FAILED") {
+                  this.moovhopService.errorSaveIdCard = true;
+                  setTimeout(() => {
+                    this.router.navigate(['/EK80002024AGIR/validationScreen']);
+                    this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
+                    this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
+                    this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
+                    this.moovhopService.previewImageScanIdB = "./assets/loadingPreview.png"
+                  }, 5000);
+                }else {
+                  this.moovhopService.errorSaveIdCard = false;
+                  this.moovhopService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
+                  console.log("add id card");
+                  this.getAllInformation();
+                }
+              }
+              )
+              .catch(error => {
+                // Gérer les erreurs pour les deux fetchs
+              })
+          }
+        }
+        );
+      /*
+            console.log("scan1");
+            console.log("scan2");
+            fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false",
+              {
+                method: 'POST',
+                headers: {
+                  "Content-type": "application/json; charset=UTF-8",
+                  "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
+                },
+                body: JSON.stringify({
+                  "captured": this.moovhopService.timeScanIdA.toISOString(),
+                  "clientCapture": {
+                    "images": [
+                      {
+                        "captured": this.moovhopService.timeScanIdA.toISOString(),
+                        "sensitiveData": {
+                          "imageFormat": "JPG",
+                          "value": this.moovhopService.previewImageScanIdADef.replace("data:image/png;base64, ", "")
+                        },
+                        "subtype": "PROCESSED",
+                        "type": "FRONT"
+                      },
+                      {
+                        "captured": this.moovhopService.timeScanIdA.toISOString(),
+                        "sensitiveData": {
+                          "imageFormat": "JPG",
+                          "value": this.moovhopService.previewImageScanIdBDef.replace("data:image/png;base64, ", "")
+                        },
+                        "subtype": "PROCESSED",
+                        "type": "BACK"
+                      }
+                    ]
+                  }
+                })
+              })
+              .then(response => response.json())
+              .then((data) => {
+      
+                if (data.processingStatus == "FAILED") {
+                  this.moovhopService.errorSaveIdCard = true;
+                  setTimeout(() => {
+                    this.router.navigate(['/EK80002024AGIR/validationScreen']);
+                    this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
+                    this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
+                    this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
+                    this.moovhopService.previewImageScanIdB = "./assets/loadingPreview.png"
+                  }, 5000);
+      
+                } else {
+                  this.moovhopService.errorSaveIdCard = false;
+                  this.moovhopService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
+                  console.log("add id card");
+                  this.getAllInformation();
+                }
+              })
+              .catch(error => {
+                console.error('error', error);
+                this.moovhopService.scanVisited = 0;
+                document.getElementById("error")!.style.setProperty("display", "block");
+                this.moovhopService.errorSaveIdCard = true;
+      
+                setTimeout(() => {
+                  this.router.navigate(['/EK80002024AGIR/createAccountMenu']);
+                  this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
+                  this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
+                  this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
+                  this.moovhopService.previewImageScanIdB = "./assets/loadingPreview.png"
+      
+                }, 5000);
+              }*/
+
     }
   }
 
@@ -362,11 +506,11 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
         return response.json();
       })
       .then((data) => {
-        
+        console.log("get all information");
         if (data.mrz != undefined) {
           for (let key in data.mrz) {
             if (data.mrz.hasOwnProperty(key)) {
-              let element = data.mrz[key];            
+              let element = data.mrz[key];
               switch (element.name) {
                 case "Surname":
                   let surname = element.value.split(" ");
@@ -387,7 +531,7 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
             }
           }
         }
-        this.router.navigate(['/EK80002024AGIR/createAccountValidationScreen']);
+        this.router.navigate(['/EK80002024AGIR/validationScreen']);
       })
       .catch((error) => {
         console.log('error: ', error);
@@ -414,17 +558,17 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
           console.error("error");
           if (this.router.url == "/faceResult") {
             this.moovhopService.errorFace = true;
-            this.router.navigate(['/createAccountValidationScreen']);
+            this.router.navigate(['/validationScreen']);
           }
         } else if (data.items[0].usable == false) {
           if (this.router.url == "/faceResult") {
             this.moovhopService.errorFace = true;
-            this.router.navigate(['/createAccountValidationScreen']);
+            this.router.navigate(['/validationScreen']);
           }
         } else {
           if (this.router.url == "/faceResult") {
             this.moovhopService.errorFace = false;
-            this.router.navigate(['/createAccountValidationScreen']);
+            this.router.navigate(['/validationScreen']);
           }
         }
       })

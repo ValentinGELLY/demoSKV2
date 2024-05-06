@@ -1,6 +1,8 @@
 *{
     margin: 0;
     padding: 0;
+    font-family: 'Google Sans';
+
 }
 
 
@@ -59,7 +61,7 @@ main{
     width: 40%;
     display: flex;
     flex-direction: column;
-    gap: 10%;
+    gap: 6%;
 
 }
 
@@ -68,7 +70,7 @@ main{
     padding-left: 25px;
     display:flex;
     flex-direction: column;
-    gap: 10%;
+    gap: 5%;
 }
 
 #backIcon{
@@ -105,10 +107,6 @@ main{
     border-bottom: solid 1px #000;
 }
 
-.active,
-.accordion:hover {
-    background-color: #ccc;
-}
 
 .active {
     border-radius: 0;
@@ -117,12 +115,9 @@ main{
 }
 
 .panel {
-    padding: 0 18px;
-    max-height: 0;
-    overflow: hidden;
     transition: max-height 0.2s ease-out;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    display:none;
+
 }
 
 .active .fleche {
@@ -144,7 +139,6 @@ main{
 #status{
 display: flex ;
 flex-direction: column;
-height: 60%;
 justify-content: space-around;
 }
 
@@ -154,8 +148,9 @@ justify-content: space-around;
 
 .listStatus{
     display: flex;
-    flex-wrap: wrap;
     gap: 10%;
+    height: 180px;
+    flex-wrap: wrap;
 }
 
 
@@ -264,3 +259,85 @@ input{
     width: 40px;
     height: 40px;
 }
+
+#startAndStop{
+    display: flex;
+    justify-content: space-around;
+    border: none;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.panelInformations{
+    height: 50px;
+    overflow-y: auto;   
+    height: 90px;
+}
+
+.stateInformations{
+    border-bottom: solid 1px #000;
+    padding: 5px;
+}
+
+.stateInformations:nth-child(odd){
+    background-color: #ccc;
+}
+
+.logo {
+    width: 4vw;
+  }
+  
+#panel_Logs{
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.section_test{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.playBtn, .stopBtn{
+    border: none;
+    color: #fff;
+    padding: 4px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+    width: 195px;
+}
+
+
+.playBtn{
+    background-color: #04AA6D;
+}
+
+.stopBtn{
+    background-color: #f44336;
+}
+
+.btnSection{
+    display: flex;
+    width: 46%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 27px;
+    
+}
+
+.LogTestAccordion{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ResultsLog_Results,.testLog_test{
+    width: 48%;
+}
+

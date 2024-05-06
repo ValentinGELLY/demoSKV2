@@ -1,5 +1,5 @@
 <div class="containerAllPages">
-  <div class="header"> <!-- première div pour la barre en haut des pages -->
+  <header> <!-- première div pour la barre en haut des pages -->
     <div *ngIf="currentView != ''">
       <img src="./assets/DemoSKV2/logoIPM.png" class="logo" routerLink="/demoSKV2ChooseView">
     </div>
@@ -13,24 +13,25 @@
       <div *ngIf="!isMenuChecked" id="displayCurrentView" (click)="clickViewMenu()">
         <img [src]="currentViewImage" class="userImage">
       </div>
+      <div *ngIf="isMenuChecked" class="displayViews" (click)="clickViewMenu()">
+        <h5 id="displayViewsTitle"> Changer de vue: </h5> <br>
+        <div id="listViewToChange">
+          <p [ngStyle]="{'background-color': this.currentView === 'user' ? 'grey' : 'white'}" id="user"
+            (click)="changeCurrentView('user')"> Utilisateur </p>
+          <p [ngStyle]="{'background-color': this.currentView === 'marketing' ? 'grey' : 'white'}" id="marketing"
+            (click)="changeCurrentView('marketing')"> Marketing </p>
+          <p [ngStyle]="{'background-color': this.currentView === 'tech' ? 'grey' : 'white'}" id="tech"
+            (click)="changeCurrentView('tech')"> Technique </p>
+          <p [ngStyle]="{'background-color': this.currentView === 'advancedTech' ? 'grey' : 'white'}" id="advancedTech"
+            (click)="changeCurrentView('advancedTech')"> Technique avancée</p>
+          <p [ngStyle]="{'background-color': this.currentView === 'ivq' ? 'grey' : 'white'}" id="ivq"
+            (click)="changeCurrentView('ivq')"> IVQ </p>
+        </div>
+      </div>
     </div>
-  </div>
+  </header>
 
-  <div *ngIf="isMenuChecked" class="displayViews" (click)="clickViewMenu()">
-    <h5 id="displayViewsTitle"> Changer de vue: </h5> <br>
-    <div id="listViewToChange">
-      <p [ngStyle]="{'background-color': this.currentView === 'user' ? 'grey' : 'white'}" id="user"
-        (click)="changeCurrentView('user')"> Utilisateur </p>
-      <p [ngStyle]="{'background-color': this.currentView === 'marketing' ? 'grey' : 'white'}" id="marketing"
-        (click)="changeCurrentView('marketing')"> Marketing </p>
-      <p [ngStyle]="{'background-color': this.currentView === 'tech' ? 'grey' : 'white'}" id="tech"
-        (click)="changeCurrentView('tech')"> Technique </p>
-      <p [ngStyle]="{'background-color': this.currentView === 'advancedTech' ? 'grey' : 'white'}" id="advancedTech"
-        (click)="changeCurrentView('advancedTech')"> Technique avancée</p>
-      <p [ngStyle]="{'background-color': this.currentView === 'ivq' ? 'grey' : 'white'}" id="ivq"
-        (click)="changeCurrentView('ivq')"> IVQ </p>
-    </div>
-  </div>
+  
 
   <app-option-list> </app-option-list>
 

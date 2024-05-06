@@ -15,7 +15,7 @@ export class CreateAccountThanksComponent implements OnInit {
 
     setTimeout(() => {
       if (this.router.url === '/createAccountThanks') {
-        this.router.navigate(['/homePageEK'])
+        this.router.navigate(['/homepage'])
       }
     }, 5000);
 

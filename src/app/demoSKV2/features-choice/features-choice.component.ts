@@ -84,11 +84,11 @@ export class FeaturesChoiceComponent implements OnInit {
     }
   }
 
-  ChooseScript(id: number) {
-    this.appService.idScriptSelected = id;
-    this.appService.listScript = this.allScript;
+  ChooseScript(fileName: string) {
+    this.appService.filename = fileName;   
     this.router.navigate(['/featureRun']);
   }
+
 
 
 

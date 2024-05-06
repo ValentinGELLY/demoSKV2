@@ -45,7 +45,10 @@ export class AppComponent implements OnInit {
         this.appService.setNextRoute('/MWC2024/homepageEK4000');
         break;
       case 'MOOVHOP-EK4000-2024-AGIR':
-        this.appService.setNextRoute('/AGIR2024/homepageEK4000');
+        this.appService.setNextRoute('/AGIR2024/homepage');
+        break;
+      case 'MOOVHOP-EK8000-2024-AGIR':
+        this.appService.setNextRoute('/EK80002024AGIR/homepage');
         break;
       case 'MOOVHOP-EK8000-2024-AGIR':
           this.appService.setNextRoute('/EK8000-2024-AGIR/homepageEK8000');

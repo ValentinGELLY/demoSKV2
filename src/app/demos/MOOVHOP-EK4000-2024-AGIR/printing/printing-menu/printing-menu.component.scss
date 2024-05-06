@@ -46,3 +46,15 @@ img{
 .unSelectable{
   opacity: 0.5;
 }
+
+iframe {
+  position: fixed;
+  width: 100vw;
+  height: 70vh;
+  border: none;
+  margin-top: 15vh;
+}
+
+.home {
+  background-image: none !important;
+}

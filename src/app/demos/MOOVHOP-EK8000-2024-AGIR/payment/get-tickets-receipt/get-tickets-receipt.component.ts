@@ -13,7 +13,7 @@ export class GetTicketsReceiptComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       if (this.router.url === '/EK80002024AGIR/getTicketReceipt') {
-        this.router.navigate(['/EK80002024AGIR/homepageEK']);
+        this.router.navigate(['/EK80002024AGIR/homepage']);
       }
     }, 5000);
   }

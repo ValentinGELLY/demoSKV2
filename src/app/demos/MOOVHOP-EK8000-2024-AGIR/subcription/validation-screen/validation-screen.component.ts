@@ -10,7 +10,7 @@ import { SoftKioskService } from 'src/app/softkiosk.service';
   styleUrls: ['./validation-screen.component.scss', '../../moovhop.component.scss']
 })
 
-export class CreateAccountValidationScreen extends GenericComponent {
+export class validationScreen extends GenericComponent {
 
 
 
@@ -30,9 +30,9 @@ export class CreateAccountValidationScreen extends GenericComponent {
     this.errorSaveIdCard = this.moovhopService.errorSaveIdCard;
     this.scanVisited = this.moovhopService.scanVisited;
     this.identityValidate = this.moovhopService.identityValidate;
-    if (this.identityValidate) {
+    if (this.scanVisited === 3 && this.identityValidate) {
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/EK80002024AGIR/createAccountHello']);
+        this.route.navigate(['EK80002024AGIR/createAccountHello']);
       }, 5000);
     }else if(this.moovhopService.errorSaveIdCard){
       this.timeout = setTimeout(() => {
@@ -44,7 +44,7 @@ export class CreateAccountValidationScreen extends GenericComponent {
       }, 5000);
     }else if (this.scanVisited === 2 && !this.moovhopService.errorSaveIdCard) {
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/EK80002024AGIR/createAccountPersonalInformations']);
+        this.route.navigate(['/EK80002024AGIR/createAccountFormPersonalInformations']);
       }, 5000);
     }else if (this.scanVisited === 3 && !this.identityValidate) {
       this.timeout = setTimeout(() => {
