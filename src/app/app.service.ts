@@ -20,6 +20,7 @@ export class AppService implements OnInit {
   statusSubject: any;
   idScriptSelected=0;
   listScript: any;
+  filename: string = "";
 
 
   constructor(private skService: SoftKioskService, private router: Router) {
