@@ -248,13 +248,6 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
           "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
         }
       })
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ==",
-        }
-      })
 
       .then((response) => {
         return response.json();
@@ -425,77 +418,6 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
           }
         }
         );
-      /*
-            console.log("scan1");
-            console.log("scan2");
-            fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false",
-              {
-                method: 'POST',
-                headers: {
-                  "Content-type": "application/json; charset=UTF-8",
-                  "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
-                },
-                body: JSON.stringify({
-                  "captured": this.moovhopService.timeScanIdA.toISOString(),
-                  "clientCapture": {
-                    "images": [
-                      {
-                        "captured": this.moovhopService.timeScanIdA.toISOString(),
-                        "sensitiveData": {
-                          "imageFormat": "JPG",
-                          "value": this.moovhopService.previewImageScanIdADef.replace("data:image/png;base64, ", "")
-                        },
-                        "subtype": "PROCESSED",
-                        "type": "FRONT"
-                      },
-                      {
-                        "captured": this.moovhopService.timeScanIdA.toISOString(),
-                        "sensitiveData": {
-                          "imageFormat": "JPG",
-                          "value": this.moovhopService.previewImageScanIdBDef.replace("data:image/png;base64, ", "")
-                        },
-                        "subtype": "PROCESSED",
-                        "type": "BACK"
-                      }
-                    ]
-                  }
-                })
-              })
-              .then(response => response.json())
-              .then((data) => {
-      
-                if (data.processingStatus == "FAILED") {
-                  this.moovhopService.errorSaveIdCard = true;
-                  setTimeout(() => {
-                    this.router.navigate(['/EK80002024AGIR/validationScreen']);
-                    this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
-                    this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
-                    this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
-                    this.moovhopService.previewImageScanIdB = "./assets/loadingPreview.png"
-                  }, 5000);
-      
-                } else {
-                  this.moovhopService.errorSaveIdCard = false;
-                  this.moovhopService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
-                  console.log("add id card");
-                  this.getAllInformation();
-                }
-              })
-              .catch(error => {
-                console.error('error', error);
-                this.moovhopService.scanVisited = 0;
-                document.getElementById("error")!.style.setProperty("display", "block");
-                this.moovhopService.errorSaveIdCard = true;
-      
-                setTimeout(() => {
-                  this.router.navigate(['/EK80002024AGIR/createAccountMenu']);
-                  this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
-                  this.moovhopService.previewImageScanIdADef = "./assets/loadingPreview.png"
-                  this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
-                  this.moovhopService.previewImageScanIdB = "./assets/loadingPreview.png"
-      
-                }, 5000);
-              }*/
 
     }
   }
