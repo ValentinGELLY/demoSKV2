@@ -11,7 +11,7 @@ declare var Kiosk: any;
   templateUrl: './moov-hop-all-pages.component.html',
   styleUrls: ['./moov-hop-all-pages.component.scss', '../moovhop.component.scss']
 })
-export class MoovHopAllPagesComponent extends GenericComponent implements OnInit, OnDestroy {
+export class MoovHopAllPagesComponent extends GenericComponent implements OnDestroy {
 
   chatBotLink = "./assets/MOOVHOP-EK4000-2023-RNTP/chatbot.png"
 
@@ -48,9 +48,9 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
 
 
 
-  override ngOnInit() {
+  ngAfterViewInit() {
     setTimeout(() => {
-      document.getElementById("loading")!.classList.add("removeWhite");
+      document.getElementById("loadingBackground")!.classList.add("removeWhite");
     }, 50);
 
     
@@ -172,20 +172,7 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
 
   testStatus = () => {
     // document printer 
-    this.skService.addStatusServicesEventListener("DocumentPrinting", (e: any) => {
-      console.log("DocumentPrinting",e.data.status);
-      
-      switch (e.data.status) {
-        case 'Critical':
-          this.messagePrinter = 'Imprimante, '+ e.data.statusDetail;
-          break
-        case 'Unknown':
-          this.messagePrinter = e.data.statusDescription;
-          break
-        default:
-          this.messagePrinter = '';
-      }
-    });
+    
     // Receipt printer 
     this.skService.addStatusServicesEventListener("ReceiptPrinting", (e: any) => {
       console.log("ReceiptPrinting",e.data.status);
@@ -259,7 +246,7 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
 
 
   ngOnDestroy(): void {
-    document.getElementById("loading")!.classList.remove("removeWhite");
+    document.getElementById("loadingBackground")!.classList.remove("removeWhite");
     this.moovHopService.resetTimeoutNavigation();
    }
 

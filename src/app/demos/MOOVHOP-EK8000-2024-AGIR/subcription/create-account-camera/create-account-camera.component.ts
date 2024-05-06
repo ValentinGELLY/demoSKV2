@@ -89,8 +89,6 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
         break;
       case 'PreviewStopped':
         setTimeout(() => {
-          this.skService.addEventApplication("demoSKV2", "arrêt prévisualisation du document");
-          this.skService.addEventApplication("demoSKV2", "capture du document");
           this.skService.removeEventListener("DocumentScanning", "previewStop", this.onPreview);
           if(this.scanVisited === 1){
           this.moovhopService.timeScanIdA = new Date();
@@ -163,9 +161,8 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
 
   onCapture = (e: any) => {
     console.log("Capture Image");
-    
     console.log(e.data.dataType);
-    
+  
     switch (e.data.dataType) {
       case 'ImageCaptured':
         if (this.router.url === "/EK80002024AGIR/createAccountCamera") {

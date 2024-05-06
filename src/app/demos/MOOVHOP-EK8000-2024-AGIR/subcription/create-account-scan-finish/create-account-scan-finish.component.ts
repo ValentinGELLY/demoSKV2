@@ -27,20 +27,12 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
     this.previewImageScanIdA = this.moovhopService.previewImageScanIdADef;
     this.previewImageScanIdB = this.moovhopService.previewImageScanIdBDef;
     this.previewImageProfile = this.moovhopService.faceCapture;
-
-
-
-
   }
-
-
 
   nextStep() {
     if (this.scanVisited == 1) {
       this.router.navigate(['/EK80002024AGIR/createAccountCamera']);
     }else if(this.scanVisited==2){
-      console.log(document.getElementById("loadingLogo"));
-      console.log(document.getElementById("loadingSection"));
       document.getElementById("loadingLogo")!.style.setProperty("display", "block");
       document.getElementById("loadingSection")!.style.setProperty("display", "block");
       this.createUser();
