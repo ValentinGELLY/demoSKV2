@@ -85,6 +85,8 @@ export class CreateAccountFaceCaptureComponent extends GenericComponent implemen
     
     this.faceCapture = 'data:image/png;base64, ' + preview;
     this.moovhopService.previewImageProfile = this.faceCapture;
+    this.moovhopService.faceCapture = this.faceCapture;
+    
   }
 
   timeoutCamera = () => {
@@ -100,17 +102,8 @@ export class CreateAccountFaceCaptureComponent extends GenericComponent implemen
           this.skService.stopCameraPreview();
           this.skService.removeEventListener('CameraShooting', 'previewStart', this.onPreview);
 
-          this.rognerImageBase64(this.moovhopService.previewImageProfile, 203, 35, 248, 411, (imageRogneeBase64) => {
-            let image2 = "data:image/png;base64, " + imageRogneeBase64;
-            this.increaseImageSize(image2, 3)
-              .then((resizedBase64) => {
-                this.moovhopService.faceCapture = resizedBase64;
-                this.router.navigate(['/EK80002024AGIR/createAccountScanFinish']);
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-          });
+          this.router.navigate(['/EK80002024AGIR/createAccountScanFinish']);
+
           clearInterval(this.interval3);
         }
       }
@@ -119,59 +112,7 @@ export class CreateAccountFaceCaptureComponent extends GenericComponent implemen
   }
 
 
-  rognerImageBase64(imageBase64: string, x: number, y: number, largeur: number, hauteur: number, callback: (imageRogneeBase64: string) => void): void {
-    const image = new Image();
-    image.src = imageBase64;
-    let self = this;
-    image.onload = function () {
-      const canvas = document.createElement("canvas");
-      canvas.width = largeur;
-      canvas.height = hauteur;
-
-      const context = canvas.getContext("2d");
-      if (context) {
-        context.drawImage(image, x, y, largeur, hauteur, 0, 0, largeur, hauteur);
-
-        const imageRogneeBase64 = canvas.toDataURL("image/png").split(',')[1];
-        // Appeler la fonction de rappel avec la chaîne base64 modifiée en paramètre
-        callback(imageRogneeBase64);
-
-      }
-
-    };
-
-  }
-
-  increaseImageSize(base64Image: string, scaleFactor: number): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-
-      img.src = base64Image;
-
-      img.onload = function () {
-        const canvas = document.createElement("canvas") as HTMLCanvasElement;
-        const ctx = canvas.getContext("2d");
-
-        if (!ctx) {
-          reject("Unable to get 2D context");
-          return;
-        }
-
-        const width = img.width * scaleFactor;
-        const height = img.height * scaleFactor;
-
-        canvas.width = width;
-        canvas.height = height;
-
-        ctx.drawImage(img, 0, 0, width, height);
-
-        let quality = 0.8;
-        let dataURL = canvas.toDataURL("image/png", quality);
-
-        resolve(dataURL);
-      };
-    });
-  }
+  
 
 
   ngOnDestroy(): void {

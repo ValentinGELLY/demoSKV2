@@ -13,7 +13,7 @@ export class ReloadThanksComponent implements OnInit {
   ngOnInit(): void {
     if(this.router.url === '/EK80002024AGIR/reloadThanks'){
       setTimeout(()=>{
-        this.router.navigate(['/EK80002024AGIR/homepageEK'])
+        this.router.navigate(['/EK8000-2024-AGIR/homepageEK8000'])
       },5000)
     }
   }

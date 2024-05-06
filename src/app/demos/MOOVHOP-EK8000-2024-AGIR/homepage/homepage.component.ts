@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MoovhopService} from '../moovhop.service';
+import { MoovhopService } from '../moovhop.service';
 declare var Kiosk: any;
 
 
@@ -8,10 +8,10 @@ declare var Kiosk: any;
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss', '../moovhop.component.scss']
 })
-export class HomepageComponent{
+export class HomepageComponent {
 
-  constructor( private moovhopService :MoovhopService) {
-   }
+  constructor(private moovhopService: MoovhopService) {
+  }
 
   ngOnInit(): void {
     this.moovhopService.textCB = '';
@@ -29,16 +29,20 @@ export class HomepageComponent{
     this.moovhopService.TicketChoosed = 1;
     this.moovhopService.htmlReceiptContent = '';
 
+    this.moovhopService.errorFace = false;
+    this.moovhopService.errorSaveIdCard = false;
+    this.moovhopService.identityValidate = false;
+
     this.moovhopService.preloadImages();
     Kiosk.Signaling.setLed({ 'color': 'Green', 'name': 'Leds' });
 
     var maVariable = localStorage.getItem('automaticCard');
     console.log(maVariable);
-    this.moovhopService.automaticCard = maVariable || 'true';  
+    this.moovhopService.automaticCard = maVariable || 'true';
   }
 
-  ActionChoosed( num : number){
-    this.moovhopService.ActionChoosed=num;
+  ActionChoosed(num: number) {
+    this.moovhopService.ActionChoosed = num;
   }
 
 }

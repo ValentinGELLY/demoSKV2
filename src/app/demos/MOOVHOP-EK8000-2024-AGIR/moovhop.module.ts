@@ -14,7 +14,6 @@ import { WaitingScreenComponent } from './payment/waiting-screen/waiting-screen.
 import { GetTicketsReceiptComponent } from './payment/get-tickets-receipt/get-tickets-receipt.component';
 import { CreateAccountMenuComponent } from './subcription/create-account-menu/create-account-menu.component';
 import { CreateAccountCameraComponent } from './subcription/create-account-camera/create-account-camera.component';
-import { CreateAccountPersonalInformationsComponent } from './subcription/create-account-personal-informations/create-account-personal-informations.component';
 import { CreateAccountHelloComponent } from './subcription/create-account-hello/create-account-hello.component';
 import { CreateAccountSubscriptionChoiceComponent } from './subcription/create-account-subscription-choice/create-account-subscription-choice.component';
 import { CreateAccountThanksComponent } from './subcription/create-account-thanks/create-account-thanks.component';
@@ -25,8 +24,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ReloadThanksComponent } from './reload/reload-thanks/reload-thanks.component';
-import { CreateAccountValidationScreen } from './subcription/validation-screen/validation-screen.component'
+import { validationScreen } from './subcription/validation-screen/validation-screen.component'
 import { CreateAccountFaceCaptureComponent } from './subcription/create-account-face-capture/create-account-face-capture.component';
+import { CreateAccountFormPersonalInformationsComponent } from './subcription/create-account-personal-informations/create-account-personal-informations.component';
+
 
 
 
@@ -45,7 +46,6 @@ import { CreateAccountFaceCaptureComponent } from './subcription/create-account-
     GetTicketsReceiptComponent,
     CreateAccountMenuComponent,
     CreateAccountCameraComponent,
-    CreateAccountPersonalInformationsComponent,
     CreateAccountHelloComponent,
     CreateAccountSubscriptionChoiceComponent,
     CreateAccountThanksComponent,
@@ -53,8 +53,9 @@ import { CreateAccountFaceCaptureComponent } from './subcription/create-account-
     ReloadPersonalInformationsComponent,
     CreateAccountScanFinishComponent,
     ReloadThanksComponent,
-    CreateAccountValidationScreen,
-    CreateAccountFaceCaptureComponent
+    validationScreen,
+    CreateAccountFaceCaptureComponent,
+    CreateAccountFormPersonalInformationsComponent
   ],
   exports:[MoovHopAllPagesComponent],
   imports: [

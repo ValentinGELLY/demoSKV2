@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MoovhopService } from '../../moovhop.service';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
 
 @Component({
   selector: 'app-create-account-menu',
@@ -10,7 +9,7 @@ import { GenericComponent } from 'src/app/demos/generic/generic.component';
 })
 export class CreateAccountMenuComponent implements OnInit {
 
-  constructor( private router: Router, private moovhopService: MoovhopService) { }
+  constructor(private moovhopService : MoovhopService, private router : Router) { }
 
   ngOnInit(): void {
     this.moovhopService.scanVisited = 0;
