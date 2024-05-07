@@ -1,3 +1,4 @@
+<script src="https://cdn.form.io/js/formio.embed.js"></script>
 
 
 
@@ -20,13 +21,12 @@
         </section>
 
         <section id="startAndStop">
-            {{listTestFunction}}
-            {{listStopFunction}}
+
             <section class="section_test" *ngFor="let item of listStopFunction; let i = index">
-                {{listStopFunction}}
                 <section>
                     <h3 id="userCaseTest1">User Case {{i+1}} :</h3>
                 </section>
+                
                 <section class="btnSection">
                     <button class="playBtn" id="playBtn_test_{{i}}"
                         (click)="callFunctionFromScript(listTestFunction[i], 'test_'+i)">
@@ -84,7 +84,7 @@
         </section>
         <section id="status">
             <section>
-                <h2>Status Services : {{serviceUsed}}</h2>
+                <h2>Status Services :</h2>
                 <div class="listStatus">
                     <section *ngFor="let item of serviceUsed ; let i = index" class="logStatus">
                         <section class="btnStatus accordion" [attr.id]=" 'accordion_' + item.name"
