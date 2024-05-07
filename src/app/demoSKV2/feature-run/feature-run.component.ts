@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { GenericComponent } from 'src/app/demos/generic/generic.component';
 import { SoftKioskService } from 'src/app/softkiosk.service';
@@ -51,9 +51,10 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
 
   firstPreview: boolean = true;
   compteur: number = 0;
+item: any;
 
 
-  constructor(skService: SoftKioskService, private renderer: Renderer2, private appService: AppService) {
+  constructor(skService: SoftKioskService, private renderer: Renderer2, private appService: AppService, private cdr: ChangeDetectorRef) {
     super(skService);
   }
 
@@ -202,7 +203,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
            * En fonction du début du log ( FIN, CAPTURE, PREVIEW, ...)
            */
           var log = console.log;
-          console.log = function () {
+          /*console.log = function () {
             log.apply(this, Array.prototype.slice.call(arguments));
             let panel = 'panel_Logs';
             if (_this.actualLogLocation !== "") {
@@ -250,11 +251,11 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
                 _this.firstPreview = true;
               }
             }
-          };
+          };*/
         }
 
         let listMethods = this.methods;
-        for (let i = 0; i < listMethods.length; i++) {
+        /*for (let i = 0; i < listMethods.length; i++) {
           if (listMethods[i].params.length !== 0) {
             listMethods[i].params.forEach((element: any) => {
 
@@ -277,6 +278,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
             });
           }
         }
+        
         this.FormJSON.push({
           type: 'button',
           action: 'submit',
@@ -296,7 +298,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
           form.on('submit', function (submission: any) {
             console.log(submission);
           });
-        });
+        });*/
 
 
 
@@ -340,11 +342,10 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   }
 
   // Fonction pour appeler une fonction spécifique du script
-  async callFunctionFromScript(functionName: string, sectionName: string) {
-
+  callFunctionFromScript(functionName: string, sectionName: string) {
     try {
       let scriptUrl = `http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/script/${this.fileName}.js`;
-      await this.loadScript(scriptUrl);
+      this.loadScript(scriptUrl);
       document.getElementById("panel_Logs_" + sectionName)!.innerHTML = "";
       if (sectionName.indexOf("test") !== -1) {
         (document.getElementById("playBtn_" + sectionName) as HTMLButtonElement)!.disabled = true;
@@ -371,7 +372,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
     }
   }
 
-  async getJavascriptFile(arg0: string) {
+  getJavascriptFile(arg0: string) {
     fetch(`http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/script/${arg0}.js`)
       .then(response => {
         if (!response.ok) {
@@ -392,6 +393,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
         this.listTestFunction = testFunctions;
         stopFunctions.forEach(name => console.log(name));
         this.listStopFunction = stopFunctions;
+        this.cdr.detectChanges();
 
       })
       .catch(error => {
@@ -409,6 +411,3 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   }
 
 }
-
-
-

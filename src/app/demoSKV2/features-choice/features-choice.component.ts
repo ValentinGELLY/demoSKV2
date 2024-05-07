@@ -86,15 +86,9 @@ export class FeaturesChoiceComponent implements OnInit {
 
   ChooseScript(fileName: string) {
     this.appService.filename = fileName;   
+    
     this.router.navigate(['/featureRun']);
   }
 
-
-
-
-    
   
-  
-
-
 }
