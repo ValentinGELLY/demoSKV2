@@ -25,14 +25,14 @@ export class CreateAccountScanFinishComponent {
     if (confirmButton!=null) {
       console.log(confirmButton);
       confirmButton.addEventListener("click", () => {
-          this.route = '/createAccountHello8000';
-          this.moovhopService.route = "/createAccountHello8000";
+          this.route = '/RNTP2023/createAccountHello8000';
+          this.moovhopService.route = "/RNTP2023/createAccountHello8000";
       });
     }
   }
 
   resetVisits(){
     this.moovhopService.scanVisited -= 1;
-    this.moovhopService.navigateAfterDelay(0, "/createAccountCamera8000");
+    this.moovhopService.navigateAfterDelay(0, "/RNTP2023/createAccountCamera8000");
   }
 }

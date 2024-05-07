@@ -24,6 +24,7 @@ import { FeatureRunComponent } from './feature-run/feature-run.component';
     FeaturesChoiceComponent,
     TestIvqChoiceComponent,
     AppDemoChoiceComponent,
+    FeatureRunComponent
     
   ],
   imports: [

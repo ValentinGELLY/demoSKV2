@@ -41,7 +41,7 @@ export class MoovhopService {
 
     private moovHopRouterDic: any = {
         // use case achat d'un pass (création d'un compte)
-        '/MWC2024/homepageEK4000': '/MWC2024/createAccountMenu',
+        '/MWC2024/homepage': '/MWC2024/createAccountMenu',
         '/MWC2024/createAccountMenu': '/MWC2024/createAccountCamera',
         '/MWC2024/createAccountCamera': '/MWC2024/createAccountScanFinish',
         '/MWC2024/createAccountScanFinish': '/MWC2024/createAccountPersonalInformations',
@@ -53,13 +53,13 @@ export class MoovhopService {
         '/MWC2024/createAccountQRCodeScan': '/MWC2024/paymentChoice',
         '/MWC2024/paymentChoice': '/MWC2024/paymentCB',
         '/MWC2024/paymentCB': '/MWC2024/subscriptionConfirmation',
-        '/MWC2024/subscriptionConfirmation': '/MWC2024/homepageEK4000',
+        '/MWC2024/subscriptionConfirmation': '/MWC2024/homepage',
 
         // use case impression d'une fiche horaire
         '/MWC2024/printingMenu': '/MWC2024/printingInformationChoice',
         '/MWC2024/printingInformationChoice': '/MWC2024/printingMethodsGettingTimetable',
         '/MWC2024/printingMethodsGettingTimetable': '/MWC2024/printingScanQRcode',
-        '/MWC2024/printingScanQRcode': '/MWC2024/homepageEK4000',
+        '/MWC2024/printingScanQRcode': '/MWC2024/homepage',
 
 
         // use cas paiement d'une amende
@@ -67,7 +67,7 @@ export class MoovhopService {
         '/MWC2024/scanQrCode': '/MWC2024/identificationValidation',
         '/MWC2024/identificationValidation': '/MWC2024/informationSummary',
         '/MWC2024/informationSummary': '/MWC2024/paymentChoice',
-        '/MWC2024/thanksPaymentReport': '/MWC2024/homepageEK4000',
+        '/MWC2024/thanksPaymentReport': '/MWC2024/homepage',
 
 
     };
@@ -108,8 +108,8 @@ export class MoovhopService {
 
     timeoutNavigation() {
         this.timeout = setTimeout(() => {
-            if(this.router.url !== '/MWC2024/homepageEK4000'){
-                this.navigateAfterDelay(0, "/MWC2024/homepageEK4000");
+            if(this.router.url !== '/MWC2024/homepage'){
+                this.navigateAfterDelay(0, "/MWC2024/homepage");
             }
         }, 120000);
     }

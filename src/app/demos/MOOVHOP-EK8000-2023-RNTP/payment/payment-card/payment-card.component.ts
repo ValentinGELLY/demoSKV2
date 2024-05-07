@@ -49,8 +49,8 @@ export class PaymentCardComponent extends GenericComponent {
       setTimeout(() => {
         _this.cardInfoText = "PAIEMENT AUTORISÉ";
         setTimeout(() => {
-          if (_this.router.url === '/paymentCard') {
-            _this.router.navigate(['/waitingScreen']);
+          if (_this.router.url === '/RNTP2023/paymentCard') {
+            _this.router.navigate(['/RNTP2023/waitingScreen']);
           }
         }, 2000);
       }, 2000);

@@ -11,9 +11,9 @@ export class ReloadThanksComponent implements OnInit {
   constructor(private router : Router) { }
 
   ngOnInit(): void {
-    if(this.router.url === '/reloadThanks'){
+    if(this.router.url === '/RNTP2023/reloadThanks'){
       setTimeout(()=>{
-        this.router.navigate(['/homepageEK8000'])
+        this.router.navigate(['/RNTP2023/homepage'])
       },5000)
     }
   }

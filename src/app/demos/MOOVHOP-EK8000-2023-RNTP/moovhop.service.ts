@@ -24,12 +24,12 @@ export class MoovhopService {
 
     private moovHopRouterDic: any = {
         // use case achat d'un pass (création d'un compte)
-        '/homepageEK8000':'/buyChoice',
+        '/homepage':'/buyChoice',
         '/buyChoice': '/paymentChoice8000',
         '/paymentChoice8000': '/paymentCard',
         '/paymentCash': '/waitingScreen',
         '/waitingScreen': '/getTicketReceipt',
-        '/getTicketReceipt': '/homepageEK8000',
+        '/getTicketReceipt': '/homepage',
 
         // use case achat d'un pass (sans création d'un compte)
         'createAccountMenu8000':'/CreateAccountCamera8000',
@@ -91,8 +91,8 @@ export class MoovhopService {
 
     timeoutNavigation() {
         this.timeout = setTimeout(() => {
-            if(this.router.url !== '/homepageEK8000'){
-                this.navigateAfterDelay(0, "/homepageEK8000");
+            if(this.router.url !== '/homepage'){
+                this.navigateAfterDelay(0, "/homepage");
             }
         }, 120000);
     }

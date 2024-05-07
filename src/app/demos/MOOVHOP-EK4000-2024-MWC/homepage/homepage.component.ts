@@ -28,6 +28,8 @@ export class HomepageComponent {
     this.moovhopService.textSubscription = '<p style="text-align:center;">';
     this.moovhopService.heureCB = "";
     this.moovhopService.textCB = '';
+    this.moovhopService.previewImageProfile = "";
+    
     document.getElementsByTagName('body')[0].style.width = 'fit-content';
     document.getElementsByTagName('body')[0].style.height = 'fit-content';
     console.log("document.getElementsByTagName('body')[0].style.height");

@@ -301,6 +301,7 @@ export class GenericComponent implements OnInit {
 
         // Écoute de l'événement de réception d'informations par le WebSocket
         previewWebsocket.onmessage = function (preview) {
+          
           // TODO
         };
 
