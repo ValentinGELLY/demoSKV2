@@ -1,10 +1,8 @@
 
 /**
- * format console.log("USER - message"); ==> message est affiché dans la console pour les utilisateurs lambad 
- * 
+ * lancement de la lecture de code barre 
  */
-
-function test1(){
+function start1(){
     console.log("DEBUT - Lancement de la lecture de code barre");
     Kiosk.BarcodeReading.addEventListener('barcodeRead', onBarcodeRead);
     Kiosk.BarcodeReading.readBarcode();

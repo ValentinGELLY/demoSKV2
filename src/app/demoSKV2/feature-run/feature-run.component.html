@@ -24,15 +24,15 @@
 
             <section class="section_test" *ngFor="let item of listStopFunction; let i = index">
                 <section>
-                    <h3 id="userCaseTest1">User Case {{i+1}} :</h3>
+                    <h3 id="userCaseTest1">{{listComments[i]}}</h3>
                 </section>
                 
                 <section class="btnSection">
                     <button class="playBtn" id="playBtn_test_{{i}}"
-                        (click)="callFunctionFromScript(listTestFunction[i], 'test_'+i)">
+                        (click)="callFunctionFromScript(listTestFunction[i], 'test_'+i, 'playBtn_test_'+i )">
                         Run </button>
                     <button class="stopBtn" id="stopBtn_test_{{i}}"
-                        (click)="callFunctionFromScript(item, 'test_'+i)">
+                        (click)="callFunctionFromScript(item, 'test_'+i,'stopBtn_test_'+i)">
                         Stop</button>
                 </section>
                 <section class="LogTestAccordion log_test_{{i}}">

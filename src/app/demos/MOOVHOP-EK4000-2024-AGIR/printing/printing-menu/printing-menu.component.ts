@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MoovhopService } from '../../moovhop.service';
 import { SoftKioskService } from 'src/app/softkiosk.service';
 import { Router } from '@angular/router';
+import { GenericComponent } from '../../../generic/generic.component';
+
+declare var Kiosk: any;
 @Component({
   selector: 'app-printing-menu',
   templateUrl: './printing-menu.component.html',
@@ -9,14 +12,68 @@ import { Router } from '@angular/router';
 })
 export class PrintingMenuComponent {
 
-  constructor(private moovhopService: MoovhopService, private skService: SoftKioskService, private router : Router ) { }
+  constructor(private moovhopService: MoovhopService, private skService: SoftKioskService, private router : Router ) {
+   }
 
   Choose(num: number) {
     this.moovhopService.LineChoosed = num;
 
   }
+
+  printCallback = (e: any): any => {   
+    let navEvent;
+    switch (e.data.dataType) {
+      case 'RawPdfPrinted':
+        if (this.router.url === "/AGIR2024/printingMenu") {
+          // traitement pour le changement de vue
+          this.skService.removeEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
+          navEvent = new CustomEvent("moovHopNav", {
+            detail: {
+              "delay": 5000,
+              "goTo": "/AGIR2024/homepage"
+            }
+          });
+          window.dispatchEvent(navEvent);
+        }
+        break;
+      case 'RawPdfPrintError':
+        if (this.router.url === "/AGIR2024/printingMenu") {
+          this.skService.removeEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
+          console.error(e.data.code + ": " + e.data.description);
+          // traitement pour le changement de vue
+          navEvent = new CustomEvent("moovHopNav", {
+            detail: {
+              "delay": 0,
+              "goTo": "/AGIR2024/homepage"
+            }
+          });
+          window.dispatchEvent(navEvent);
+        }
+        break;
+    }
+  }
+
+
   ngOnInit(): void {
     
+    this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
+
+
+    this.skService.addEventListener("DocumentPrinting", "stateChange", (e: any) => {
+      switch (e.data.state) {
+        case "Processing":
+          document.getElementById("in_progress")!.style.display = "block";
+          document.getElementById("texte_verif")!.style.display = "none";
+          break;
+        case "Ready":
+          document.getElementById("in_progress")!.style.display = "none";
+          break;
+      }
+      
+    });
+
+
+
     /*setInterval(() => {
       console.log("setInterval");
       console.log(document.getElementsByTagName("canvas")[0]);

@@ -1,23 +1,18 @@
-/**
- * format console.log("USER - message"); ==> message est affiché dans la console pour les utilisateurs lambad 
- * 
- */
-
 var timeout;
 
 /**
  * simple capture du document
  */
-function test1() {
+function start1() {
     console.log("DEBUT - Lancement de la capture du document");
     Kiosk.DocumentScanning.addEventListener("imageCapture", onImageDocumentCapture)
     Kiosk.DocumentScanning.captureImage();
 }
 
 /**
- *  preview du document
+ *  simple preview du document
  */
-function test2() {
+function start2() {
     console.log("DEBUT - Lancement de la preview du document");
     Kiosk.DocumentScanning.addEventListener("previewStart", onPreview);
     Kiosk.DocumentScanning.startPreview();
@@ -25,16 +20,13 @@ function test2() {
 }
 
 /**
- * preview du document + capture du document
+ * preview + capture du document
  */
-function test3() {
+function start3() {
     console.log("DEBUT - Lancement de la preview du document + capture du document");
     Kiosk.DocumentScanning.addEventListener("previewStart", onPreview);
     Kiosk.DocumentScanning.startPreview();
-    
     timeoutCameraBeforeCapture();
-    
-
 }
 
 function onPreview(e) {
@@ -49,7 +41,7 @@ function onPreview(e) {
             };
             break;
         case 'PreviewStopped':
-            console.log("UTILISATEUR - azufqusdfqifydt");
+            
             break;
         default:
             console.error(e.data.code + ": " + e.data.description);
@@ -64,7 +56,6 @@ function onImageDocumentCapture(e) {
             console.log("CAPTURE - " + Kiosk.DocumentScanning.lastCapture.raw);
             console.log("FIN - Arret de la capture du document");
             Kiosk.DocumentScanning.removeEventListener("imageCapture", onImageDocumentCapture);
-
             break;
         case 'ImageCaptureError':
             console.error(e.data.code + ": " + e.data.description);
@@ -74,17 +65,15 @@ function onImageDocumentCapture(e) {
 
 function timeoutCamera() {
     timeout = setTimeout(() => {
-        console.log("FIN - Arret de la preview du document");
         Kiosk.DocumentScanning.stopPreview();
-        Kiosk.DocumentScanning.removeEventListener("previewStart", onPreview);
+        Kiosk.DocumentScanning.removeEventListener( "previewStart", onPreview);
+        console.log("FIN - preview du document arrete");
     }, 5000);
 }
 
 function timeoutCameraBeforeCapture(){
     timeout = setTimeout(() => {
         Kiosk.DocumentScanning.stopPreview();
-        Kiosk.DocumentScanning.removeEventListener( "previewStart", onPreview);
-        console.log("UTILISATEUR - Arret de la preview du document");
         Kiosk.DocumentScanning.addEventListener("imageCapture", onImageDocumentCapture);
         Kiosk.DocumentScanning.captureImage();
     }, 5000);
@@ -92,22 +81,24 @@ function timeoutCameraBeforeCapture(){
 
 
 function stop1() {
+    console.info("stop1");
     console.log("FIN - Arret de la capture du document")
     Kiosk.DocumentScanning.removeEventListener("imageCapture", onImageDocumentCapture);
     clearTimeout(timeout);
 }
 
 function stop2() {
+    console.info("stop2");
     console.log("FIN - Arret de la preview du document");
+    Kiosk.DocumentScanning.removeEventListener("previewStart", onPreview); 
     Kiosk.DocumentScanning.stopPreview();
-    Kiosk.DocumentScanning.removeEventListener("previewStart", onPreview);   
-
     clearTimeout(timeout);
 }
 
 function stop3() {
-    console.log("FIN - Arret de la preview du document")
+    console.info("stop3");
+    console.log("FIN - Arret de la preview du document");
+    Kiosk.DocumentScanning.removeEventListener("previewStart", onPreview);
     Kiosk.DocumentScanning.stopPreview();
-    Kiosk.DocumentScanning.removeEventListener( "previewStart", onPreview);
     clearTimeout(timeout);
 }
