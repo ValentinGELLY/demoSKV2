@@ -25,8 +25,6 @@ export class FeaturesChoiceComponent implements OnInit {
     this.allScript = this.allScript.map((element: string) => {
       return element.replace(/_/g, " ");
     });
-
-
   }
 
   sendMaintCtrlRequest(reqFunc: string, reqType: string, isReqJson = false, reqData = null): any {
@@ -88,13 +86,4 @@ export class FeaturesChoiceComponent implements OnInit {
     this.appService.filename = fileName;   
     this.router.navigate(['/featureRun']);
   }
-
-
-
-
-    
-  
-  
-
-
 }

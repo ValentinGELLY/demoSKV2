@@ -18,7 +18,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
   identityPicture: any = this.moovhopService.identityPicture;
   route: any = this.moovhopService.route;
   isScanFinished: boolean = false;
-  
+  documentSelected: string = this.moovhopService.documentSelected;
   previewImageScanIdA: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
   previewImageScanIdB: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
   previewImageProfile: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";

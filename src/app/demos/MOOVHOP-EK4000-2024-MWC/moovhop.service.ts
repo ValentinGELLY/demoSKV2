@@ -11,7 +11,7 @@ export class MoovhopService {
 
     timeout: any = null;
     identityPicture: boolean = false;
-    route: any = '/MWC2024/createAccountPersonalInformations';
+    route: any = '/MWC2024createAccountPersonalInformations';
 
     currentView = "";
 
@@ -41,33 +41,33 @@ export class MoovhopService {
 
     private moovHopRouterDic: any = {
         // use case achat d'un pass (création d'un compte)
-        '/MWC2024/homepage': '/MWC2024/createAccountMenu',
-        '/MWC2024/createAccountMenu': '/MWC2024/createAccountCamera',
-        '/MWC2024/createAccountCamera': '/MWC2024/createAccountScanFinish',
-        '/MWC2024/createAccountScanFinish': '/MWC2024/createAccountPersonalInformations',
-        '/MWC2024/createAccountPersonalInformations': '/MWC2024/createAccountHello',
-        '/MWC2024/createAccountHello': '/MWC2024/createAccountProofAddress',
-        '/MWC2024/createAccountProofAddress': '/MWC2024/reateAccountSubscriptionChoice',
-        '/MWC2024/createAccountSubscriptionChoice': '/MWC2024/createAccountQRCodeYesNo',
-        '/MWC2024/createAccountQRCodeYesNo': '/MWC2024/createAccountQRCodeScan',
-        '/MWC2024/createAccountQRCodeScan': '/MWC2024/paymentChoice',
-        '/MWC2024/paymentChoice': '/MWC2024/paymentCB',
-        '/MWC2024/paymentCB': '/MWC2024/subscriptionConfirmation',
-        '/MWC2024/subscriptionConfirmation': '/MWC2024/homepage',
+        '/MWC2024homepage"': '/MWC2024createAccountMenu',
+        '/MWC2024createAccountMenu': '/MWC2024createAccountCamera',
+        '/MWC2024createAccountCamera': '/MWC2024createAccountScanFinish',
+        '/MWC2024createAccountScanFinish': '/MWC2024createAccountPersonalInformations',
+        '/MWC2024createAccountPersonalInformations': '/MWC2024createAccountHello',
+        '/MWC2024createAccountHello': '/MWC2024createAccountProofAddress',
+        '/MWC2024createAccountProofAddress': '/MWC2024/reateAccountSubscriptionChoice',
+        '/MWC2024createAccountSubscriptionChoice': '/MWC2024createAccountQRCodeYesNo',
+        '/MWC2024createAccountQRCodeYesNo': '/MWC2024createAccountQRCodeScan',
+        '/MWC2024createAccountQRCodeScan': '/MWC2024paymentChoice',
+        '/MWC2024paymentChoice': '/MWC2024paymentCB',
+        '/MWC2024paymentCB': '/MWC2024subScriptionConfirmation',
+        '/MWC2024subScriptionConfirmation': '/MWC2024homepage"',
 
         // use case impression d'une fiche horaire
-        '/MWC2024/printingMenu': '/MWC2024/printingInformationChoice',
+        '/MWC2024printingMenu': '/MWC2024/printingInformationChoice',
         '/MWC2024/printingInformationChoice': '/MWC2024/printingMethodsGettingTimetable',
         '/MWC2024/printingMethodsGettingTimetable': '/MWC2024/printingScanQRcode',
-        '/MWC2024/printingScanQRcode': '/MWC2024/homepage',
+        '/MWC2024/printingScanQRcode': '/MWC2024homepage"',
 
 
         // use cas paiement d'une amende
         '/MWC2024/identificationMenu': '/MWC2024/scanQrCode',
         '/MWC2024/scanQrCode': '/MWC2024/identificationValidation',
         '/MWC2024/identificationValidation': '/MWC2024/informationSummary',
-        '/MWC2024/informationSummary': '/MWC2024/paymentChoice',
-        '/MWC2024/thanksPaymentReport': '/MWC2024/homepage',
+        '/MWC2024/informationSummary': '/MWC2024paymentChoice',
+        '/MWC2024/thanksPaymentReport': '/MWC2024homepage"',
 
 
     };
@@ -108,8 +108,8 @@ export class MoovhopService {
 
     timeoutNavigation() {
         this.timeout = setTimeout(() => {
-            if(this.router.url !== '/MWC2024/homepage'){
-                this.navigateAfterDelay(0, "/MWC2024/homepage");
+            if(this.router.url !== '/MWC2024homepage'){
+                this.navigateAfterDelay(0, "/MWC2024homepage");
             }
         }, 120000);
     }

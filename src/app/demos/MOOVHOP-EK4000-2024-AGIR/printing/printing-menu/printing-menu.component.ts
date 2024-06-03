@@ -53,85 +53,20 @@ export class PrintingMenuComponent {
     }
   }
 
-
-  ngOnInit(): void {
-    
-    this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
-
-
-    this.skService.addEventListener("DocumentPrinting", "stateChange", (e: any) => {
-      switch (e.data.state) {
-        case "Processing":
-          document.getElementById("in_progress")!.style.display = "block";
-          document.getElementById("texte_verif")!.style.display = "none";
-          break;
-        case "Ready":
-          document.getElementById("in_progress")!.style.display = "none";
-          break;
-      }
-      
+  navigateToError() {
+    Kiosk.demoSKV2.setApplicationStatus({
+      "status": "Critical",
+      "statusDetail": "",
+      "statusDescription": ""
     });
-
-
-
-    /*setInterval(() => {
-      console.log("setInterval");
-      console.log(document.getElementsByTagName("canvas")[0]);
-      if (document.getElementsByTagName("canvas")[0]){
-        document.getElementsByClassName("mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color")[2].addEventListener("click", ()=>{
-          let canvas = document.getElementsByTagName("canvas")[0];
-          canvas.toBlob((blob) => {
-            this.blobToBase64(blob!).then((base64) => {
-              this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
-              let base64String = base64 as string;
-              this.skService.documentPrintingPrintRawPdf(base64String.split(",")[1]);
-            });
-          });
-        });
-      }
-    }, 1000);*/
+  }
   
-    
-
-    /**
-     * a faire si c'est un blob
-     let rawPDFBase64 = fetch("src").then((response) => {
-      response.blob().then((blob) => {
-        blobToBase64(blob).then((base64) => {
-          return base64;
-        });
-      });
-    });
-   
-   
-    if (typeof Kiosk !== "undefined") {
-      Kiosk.Session.close({
-        information:
-          "Nouvelle session utilisateur / Démarrage du scénario de paiement",
-      });
-     
-   
-      fetch(src).then((response) => {
-        response.blob().then((blob) => {
-          blobToBase64(blob).then((base64) => {
-            console.log(base64.split(",")[1]);
-            Kiosk.DocumentPrinting.printRawPdf({
-              raw: base64.split(",")[1],
-             
-             
-            });
-          });
-        });
-      });
-
-*/
-
+  ngOnInit(): void {
+    this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
   }
 
-  
-
-  
-
-
+  ngOnDestroy(): void {
+    this.skService.removeEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
+  }
 
 }

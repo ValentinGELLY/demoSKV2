@@ -12,59 +12,30 @@ export class MoovhopService {
     timeout: any = null;
     identityPicture: boolean = false;
     route: any = '/EK80002024AGIR/reloadPersonalInformations';
-
     currentView = "";
-
     isScanFinished: boolean = false;
     scanVisited: number = 0;
-
     LineChoosed: number = 1;
-
     ActionChoosed: number = 1;
-
     newerCiImageCapture: string = "";
-
     QRCodeScaned: boolean = false;
-
-
     whatSubscription: string = "1";
     priceSubscription: number = 15;
     textSubscription: string = '<p style="text-align:center;">Abonnement 1 semaine</p>';
-    
     paidWithCB: boolean = false;
-
     heureCB: string = "";
-
     textCB: string = '';
-
-
     // Gestions Reconnaissance facial
     documentSelected: string = "IdCard";
     faceCapture : string =""
-
-
-
-
-    private moovHopRouterDic: any = {
-        
-
-
-    };
-
-
-    private moovHopPreviousRouterDict: any = {
-
-    };
-
-    private fcMoovHopRouterDict: any = {
-
-    }
+    private moovHopRouterDic: any = {};
+    private moovHopPreviousRouterDict: any = {};
+    private fcMoovHopRouterDict: any = {}
     textTickets: string = '';
     ticketPrice: number = 0;
     bnTickets: number = 1;
     automaticCard: string = 'true';
     TicketChoosed: number = 1;
-
     previewImageScanId: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
     previewImageProfile: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
     nameUser: string = "";
@@ -77,20 +48,13 @@ export class MoovhopService {
     previewImageScanIdBDef: string ="";
     idChecks:string = "";
     referenceId:string = "";
-
     timeScanIdA:Date = new Date();
     timeScanIdB:Date = new Date();
-
     errorSaveIdCard:boolean = false;
-
     hrefSensitiveData:string = '';
-
     firstName:string = "";
     birthday:string = "";
-
     identityValidate:boolean = false;
-
-
 
     constructor(private router: Router, private appService: AppService, private _router: ActivatedRoute) {
         //navigation

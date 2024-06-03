@@ -2,8 +2,8 @@
 
 <div>
     <h1> CRÉER UN COMPTE </h1>
-    <h3 *ngIf="scanVisited==1">Déposez votre document d'identité sur le scanner</h3>
-    <h3 *ngIf="scanVisited==2">Retournez votre document d'identité sur le scanner</h3>
+    <h3 *ngIf="scanVisited==1 || (scanVisited==2 && documentSelected=='passeport')">Déposez votre document d'identité sur le scanner</h3>
+    <h3 *ngIf="scanVisited==2 && documentSelected!='passeport'">Retournez votre document d'identité sur le scanner</h3>
 
     <section class="retourCamera">
         <section class="countdownSection" id="countdownSection">

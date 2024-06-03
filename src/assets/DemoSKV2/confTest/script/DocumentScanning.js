@@ -1,34 +1,36 @@
 var timeout;
 
 /**
- * simple capture du document
- */
-function start1() {
-    console.log("DEBUT - Lancement de la capture du document");
-    Kiosk.DocumentScanning.addEventListener("imageCapture", onImageDocumentCapture)
-    Kiosk.DocumentScanning.captureImage();
-}
+ * @title  SCANNER DE DOCUMENT
+ * @description Transaction bancaire standard
+*/
 
 /**
- *  simple preview du document
- */
+ * simple capture du document 
+ * */
+function start1() {
+    console.log("DEBUT - Lancement de la capture du document");
+    Kiosk.DocumentScanning.addEventListener("imageCapture", onImageDocumentCapture);
+    Kiosk.DocumentScanning.captureImage();
+}
+/**
+ * simple preview du document
+ * */
 function start2() {
     console.log("DEBUT - Lancement de la preview du document");
     Kiosk.DocumentScanning.addEventListener("previewStart", onPreview);
     Kiosk.DocumentScanning.startPreview();
     timeoutCamera();
 }
-
 /**
  * preview + capture du document
- */
+ * */
 function start3() {
     console.log("DEBUT - Lancement de la preview du document + capture du document");
     Kiosk.DocumentScanning.addEventListener("previewStart", onPreview);
     Kiosk.DocumentScanning.startPreview();
     timeoutCameraBeforeCapture();
 }
-
 function onPreview(e) {
     switch (e.data.dataType) {
         case 'PreviewStarted':
@@ -59,10 +61,10 @@ function onImageDocumentCapture(e) {
             break;
         case 'ImageCaptureError':
             console.error(e.data.code + ": " + e.data.description);
+            Kiosk.DocumentScanning.removeEventListener("imageCapture", onImageDocumentCapture);
             break;
     }
 }
-
 function timeoutCamera() {
     timeout = setTimeout(() => {
         Kiosk.DocumentScanning.stopPreview();
@@ -70,7 +72,6 @@ function timeoutCamera() {
         console.log("FIN - preview du document arrete");
     }, 5000);
 }
-
 function timeoutCameraBeforeCapture(){
     timeout = setTimeout(() => {
         Kiosk.DocumentScanning.stopPreview();
@@ -78,15 +79,12 @@ function timeoutCameraBeforeCapture(){
         Kiosk.DocumentScanning.captureImage();
     }, 5000);
 }
-
-
 function stop1() {
     console.info("stop1");
     console.log("FIN - Arret de la capture du document")
     Kiosk.DocumentScanning.removeEventListener("imageCapture", onImageDocumentCapture);
     clearTimeout(timeout);
 }
-
 function stop2() {
     console.info("stop2");
     console.log("FIN - Arret de la preview du document");
@@ -94,7 +92,6 @@ function stop2() {
     Kiosk.DocumentScanning.stopPreview();
     clearTimeout(timeout);
 }
-
 function stop3() {
     console.info("stop3");
     console.log("FIN - Arret de la preview du document");

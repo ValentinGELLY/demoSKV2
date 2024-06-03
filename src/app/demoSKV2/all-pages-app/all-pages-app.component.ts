@@ -25,7 +25,7 @@ export class AllPagesAppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("on est dans le ngOnInit de all-pages");
+    console.info("on est dans le ngOnInit de all-pages");
   }
 
   displayOptions(option: string) {
@@ -48,7 +48,7 @@ export class AllPagesAppComponent implements OnInit {
   changeCurrentView(newView: string) {
     this.currentView = newView;
     this.appService.setCurrentView(newView);
-    console.log("Current view: " + this.currentView);
+    console.info("Current view: " + this.currentView);
     this.clickViewMenu();
     this.changeUserImage(this.getViewPath());
   }
@@ -56,13 +56,13 @@ export class AllPagesAppComponent implements OnInit {
   getViewPath() {
     let foundViewObject = this.arrayViewImage.find(item => item.view === this.currentView);
     // If the view is found, return its path; otherwise, return null (or any other default value)
-    console.log("view: " + this.currentView + ", path: " + foundViewObject?.path);
+    console.info("view: " + this.currentView + ", path: " + foundViewObject?.path);
     return foundViewObject ? foundViewObject.path : null;
   }
 
   changeUserImage(viewPath: string | null) {
     let userImageElement = document.getElementsByClassName("userImage")![0] as HTMLImageElement;
-    console.log(viewPath);
+    console.info(viewPath);
     // check whether userImageElement has a value
     if (userImageElement) {
       if (viewPath) {

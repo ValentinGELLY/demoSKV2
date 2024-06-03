@@ -52,6 +52,8 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
 
   firstPreview: boolean = true;
   compteur: number = 0;
+  compteurConsole: number = 0;
+  isRunning: boolean = false;
 
 
   constructor(skService: SoftKioskService, private renderer: Renderer2, private appService: AppService) {
@@ -60,12 +62,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
 
 
   override ngOnInit() {
-
-
-
     this.fileName = this.appService.filename;
-    //console.log(this.fileName);
-
     document.getElementById("btnRead")!.addEventListener("click", function () {
       document.getElementById("popUpDescritionPage")!.style.opacity = "0.7";
       document.getElementById("popUpDescrition")!.style.opacity = "1";
@@ -91,10 +88,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
       }, 500); // Same as the transition time
     });
     this.getjsonScript(this.fileName);
-
   }
-
-
 
 
   getShortenedDescription(): string {
@@ -107,12 +101,9 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   }
 
   getActualStatusDevice(arg0: any) {
-    console.log(this.historicStatusDevice);
     const cles = Object.keys(this.historicStatusDevice[arg0]);
-    console.log(cles);
 
     const clePlusRecente = cles.reduce((a, b) => (new Date(b) > new Date(a) ? b : a));
-    console.log(clePlusRecente);
 
     return this.historicStatusDevice[arg0][clePlusRecente];
   }
@@ -133,31 +124,13 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
         this.perifUsed = this.json.perifUsed;
         this.nbPerif = this.perifUsed.length;
         this.serviceUsed = this.json.serviceUSed;
-        /*let allProperties = [];
-        for (let index = 0; index < this.serviceUsed.length; index++) {
-          const element = this.serviceUsed[index].name;
-          console.info("element");
-          console.info(element);
-          
-          for (let index = 0; index < Kiosk[element].length; index++) {
-            const element1 = Kiosk[element][index];
-            console.info("element1");
-            console.info(element1);
-            if( /^\p{Lu}/u.test( element1 ) ) {
-              allProperties.push(element1);
-            }
-          }
-        }
-        this.perifUsed = allProperties;*/
         this.perifUsed = this.json.perifUsed;
         this.nbService = this.serviceUsed.length;
         this.actualStatusAllService = Array(this.nbService).fill("");
         this.actualStatusAllDevice = Array(this.nbPerif).fill("");
         this.lastHourStatus = Array(this.nbService).fill("");
-
         for (let i = 0; i < this.nbService; i++) {
           let service = this.serviceUsed[i].name;
-
           let hour = new Date();
           const heure = hour.getHours().toString().padStart(2, "0");
           const minutes = hour.getMinutes().toString().padStart(2, "0");
@@ -171,16 +144,13 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
           }
           let status = this.skService.getStatus(service);
           let state = this.skService.getState(service);
-
           this.historicStatusService[service].unshift({ time: hourformated, status: status });
           this.historicStateService[service].unshift({ time: hourformated, state: state });
           this.actualStatusAllService[i] = status;
           this.actualStateAllService[i] = state;
           this.lastHourStatus[i] = hourformated;
-
           this.skService.addEventListener(service, "statusChange", (e: any) => {
-            console.log("eventlistener status : " + service + "  " + e.data.status);
-
+            //console.info("eventlistener status : " + service + "  " + e.data.status);
             let hour = new Date();
             const heure = hour.getHours().toString().padStart(2, "0");
             const minutes = hour.getMinutes().toString().padStart(2, "0");
@@ -191,11 +161,8 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
             document.getElementById("status_" + service)!.innerHTML = hourformated + "   " + e.data.status;
             this.actualStatusAllService[i] = e.data.status;
             this.lastHourStatus[i] = hourformated;
-
-            console.log(this.historicStatusService[service]);
+            //console.info(this.historicStatusService[service]);
           });
-
-
           this.skService.addEventListener(service, "stateChange", (e: any) => {
             let hour = new Date();
             const heure = hour.getHours().toString().padStart(2, "0");
@@ -209,81 +176,13 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
             this.lastHourState[i] = hourformated;
           });
         }
-        /**
-           * Permet de rediriger les logs vers la console de la page web
-           * En fonction du début du log ( FIN, CAPTURE, PREVIEW, ...)
-           */
-        let _this = this;
 
-        const originalConsoleLog = console.log;
-
-        console.log = function () {
-          originalConsoleLog.apply(this, Array.from(arguments));
-
-          let panel = 'panel_Logs';
-          if (_this.actualLogLocation !== "") {
-            panel = 'panel_Logs_' + _this.actualLogLocation;
-          } else {
-            panel = 'panel_Logs';
-          }
-
-          var logElement = document.getElementById(panel);
-          if (logElement) {
-            logElement.scrollTo(0, logElement.scrollHeight);
-            console.info("arguments");
-
-            const logMessage = Array.prototype.slice.call(arguments).join(' ');
-            const logParts = logMessage.split("-");
-            const logType = logParts[0];
-            const logContent = logParts.slice(1).join('-');
-            if (logType.includes("FIN") || logType.includes("ERROR")) {
-              console.info("FI");
-              console.info("_this.actualLogLocation");
-              console.info(_this.actualLogLocation);
-              document.getElementById("panel_Logs_Results_" + _this.actualLogLocation)!.innerHTML += '<p class="stateInformations">' + logContent + '</p>';
-              let hour = new Date();
-              const heure = hour.getHours().toString().padStart(2, "0");
-              const minutes = hour.getMinutes().toString().padStart(2, "0");
-              const secondes = hour.getSeconds().toString().padStart(2, "0");
-              const hourFormatted = `${heure}:${minutes}:${secondes}`;
-
-              document.getElementById("last_Result_" + _this.actualLogLocation)!.innerHTML = hourFormatted + "   " + logContent;
-              panel = 'panel_Logs';
-              _this.firstPreview = true;
-              document.getElementById("playBtn_" + _this.actualLogLocation)!.style.opacity = "1";
-              (document.getElementById("playBtn_" + _this.actualLogLocation) as HTMLButtonElement)!.disabled = false;
-              _this.actualLogLocation = "";
-            } else if (logType.includes("CAPTURE")) {
-              document.getElementById("panel_Logs_Results_" + _this.actualLogLocation)!.innerHTML += "<p>" + logContent.slice(0, 20) + "...</p>";
-              document.getElementById("playBtn_" + _this.actualLogLocation)!.style.opacity = "1";
-              (document.getElementById("playBtn_" + _this.actualLogLocation) as HTMLButtonElement)!.disabled = false;
-              _this.firstPreview = true;
-            } else if (logType.includes("PREVIEW")) {
-              if (_this.compteur <= 7) {
-                _this.compteur++;
-              } else {
-                if (!_this.firstPreview) {
-                  logElement.innerHTML += "<p>" + logContent.slice(0, 20) + "...</p>";
-                } else {
-                  _this.firstPreview = false;
-                  logElement.innerHTML += "<p>" + logContent.slice(0, 20) + "...</p>";
-                }
-                _this.compteur = 0;
-              }
-            } else {
-              console.info("logContent");
-              console.info(logContent);
-              logElement.innerHTML += '<p class="stateInformations">' + logContent + '</p>';
-              _this.firstPreview = true;
-            }
-          }
-        }
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
       });
     await this.getJavascriptFile(this.fileName);
-    
+
   }
 
   getStatusKeys(statusHistory: any): string[] {
@@ -309,43 +208,156 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
 
 
   loadScript(url: string) {
-    return new Promise((resolve, reject) => {
-      const scriptElement = this.renderer.createElement('script');
-      scriptElement.src = url;
-      scriptElement.onload = resolve;
-      scriptElement.onerror = reject;
-      this.renderer.appendChild(document.body, scriptElement);
-    });
-  }
+    if (document.querySelector(`script[src="${url}"]`)) {
+      return Promise.resolve();
+    } else {
+      return new Promise((resolve, reject) => {
+        const scriptElement = this.renderer.createElement('script');
+        scriptElement.src = url;
+        scriptElement.onload = resolve;
+        scriptElement.onerror = reject;
 
-  // Fonction pour appeler une fonction spécifique du script
-  async callFunctionFromScript(functionName: string, sectionName: string, idSection: string) {
-    try {
-      let scriptUrl = `http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/script/${this.fileName}.js`;
-      this.actualLogLocation = sectionName;
-      await this.loadScript(scriptUrl);
-      document.getElementById("panel_Logs_" + sectionName)!.innerHTML = "";
-      document.getElementById("last_Result_"+sectionName)!.innerHTML = "";
-      // @ts-ignore: Ignorer l'erreur car la fonction peut ne pas exister dans le contexte TypeScript
-      window[functionName.slice(0, -2)](); // Appel de la fonction spécifique du script
-      if (idSection.includes("play")) {
-        console.info("idSection");
-        console.info(idSection);
-        document.getElementById(idSection)!.style.opacity = "0.5";
-        (document.getElementById(idSection) as HTMLButtonElement)!.disabled = true
-      } else {
-        console.info("sectionName");
-        console.info("playBtn_ " + sectionName);
-        document.getElementById("playBtn_" + sectionName)!.style.opacity = "1";
-        (document.getElementById("playBtn_" + sectionName) as HTMLButtonElement)!.disabled = false
-        this.actualLogLocation = "";
-      }
-
-
-    } catch (error) {
-      console.error('Erreur lors du chargement du script :', error);
+        this.renderer.appendChild(document.body, scriptElement);
+      });
     }
   }
+
+  // Pour appeler une fonction spécifique du script
+  async callFunctionFromScript(sectionName: string, functionName: string, idSection: string) {
+    try {
+      let scriptUrl = `http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/script/${this.fileName}.js`;
+      this.actualLogLocation = "test_" + idSection.split("_")[2];
+
+      //console.info("this.actualLogLocation kjhudfibfibhcibvuhcivubhicubvhicbh");
+      //console.info(this.actualLogLocation);
+
+      fetch(scriptUrl)
+      .then(response => response.text())
+      .then(scriptContent => {
+        let allInput = document.getElementsByTagName("input");
+        // Modifier les variables dans le script
+        for (let i = 0; i < allInput.length; i++) {
+          const variableName = allInput[i].id.split("-")[1];
+          let variableValue = "";
+          if (allInput[i].value != "") {
+            variableValue = JSON.stringify(allInput[i].value);
+          } else {
+            variableValue = JSON.stringify(allInput[i].placeholder);
+          }
+          const variablePattern = new RegExp(`(var|let|const)\\s+${variableName}\\s*=\\s*[^;]+;`);
+          // Remplacement de la première occurrence seulement
+          scriptContent = scriptContent.replace(variablePattern, (match, p1) => {
+            if (!match.includes(`// REPLACED: ${variableName}`)) {
+              return `${p1} ${variableName} = ${variableValue}; // REPLACED: ${variableName}`;
+            }
+            return match;
+          });
+        }
+    
+        if (document.getElementById('scriptElement') != null) {
+          document.getElementById('scriptElement')!.remove();
+        }
+    
+        const scriptElement = document.createElement('script');
+        scriptElement.id = "scriptElement";
+        scriptElement.text = scriptContent;
+        document.body.appendChild(scriptElement);
+        let _this = this;
+        let actualLogLocationLocal = this.actualLogLocation;
+        console.log = function () {
+          console.info("entrer dans la fonction console.log");
+          let panel = 'panel_Logs';
+          if (actualLogLocationLocal !== "") {
+            panel = 'panel_Logs_' + actualLogLocationLocal;
+          } else {
+            panel = 'panel_Logs';
+          }
+          const logMessage = Array.prototype.slice.call(arguments).join(' ');
+          if (logMessage.split("-") != null) {
+            const logParts = logMessage.split("-");
+            const logType = logParts[0].replace(/[^a-zA-Z]/g, '');
+            const logContent = logParts.slice(1).join('-');
+    
+            if (logType == "FIN" || logType == "ERROR") {
+              let hour = new Date();
+              const heure = hour.getHours().toString().padStart(2, "0");
+              const minutes = hour.getMinutes().toString().padStart(2, "0");
+              const secondes = hour.getSeconds().toString().padStart(2, "0");
+              const hourFormatted = `${heure}:${minutes}:${secondes}`;
+              document.getElementById("panel_Logs_Results_" + actualLogLocationLocal)!.innerHTML += '<p class="stateInformations">' +hourFormatted+ " : "+ logContent + '</p>';
+              document.getElementById("last_Result_" + actualLogLocationLocal)!.innerHTML = hourFormatted + "   " + logContent;
+              panel = 'panel_Logs';
+              _this.firstPreview = true;
+              _this.isRunning = false;
+              document.getElementById("playBtn_" + actualLogLocationLocal)!.style.opacity = "1";
+              (document.getElementById("playBtn_" + actualLogLocationLocal) as HTMLButtonElement)!.disabled = false;
+            } else if (logType == "CAPTURE") {
+              let hour = new Date();
+              const heure = hour.getHours().toString().padStart(2, "0");
+              const minutes = hour.getMinutes().toString().padStart(2, "0");
+              const secondes = hour.getSeconds().toString().padStart(2, "0");
+              const hourFormatted = `${heure}:${minutes}:${secondes}`;
+              document.getElementById("panel_Logs_Results_" + actualLogLocationLocal)!.innerHTML += "<p>" +hourFormatted+ " : "+ logContent.slice(0, 20) + "...</p>";
+              document.getElementById("playBtn_" + actualLogLocationLocal)!.style.opacity = "1";
+              (document.getElementById("playBtn_" + actualLogLocationLocal) as HTMLButtonElement)!.disabled = false;
+              _this.firstPreview = true;
+            } else if (logType == "PREVIEW") {
+              if (_this.compteur <= 7) {
+                _this.compteur++;
+              } else {
+                var logElement = document.getElementById("panel_Logs_" + actualLogLocationLocal);
+                if (!_this.firstPreview) {
+                  logElement!.innerHTML += "<p>" + logContent.slice(0, 20) + "...</p>";
+                } else {
+                  _this.firstPreview = false;
+                  logElement!.innerHTML += "<p>" + logContent.slice(0, 20) + "...</p>";
+                }
+                _this.compteur = 0;
+              }
+            } else if (logType == "DEBUT" || logType == "UTILISATEUR") {
+              console.info("logContent");
+              console.info(logContent);
+              var logElement = document.getElementById("panel_Logs_" + actualLogLocationLocal);
+              logElement!.innerHTML += '<p class="stateInformations">' + logContent + '</p>';
+              _this.firstPreview = true;
+              _this.isRunning = true;
+            }
+          }
+        }
+        // Mettre à jour l'interface utilisateur
+        document.getElementById("panel_Logs_test_" + idSection.split("_")[2])!.innerHTML = "";
+        document.getElementById("last_Result_test_" + idSection.split("_")[2])!.innerHTML = "";
+        
+        if (functionName.includes("start")) {
+          document.getElementById("playBtn_test_" + idSection.split("_")[2])!.style.opacity = "0.5";
+          (document.getElementById("playBtn_test_" + idSection.split("_")[2]) as HTMLInputElement)!.disabled = true;
+        } else if (functionName.includes("stop")) {
+          (document.getElementById("playBtn_test_" + idSection.split("_")[2]) as HTMLInputElement)!.style.opacity = "1";
+          (document.getElementById("playBtn_test_" + idSection.split("_")[2]) as HTMLInputElement)!.disabled = false;
+        }
+        
+        // @ts-ignore: Ignorer l'erreur car la fonction peut ne pas exister dans le contexte TypeScript
+        window[functionName]();
+      })
+      .catch(error => console.error('Error fetching script:', error));
+    
+      // Mettre à jour l'interface utilisateur
+      document.getElementById("panel_Logs_test_" + idSection.split("_")[2])!.innerHTML = "";
+      document.getElementById("last_Result_test_" + idSection.split("_")[2])!.innerHTML = "";
+
+      if (functionName.includes("start")) {
+        document.getElementById("playBtn_test_" + idSection.split("_")[2])!.style.opacity = "0.5";
+        (document.getElementById("playBtn_test_" + idSection.split("_")[2]) as HTMLInputElement)!.disabled = true;
+      } else if (functionName.includes("stop")) {
+        (document.getElementById("playBtn_test_" + idSection.split("_")[2]) as HTMLInputElement)!.style.opacity = "1";
+        (document.getElementById("playBtn_test_" + idSection.split("_")[2]) as HTMLInputElement)!.disabled = false;
+      }
+      
+    } catch (error) {
+      console.error('Erreur lors du chargement ou de l\'exécution du script :', error);
+    }
+  }
+
 
   showPanel(nameElement: string) {
     if (document.getElementById('panel_' + nameElement)!.style.display === "flex") {
@@ -370,10 +382,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
       // Recherche des fonctions 'start' et 'stop' dans le contenu du fichier JS
       const testFunctions = text.match(/(?:\bstart\d*\s*\(.*?\))/g) || [];
       const stopFunctions = text.match(/(?:\bstop\d*\s*\(.*?\))/g) || [];
-
       // Afficher les fonctions trouvées
-      //testFunctions.forEach(name => console.log(name));
-      //stopFunctions.forEach(name => console.log(name));
 
       this.listTestFunction = testFunctions;
       this.listStopFunction = stopFunctions;
@@ -395,50 +404,47 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
       }).filter(description => description.length > 0); // Filtre les chaînes vides
 
       // Afficher les commentaires de description trouvés
-      //functionCommentsFinish.forEach(comment => console.log(comment));
 
       this.listComments = functionCommentsFinish;
 
       this.parameters = this.extractParameterDetails(text);
-      console.log("this.parameters");
-      console.log(this.parameters);
-      for (let i = 0; i < this.parameters.length; i++) { 
+      for (let i = 0; i < this.parameters.length; i++) {
         let jsonElement = {
-          "type": this.parameters[i].type !== undefined ? this.parameters[i].type : "",
+          "type": this.parameters[i].type !== undefined ? this.parameters[i].type : "textfield",
           "key": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
           "label": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
           "placeholder": this.parameters[i].default !== undefined ? this.parameters[i].default : "",
           "description": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
-          "values": this.parameters[i].default !== undefined ? this.parameters[i].default : "",
+          "value": this.parameters[i].default !== undefined ? this.parameters[i].default : "",
           "tooltip": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
           "input": true,
           "customId": this.parameters[i].name
         };
-        console.log("jsonElement");
-        console.log(jsonElement);
         this.FormJSON.push(jsonElement)
-          
       }
-  
-      this.FormJSON.push({
-        type: 'button',
-        action: 'submit',
-        label: 'Enregistrer',
-        theme: 'primary'
-      })
-  
-  
+
+      let _this = this;
+
+
       Formio.createForm(document.getElementById('formio'), {
         components: this.FormJSON
       }).then(function (form: { on: (arg0: string, arg1: (submission: any) => void) => void; }) {
-        if (document.getElementsByName("data[number]").length !== 0) {
-          for (let i = 0; i < document.getElementsByName("data[number]").length; i++) {
-            document.getElementsByName("data[number]")[i]!.setAttribute("type", "number");
+        let allInput = document.getElementsByTagName("input");
+        let i = 0;
+        _this.FormJSON.forEach((element: { type: string; }) => {
+          if (element.type === "number") {
+            allInput[i].type = "number";
+          } else if (element.type === "textfield") {
+            allInput[i].type = "text";
+          } else if (element.type === "number") {
+            allInput[i].type = "number";
+          } else if (element.type === "boolean") {
+            allInput[i].type = "checkbox";
           }
-        }
-        form.on('submit', function (submission: any) {
-          console.log(submission);
+
+          i++;
         });
+
       });
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -446,23 +452,50 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   }
 
 
+  updateValues(data: any) {
+  }
+
   extractParameterDetails(script: string) {
-    const parameterPattern = /@param {([^}]+)} ([^ ]+) - Default: ([^ -]+) -/g;
-    const matches = [...script.matchAll(parameterPattern)];
-    return matches.map(match => ({
+    const parameterPattern = /@param {([^}]+)} ([^ ]+) - Default: ([^ ]+) -/g;
+    let match;
+    const matches = [];
+
+    while ((match = parameterPattern.exec(script)) !== null) {
+      matches.push({
         type: match[1],
         name: match[2],
         default: match[3]
-    }));
-}
+      });
+    }
+
+    // traitement des type de paramètre
+    for (let i = 0; i < matches.length; i++) {
+      if (matches[i].type === "string") {
+        matches[i].type = "textfield";
+      } else if (matches[i].type === "number") {
+        matches[i].type = "number";
+      } else if (matches[i].type === "boolean") {
+        matches[i].type = "checkbox";
+      }
+    }
+
+    return matches;
+  }
 
 
   ngOnDestroy() {
+    this.actualLogLocation = "";
     for (let i = 0; i < this.nbService; i++) {
       let service = this.serviceUsed[i].name;
       this.skService.removeEventListener(service, "statusChange", () => { });
       this.skService.removeEventListener(service, "stateChange", () => { });
     }
+  }
+
+
+
+  stopSession() {
+    this.skService.openSession();
   }
 
 }

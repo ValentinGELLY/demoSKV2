@@ -22,10 +22,10 @@
             <p class="pDocumentInfo goodDocumentoCapture" *ngIf="identityValidate && (scanVisited==3)">Vous allez passée au étapes suivante</p>
         </div>
         <div>
-            <p class="pDocumentInfo badDocumentoCapture" *ngIf="!identityValidate && (scanVisited==3) || errorSaveIdCard && scanVisited==2">Veuillez répéter les étapes précédentes</p>
+            <p class="pDocumentInfo badDocumentoCapture" *ngIf="errorSaveIdCard && scanVisited==2">Veuillez répéter les étapes précédentes</p>
         </div>
         <div>
+            <p class="pDocumentInfo badDocumentoCapture" *ngIf="!errorFace && (scanVisited==3)">Veuillez reprendre la photo</p>
         </div>
-        
     </section>
 </main>

@@ -30,21 +30,22 @@ export class CreateAccountValidationScreen extends GenericComponent {
     this.errorSaveIdCard = this.moovhopService.errorSaveIdCard;
     this.scanVisited = this.moovhopService.scanVisited;
     this.identityValidate = this.moovhopService.identityValidate;
-    if (this.identityValidate) {
+    if (this.scanVisited === 3 && this.identityValidate) {
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/AGIR2024/createAccountHello']);
+        this.route.navigate(['AGIR2024/createAccountHello']);
       }, 5000);
     }else if(this.moovhopService.errorSaveIdCard){
       this.timeout = setTimeout(() => {
         this.route.navigate(['/AGIR2024/createAccountMenu']);
       }, 5000);
-    }else if (this.errorFace) {
+    }else if (!this.errorFace && this.scanVisited === 3) {
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/AGIR2024/createAccountMenu']);
+        this.moovhopService.scanVisited--;
+        this.route.navigate(['/AGIR2024/createAccountFaceCapture']);
       }, 5000);
     }else if (this.scanVisited === 2 && !this.moovhopService.errorSaveIdCard) {
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/AGIR2024/createAccountPersonalInformations']);
+        this.route.navigate(['/AGIR2024/createAccountFormPersonalInformations']);
       }, 5000);
     }else if (this.scanVisited === 3 && !this.identityValidate) {
       this.timeout = setTimeout(() => {
@@ -54,8 +55,6 @@ export class CreateAccountValidationScreen extends GenericComponent {
     
   }
 
-
-  
   ngOnDestroy(): void {
     clearTimeout(this.timeout);
   }

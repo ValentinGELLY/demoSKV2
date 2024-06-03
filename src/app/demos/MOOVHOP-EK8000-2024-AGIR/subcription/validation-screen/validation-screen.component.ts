@@ -38,9 +38,10 @@ export class validationScreen extends GenericComponent {
       this.timeout = setTimeout(() => {
         this.route.navigate(['/EK80002024AGIR/createAccountMenu']);
       }, 5000);
-    }else if (this.errorFace) {
+    }else if (!this.errorFace && this.scanVisited === 3) {
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/EK80002024AGIR/createAccountMenu']);
+        this.moovhopService.scanVisited--;
+        this.route.navigate(['/EK80002024AGIR/createAccountFaceCapture']);
       }, 5000);
     }else if (this.scanVisited === 2 && !this.moovhopService.errorSaveIdCard) {
       this.timeout = setTimeout(() => {
@@ -51,10 +52,7 @@ export class validationScreen extends GenericComponent {
         this.route.navigate(['/EK80002024AGIR/createAccountMenu']);
       }, 5000);
     }
-    
   }
-
-
   
   ngOnDestroy(): void {
     clearTimeout(this.timeout);

@@ -1,3 +1,7 @@
+/**
+ * @title  LECTURE D'UN CODE BARRE
+ * @description lecture d'un code barre
+*/
 
 /**
  * lancement de la lecture de code barre 
@@ -11,7 +15,7 @@ function start1(){
 function onBarcodeRead(e) {
 	switch (e.data.dataType) {
 		case 'BarcodeRead':
-			console.log("UTILISATEUR-Code barre lu: " + e.data.barcode);
+			console.log("CAPTURE - Code barre lu: " + e.data.barcode);
             Kiosk.BarcodeReading.removeEventListener('barcodeRead', onBarcodeRead);
             console.log("FIN - Arret de la lecture de code barre");
 			break;
@@ -25,4 +29,8 @@ function stop1(){
     Kiosk.BarcodeReading.stopReadBarcode();
     Kiosk.BarcodeReading.removeEventListener('barcodeRead', onBarcodeRead);
 }
+
+
+
+
 

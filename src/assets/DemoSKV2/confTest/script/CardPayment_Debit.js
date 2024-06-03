@@ -1,6 +1,6 @@
 /**
- * PAIEMENT PAR CARTE BANCAIRE
- * Transaction bancaire standard
+ * @title  PAIEMENT PAR CARTE BANCAIRE
+ * @description Transaction bancaire standard
 */
 
 /**
@@ -10,25 +10,23 @@
  * @param {string} refShoppingCart - Default: ticket-1234 - Référence du panier
  */
 function start1() {
-    // Écoute de l'événement de débit de carte bancaire
+    let amountInCents = 100;
+    let refTransaction = "ref-deb-0000";
+    let refShoppingCart = "ticket-123";
     Kiosk.CardPayment.addEventListener("cardDebit", onCardDebit);
-
-    console.log("DEBUT - lancement d'une transaction de 1€")
-    // Démarrage de la transaction
+    console.log("DEBUT - lancement d'une transaction de "+amountInCents/100+"€")
     Kiosk.CardPayment.debitCard({
-        amountInCents: 100,
-        refTransaction: "ref-deb-0000",
-        refShoppingCart: "ticket-1234"
+        amountInCents: amountInCents,
+        refTransaction: refTransaction,
+        refShoppingCart: refShoppingCart
     });
 }
-
 function stop1() {
     console.log("FIN - Annulation de la transaction");
     // Fin d'écoute de l'événement de débit
     Kiosk.CardPayment.removeEventListener("cardDebit", onCardDebit);
     Kiosk.CardPayment.cancelTransaction();
 }
-
 /**
  * Fonction de rappel associée à l'événement de débit de carte bancaire
  */
@@ -36,12 +34,10 @@ function onCardDebit(e) {
     switch (e.data.dataType) {
         case "CardDebitError":
             console.log("ERROR - " + e.data.dataType);
-            // Fin d'écoute de l'événement de débit
             Kiosk.CardPayment.removeEventListener("cardDebit", onCardDebit);
             break;
         case "CardDebited":
             console.log("FIN - Transaction terminée (" + e.data.refTransaction + ")");
-            // Fin d'écoute de l'événement de débit
             Kiosk.CardPayment.removeEventListener("cardDebit", onCardDebit);
             break;
         default:
@@ -54,13 +50,9 @@ function onCardDebit(e) {
  * Confirmation de transaction
  */
 function start2() {
-    // Gestion personnalisée de la délivrance de biens
     console.log("DEBUT - confirmation de transaction");
-    // Démarrage de la procédure de confirmation de transaction en cas de succès de délivrance
-    // Écoute de l'événement de confirmation, pour le cas d'erreur de désynchro applicative
     Kiosk.CardPayment.addEventListener("transactionConfirm", onTransactionConfirm);
 
-    // Confirmation de la transaction
     Kiosk.CardPayment.confirmTransaction({
         "confirmAmountInCents": Kiosk.CardPayment.currentTransaction.amountInCents
     });
