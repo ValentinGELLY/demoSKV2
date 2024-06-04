@@ -34,12 +34,10 @@ export class PaymentCardComponent extends GenericComponent {
 
 
   ngAfterViewInit(): void {
-
     this.moovHopService.textCB ='<p style="text-align:center;">'+
     ' CARTE BANCAIRE <br> SANS CONTACT <br> le '+new Date().getHours().toString().padStart(2, '0') + ":" + new Date().getMinutes().toString().padStart(2, '0') + ":" + new Date().getSeconds().toString().padStart(2, '0');+' <br> 16546544 <br> 561561651464654 <br>'+
     ' INGENICO TEST <br> 156465456 <br> 116464564 <br> ******************* <br> MONTANT REEL= <br> '+this.moovHopService.priceSubscription+' EUR <br>'+
     ' Pour information: <br> DEBIT <br> TICKET CLIENT <br> A CONSERVER <br> ............... <br>';
-
   }
   timeout: any;
   async changeCardInfoText() {

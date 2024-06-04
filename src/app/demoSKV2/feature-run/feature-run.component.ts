@@ -278,7 +278,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
             const logType = logParts[0].replace(/[^a-zA-Z]/g, '');
             const logContent = logParts.slice(1).join('-');
     
-            if (logType == "FIN" || logType == "ERROR") {
+            if (logType == "END" || logType == "ERROR") {
               let hour = new Date();
               const heure = hour.getHours().toString().padStart(2, "0");
               const minutes = hour.getMinutes().toString().padStart(2, "0");
@@ -314,7 +314,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
                 }
                 _this.compteur = 0;
               }
-            } else if (logType == "DEBUT" || logType == "UTILISATEUR") {
+            } else if (logType == "START" || logType == "USER") {
               console.info("logContent");
               console.info(logContent);
               var logElement = document.getElementById("panel_Logs_" + actualLogLocationLocal);
@@ -358,7 +358,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
     }
   }
 
-
+  
   showPanel(nameElement: string) {
     if (document.getElementById('panel_' + nameElement)!.style.display === "flex") {
       (document.getElementsByClassName('fleche_' + nameElement)[0] as HTMLElement).style.transform = "rotate(-90deg)";
@@ -414,7 +414,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
           "key": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
           "label": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
           "placeholder": this.parameters[i].default !== undefined ? this.parameters[i].default : "",
-          "description": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
           "value": this.parameters[i].default !== undefined ? this.parameters[i].default : "",
           "tooltip": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
           "input": true,

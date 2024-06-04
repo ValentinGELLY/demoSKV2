@@ -45,8 +45,6 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
           this.moovhopService.faceCapture = resizedBase64;
           console.log("enregistrement face");
           console.log(this.moovhopService.faceCapture);
-
-
           this.addFaceUser(this.moovhopService.faceCapture);
         })
         .catch((error) => {

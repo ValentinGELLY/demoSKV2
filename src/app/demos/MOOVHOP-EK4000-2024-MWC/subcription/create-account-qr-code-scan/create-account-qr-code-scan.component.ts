@@ -61,14 +61,14 @@ export class CreateAccountQRCodeScanComponent extends GenericComponent implement
               this.moovhopService.htmlReceiptContent='<html><meta charset="utf-8" >' +
               '<body style="font-family:Arial; font-size: 1.2rem; font-kerning: 2px; text-rendering: optimizeLegibility;">' +
               '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:20px; width:150px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/MoovHop/logo-app-print.png" >' +
-              '<h4 style="text-align:center"> Purchase confirmation</h4>' +
+              '<h4 style="text-align:center"> Confirmation d\'achat</h4>' +
               '<p style="text-align:center;">' + textSubscription + '</p>' +
               '<p style="text-align:center;">' + this.moovhopService.priceSubscription + '</p>' +
               '<p style="text-align:center;">.....................</p>' +
               '<p style="text-align:center;" *ngIf="this.textCB!=\'\' ">' + this.moovhopService.textCB + '</p>' +
               '<p style="text-align:center;" *ngIf="this.textCB!=\'\' ">.....................</p>' +
               '<img src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK4000-2023-RNTP/qr_ticket.jpg">'+
-              '<p style="text-align:center;">Collect your subscription card in an agency or at a Click & Collect terminal by scanning this QR code!</p>' +
+              '<p style="text-align:center;">Récupérez votre carte d\'abonné en agence ou sur une borne de Click & Collect en scannant ce QR code !</p>' +
               '</body>' +
               '</html>';
               this.router.navigate(['/MWC2024/paymentChoice']);

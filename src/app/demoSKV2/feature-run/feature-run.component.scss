@@ -8,7 +8,9 @@
 
 body{
     width: 100%;
+    height: fit-content !important;
 }
+
 
 .icons{
     width: 70px;
@@ -24,15 +26,20 @@ body{
 #title{
     display: flex;
     align-items: center;
-    position: absolute;
-    top: 0;
-    transform: translate(-50%,0%);
     left: 50%;
     font-size: 2em;
-    width: 35%;
+    width: 50%;
     justify-content: space-around;
     top: 50px;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.mainContent{
+    display: flex;
+    justify-content: space-around;
+}
+
 
 .documentation{
     display: flex;
@@ -51,10 +58,10 @@ body{
 
 main{
     display: flex;
-    gap: 10%;
-    height: 80vh;
-    margin-top: 3%;
-    width: 98vw;;
+    flex-direction: column;
+    height: 77vh;
+    width: 98vw;
+    gap: 7%;
 }
 
 #right{
@@ -137,9 +144,10 @@ main{
 }
 
 #status{
-display: flex ;
-flex-direction: column;
-justify-content: space-around;
+    display: flex ;
+    justify-content: space-around;
+    flex-direction: column;
+    gap: 5%;
 }
 
 .logStatus{
@@ -150,7 +158,6 @@ justify-content: space-around;
     display: flex;
     gap: 10%;
     height: 180px;
-    flex-wrap: wrap;
 }
 
 
@@ -200,13 +207,13 @@ input{
 #btnRead{
     display: flex;
     justify-content: space-around;
-    width: 30%;
     border: none;
     height: 35px;
-    font-size: larger;
+    font-size: 0.7em;
     align-items: center;
     border-radius: 5px;
     cursor: pointer;
+    padding: 20px;
 }
 
 #popUpDescritionPage{
@@ -285,6 +292,8 @@ input{
 
 .logo {
     width: 4vw;
+    position: absolute;
+    z-index: 100;
   }
   
 #panel_Logs{
@@ -346,4 +355,10 @@ input{
     justify-content: center;
     align-items: center;
     gap: 20px;
+}
+
+.formio-form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }

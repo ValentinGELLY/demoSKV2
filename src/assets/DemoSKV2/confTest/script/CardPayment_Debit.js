@@ -14,7 +14,7 @@ function start1() {
     let refTransaction = "ref-deb-0000";
     let refShoppingCart = "ticket-123";
     Kiosk.CardPayment.addEventListener("cardDebit", onCardDebit);
-    console.log("DEBUT - lancement d'une transaction de "+amountInCents/100+"€")
+    console.log("START - lancement d'une transaction de "+amountInCents/100+"€")
     Kiosk.CardPayment.debitCard({
         amountInCents: amountInCents,
         refTransaction: refTransaction,
@@ -22,7 +22,7 @@ function start1() {
     });
 }
 function stop1() {
-    console.log("FIN - Annulation de la transaction");
+    console.log("END - Annulation de la transaction");
     // Fin d'écoute de l'événement de débit
     Kiosk.CardPayment.removeEventListener("cardDebit", onCardDebit);
     Kiosk.CardPayment.cancelTransaction();
@@ -37,11 +37,11 @@ function onCardDebit(e) {
             Kiosk.CardPayment.removeEventListener("cardDebit", onCardDebit);
             break;
         case "CardDebited":
-            console.log("FIN - Transaction terminée (" + e.data.refTransaction + ")");
+            console.log("END - Transaction terminée (" + e.data.refTransaction + ")");
             Kiosk.CardPayment.removeEventListener("cardDebit", onCardDebit);
             break;
         default:
-            console.log("UTILISATEUR - " + e.data.dataType);
+            console.log("END - " + e.data.dataType);
             break;
     }
 }
@@ -50,7 +50,7 @@ function onCardDebit(e) {
  * Confirmation de transaction
  */
 function start2() {
-    console.log("DEBUT - confirmation de transaction");
+    console.log("START - confirmation de transaction");
     Kiosk.CardPayment.addEventListener("transactionConfirm", onTransactionConfirm);
 
     Kiosk.CardPayment.confirmTransaction({
@@ -62,7 +62,7 @@ function start2() {
  * Annulation de la transaction
  */
 function stop2() {
-    console.log("FIN - Annulation de la transaction");
+    console.log("END - Annulation de la transaction");
     Kiosk.CardPayment.removeEventListener("transactionConfirm", onTransactionConfirm);
     Kiosk.CardPayment.cancelTransaction();
 }
@@ -75,7 +75,7 @@ function start3() {
     // Écoute de l'événement d'impression de reçu bancaire
     Kiosk.CardPayment.addEventListener("receiptPrint", onReceiptPrint);
 
-    console.log("DEBUT - impression du reçu");
+    console.log("START - impression du reçu");
     // Impression d'un reçu, au format utf-8
     Kiosk.CardPayment.printReceipt({
         "htmlHeader": "<h1 style='font-size: 20px; font-weight:bold; font-family: Tahoma, sans-serif; text-align: center;'>Votre reçu</h1><h2  style='font-size: 15px; font-weight:bold; font-family: Tahoma, sans-serif; text-align: center;'>Panier " + Kiosk.CardPayment.currentTransaction.refShoppingCart + "</h2><div><pre style='font-size: 14px; font-family: Tahoma, sans-serif;'>",
@@ -87,7 +87,7 @@ function start3() {
  * Annulation de l'impression du reçu
  */
 function stop3() {
-    console.log("FIN - Annulation de l'impression");
+    console.log("END - Annulation de l'impression");
     Kiosk.CardPayment.removeEventListener("receiptPrint", onReceiptPrint);
 }
 
@@ -112,7 +112,7 @@ function onTransactionConfirm(e) {
 function onReceiptPrint(e) {
     switch (e.data.dataType) {
         case "ReceiptPrinted":
-            console.log("FIN - Reçu imprimé");
+            console.log("END - Reçu imprimé");
             break;
         case "ReceiptPrintError":
             console.log("ERROR - "+ e.data.dataType);
@@ -129,10 +129,10 @@ function onReceiptPrint(e) {
 function handlePrintError(code) {
     switch (code) {
         case "StatusError":
-            console.log("Opération interdite dans le status actuel de l'impression");
+            console.log("ERROR - Opération interdite dans le status actuel de l'impression");
             break;
         case "StateError":
-            console.log("Opération interdite dans le state actuel du paiement");
+            console.log("ERROR - Opération interdite dans le state actuel du paiement");
             break;
         default:
             console.log(code + ": ERROR d'impression de reçu");

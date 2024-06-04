@@ -30,6 +30,11 @@ export class CreateAccountValidationScreen extends GenericComponent {
     this.errorSaveIdCard = this.moovhopService.errorSaveIdCard;
     this.scanVisited = this.moovhopService.scanVisited;
     this.identityValidate = this.moovhopService.identityValidate;
+    console.log('errorFace', this.errorFace);
+    console.log('errorSaveIdCard', this.errorSaveIdCard);
+    console.log('scanVisited', this.scanVisited);
+    console.log('identityValidate', this.identityValidate);   
+    
     if (this.scanVisited === 3 && this.identityValidate) {
       this.timeout = setTimeout(() => {
         this.route.navigate(['AGIR2024/createAccountHello']);
@@ -45,7 +50,7 @@ export class CreateAccountValidationScreen extends GenericComponent {
       }, 5000);
     }else if (this.scanVisited === 2 && !this.moovhopService.errorSaveIdCard) {
       this.timeout = setTimeout(() => {
-        this.route.navigate(['/AGIR2024/createAccountFormPersonalInformations']);
+        this.route.navigate(['/AGIR2024/createAccountPersonalInformations']);
       }, 5000);
     }else if (this.scanVisited === 3 && !this.identityValidate) {
       this.timeout = setTimeout(() => {

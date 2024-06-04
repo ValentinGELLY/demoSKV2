@@ -7,7 +7,7 @@
  * lancement de la lecture de code barre 
  */
 function start1(){
-    console.log("DEBUT - Lancement de la lecture de code barre");
+    console.log("START - Lancement de la lecture de code barre");
     Kiosk.BarcodeReading.addEventListener('barcodeRead', onBarcodeRead);
     Kiosk.BarcodeReading.readBarcode();
 }

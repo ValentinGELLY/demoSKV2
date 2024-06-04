@@ -28,7 +28,21 @@ export class MoovhopService {
     // Gestions Reconnaissance facial
     documentSelected: string = "IdCard";
     faceCapture : string =""
-    private moovHopRouterDic: any = {};
+    private moovHopRouterDic: any = {
+        '/EK80002024AGIR/homepage': '/EK80002024AGIR/buyChoice',
+        '/EK80002024AGIR/buyChoice': '/EK80002024AGIR/paymentChoice',
+        '/EK80002024AGIR/paymentChoice': '/EK80002024AGIR/paymentCard',
+        '/EK80002024AGIR/paymentCard': '/EK80002024AGIR/getTicketReceipt',
+
+        '/EK80002024AGIR/createAccountMenu': '/EK80002024AGIR/createAccountCamera',
+        '/EK80002024AGIR/createAccountHello': '/EK80002024AGIR/createAccountSubscriptionChoice',
+        '/EK80002024AGIR/createAccountSubscriptionChoice': '/EK80002024AGIR/paymentChoice',
+
+        '/EK80002024AGIR/reloadIdentification': '/EK80002024AGIR/reloadPersonalInformations',
+        '/EK80002024AGIR/reloadPersonalInformations': '/EK80002024AGIR/createAccountSubscriptionChoice',
+
+
+    };
     private moovHopPreviousRouterDict: any = {};
     private fcMoovHopRouterDict: any = {}
     textTickets: string = '';

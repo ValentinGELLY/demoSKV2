@@ -31,7 +31,7 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
           this.moovHopService.htmlReceiptContent = '<html><meta charset="utf-8" >' +
             '<body style="font-family:Arial; font-size: 1.2rem; font-kerning: 2px; text-rendering: optimizeLegibility;">' +
             '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:20px; width:150px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/MoovHop/logo-app-print.png" >' +
-            '<h4 style="text-align:center"> Purchase confirmation</h4>' +
+            '<h4 style="text-align:center"> Confirmation d\'achat</h4>' +
             '<p style="text-align:center;">' + this.moovHopService.priceSubscription + '€</p>' +
             '<p style="text-align:center;">.....................</p>' +
             '<p style="text-align:center;" *ngIf="this.textCB!=\'\' ">' + this.moovHopService.textCB + '</p>' +
@@ -45,7 +45,7 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
           this.moovHopService.htmlReceiptContent = '<html><meta charset="utf-8" >' +
             '<body style="font-family:Arial; font-size: 1.2rem; font-kerning: 2px; text-rendering: optimizeLegibility;">' +
             '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:20px; width:150px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/MoovHop/logo-app-print.png" >' +
-            '<h4 style="text-align:center"> Purchase confirmation</h4>' +
+            '<h4 style="text-align:center"> Confirmation d\' achat</h4>' +
             '<p style="text-align:center;">' + this.moovHopService.priceSubscription + '€</p>' +
             '<p style="text-align:center;">.....................</p>' +
             '<div style="width:100%; text-align:center"><img src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK4000-2023-RNTP/qr_ticket.jpg"></div>' +

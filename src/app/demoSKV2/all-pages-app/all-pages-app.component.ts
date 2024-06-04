@@ -80,4 +80,6 @@ export class AllPagesAppComponent implements OnInit {
     button?.classList.toggle('pushed');
   }
 
+
+
 }
