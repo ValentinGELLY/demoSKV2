@@ -32,7 +32,7 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
 
 
   override ngOnInit(): void {
-    if (this.moovhopService.documentSelected=="passeport") {
+    if (this.moovhopService.documentSelected=="passeport" || this.moovhopService.documentSelected=="oldIdCard") {
       this.moovhopService.scanVisited++;
     }
     this.moovhopService.scanVisited++;

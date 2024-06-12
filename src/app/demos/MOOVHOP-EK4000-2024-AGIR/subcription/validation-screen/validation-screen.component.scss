@@ -17,16 +17,17 @@ h1 {
 h3 {
     font-size: 2.5vw;
     position: fixed;
-    top: 30%;
+    top: 60%;
     font-family: GothamLight;
     width: 100%;
     text-align: center;
     margin-top: 0;
-    margin-bottom: 0;    
+    margin-bottom: 0;  
+    margin-left: 0;  
     font-size : 2.2em;
     font-weight: 100 !important;
     margin-bottom: 50px;
-    
+    transform: translate(50%, 50%);
 }
 
 
@@ -37,6 +38,7 @@ h3 {
     left: 50%;
     transform: translate(-50%, -50%);
     gap: 25px;
+    font-size: 125%;
 }
 
 img {
@@ -45,9 +47,4 @@ img {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-p {
-    font-size: 1.5em !important;
-    font-family: 'GothamLight';
 }

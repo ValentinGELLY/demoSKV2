@@ -48,7 +48,7 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
 
 
   resetVisits(){
-    if(this.moovhopService.documentSelected=="passeport" && this.moovhopService.scanVisited==2){
+    if((this.moovhopService.documentSelected=="passeport" || this.moovhopService.documentSelected =="oldIdCard") && this.moovhopService.scanVisited==2){
     this.moovhopService.scanVisited -= 2;
     }else{
       this.moovhopService.scanVisited -= 1;
@@ -197,9 +197,8 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
 
   addDocuments() {
     var myHeaders = new Headers();
-
-
-    if (this.moovhopService.documentSelected == "passeport") {
+    
+    if (this.moovhopService.documentSelected == "passeport" || this.moovhopService.documentSelected == "oldIdCard") {
       console.log("scan1");
       console.log(this.moovhopService.previewImageScanIdBDef.replace("data:image/png;base64, ", ""));
       fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false",

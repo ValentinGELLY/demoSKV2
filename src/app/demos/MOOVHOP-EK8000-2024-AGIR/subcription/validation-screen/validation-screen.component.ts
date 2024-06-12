@@ -30,6 +30,31 @@ export class validationScreen extends GenericComponent {
     this.errorSaveIdCard = this.moovhopService.errorSaveIdCard;
     this.scanVisited = this.moovhopService.scanVisited;
     this.identityValidate = this.moovhopService.identityValidate;
+
+
+    if (this.scanVisited === 3 && this.identityValidate) {
+      this.timeout = setTimeout(() => {
+        this.route.navigate(['/EK80002024AGIR/createAccountHello']);
+      }, 5000);
+    }else if (this.errorFace && this.scanVisited === 3) {
+      this.timeout = setTimeout(() => {
+        this.moovhopService.scanVisited--;
+        this.route.navigate(['/EK80002024AGIR/createAccountFaceCapture']);
+      }, 5000);
+    }else if (this.scanVisited === 2 && !this.moovhopService.errorSaveIdCard) {
+      this.timeout = setTimeout(() => {
+        this.route.navigate(['/EK80002024AGIR/createAccountFormPersonalInformations']);
+      }, 5000);
+    }else if (this.scanVisited === 3 && !this.identityValidate) {
+      this.timeout = setTimeout(() => {
+        this.route.navigate(['/EK80002024AGIR/createAccountMenu']);
+      }, 5000);
+    }else if(this.moovhopService.errorSaveIdCard){
+      this.timeout = setTimeout(() => {
+        this.route.navigate(['/EK80002024AGIR/createAccountMenu']);
+      }, 5000);
+    }
+
     if (this.scanVisited === 3 && this.identityValidate) {
       this.timeout = setTimeout(() => {
         this.route.navigate(['EK80002024AGIR/createAccountHello']);

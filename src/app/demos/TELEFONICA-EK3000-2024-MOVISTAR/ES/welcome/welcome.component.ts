@@ -44,23 +44,26 @@ export class WelcomeComponent extends GenericComponent {
         }, 10000);
       
     }else{
+      var Kiosk: any;
+
+
+
+
+
+
+
+
       let _this = this;
-  
-  
       console.log("on s'abonne à l'event cardDispense de la callback onCardDispense");
       _this.skService.addEventListener("CardDispensing", "cardDispense", this.onCardDispense);
-  
       console.log("demande de distribution de cartes");
-      _this.skService.cardDispensingDispense();
-  
+      Kiosk.CardDispensing.dispenseCard();
       // tempo pour revenir à l'écran d'accueil
-      
         setTimeout(function () {
           if( _this.router.url === "/ES/welcome"){
             _this.router.navigate(['/ES/homePageTelefonica']);
           }
         }, 10000);
-      
     }
   }
 

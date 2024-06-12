@@ -21,6 +21,7 @@ export class PrintingMenuComponent {
   }
 
   printCallback = (e: any): any => {   
+    console.log("printCallback");
     let navEvent;
     switch (e.data.dataType) {
       case 'RawPdfPrinted':
@@ -62,6 +63,7 @@ export class PrintingMenuComponent {
   }
   
   ngOnInit(): void {
+    console.log("printing-menu.component.ts");
     this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
   }
 

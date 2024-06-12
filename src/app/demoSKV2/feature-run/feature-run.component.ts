@@ -264,8 +264,9 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
         document.body.appendChild(scriptElement);
         let _this = this;
         let actualLogLocationLocal = this.actualLogLocation;
+        
+        
         console.log = function () {
-          console.info("entrer dans la fonction console.log");
           let panel = 'panel_Logs';
           if (actualLogLocationLocal !== "") {
             panel = 'panel_Logs_' + actualLogLocationLocal;
@@ -277,7 +278,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
             const logParts = logMessage.split("-");
             const logType = logParts[0].replace(/[^a-zA-Z]/g, '');
             const logContent = logParts.slice(1).join('-');
-    
             if (logType == "END" || logType == "ERROR") {
               let hour = new Date();
               const heure = hour.getHours().toString().padStart(2, "0");

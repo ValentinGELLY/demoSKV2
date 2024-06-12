@@ -4,6 +4,9 @@ import { MoovhopService } from '../../moovhop.service';;
 import { Router, RouterConfigOptions } from '@angular/router';
 import { SoftKioskService } from 'src/app/softkiosk.service';
 import { extend } from 'jquery';
+
+
+declare var Kiosk : any;
 @Component({
   selector: 'app-waiting-screen',
   templateUrl: './waiting-screen.component.html',
@@ -50,7 +53,7 @@ export class WaitingScreenComponent {
       this.htmlReceiptContent2 = '<html><meta charset="utf-8" >' +
         '<body style="font-family: Verdana; font-size: 1rem; font-weight: bold;">' +
         '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:5px; width:180px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK8000-2023-RNTP/logo-ipm.png" >' +
-        '<p style="text-align:center"> Merci de votre visite sur notre stand aux RNTP 2024 !</p>' +
+        '<p style="text-align:center"> Merci de votre visite sur notre stand aux AGIR 2024 !</p>' +
         '<p style="text-align:center">Contactez-nous pour réaliser votre projet mobilité</p>' +
         '<p style="text-align:center;"> Sylvain Perrin </p>' +
         '<p style="text-align:center;"> Responsable Commercial grands comptes </p>' +
@@ -59,8 +62,6 @@ export class WaitingScreenComponent {
         '<img style="width:70px; position: relative; left:38%;" src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK8000-2023-RNTP/qr_ipm.png">' +
         '</body>' +
         '</html>';
-
-
 
 
       this.printCallbackTickets = (e: any): any => {
@@ -105,8 +106,15 @@ export class WaitingScreenComponent {
             break;
         }
       }
-      this.skService.ticketPrintingPrintRawHtml(this.htmlReceiptContent2);
-      this.skService.addEventListener("TicketPrinting", "rawHtmlPrint", this.printCallbackTickets);
+
+      if (Kiosk.TicketPrinting.status == "Ok" || Kiosk.TicketPrinting.status == "Warning"){
+        this.skService.addEventListener("TicketPrinting", "rawHtmlPrint", this.printCallbackTickets);
+        this.skService.ticketPrintingPrintRawHtml(this.htmlReceiptContent2);
+      }else{
+        setTimeout(() => {
+          this.router.navigate(['/EK80002024AGIR/getTicketReceipt']);
+        }, 5000);
+      }
     } // cas abonnement
     else if (this.moovhopService.ActionChoosed == 2) {
       if (this.moovhopService.textCB != '') {
@@ -131,13 +139,10 @@ export class WaitingScreenComponent {
           '</body>' +
           '</html>'
       }
-
-
-
-      this.skService.addEventListener("CardDispensing", "cardDispense", this.onCardDispense);
-      this.skService.cardDispensingDispense();
-
-
+      if (Kiosk.ReceiptPrinting.status == "Ok" || Kiosk.ReceiptPrinting.status == "Warning") {
+        this.skService.addEventListener("CardDispensing", "cardDispense", this.onCardDispense);
+        this.skService.cardDispensingDispense();
+      }
       this.printCallback = (e: any): any => {
         let navEvent;
         switch (e.data.dataType) {
@@ -161,7 +166,7 @@ export class WaitingScreenComponent {
               navEvent = new CustomEvent("moovHopNav", {
                 detail: {
                   "delay": 0,
-                  "goTo": "/getTicketReceipt"
+                  "goTo": "/EK80002024AGIR/getTicketReceipt"
                 }
               });
               window.dispatchEvent(navEvent);
@@ -170,10 +175,15 @@ export class WaitingScreenComponent {
         }
       }
 
+      if (Kiosk.ReceiptPrinting.status == "Ok" || Kiosk.ReceiptPrinting.status == "Warning") {
+        this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback)
+        this.skService.receiptPrintingPrintRawHtml(this.moovhopService.htmlReceiptContent);
+      }else {
+        setTimeout(() => {
+        this.router.navigate(['/EK80002024AGIR/getTicketReceipt']);
+        }, 5000);
+      }
 
-
-      this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback);
-      this.skService.receiptPrintingPrintRawHtml(this.moovhopService.htmlReceiptContent);
 
     } // cas rechargement 
     else {
@@ -232,8 +242,14 @@ export class WaitingScreenComponent {
             break;
         }
       }
-      this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback)
-      this.skService.receiptPrintingPrintRawHtml(this.moovhopService.htmlReceiptContent);
+      if (Kiosk.ReceiptPrinting.status == "Ok" || Kiosk.ReceiptPrinting.status == "Warning") {
+        this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback)
+        this.skService.receiptPrintingPrintRawHtml(this.moovhopService.htmlReceiptContent);
+      }else{
+        setTimeout(() => {
+          this.router.navigate(['/EK80002024AGIR/reloadThanks']);
+        }, 5000);
+      }
     }
   }
 

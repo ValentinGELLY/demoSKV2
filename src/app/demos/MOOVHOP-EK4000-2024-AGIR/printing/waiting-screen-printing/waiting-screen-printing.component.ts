@@ -4,6 +4,7 @@ import { MoovhopService } from '../../moovhop.service';
 import { GenericComponent } from '../../../generic/generic.component';
 import { SoftKioskService } from 'src/app/softkiosk.service';
 
+declare var Kiosk:any;
 
 @Component({
   selector: 'app-waiting-screen-printing',
@@ -25,7 +26,7 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
 
     console.log(this.moovHopService.ActionChoosed);
 
-    if (this.router.url === "/AGIR2024/waitingScreenPrinting") {
+    if (this.router.url == "/AGIR2024/waitingScreenPrinting") {
       if (this.moovHopService.ActionChoosed == 1) {
         if (this.moovHopService.textCB != '') {
           this.moovHopService.htmlReceiptContent = '<html><meta charset="utf-8" >' +
@@ -84,21 +85,18 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
               break;
           }
         }
-        this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback)
-        this.skService.receiptPrintingPrintRawHtml(this.moovHopService.htmlReceiptContent);
-        this.timing = 5000;
+        if (Kiosk.ReceiptPrinting.status == "Ok" || Kiosk.ReceiptPrinting.status == "Warning") {
+          this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback)
+          this.skService.receiptPrintingPrintRawHtml(this.moovHopService.htmlReceiptContent);
+          this.timing = 5000;
+        }else {
+          setTimeout(() => {
+          this.router.navigate(['/AGIR2024/subScriptionConfirmation']);
+          }, 5000);
+        }
       } else if (this.moovHopService.ActionChoosed == 2) {
         let pdf = '';
-        // impression de la fiche horaire
-        if (this.moovHopService.LineChoosed == 1) {
-          pdf = this.moovHopService.line1;
-        } else if (this.moovHopService.LineChoosed == 2) {
-          pdf = this.moovHopService.line2;
-        } else if (this.moovHopService.LineChoosed == 3) {
-          pdf = this.moovHopService.line3;
-        } else {
-          pdf = this.moovHopService.line4;
-        }
+        
         this.printCallback = (e: any): any => {
           let navEvent;
           switch (e.data.dataType) {
@@ -130,8 +128,15 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
               break;
           }
         }
-        this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
-        this.skService.documentPrintingPrintRawPdf(pdf);
+        if (Kiosk.ReceiptPrinting.status == "Ok" || Kiosk.ReceiptPrinting.status == "Warning") {
+          this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
+          this.skService.documentPrintingPrintRawPdf(pdf);
+          this.timing = 5000;
+        }else{
+          setTimeout(() => {
+            this.router.navigate(['/AGIR2024/thanksPaymentReport']);
+            }, 5000);
+        }
       } else {
         if (this.moovHopService.textCB != '') {
           this.moovHopService.htmlReceiptContent = '<html><meta charset="utf-8" >' +
@@ -184,8 +189,15 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
               break;
           }
         }
-        this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback)
-        this.skService.receiptPrintingPrintRawHtml(this.moovHopService.htmlReceiptContent);
+        if (Kiosk.ReceiptPrinting.status == "Ok" || Kiosk.ReceiptPrinting.status == "Warning"){
+          this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback)
+          this.skService.receiptPrintingPrintRawHtml(this.moovHopService.htmlReceiptContent);
+          this.timing = 5000;
+        }else{
+          setTimeout(() => {
+          this.router.navigate(['/AGIR2024/thanksPaymentReport']);
+          }, 5000);
+        }
       }
     }
     // setTimeout(() => {

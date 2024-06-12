@@ -15,8 +15,8 @@ export class CreateAccountPersonalInformationsComponent extends GenericComponent
         super(skService);
     }
 
-    name = this.moovhopService.nameUser;
-    firstname = this.moovhopService.firstName;
+    name = this.moovhopService.firstName;
+    firstname = this.moovhopService.nameUser;
     birthday = this.moovhopService.birthday;
 
 
