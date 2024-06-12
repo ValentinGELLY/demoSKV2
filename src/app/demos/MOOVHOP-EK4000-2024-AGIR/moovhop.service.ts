@@ -59,6 +59,8 @@ export class MoovhopService {
         '/AGIR2024/paymentChoice': '/AGIR2024/paymentCB',
         '/AGIR2024/paymentCB': '/AGIR2024/subscriptionConfirmation',
         '/AGIR2024/subscriptionConfirmation': '/AGIR2024/homepage',
+        'AGIR2024/paymentMobileOp': '/AGIR2024/paymentMobileOpValidation',
+        '/AGIR2024/paymentMobileOpValidation': '/AGIR2024/subscriptionConfirmation',
 
         // use case impression d'une fiche horaire
         '/AGIR2024/printingMenu': '/AGIR2024/printingInformationChoice',

@@ -351,6 +351,14 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
               },
               "subtype": "PROCESSED",
               "type": "FRONT"
+            },{
+              "captured": this.moovhopService.timeScanIdB.toISOString(),
+              "sensitiveData": {
+                "imageFormat": "JPG",
+                "value": this.moovhopService.previewImageScanIdBDef.replace("data:image/png;base64, ", "")
+              },
+              "subtype": "PROCESSED",
+              "type": "BACK"
             }]
           }
         })
@@ -367,7 +375,9 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
               this.moovhopService.previewImageScanIdB = "./assets/loadingPreview.png"
             }, 5000);
           } else {
-            // Premier fetch réussi, lancer le deuxième fetch pour la capture BACK
+            this.getAllInformation();
+
+            /*// Premier fetch réussi, lancer le deuxième fetch pour la capture BACK
             fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false", {
               method: 'POST',
               headers: {
@@ -404,13 +414,12 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
                   this.moovhopService.errorSaveIdCard = false;
                   this.moovhopService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
                   console.log("add id card");
-                  this.getAllInformation();
                 }
               }
               )
               .catch(error => {
                 // Gérer les erreurs pour les deux fetchs
-              })
+              })*/
           }
         }
         );
