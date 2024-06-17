@@ -306,14 +306,11 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
             }, 5000);
 
           } else {
-            
             this.moovhopService.errorSaveIdCard = false;
-            this.moovhopService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
+            this.moovhopService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href;
             console.log("add id card");
             this.getAllInformation();
           }
-
-
         })
         .catch(error => {
           console.error('error', error);
@@ -375,6 +372,9 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
               this.moovhopService.previewImageScanIdB = "./assets/loadingPreview.png"
             }, 5000);
           } else {
+            this.moovhopService.errorSaveIdCard = false;
+            this.moovhopService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href;
+            console.log("add id card");
             this.getAllInformation();
 
             /*// Premier fetch réussi, lancer le deuxième fetch pour la capture BACK
@@ -441,7 +441,6 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
         return response.json();
       })
       .then((data) => {
-        
         if (data.mrz != undefined) {
           for (let key in data.mrz) {
             if (data.mrz.hasOwnProperty(key)) {
