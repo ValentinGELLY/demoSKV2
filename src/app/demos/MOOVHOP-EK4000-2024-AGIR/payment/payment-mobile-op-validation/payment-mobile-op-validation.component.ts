@@ -10,6 +10,7 @@ export class PaymentMobileOpValidationComponent {
   constructor(private router: Router) { }
   timeOut: any;
   ngOnInit(){
+    console.log(this.router.url);
     
   }
 

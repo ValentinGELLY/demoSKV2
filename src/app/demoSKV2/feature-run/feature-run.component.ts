@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { GenericComponent } from 'src/app/demos/generic/generic.component';
 import { SoftKioskService } from 'src/app/softkiosk.service';
-import { marked } from 'marked';
 
 declare var Formio: any;
 declare var Kiosk: any;

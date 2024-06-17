@@ -7,6 +7,7 @@ import { SoftKioskService } from './softkiosk.service';
 })
 export class AppService implements OnInit {
 
+  filename : string = "";
   statusServ: any;
   serviceName: string = "";
   currentAppUrl: string = "";
@@ -18,8 +19,6 @@ export class AppService implements OnInit {
   @Output() currentMenuChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() currentViewChange: EventEmitter<string> = new EventEmitter<string>();
   statusSubject: any;
-  filename: string = "";
-  listScript: any;
 
 
   constructor(private skService: SoftKioskService, private router: Router) {
@@ -102,7 +101,5 @@ export class AppService implements OnInit {
   changeView(view: string) {
     this.setCurrentView(view);
   }
-
-
 
 }

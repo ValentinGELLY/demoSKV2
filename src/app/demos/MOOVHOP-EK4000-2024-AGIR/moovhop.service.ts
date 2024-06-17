@@ -30,7 +30,7 @@ export class MoovhopService {
     whatSubscription: string = "1";
     priceSubscription: number = 15;
     textSubscription: string = '<p style="text-align:center;">Abonnement 1 semaine</p>';
-    
+
     paidWithCB: boolean = false;
 
     heureCB: string = "";
@@ -40,7 +40,7 @@ export class MoovhopService {
 
     // Gestions Reconnaissance facial
     documentSelected: string = "IdCard";
-    faceCapture : string =""
+    faceCapture: string = ""
 
 
 
@@ -57,10 +57,11 @@ export class MoovhopService {
         '/AGIR2024/createAccountQRCodeYesNo': '/AGIR2024/createAccountQRCodeScan',
         '/AGIR2024/createAccountQRCodeScan': '/AGIR2024/paymentChoice',
         '/AGIR2024/paymentChoice': '/AGIR2024/paymentCB',
-        '/AGIR2024/paymentCB': '/AGIR2024/subscriptionConfirmation',
+        '/AGIR2024/paymentCB': '/AGIR2024/thanksPaymentReport',
         '/AGIR2024/subscriptionConfirmation': '/AGIR2024/homepage',
-        'AGIR2024/paymentMobileOp': '/AGIR2024/paymentMobileOpValidation',
-        '/AGIR2024/paymentMobileOpValidation': '/AGIR2024/subscriptionConfirmation',
+        '/AGIR2024/paymentMobileOp': '/AGIR2024/thanksPaymentReport',
+        '/AGIR2024/paymentMobileOpValidation': '/AGIR2024/thanksPaymentReport',
+        '/AGIR2024/paymentAppMobile': '/AGIR2024/thanksPaymentReport',
 
         // use case impression d'une fiche horaire
         '/AGIR2024/printingMenu': '/AGIR2024/printingInformationChoice',
@@ -90,27 +91,27 @@ export class MoovhopService {
     previewImageScanId: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
     previewImageProfile: string = "./assets/MOOVHOP-EK4000-2023-RNTP/loadingPreview.png";
     nameUser: string = "";
-    idUserToCheck: string ="";
+    idUserToCheck: string = "";
     errorFace: boolean = false;
     errorScanId: boolean = false;
-    previewImageScanIdA: string ="";
-    previewImageScanIdB: string ="";
-    previewImageScanIdADef: string ="";
-    previewImageScanIdBDef: string ="";
-    idChecks:string = "";
-    referenceId:string = "";
+    previewImageScanIdA: string = "";
+    previewImageScanIdB: string = "";
+    previewImageScanIdADef: string = "";
+    previewImageScanIdBDef: string = "";
+    idChecks: string = "";
+    referenceId: string = "";
 
-    timeScanIdA:Date = new Date();
-    timeScanIdB:Date = new Date();
+    timeScanIdA: Date = new Date();
+    timeScanIdB: Date = new Date();
 
-    errorSaveIdCard:boolean = false;
+    errorSaveIdCard: boolean = false;
 
-    hrefSensitiveData:string = '';
+    hrefSensitiveData: string = '';
 
-    firstName:string = "";
-    birthday:string = "";
+    firstName: string = "";
+    birthday: string = "";
 
-    identityValidate:boolean = false;
+    identityValidate: boolean = false;
 
 
 
@@ -124,12 +125,12 @@ export class MoovhopService {
     }
 
     preloadImages() {
-       
+
     }
 
     timeoutNavigation() {
         this.timeout = setTimeout(() => {
-            if(this.router.url !== '/AGIR2024/homepage'){
+            if (this.router.url !== '/AGIR2024/homepage') {
                 this.navigateAfterDelay(0, "/AGIR2024/homepage");
             }
         }, 120000);
@@ -155,14 +156,19 @@ export class MoovhopService {
     };
 
     get nextRoute() {
-        return this.moovHopRouterDic[this.router.url];
+        if (this.moovHopRouterDic[this.router.url]) {
+            return this.moovHopRouterDic[this.router.url];
+        }
+        else {
+            return "/AGIR2024/homepage";
+        }
     };
 
     get previousRoute() {
         return this.moovHopPreviousRouterDict[this.router.url];
     };
 
-    
+
     htmlReceiptContent: string = '';
 
 }

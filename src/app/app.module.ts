@@ -1,4 +1,3 @@
-import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,10 +12,10 @@ import { MoovopModule as MoovHopModule8000 } from './demos/moovHop/moovHop.modul
 import { MoovHop4000Module as MoovHopModule4000 } from './demos/MOOVHOP-EK4000-2023-RNTP/moovhop.module';
 import { Telefonica3000MovistarModule as Telefonica3000 } from './demos/TELEFONICA-EK3000-2024-MOVISTAR/telefonica.module';
 import { MoovHopModule4000MWC as MoovHopModule4000MWC } from './demos/MOOVHOP-EK4000-2024-MWC/moovhop.module';
+import { RouterModule, Routes } from '@angular/router';
+import {CustomPreloadingStrategy} from './custom-preloading-strategy';
 import { MoovHopModule4000AGIR2024 } from './demos/MOOVHOP-EK4000-2024-AGIR/moovhop.module';
 import { MoovHop8000ModuleAGIR2024 } from './demos/MOOVHOP-EK8000-2024-AGIR/moovhop.module';
-import {CustomPreloadingStrategy} from './custom-preloading-strategy';
-
 
 const routes: Routes = [
     {
@@ -29,10 +28,6 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-       /* CustomerExperienceChoiceComponent,
-        FeaturesChoiceComponent,
-        TestIvqChoiceComponent,
-        AppDemoChoiceComponent,*/
         
     ],
     providers: [CustomPreloadingStrategy],
@@ -53,8 +48,6 @@ const routes: Routes = [
         MoovHopModule4000MWC,
         MoovHopModule4000AGIR2024,
         MoovHop8000ModuleAGIR2024
-        
-        
     ],
 })
 export class AppModule { }

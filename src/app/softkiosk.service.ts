@@ -234,10 +234,7 @@ export class SoftKioskService {
 
   getValueFromCustomerData(): string {
     let customerData = Kiosk.customerData;
-    let customerDataKey = Object.keys(customerData)[0]
-    console.log(customerData);
-    
-    return customerData["demoName"];
+    return customerData['demoName'];
   }
 
   printReceiptCashPayment = (header: string, footer: string) => {

@@ -34,7 +34,7 @@ export class HomepageComponent {
     this.moovhopService.identityValidate = false;
 
     this.moovhopService.preloadImages();
-    Kiosk.Signaling.setLed({ 'color': 'Green', 'name': 'Leds' });
+    Kiosk.Signaling.Leds.set("Green");
 
     var maVariable = localStorage.getItem('automaticCard');
     console.log(maVariable);

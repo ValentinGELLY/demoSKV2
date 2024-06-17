@@ -17,4 +17,8 @@ export class PaymentMobileOpComponent {
       _this.router.navigate(['/paymentMobileOpValidation'])
     },5000)
   }*/
+
+  ngOnInit(){
+    console.log(this.router.url);
+  }
 }

@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
 
   customerDataValue: string = "";
 
-  constructor(private router: Router, private skService: SoftKioskService, private appService: AppService) {}
+  constructor(private router: Router, private skService: SoftKioskService, private appService: AppService) { }
 
   ngOnInit(): void {
     // récupérer valeur du customerdata
@@ -25,40 +25,38 @@ export class AppComponent implements OnInit {
     switch (applicationToLaunch) {
       case 'Labizi':
         this.appService.setNextRoute('labiziHomepage');
-      break;
+        break;
       case 'MoovHop1000':
         this.appService.setNextRoute('moovopRecupCard');
-      break;
+        break;
       case 'MoovHop8000':
         this.appService.setNextRoute('moovHopHomepage');
-      break;
+        break;
       case 'MOOVHOP-EK4000-2023-RNTP':
         this.appService.setNextRoute('homepageEK4000');
-      break;
+        break;
       case 'MOOVHOP-EK8000-2023-RNTP':
         this.appService.setNextRoute('homepageEK8000');
-      break;
+        break;
       case 'TELEFONICA-EK3000-2024-MOVISTAR':
         this.appService.setNextRoute('/ES/homePageTelefonica');
-      break;
+        break;
       case 'MOOVHOP-EK4000-2024-MWC':
         this.appService.setNextRoute('/MWC2024/homepageEK4000');
-      break;
+        break;
       case 'MOOVHOP-EK4000-2024-AGIR':
         this.appService.setNextRoute('/AGIR2024/homepage');
-      break;
-
+        break;
       case 'MOOVHOP-EK8000-2024-AGIR':
         this.appService.setNextRoute('/EK80002024AGIR/homepage');
-
-      break;
+        break;
       case 'DemoSKV2':
         this.appService.setNextRoute('demoSKV2Homepage');
-      break;
-            default:
+        break;
+      default:
         console.log("Vous allez être redirigé sur DemoSKV2");
         this.appService.setNextRoute('demoSKV2Homepage');
-      break;
+        break;
     }
   }
 

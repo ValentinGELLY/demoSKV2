@@ -52,8 +52,8 @@ export class WaitingScreenComponent {
 
       this.htmlReceiptContent2 = '<html><meta charset="utf-8" >' +
         '<body style="font-family: Verdana; font-size: 1rem; font-weight: bold;">' +
-        '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:5px; width:180px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK8000-2023-RNTP/logo-ipm.png" >' +
-        '<p style="text-align:center"> Merci de votre visite sur notre stand aux AGIR 2024 !</p>' +
+        '<img style="padding-top:5px; margin-left:auto; margin-right:auto; margin-bottom:10px; margin-top:5px; width:180px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK8000-2023-RNTP/logo-ipm.png" >' +
+        '<p style="text-align:center"> Merci de votre visite sur notre stand à la journée AGIR 2024 !</p>' +
         '<p style="text-align:center">Contactez-nous pour réaliser votre projet mobilité</p>' +
         '<p style="text-align:center;"> Sylvain Perrin </p>' +
         '<p style="text-align:center;"> Responsable Commercial grands comptes </p>' +

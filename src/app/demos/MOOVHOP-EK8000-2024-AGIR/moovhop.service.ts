@@ -33,6 +33,12 @@ export class MoovhopService {
         '/EK80002024AGIR/buyChoice': '/EK80002024AGIR/paymentChoice',
         '/EK80002024AGIR/paymentChoice': '/EK80002024AGIR/paymentCard',
         '/EK80002024AGIR/paymentCard': '/EK80002024AGIR/getTicketReceipt',
+        '/EK80002024AGIR/createAccountScanFinish': '/EK80002024AGIR/createAccountSubscriptionChoice',
+        '/EK80002024AGIR/paymentOpMobile': '/EK80002024AGIR/createAccountThanks',
+        '/EK80002024AGIR/paymentOpMobileValidation': '/EK80002024AGIR/createAccountThanks',
+        '/EK80002024AGIR/paymentAppMobile': '/EK80002024AGIR/createAccountThanks',
+        '/EK80002024AGIR/paymentCash': '/EK80002024AGIR/createAccountThanks',
+
 
         '/EK80002024AGIR/createAccountMenu': '/EK80002024AGIR/createAccountCamera',
         '/EK80002024AGIR/createAccountHello': '/EK80002024AGIR/createAccountSubscriptionChoice',
@@ -120,7 +126,12 @@ export class MoovhopService {
     };
 
     get nextRoute() {
-        return this.moovHopRouterDic[this.router.url];
+        if (this.moovHopRouterDic[this.router.url]) {
+            return this.moovHopRouterDic[this.router.url];
+        }
+        else {
+            return "/EK80002024AGIR/homepage";
+        }
     };
 
     get previousRoute() {
