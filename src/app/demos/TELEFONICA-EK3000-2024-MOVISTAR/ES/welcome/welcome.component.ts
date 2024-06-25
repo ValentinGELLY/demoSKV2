@@ -24,35 +24,24 @@ export class WelcomeComponent extends GenericComponent {
       let _this = this;
       this.htmlReceiptContent = '<html><meta charset="utf-8" >' +
         '<body style="font-family:Arial; font-size: 1.2rem; font-kerning: 2px; text-rendering: optimizeLegibility;">' +
-        '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:20px; width:150px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/TELEFONICA-EK3000-2024-MOVISTAR/Logo-movistar-noir.png" >' +
+        '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:20px; '+
+        'width:150px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/Logo-noir.png" >' +
         '<p style="text-align:center;">.....................</p>' +
         '<p style="text-align:center;">Escanee el código QR para obtener tu eSIM.</p>' +
         '<p style="text-align:center;">.....................</p>' +
-        '<div style="width:50%; text-align:center; margin-left: auto;margin-right: auto;"><img style="width:100%"src="http://localhost:5000/DemoSKV2/application/assets/TELEFONICA-EK3000-2024-MOVISTAR/QR-code-movistar.png"></div>' +
+        '<div style="width:50%; text-align:center; margin-left: auto;margin-right: auto;"><img style="width:100%"'+
+        'src="http://localhost:5000/DemoSKV2/application/assets/QR-code.png"></div>' +
         '</body>' +
         '</html>'
-
-
-      
       this.skService.addEventListener("ReceiptPrinting", "rawHtmlPrint", this.printCallback)
       this.skService.receiptPrintingPrintRawHtml(this.htmlReceiptContent);
-      
         setTimeout(function () {
           if(_this.router.url === "/ES/welcome"){
             _this.router.navigate(['/ES/homePageTelefonica']);
           }
         }, 10000);
-      
     }else{
       var Kiosk: any;
-
-
-
-
-
-
-
-
       let _this = this;
       console.log("on s'abonne à l'event cardDispense de la callback onCardDispense");
       _this.skService.addEventListener("CardDispensing", "cardDispense", this.onCardDispense);

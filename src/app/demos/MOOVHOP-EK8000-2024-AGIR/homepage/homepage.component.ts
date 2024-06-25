@@ -34,11 +34,14 @@ export class HomepageComponent {
     this.moovhopService.identityValidate = false;
 
     this.moovhopService.preloadImages();
-    Kiosk.Signaling.Leds.set("Green");
 
     var maVariable = localStorage.getItem('automaticCard');
     console.log(maVariable);
     this.moovhopService.automaticCard = maVariable || 'true';
+  }
+
+  ngAfterViewInit() {
+    Kiosk.Signaling.Leds.set("Green");
   }
 
   ActionChoosed(num: number) {

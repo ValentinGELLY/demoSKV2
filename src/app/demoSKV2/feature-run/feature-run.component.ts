@@ -149,7 +149,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
           this.actualStateAllService[i] = state;
           this.lastHourStatus[i] = hourformated;
           this.skService.addEventListener(service, "statusChange", (e: any) => {
-            //console.info("eventlistener status : " + service + "  " + e.data.status);
             let hour = new Date();
             const heure = hour.getHours().toString().padStart(2, "0");
             const minutes = hour.getMinutes().toString().padStart(2, "0");
@@ -160,7 +159,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
             document.getElementById("status_" + service)!.innerHTML = hourformated + "   " + e.data.status;
             this.actualStatusAllService[i] = e.data.status;
             this.lastHourStatus[i] = hourformated;
-            //console.info(this.historicStatusService[service]);
           });
           this.skService.addEventListener(service, "stateChange", (e: any) => {
             let hour = new Date();
@@ -175,7 +173,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
             this.lastHourState[i] = hourformated;
           });
         }
-
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
@@ -227,8 +224,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
       let scriptUrl = `http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/script/${this.fileName}.js`;
       this.actualLogLocation = "test_" + idSection.split("_")[2];
 
-      //console.info("this.actualLogLocation kjhudfibfibhcibvuhcivubhicubvhicbh");
-      //console.info(this.actualLogLocation);
 
       fetch(scriptUrl)
       .then(response => response.text())
@@ -256,7 +251,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
         if (document.getElementById('scriptElement') != null) {
           document.getElementById('scriptElement')!.remove();
         }
-    
+
         const scriptElement = document.createElement('script');
         scriptElement.id = "scriptElement";
         scriptElement.text = scriptContent;
@@ -264,13 +259,17 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
         let _this = this;
         let actualLogLocationLocal = this.actualLogLocation;
         
-        
         console.log = function () {
           let panel = 'panel_Logs';
           if (actualLogLocationLocal !== "") {
             panel = 'panel_Logs_' + actualLogLocationLocal;
           } else {
             panel = 'panel_Logs';
+
+
+
+
+            
           }
           const logMessage = Array.prototype.slice.call(arguments).join(' ');
           if (logMessage.split("-") != null) {
@@ -314,8 +313,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
                 _this.compteur = 0;
               }
             } else if (logType == "START" || logType == "USER") {
-              console.info("logContent");
-              console.info(logContent);
               var logElement = document.getElementById("panel_Logs_" + actualLogLocationLocal);
               logElement!.innerHTML += '<p class="stateInformations">' + logContent + '</p>';
               _this.firstPreview = true;
@@ -442,7 +439,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
 
           i++;
         });
-
       });
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);

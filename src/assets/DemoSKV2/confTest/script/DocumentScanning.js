@@ -80,20 +80,17 @@ function timeoutCameraBeforeCapture(){
     }, 5000);
 }
 function stop1() {
-    console.info("stop1");
     console.log("END - Arret de la capture du document")
     Kiosk.DocumentScanning.removeEventListener("imageCapture", onImageDocumentCapture);
     clearTimeout(timeout);
 }
 function stop2() {
-    console.info("stop2");
     console.log("END - Arret de la preview du document");
     Kiosk.DocumentScanning.removeEventListener("previewStart", onPreview); 
     Kiosk.DocumentScanning.stopPreview();
     clearTimeout(timeout);
 }
 function stop3() {
-    console.info("stop3");
     console.log("END - Arret de la preview du document");
     Kiosk.DocumentScanning.removeEventListener("previewStart", onPreview);
     Kiosk.DocumentScanning.stopPreview();
