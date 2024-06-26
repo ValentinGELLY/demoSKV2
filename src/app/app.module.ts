@@ -16,6 +16,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {CustomPreloadingStrategy} from './custom-preloading-strategy';
 import { MoovHopModule4000AGIR2024 } from './demos/MOOVHOP-EK4000-2024-AGIR/moovhop.module';
 import { MoovHop8000ModuleAGIR2024 } from './demos/MOOVHOP-EK8000-2024-AGIR/moovhop.module';
+import { VirtualKeyboardFeatureComponent } from './demoSKV2/virtual-keyboard-feature/virtual-keyboard-feature.component';
 
 const routes: Routes = [
     {
@@ -28,6 +29,7 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
+        VirtualKeyboardFeatureComponent,
         
     ],
     providers: [CustomPreloadingStrategy],

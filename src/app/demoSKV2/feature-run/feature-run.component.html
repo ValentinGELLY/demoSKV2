@@ -39,7 +39,6 @@
               id="playBtn_test_{{ i }}"
               (click)="
                 callFunctionFromScript(
-                  listTestFunction[i],
                   'start' + (i + 1),
                   'playBtn_test_' + i
                 )
@@ -52,7 +51,6 @@
               id="stopBtn_test_{{ i }}"
               (click)="
                 callFunctionFromScript(
-                  item,
                   'stop' + (i + 1),
                   'stopBtn_test_' + i
                 )

@@ -17,7 +17,7 @@ function onBarcodeRead(e) {
 		case 'BarcodeRead':
 			console.log("CAPTURE - Code barre lu: " + e.data.barcode);
             Kiosk.BarcodeReading.removeEventListener('barcodeRead', onBarcodeRead);
-            console.log("FIN - Arret de la lecture de code barre");
+            console.log("END - Arret de la lecture de code barre");
 			break;
 		default:
 			break;
@@ -25,12 +25,7 @@ function onBarcodeRead(e) {
 }
 
 function stop1(){
-    console.log("FIN - Arret de la lecture de code barre")
+    console.log("END - Arret de la lecture de code barre")
     Kiosk.BarcodeReading.stopReadBarcode();
     Kiosk.BarcodeReading.removeEventListener('barcodeRead', onBarcodeRead);
 }
-
-
-
-
-

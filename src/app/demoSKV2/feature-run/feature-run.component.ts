@@ -28,6 +28,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
 
   fileName: string = this.appService.filename;
 
+  // historique des status et des states des périphériques et des services pour mieux suivre l'avancé de l'application
   historicStatusService: { [service: string]: any } = {};
   historicStateService: { [service: string]: any } = {};
   historicStatusDevice: { [device: string]: any } = {};
@@ -101,13 +102,15 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
 
   getActualStatusDevice(arg0: any) {
     const cles = Object.keys(this.historicStatusDevice[arg0]);
-
     const clePlusRecente = cles.reduce((a, b) => (new Date(b) > new Date(a) ? b : a));
-
     return this.historicStatusDevice[arg0][clePlusRecente];
   }
 
 
+  /**
+   * Récupérer le fichier JSON contenant les informations sur le test
+    * @param arg0 nom du test
+   */
   async getjsonScript(arg0: string) {
     fetch(`http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/${arg0}.json`)
       .then(response => {
@@ -203,6 +206,10 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   }
 
 
+  /**
+   * Charger un script JS à partir d'une URL
+   * @param url url du script à charger
+   */
   loadScript(url: string) {
     if (document.querySelector(`script[src="${url}"]`)) {
       return Promise.resolve();
@@ -218,8 +225,12 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
     }
   }
 
-  // Pour appeler une fonction spécifique du script
-  async callFunctionFromScript(sectionName: string, functionName: string, idSection: string) {
+  /**
+   * Appeler une fonction à partir de l'application
+   * @param functionName nom du test à lancer
+   * @param idSection nom de la section à compléter avec les logs
+   */
+  async callFunctionFromScript( functionName: string, idSection: string) {
     try {
       let scriptUrl = `http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/script/${this.fileName}.js`;
       this.actualLogLocation = "test_" + idSection.split("_")[2];
@@ -259,23 +270,25 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
         let _this = this;
         let actualLogLocationLocal = this.actualLogLocation;
         
+
+        /**
+         * Redéfinition de la fonction console.log pour afficher les logs dans le panneau de logs
+         */
         console.log = function () {
           let panel = 'panel_Logs';
           if (actualLogLocationLocal !== "") {
             panel = 'panel_Logs_' + actualLogLocationLocal;
           } else {
             panel = 'panel_Logs';
-
-
-
-
-            
           }
+          //Rcupération du contenu du console.log
           const logMessage = Array.prototype.slice.call(arguments).join(' ');
+          //Affichage du contenu du console.log dans le panneau de logs
           if (logMessage.split("-") != null) {
             const logParts = logMessage.split("-");
             const logType = logParts[0].replace(/[^a-zA-Z]/g, '');
             const logContent = logParts.slice(1).join('-');
+            // cas de logType = "END" ou "ERROR" ==> fin de l'exécution du script (affichage dans la console Results)
             if (logType == "END" || logType == "ERROR") {
               let hour = new Date();
               const heure = hour.getHours().toString().padStart(2, "0");
@@ -289,7 +302,9 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
               _this.isRunning = false;
               document.getElementById("playBtn_" + actualLogLocationLocal)!.style.opacity = "1";
               (document.getElementById("playBtn_" + actualLogLocationLocal) as HTMLButtonElement)!.disabled = false;
-            } else if (logType == "CAPTURE") {
+            } 
+            // cas de logType = "CAPTURE" ==> capture d'un QRCode ou d'une image (affichage dans la console Results)
+            else if (logType == "CAPTURE") {
               let hour = new Date();
               const heure = hour.getHours().toString().padStart(2, "0");
               const minutes = hour.getMinutes().toString().padStart(2, "0");
@@ -299,7 +314,11 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
               document.getElementById("playBtn_" + actualLogLocationLocal)!.style.opacity = "1";
               (document.getElementById("playBtn_" + actualLogLocationLocal) as HTMLButtonElement)!.disabled = false;
               _this.firstPreview = true;
-            } else if (logType == "PREVIEW") {
+              _this.isRunning = false;
+
+            } 
+            // cas de logType = "PREVIEW" ==> affichage d'un aperçu (affichage dans la console log)
+            else if (logType == "PREVIEW") {
               if (_this.compteur <= 7) {
                 _this.compteur++;
               } else {
@@ -312,7 +331,9 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
                 }
                 _this.compteur = 0;
               }
-            } else if (logType == "START" || logType == "USER") {
+            } 
+            // cas de logType = "CONSOLE" ==> affichage d'un message dans la console de log 
+            else if (logType == "START" || logType == "USER") {
               var logElement = document.getElementById("panel_Logs_" + actualLogLocationLocal);
               logElement!.innerHTML += '<p class="stateInformations">' + logContent + '</p>';
               _this.firstPreview = true;
@@ -332,6 +353,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
           (document.getElementById("playBtn_test_" + idSection.split("_")[2]) as HTMLInputElement)!.disabled = false;
         }
         
+        // Lancement de la fonction appelée
         // @ts-ignore: Ignorer l'erreur car la fonction peut ne pas exister dans le contexte TypeScript
         window[functionName]();
       })
@@ -354,7 +376,10 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
     }
   }
 
-  
+  /**
+   * Afficher ou masquer la section accordéon
+    * @param nameElement nom de la section selectionné
+   */
   showPanel(nameElement: string) {
     if (document.getElementById('panel_' + nameElement)!.style.display === "flex") {
       (document.getElementsByClassName('fleche_' + nameElement)[0] as HTMLElement).style.transform = "rotate(-90deg)";
@@ -367,6 +392,10 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
     }
   }
 
+  /**
+   * Chargement du fichier javacript à partir de l'URL dans une balise script 
+   * @param arg0 nom du fichier JS à charger
+   */
   async getJavascriptFile(arg0: string) {
     try {
       const response = await fetch(`http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/script/${arg0}.js`);
@@ -376,12 +405,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
       const text = await response.text();
 
       // Recherche des fonctions 'start' et 'stop' dans le contenu du fichier JS
-      const testFunctions = text.match(/(?:\bstart\d*\s*\(.*?\))/g) || [];
-      const stopFunctions = text.match(/(?:\bstop\d*\s*\(.*?\))/g) || [];
-      // Afficher les fonctions trouvées
-
-      this.listTestFunction = testFunctions;
-      this.listStopFunction = stopFunctions;
+      this.findTestFunctions(text);
 
       // Recherche des commentaires juste au-dessus des fonctions 'start' et 'stop'
       const functionCommentsFirst = text.match(/\/\*\*[^*]*\*+(?:[^/*][^*]*\*+)*\/(?=\s*(?:async\s+)?(?:function\s+)?(?:start\d*)\s*\()/g) || [];
@@ -403,52 +427,78 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
 
       this.listComments = functionCommentsFinish;
 
-      this.parameters = this.extractParameterDetails(text);
-      for (let i = 0; i < this.parameters.length; i++) {
-        let jsonElement = {
-          "type": this.parameters[i].type !== undefined ? this.parameters[i].type : "textfield",
-          "key": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
-          "label": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
-          "placeholder": this.parameters[i].default !== undefined ? this.parameters[i].default : "",
-          "value": this.parameters[i].default !== undefined ? this.parameters[i].default : "",
-          "tooltip": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
-          "input": true,
-          "customId": this.parameters[i].name
-        };
-        this.FormJSON.push(jsonElement)
-      }
+      this.buildFormFromText(text);
 
-      let _this = this;
-
-
-      Formio.createForm(document.getElementById('formio'), {
-        components: this.FormJSON
-      }).then(function (form: { on: (arg0: string, arg1: (submission: any) => void) => void; }) {
-        let allInput = document.getElementsByTagName("input");
-        let i = 0;
-        _this.FormJSON.forEach((element: { type: string; }) => {
-          if (element.type === "number") {
-            allInput[i].type = "number";
-          } else if (element.type === "textfield") {
-            allInput[i].type = "text";
-          } else if (element.type === "number") {
-            allInput[i].type = "number";
-          } else if (element.type === "boolean") {
-            allInput[i].type = "checkbox";
-          }
-
-          i++;
-        });
-      });
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
+  }
+
+  /**
+   * Construire le formulaire à partir du texte du fichier javascript
+   * @param text text du fichier javascript
+   */
+    buildFormFromText(text: string) {
+    this.parameters = this.extractParameterDetails(text);
+    for (let i = 0; i < this.parameters.length; i++) {
+      let jsonElement = {
+        "type": this.parameters[i].type !== undefined ? this.parameters[i].type : "textfield",
+        "key": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
+        "label": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
+        "placeholder": this.parameters[i].default !== undefined ? this.parameters[i].default : "",
+        "value": this.parameters[i].default !== undefined ? this.parameters[i].default : "",
+        "tooltip": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
+        "input": true,
+        "customId": this.parameters[i].name
+      };
+      this.FormJSON.push(jsonElement);
+    }
+
+    let _this = this;
+
+
+    // Utilisation de l'api Formio pour créer le formulaire
+    Formio.createForm(document.getElementById('formio'), {
+      components: this.FormJSON
+    }).then(function (form: { on: (arg0: string, arg1: (submission: any) => void) => void; }) {
+      let allInput = document.getElementsByTagName("input");
+      let i = 0;
+      _this.FormJSON.forEach((element: { type: string; }) => {
+        if (element.type === "number") {
+          allInput[i].type = "number";
+        } else if (element.type === "textfield") {
+          allInput[i].type = "text";
+        } else if (element.type === "number") {
+          allInput[i].type = "number";
+        } else if (element.type === "boolean") {
+          allInput[i].type = "checkbox";
+        }
+
+        i++;
+      });
+    });
+  }
+
+  /**
+   * Rechercher les fonctions de test et d'arrêt dans le texte javascript
+   * @param text text javacript à analyser
+   */
+  findTestFunctions(text: string) {
+    const testFunctions = text.match(/(?:\bstart\d*\s*\(.*?\))/g) || [];
+    const stopFunctions = text.match(/(?:\bstop\d*\s*\(.*?\))/g) || [];
+    // Afficher les fonctions trouvées
+    this.listTestFunction = testFunctions;
+    this.listStopFunction = stopFunctions;
   }
 
 
   updateValues(data: any) {
   }
 
+  /**
+   * Extraire les différents paramêtre d'un test
+   * @param script script de la fonction
+   */
   extractParameterDetails(script: string) {
     const parameterPattern = /@param {([^}]+)} ([^ ]+) - Default: ([^ ]+) -/g;
     let match;
