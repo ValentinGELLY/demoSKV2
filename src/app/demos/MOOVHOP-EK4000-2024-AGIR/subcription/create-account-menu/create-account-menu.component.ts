@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoovhopService } from '../../moovhop.service';
 import { Router } from '@angular/router';
-import { SoftKioskService } from 'src/app/softkiosk.service';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
 
 @Component({
   selector: 'app-create-account-menu',

@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MoovhopService } from '../../moovhop.service';
 import { Router } from '@angular/router';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { GenericComponent } from '../../../../demos/generic/generic.component';
+import { SoftKioskService } from '../../../../softkiosk.service';
 
 @Component({
   selector: 'app-create-account-camera',

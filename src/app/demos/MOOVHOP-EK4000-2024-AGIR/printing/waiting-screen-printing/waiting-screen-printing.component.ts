@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MoovhopService } from '../../moovhop.service';
 import { GenericComponent } from '../../../generic/generic.component';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../../softkiosk.service';
 
 declare var Kiosk: any;
 

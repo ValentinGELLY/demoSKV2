@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { AppService as telefonicaService } from '../../telefonica.service';
-import { SoftKioskService } from 'src/app/softkiosk.service';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
+import { SoftKioskService } from '../../../../softkiosk.service';
+import { GenericComponent } from '../../../generic/generic.component';
 
 @Component({
   selector: 'app-face-result',

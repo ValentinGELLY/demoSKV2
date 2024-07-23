@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SoftKioskService } from 'src/app/softkiosk.service';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
+import { SoftKioskService } from '../../../../softkiosk.service';
+import { GenericComponent } from '../../../generic/generic.component';
 import { MoovhopService } from '../../moovhop.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class PaymentCardComponent extends GenericComponent {
     document.getElementsByTagName('body')[0].style.width = 'fit-content';
     document.getElementsByTagName('body')[0].style.height = 'fit-content';
     
-    this.skService.activeSoftkioskScenario("CardPayment_Debit_Without_ReceiptPrinting");
+    //this.skService.activeSoftkioskScenario("CardPayment_Debit_Without_ReceiptPrinting");
   }
 
 

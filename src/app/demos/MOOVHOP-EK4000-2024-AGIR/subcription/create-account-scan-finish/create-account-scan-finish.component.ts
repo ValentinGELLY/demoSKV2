@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MoovhopService } from '../../moovhop.service';
 import { Router } from '@angular/router';
-import { SoftKioskService } from 'src/app/softkiosk.service';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
+import { SoftKioskService } from '../../../../softkiosk.service';
+import { GenericComponent } from '../../../../demos/generic/generic.component';
 
 
 @Component({
@@ -199,8 +199,6 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
     var myHeaders = new Headers();
     
     if (this.moovhopService.documentSelected == "passeport" || this.moovhopService.documentSelected == "oldIdCard") {
-      console.log("scan1");
-      console.log(this.moovhopService.previewImageScanIdBDef.replace("data:image/png;base64, ", ""));
       fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false",
         {
           method: 'POST',
@@ -227,8 +225,6 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
         })
         .then(response => response.json())
         .then((data) => {
-          console.log("data", data);
-          
           if (data.processingStatus == "FAILED") {
             this.moovhopService.errorSaveIdCard = true;
             setTimeout(() => {
@@ -238,12 +234,9 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
               this.moovhopService.previewImageScanIdA = "./assets/loadingPreview.png"
               this.moovhopService.previewImageScanIdB = "./assets/loadingPreview.png"
             }, 5000);
-
           } else {
-            
             this.moovhopService.errorSaveIdCard = false;
             this.moovhopService.hrefSensitiveData = data.serverProcessed.ocrData.sensitiveData.href
-            console.log("add id card");
             this.getAllInformation();
           }
           
@@ -267,13 +260,7 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
         );
 
     }
-    else {
-      console.log("scan1");
-      console.log(this.moovhopService.previewImageScanIdADef.replace("data:image/png;base64, ", ""));
-      console.log("scan2");
-      console.log(this.moovhopService.previewImageScanIdBDef.replace("data:image/png;base64, ", ""));
-      
-      
+    else {  
       fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/DigitalOnBoardingServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/idchecks/" + this.moovhopService.idChecks + "/documents?isAsync=false",
         {
           method: 'POST',
@@ -332,7 +319,6 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
           this.moovhopService.scanVisited = 0;
           document.getElementById("error")!.style.setProperty("display", "block");
           this.moovhopService.errorSaveIdCard = true;
-
           setTimeout(() => {
             this.router.navigate(['/AGIR2024/createAccountMenu']);
             this.moovhopService.previewImageScanIdBDef = "./assets/loadingPreview.png"
@@ -392,43 +378,6 @@ export class CreateAccountScanFinishComponent extends GenericComponent {
       })
   }
 
-  saveFace(imageRogneeBase64: string) {
-    fetch("https://cors.18.175.2.71.sslip.io/https://emea.identityx-cloud.com/ipmfrance/IdentityXServices/rest/v1/users/" + this.moovhopService.idUserToCheck + "/face/samples", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Basic Y2VkcmljLndhcnRlbEBpcG1mcmFuY2UuY29tOjA5REJCNTQ2QkRkIQ=="
-      },
-      body: JSON.stringify({
-        "data": imageRogneeBase64.replace("data:image/png;base64,", ""),
-        "format": "JPG"
-      })
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.httpStatus === 400) {
-          console.error("error");
-          if (this.router.url == "/faceResult") {
-            this.moovhopService.errorFace = true;
-            this.router.navigate(['/createAccountValidationScreen']);
-          }
-        } else if (data.items[0].usable == false) {
-          if (this.router.url == "/faceResult") {
-            this.moovhopService.errorFace = true;
-            this.router.navigate(['/createAccountValidationScreen']);
-          }
-        } else {
-          if (this.router.url == "/faceResult") {
-            this.moovhopService.errorFace = false;
-            this.router.navigate(['/createAccountValidationScreen']);
-          }
-        }
-      })
-      .catch((error) => {
-        console.log('error: ', error);
-      })
-  }
+  
 
 }

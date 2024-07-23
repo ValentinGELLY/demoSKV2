@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService as telefonicaService } from '../../telefonica.service';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { GenericComponent } from '../../../generic/generic.component';
+import { SoftKioskService } from '../../../../softkiosk.service';
 
 @Component({
   selector: 'app-scan-documento',

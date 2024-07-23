@@ -1,283 +1,142 @@
-# DemoSKV2
+# Demoskv2Updated
 
-# Rapide présentation 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.7.
 
-Démonstrateur interactif contenant des applications illustrant les parcours clients et les cas d'utilisations typiques des besoins du marché (voir ticket Jira SK2-1779). 
+## Development server
 
-Trois applis de "demos" sont contenues dans DemoSKV2: 
-  + MoovHop (appli transports) pour la borne EK8000 -> version salon AGIR2023
-  + MoovHop (appli santé version simplifiée pour la borne EK1000CVM) -> version salon AGIR2023
-  + Labizi (appli santé)
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-# Informations générales
+## Code scaffolding
 
-# Code Keypad
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Le code keypad de l'application est 153103 (cf ticket Jira n°1779).
+## Build
 
-## Codes de lancement des applications demos
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-Pour lancer la bonne démo, on peut entrer les paramètres suivants dans le customerData (onglet borne de la maitenance):
+## Running unit tests
 
- + "Labizi" -> lancera Labizi
- + "MoovHop1000" -> lancera MoovHop version EK1000CVM - AGIR 2023
-"MoovHop8000" -> lancera MoovHop version EK8000 - AGIR 2023. Dans le répertoire Dist, son assets est dans application/assets/MoovHop (on y retrouve les images du front). 
-+ "MoovHop4000" -> lancera MoovHop Version EK4000 - RNTP 2023.
-+ "MoovHop8000-RNTP" -> lancera MoovHop Version EK 8000 - RNTP 2023
-+ "MOOVHOP-EK4000-2024-MWC" -> lancera MoovHop Version EK 4000 - MWC 2024 
-+ "TELEFONICA-EK3000-2024-MOVISTAR" -> lancera MoovHop Version EK 3000 - Telefonica 2024
-+ "" -> lancera DemoSKV2 (interface client avec menu de choix de profil utilisateur et de demos/parcours client/fonctionnalites/test)
-et si vous rentrez n'importe quopi, et bien vous retomberez sur l'application DemoSKV2
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-# Mise en place de l'environnement de travail
+## Running end-to-end tests
 
-## Angular
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-Pour pouvoir travailler sur l'application, il faut avoir installé NodeJs au préalable.
-Ensuite, il faut procéder à l'installation du CLI d'Angular, voir https://www.knowledgehut.com/blog/web-development/local-environment-set-up-angular#prerequisites%C2%A0.
+## Further help
 
-Une fois que l'environment de travail est prêt, se rendre en ligne de commande dans DemoSKV2/src puis lancer la commande : npm install.
-Les dépendances Angular vont s'installer et le projet peut ainsi être buildé.
-Si il y a des erreurs d'installation de packages npm, lancer la commade : npm audit fix.
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-### Pour builder
 
-Il faut utiliser la commande npm run build depuis la racine du répertoire DemoSKV2. 
-Le build sera redirigé dans le répertoire SKV2/SoftKiosk-V2/src/Applications/Dist/DemoSKV2/application.
 
-Ne pas utiliser la commande ng build, cela va créer un hashing sur les fichiers et risque de superposer plusieurs versions sur borne lorsque l'on fait plusieurs tests. 
 
-### Server de prévisualisation 
+---
+---
 
-Il existe un server de prévisualisation dans angular, mais ne fonctionne pas ici puisque l'on appelle des méthodes de l'API SKV2, non connues par un navigateur. Il faudrait peut-être en assurer la compatibilité (lorsque demoSKV2 tourne dans navigateur quelconque et ou dans SK) 
-Potentielle évolution ????
-# Workflow
+## DEMOSKV2
 
-## Git
+DemoSKV2 est un outils multi-tasking. Il sert de support de test pour différentes fonctionnalité. Il est aussi utilisé en tant que portail entre les différentes applications de démonstration présentais durant les salons et les événements.
 
-Châque tâches à faire ou bugs doivent être déclarés dans Jira avec un ticket.
-Les règles suivantes concernant l'utilisaton de GitHub sont à suivre
+### Fonctionnalités
 
-Convention de nommage et d'utilisation des branches :
-  - Chaque branche doit être associée à un ticket Jira
-  - Le nom de la branche sera composé des quatre premières lettres de notre prénom nom ainsi que d'un slash suivi de SK2-d[n° du ticket]. Par exemple, si je m'appelle Roberto Matthews et que traite le ticket n° 3940, la branche sera appellée :
-  RMAT/SK2-3940.
-  - Chaque banche devra être créé (à jour sur le master) avec la commande : git checkout -b [nomDeLaBranche]
+- **Test de fonctionnalités** : Permet de lancer des scénario personnalisé pour tester les fonctionnalités d'une borne. (Exemple : Test de la caméra, test de l'imprimante, test de la connexion internet, etc...) voir [README.md de demoskv2](/src/app/demoSKV2/README.md) . 
 
-Convention de nommage des commits :
-  - Noms du commit : SK2-[n°ticket] [TitreDuTicket]
-  - Des commits fréquents sur une même branche
+- **Applications de démonstration** : Application réalisé pour des salons ou des présentations de borne.
 
-Pour mettre à jour sa branche avec le master :
-  1. Se rendre sur le master : git checkout master
-  1. Mettre le master à jour :
-        1. git fetch -p
-        1. git pull origin master --rebase
-  1. Ensuite, se repositionner sur sa branche personnelle:
-        git checkout [nomDeLaBranche]
-  1. Créer une branche de suavegarde (au cas ou le master viendrai écraser nos modifications sur notre branche): 
-        git checkout -b [nomDeLaBranche]-sav
-  1. Et revenir sur sa branche de départ:
-        git checkout [nomDeLaBranche]
-  1. Et enfin remettre sa branche à jour avec le master :
-        git rebase master
-  1. Résoudre les éventuels conflits
-  1. Si besoin, commit et pousser ses modifications :
-        1. git add .
-        1. git commit -m "[message]
-        1. git push origin [nomDeLaBranche] -f
+#### Application de démonstration
 
-Pour livrer un commit (une fois que le ticket Jira est terminé) sur le master :
-  1. Se rendre sur sa branche perso
-  1. Fixer tous les commit (n commits) en un seul et même commit :
-        1. git rebase -i HEAD~n (cette commande ouvre un fichier)
-        1. Remplacer les 'pick' des commits par un f (pour les fusionner entre eux) en laissant le 'pick' qui est placé en haut du fichier (suivant l'ordre dans lequel on souhaite rebaser).
-        1. Enregistrer le fichier et le fermer.
-        1. Répéter des deux actions jusqu'à atteindre le premier commit de la branche
-        1. On obtient alors un unique commit que l'on peut pousser sur le master avec les commandes :
-          1. git checkout master
-          1. git cherry-pick [commit-hash]
-          1. Si des conflits sont détectés, les résoudre, les enregistrer et continuez le process de cherry-pick avec : git cherry-pick --continue
-          1. Si vous souhaitez abandonner le cherry-pick (à cause des conflits ou pour tout autre raison) : git cherry-pick --abort
+1. Création d'une application de démonstration
 
-# Architecture
+Chaque applications est séparées dans un dossier. Pour ajouter une nouvelle application il suffit de créer un dossier dans le dossier `demos`.  et de rajouter un bouton dans le fichier `app-demo-choice.html`. 
 
-## Démos
+- A l'intérieur de ce dossier il faut créer les différents composants de l'application. (commande pour créer un composant : `ng g c nomDuComposant`)
+- Chaque composant doit être importé dans le module de l'application. (voir [exemple de fichier app.module.ts](/src/app/demos/MOOVHOP-EK8000-2024-AGIR/moovhop.module.ts))
+- Les composant doivent ensuite être assigné à une route dans le fichier de routing du dossier/ application . (voir [exemple de fichier app-routing.module.ts](/src/app/demos/MOOVHOP-EK8000-2024-AGIR/moovhop-routing.module.ts))
+- Enfin il faut importer le fichier de routing dans le fichier de routing de l'applications DEMOSKV2. (voir [le fichier app-routing.module.ts](/src/app/app-routing.module.ts)).
 
-Le répertoire "demos" contient tous le code des démos ainsi qu'une bibliothèque.
-Chaque démos est un module avec :
-  + un fichier de routing
-  + un fichier de module (gestion des composants)
-  + un fichier scss global
-  + un service
 
-Si l'on souhaite créer de nouvelles démos, créer un nouveau module dans ce répertoire et suivre la structure ci-dessus ainsi que les conventions de nommages
-Attention, ce module de démos devra obligatoirement être importé dans :
-  + app.module et déclaré dans le tableau des imports
-  + app.routing.module
-(regarder dans ces fichiers là pour voir comment s'est déclaré).
+2. Lancement d'une application de démonstration
 
-# Codage
+    Pour pouvoir lancer une application de démonstration il y a deux méthodes : 
+    1. Définition d'un nom d'application à rentrer dans les ``customer_data `` de la maintenance.
+        - il faut définir dans le fichier ``app.component.ts`` le nom de l'application de démonstration à lancer avec la route de la page d'accueil de l'application. (voir [le fichier app.component.ts](/src/app/app.component.ts))
+    2. Sélectionner l'application dans la liste des applications de démonstration de l'application DEMOSKV2.
+        - Pour cela il faut ajouter dans le composant ``app-demo-choice.html`` un bouton qui redirige vers la route de l'application de démonstration. (voir [le fichier app-demo-choice.html](/src/app/demoSKV2/app-demo-choice/app-demo-choice.component.html))
+        ```html
+        <div class="containerDemo " routerLink="/rootVerslaPageDAccueilDeL'application">
+        <img src="logoDeL'application" class="demoImage">
+        <div class="description">
+            <h3> nomDeLapplication </h3>
+            <p> description de l'application </p>
+        </div>
+        <img class="playButton" src="./assets/DemoSKV2/all-pages-icon/play-button-arrowhead.png">
+        </div>
+        ```
 
-## Pour le parcours client des démos
+##### Conseil pour les applications de démonstration
 
-### Penser au cycle de vie des composants
-Les abonnements et appels à l'api doivent se faire dans le hook ngAfterViewInit (au lieu de nghOnInit), afin de ne pas retarder les transitions entre les vues.
-Les désabonnements se font dans le ngOnDestroy, qui sera déclenché lorsque l'on passe à la vue suivante.
+Certaines fonctionnalités présentes sur les applications de démo devront toujours être présentes, mais ne seront pas précisées dans le cahier des charges. Voici une liste des fonctionnalités à intégrer dans les applications de démonstration :
 
-### Dans les callbacks que l'on surcharge localement
+- Dans la majorité des cas le compoasant moovhop-all-pages doit être présent. Il contient des informations et des liens cachés nécessaire au présentation de la borne. (Les pages les plus à jours sont dans le dossier [moov-hop-all-pages](/src/app/demos/MOOVHOP-EK8000-2024-AGIR/moov-hop-all-pages). Il faut y récupérer le HTML qui contient toutes les sections invisibles qui permettent de naviguer dans l'application (retour à la page d'accueil, passage sur la page d'erreur pour le catalogue d'IPM, le bouton skip, ... ).)
 
-Si les callbacks sont surchargés et que l'on appelle l'API dans un dataType, il est primordial de mettre une tempo avant.
-Exemple avec le dataType BarcodeReadError dans le cas ou un a un Timeout utilisateur :
+- Les applications de démonstration n'ont pas besoin d'être responsive car elles sont faites pour une seul borne. (elles peuvent l'être mais ce n'est pas une priorité)
 
-```  override onBarcodeRead = (e: any): void => {
-    switch (e.data.dataType) {
-      case 'BarcodeRead':
-        console.log("Code barre lu: " + e.data.barcode);
-        console.log("je vais changer de page dans 1 seconde");
-        // traitement pour le changement de vue
-        let navEvent = new CustomEvent("labiziNav", {
-          detail: {
-            "delay": 1000,
-            "goTo": "/labiziRdv"
-          }
-        });
-        window.dispatchEvent(navEvent);
-        break;
-      case 'BarcodeReadError':
-        console.log("Erreur de lecture de code barre: " + e.data.code);
-        switch (e.data.code) {
-          case 'StatusError':
-            console.log("Erreur de status");
-            break;
-          case 'StateError':
-            console.log("Erreur de state");
-            break;
-          case 'ConfigError':
-            console.log("Erreur de config");
-            break;
-          case 'Timeout':
-            console.log("Timeout utilisateur de lecture de code bar dépassé");
-            console.log("Relance immédiate de la lecture");
-            setTimeout( () => {
-              this.skService.barcodeReadingManual()
-            }, 500);
-            this.skService.barcodeReadingManual();
-            break;
-        }
+- Bien penser à rajouter dans le fichier ``app.component.js`` le case de l'application pour pouvoir la lancer avec le nom de l'application dans les ``customer_data`` de la maintenance.
+
+- Il y a des latence lors du chargement des images donc il faut intégrer une transition fondue en blanc lors du chargement de la page. (exemple voir le composant [moovhop-all-pages](/src/app/demos/MOOVHOP-EK8000-2024-AGIR/moov-hop-all-pages/moov-hop-all-pages.component.ts)) (à vérifier que ce problème persiste avec les versions Angular plus récente)
+
+
+##### Intégration de SoftKiosk dans une application de démonstration
+
+Les différentes fonctions qui peremettent intéractions avec SoftKiosk sont dans le fichier [softkiosk.service.ts](/src/app/softkiosk.service.ts). 
+
+Quelque étapes sont à suivre pour intégrer SoftKiosk dans une application de démonstration :
+
+1. Importer le service SoftKiosk dans le composant de l'application de démonstration.
+    ```typescript	
+    import { SoftkioskService } from 'src/app/softkiosk.service';
+    ```
+2. Créer une instance de SoftKiosk dans le constructeur du composant.
+    ```typescript
+    constructor(private skService: SoftkioskService) { }
+    ```
+3. Créer un eventListener pour écouter les événements de SoftKiosk. 
+    ```typescript
+    this.skService.eventListener("nom du Service", "type de l'evenement", functionAlancer());
+    ```
+4. Créer une fonction qui sera lancée lors de l'événement.
+    ```typescript
+    functionAlancer(){
+        // Code à exécuter lors de l'événement
     }
-  }
+    ```
+5. Une fois l'évènement récupéré et traité, il faut supprimer l'évènement pour éviter les doublons.
+    ```typescript
+    this.skService.removeEventListener("nom du Service", "type de l'evenement", functionAlancer());
+    ```
+
+6. Bonne pratique : Dans le OnDestroy du composant, il faut supprimer tous les événements pour éviter les fuites de mémoire.
+    ```typescript
+    ngOnDestroy(){
+        this.skService.removeEventListener( "nom du Service", "type de l'evenement", functionAlancer());
+    }
+    ```
+    Il est aussi conseilé de reset les différents timeout ou interval qui ont été lancé dans le composant.
+
+Une autre méthode consiste à déclarer une variable `Kiosk` au niveau des imports de bibliothèque et l'utiliser pour faire les appel à SoftKiosk. 
+```typescript	
+declare var Kiosk: any;
+Kiosk.CardDispensing.dispenseCard();
 ```
 
-Cela évitera des problèmes d'appels synchrones et l'absence de renvoi de données du périphérique matériel vers le client.
-
-### Insertion d'images
-
-Les ressources telles que les images ou police de caractère doivent être placés dans le répertoire app/assets, ordonné par démo.
-Elles doivent également être présente dans le répertoire d'installation de DemoSKV2, dans DemoSKV2/application/assets. Ce répertoire doit être un reflet de app/assets (dans Angular).
-
-## Conventions de nommages
-
-Chaque module, composants, variables doit être écrit en anglais
-
-### Composants et modules
-
-Noms de modules : Flat Case
-
-Noms de composants : Kebab Case
-eh ba oui c'est bon les Kebabs !!!
-
-De plus, les composants angular propre à une démo doivent avoir un nom explicite en lien avec leur utilité dans un parcours client (cf voir composants de labizi).
-
-### Variables TS
-
-Noms de variables : Camel Case
-
-# Bibliothèques
-
-Il existe trois "librairies" dans DemoSKV2 pour les usages suivants : 
-
-## Appels à l'API
-
-On utilise le service softkiosk.service afin de centraliser et surcharger les méthodes d'appels à l'api SKV2.
-Toute nouvelle méthode d'appel qui va être utilisée dans une démo devra être déclarée dans ce service comme l'indiquent les conventions.
-
-## Callbacks de SKV2
-
-Afin de rendre des callbacks génériques, il existe la librairie GenericComponent.
-Tout component angular nécessitant des appels à l'api peut en hériter (s'il n'est pas nécessaire de la surcharger au vue de son implémentation générique) ou la surcharger si besoin.
-Dans ce cas, il convient de faire comme dans le fichier labizi-qr-code.ts (dans le répertoire demos/labizi).
-
-## requestHelper
-
-Librairie de l'API JS, elle nous permet d'avoir accès à des méthodes pour gérer des scénarios ou des scripts.
-Elle est importée dans softKioskService, si besoin de surcharger une méthode de celle-ci, faire comme avec la méthode activeSoftkioskScenario() (de softKioskService).
-
-# Simulation
-
-Le contenu du dossier "scenarios" est recopié automatiquement dans "C:\ProgramData\softkioskV2\scripts\scenarios" à l'installation de l'application.
-Il s'agit des scénarios en rapport avec les parcours client de l'application DemoSKV2.
-Si l'on souhaite utiliser un scénarios dans une application métier dez manière automatique, il doit être impérativement déclaré dans la fonction afterInstall() comme suit :
-
-```
-function afterInstall() {
-    // Compléments à l'installation
-    console.log('Recopie des scénarios');
-    let src = 'C:\\Program Files\\SKV2-Borne\\SKRestAPI\\wwwroot\\DemoSKV2\\scenarios\\';
-    let dst = scriptPath.SoftKioskScriptsPath() + '\\scenarios\\';
-    let scn1 = 'CardPayment_Debit_Without_ReceiptPrinting.json'; // scénarios 1
-    let scn2 = 'CashPayment_Bank_MoovHop.json'; // scénarios 2
-    file.Move(src + scn1, dst + scn1, true);
-    file.Move(src + scn2, dst + scn2, true);
-  }
-```
-
-Et pour l'activer depuis le code Typescript d'une démo :
-```
-this.skService.activeSoftkioskScenario("CardPayment_Debit_Without_ReceiptPrinting");
-```
-
-# Configurations logicielles
-
-La config relative à DemoSKV2 est définie dans le fichier application.js dans SoftKiosk-V2/src/Applications/Dist/DemoSKV2.
-
-## Paramétrages spécifiques
-
-## Phase et sous-phase
-
-L'application DemoSKV2 doit être en phase EXPL (exploitation) et sous-phase "STD". 
-La valeur STD doit rester présente (elle permet de palier à des problèmes de config côté SK), en attente de corrections sur les prochaines versions.  
-Ces propriétés doivent figurer dans la balise "phase" du fichier application.js
-### Admin et autologon
-
-L'application doit être en admin (flag admin à true) mais pas en autologon (flag à false).
-Le paramètre autologon doit être renseigné dans la config depuis la maintenance et non dans ce fichier (pour des raisons d'ergonomie d'utilisation).
-
-### AppManual
-
-Ce flag doit toujours être à true.
-Ainsi l'applicaton signale sa fin d'initialisation et peut basculer sur le splash-screen (sans générer d('erreur)).
-
-### Déclaration des services
-
-Tous les services utilisés par l'application (c'est-à-dire dans toutes les démos/pages de tests) doivent être déclarés dans dans la balise <services>.
-Même si l'on package une distribution pour une appli qui ne nécessite pas tous ces services, il est primordial de les laisser, cela évitera des erreurs de config par la suite.
+Le mieux pour comprendre le fonctionement d'une application de démonstration est de regarder le code des applications déjà existantes. Les applications les plus à jours sont celles réalisé pour les journées AGIR (MOOVHOP-EK8000-2024 et MOOVHOP-EK4000-2024)
 
 
-### TODO
+### Installation sur une borne
 
-## Corrections 
+1. build le projet complet avec la commande `ng build ` en étant dans le dossier `DEMOSKV2`. 
 
-# Interface DemoSKV2 
+2. Copier le contenu du dossier `dist` ou `application`(en fonction de la version d'angular) dans le dossier application du .zip de l'application.
 
- - Changer l'icon de la vue courante (en haut à droite) lorsqu'on a modifié le profil utilisateur
- - Afficher correctement les listes de démos, parcours clients, fonctionnalités,... (certaines sont cachés par la div) une fois la vue choisie. 
- - Changer les icon des tests (en profil ivq) pour quelles correspondent à celle sur Figma (on peut trouver de nouvelles icon sur flaticon).  
+3. Lancer l'installation de l'application sur la borne au travers de l'application de maintenance. 
 
-## Evolutions à poursuivre (selon ticket Jira SK2-1779)
-
- - Meilleure gestion des affichages status périphériques en critical avec message adapté selon profil (marketing, ivq,...)
- - Possibilité de revenir à la vue précédente dans une démo(bouton previous uniquement pour profil marketing) -> se baser sur le skip avec table de routage (previousRouterDict) dans les fichiers de services des démos (labizi.service par ex).
- - Faire un petit menu interactif (en faisant un double clic dans un un coin ???) proposant de redémarrer la borne, l'arrêter, ou revenir au menu pricnipal lorsque l'on est dans une demo. Une option redémarrer existe déjà si l'on clique en haut à droite de l'écran depuis la démo MoovHopEK8000. 
- - Rajouter menu déroulant de choix de scénarios à lancer dans le cas ou l'on simule certians périphériques
- - continuer le test de page de video call pour qu'il choisisse l'entrée/sortie son (composant video-call dans réperoire tests-ivq dans module demoSKV2). 
+4. entrer dans les customers-data le nom de l'application de démonstration à lancer. Mettre en autolog l'application demoSKV2.

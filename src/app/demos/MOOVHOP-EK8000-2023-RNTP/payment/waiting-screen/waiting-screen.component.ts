@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
 import { MoovhopService } from '../../moovhop.service';;
 import { Router, RouterConfigOptions } from '@angular/router';
-import { SoftKioskService } from 'src/app/softkiosk.service';
-import { extend } from 'jquery';
+import { SoftKioskService } from '../../../../softkiosk.service';
+
 @Component({
   selector: 'app-waiting-screen',
   templateUrl: './waiting-screen.component.html',

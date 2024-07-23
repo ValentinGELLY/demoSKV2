@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MoovhopService } from '../moovhop.service';
-import { AppService } from 'src/app/app.service';
+import { AppService } from '../../../app.service';
 import { Router } from '@angular/router';
 import { GenericComponent } from '../../generic/generic.component';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../softkiosk.service';
 declare var Kiosk: any;
 
 @Component({

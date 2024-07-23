@@ -1,5 +1,4 @@
 import { state } from '@angular/animations';
-import { CloseScrollStrategy } from '@angular/cdk/overlay';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 

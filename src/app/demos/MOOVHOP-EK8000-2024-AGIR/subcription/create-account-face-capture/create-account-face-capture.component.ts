@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MoovhopService } from '../../moovhop.service';
 import { Router } from '@angular/router';
-import { SoftKioskService } from 'src/app/softkiosk.service';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
+import { SoftKioskService } from '../../../../softkiosk.service';
+import { GenericComponent } from '../../../generic/generic.component';
 
 @Component({
   selector: 'app-create-account-face-capture',
@@ -14,8 +14,7 @@ import { GenericComponent } from 'src/app/demos/generic/generic.component';
 })
 export class CreateAccountFaceCaptureComponent
   extends GenericComponent
-  implements OnInit
-{
+  implements OnInit {
   constructor(
     private moovhopService: MoovhopService,
     private router: Router,
@@ -63,7 +62,7 @@ export class CreateAccountFaceCaptureComponent
           this.previewImageUpdate(preview.data);
         };
         // Écoute de l'événement de fermeture du WebSocket
-        previewWebsocket.onclose = function () {};
+        previewWebsocket.onclose = function () { };
         break;
       case 'PreviewStopped':
         this.moovhopService.previewImageProfile = this.faceCapture;
@@ -119,7 +118,7 @@ export class CreateAccountFaceCaptureComponent
           );
           this.moovhopService.faceCapture = this.moovhopService.previewImageProfile;
 
-         this.router.navigate(['/EK80002024AGIR/createAccountScanFinish']);
+          this.router.navigate(['/EK80002024AGIR/createAccountScanFinish']);
           clearInterval(this.interval3);
         }
       }
@@ -127,7 +126,7 @@ export class CreateAccountFaceCaptureComponent
   };
 
 
- 
+
 
   ngOnDestroy(): void {
     let __this = this;

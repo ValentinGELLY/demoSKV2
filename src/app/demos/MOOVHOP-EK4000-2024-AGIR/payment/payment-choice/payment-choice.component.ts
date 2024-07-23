@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SoftKioskService } from 'src/app/softkiosk.service';
 import { MoovhopService} from '../../moovhop.service';
 
 

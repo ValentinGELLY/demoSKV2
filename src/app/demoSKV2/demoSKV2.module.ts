@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HomepageComponent } from './homepage/homepage.component';
-import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '../app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +12,9 @@ import { FeaturesChoiceComponent } from './features-choice/features-choice.compo
 import { TestIvqChoiceComponent } from './test-ivq-choice/test-ivq-choice.component';
 import { AppDemoChoiceComponent } from './app-demo-choice/app-demo-choice.component';
 import { FeatureRunComponent } from './feature-run/feature-run.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
+ 
 @NgModule({
   declarations: [
     HomepageComponent,
@@ -24,18 +25,18 @@ import { FeatureRunComponent } from './feature-run/feature-run.component';
     FeaturesChoiceComponent,
     TestIvqChoiceComponent,
     AppDemoChoiceComponent,
-    FeatureRunComponent
+    FeatureRunComponent,
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatSliderModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-
+    DragDropModule
   ],
-  providers: []
+  providers: [
+  ]
 })
 export class DemoSKV2Module { }

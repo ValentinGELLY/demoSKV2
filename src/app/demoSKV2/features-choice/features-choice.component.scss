@@ -1,10 +1,29 @@
+*{
+  font-family: "Poppins", sans-serif;;
+}
+
+main{
+  display: flex;
+  flex-direction: column;
+}
+
+.searchElement{
+  position: absolute;
+  transform: translate(-50%,-50%);
+  left: 50%;
+}
+
+.searchElement h2{
+  margin: 0;
+}
+
 .demoChoice {
     position: relative;
     display: flex;
     flex-direction: column;
     gap: 25%;
     height: 50%;
-    top: 40%;
+    top: 55%;
     left: 50%;
     width: 50%;
     transform: translate(-50%, -50%);
@@ -12,3 +31,47 @@
     justify-content: center;
     padding: 20px;
   }
+
+  .notVerifiedElement{
+    color: red;
+  }
+
+.description{
+  display: flex;
+  flex-direction: column;
+}
+
+.containDemo div {
+  width: 33%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.serviceTestSection{
+  display: flex;
+  align-items: center;
+}
+
+.serviceTest {
+  height: fit-content;
+}
+
+.playButton{
+  width: 22% !important; 
+  height: unset !important; 
+  transform: unset !important;
+}
+
+.searchElement{
+  display: flex;
+  flex-direction: column;
+}
+
+.searchElement input{
+  margin-top: 10px;
+  border-radius: 10px;
+}

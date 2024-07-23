@@ -1,82 +1,59 @@
 <script src="https://cdn.form.io/js/formio.embed.js"></script>
-<img
-  src="./assets/DemoSKV2/logoIPM.png"
-  class="logo"
-  routerLink="/demoSKV2ChooseView"
-/>
-<img
-  src="./assets/DemoSKV2/back.png"
-  alt=""
-  routerLink="/demoSKV2AllPagesApp"
-  class="icons"
-  id="backIcon"
-/>
+<img src="./assets/DemoSKV2/logoIPM.png" class="logo" routerLink="/demoSKV2ChooseView" />
+
 <main>
   <section id="doc">
     <section id="title">
       <h1>{{ nomApp }}</h1>
-      <button id="btnRead">Description ></button>
+      <section id="showSection">
+        <section>
+          <button id="btnRead" (click)="showPopUp('Description')">Description ></button>
+          <p class="descriptionParsed">{{parsedDescription}}</p>
+        </section>
+        <section>
+          <button id="btnCode" (click)="showPopUp('Code')">Code ></button>
+        </section>
+      </section>
     </section>
   </section>
   <section class="mainContent">
     <div id="left">
-      <section id="parametre" *ngIf="parameters.length!=0">
+      <section id="parametre" *ngIf="parameters.length != 0">
         <h2>Paramètres :</h2>
         <div id="formio"></div>
+        <div id="additionnalForm"></div>
       </section>
       <section id="startAndStop">
-        <section
-          class="section_test"
-          *ngFor="let item of listStopFunction; let i = index"
-        >
+        <section class="section_test" *ngFor="let item of listStopFunction; let i = index">
           <section>
             <h3 id="userCaseTest1">{{ listComments[i] }}</h3>
           </section>
-
           <section class="btnSection">
-            <button
-              class="playBtn"
-              id="playBtn_test_{{ i }}"
-              (click)="
-                callFunctionFromScript(
-                  'start' + (i + 1),
-                  'playBtn_test_' + i
-                )
-              "
-            >
+            <button class="playBtn" id="playBtn_test_{{ i }}"
+              (click)="callFunctionFromScript('start' + (i + 1), 'playBtn_test_' + i)">
               Run
             </button>
-            <button
-              class="stopBtn"
-              id="stopBtn_test_{{ i }}"
-              (click)="
-                callFunctionFromScript(
-                  'stop' + (i + 1),
-                  'stopBtn_test_' + i
-                )
-              "
-            >
+            <button class="stopBtn" id="stopBtn_test_{{ i }}"
+              (click)="callFunctionFromScript('stop' + (i + 1), 'stopBtn_test_' + i)">
               Stop
+            </button>
+            <img src="./assets/DemoSKV2/all-pages-icon/resetLog.png" alt="" (click)="resetLogs(i)" class="resetImage">
+            <button class="showImage" id="showImage_test_{{ i }}" (click)="showImageSection(i)"
+              *ngIf="imageCapture[i]!=''">
+              <img src="./assets/DemoSKV2/all-pages-icon/camera-video.png" alt="">
             </button>
           </section>
           <section class="LogTestAccordion log_test_{{ i }}">
             <section class="testLog_test">
-              <section
-                class="accordion"
-                id="accordion_Logs_test_{{ i }}"
-                (click)="showPanel('Logs_test_' + i)"
-              >
+              <section class="accordion" id="accordion_Logs_test_{{ i }}" (click)="showPanel('Logs_test_' + i)">
                 <h2>Logs</h2>
                 <div class="fleche fleche_Logs_test_{{ i }}"></div>
               </section>
               <div class="panel" id="panel_Logs_test_{{ i }}"></div>
             </section>
             <section class="ResultsLog_Results">
-              <section
-                class="accordion"
-                id="accordion_Logs_Results_{{ i }}"
-                (click)="showPanel('Logs_Results_test_' + i)"
-              >
+              <section class="accordion" id="accordion_Logs_Results_{{ i }}"
+                (click)="showPanel('Logs_Results_test_' + i)">
                 <h2>Results : <span id="last_Result_test_{{ i }}"></span></h2>
                 <div class="fleche fleche_Logs_Results_test_{{ i }}"></div>
               </section>
@@ -85,162 +62,207 @@
           </section>
         </section>
       </section>
-      <!--
-        <section class="codeSection">
-            <section class="accordion" onclick="showPanel('Code')">
-                <h2>Code</h2> <button id="copyBtn">Copy the code </button>
-                <div class="fleche fleche_Code"></div>
-            </section>
-            <div class="panel" id="panel_Code">
-                <pre>
-                    <code class="language-javascript">
-                    </code>
-                </pre>
-            </div>
-        </section>-->
     </div>
 
     <div id="right">
-      <section>
-        <button
-          class="stopSession stopBtn"
-          id="stopSession"
-          (click)="stopSession()"
-        >
-          Arret de la Session
+      <section class="StopSessionReset">
+        <button class="stopSession stopBtn" id="stopSession" (click)="stopSession()">
+          Fin de Session
         </button>
+        <img src="./assets/DemoSKV2/all-pages-icon/resetLog.png" alt="" (click)="resetHistoricEvent()">
       </section>
-      <!-- <section class="LogSection">
-            <section class="accordion" id="accordion_Logs" (click)="showPanel('Logs')">
-                <h2>Logs</h2>
-                <div class="fleche fleche_Logs"></div>
-            </section>
-            <div class="panel " id="panel_Logs">
+      <section class="notFoundSection">
+        <section id="serviceNotFound" *ngIf="undefinedServices.length!=0">
+          <p>Service non trouvé : </p>
+          <section>
+            <span class="serviceNotFoundItem" *ngFor="let item of undefinedServices">{{ item }}</span>
+          </section>
+        </section>
+        <section id="serviceNotFound" *ngIf="undefinedDevices.length!=0">
+          <p>Device non trouvé : </p>
+          <section>
+            <span class="serviceNotFoundItem" *ngFor="let item of undefinedDevices">{{ item }}</span>
+          </section>
+        </section>
+      </section>
+      <section>
+        <div class="listStatus">
+          <section *ngFor="let item of serviceUsed ; let i = index" class="logStatus">
+            <section class="btnStatus accordion" [attr.id]="'accordion_' + item.service"
+              (click)="showPanel(item.service)">
+              <section class="titleServiceDeviceTest">
+                <h3>
+                  <span class="invisibleTitle">t</span>
+                  <section class="actualStatusService">
+                    <span>
+                      status
+                    </span>
+                    <span>
+                      state
+                    </span>
+                    <span>
+                      statusDetail
+                    </span>
+                  </section>
+                </h3>
+                <h3 *ngIf="Kiosk[item.service].status!=undefined">
+                  <span class="titleService">
+                    {{ item.service }}
+                  </span>
+                  <section class="actualStatusService">  
+                    <ng-container *ngIf="actualStatusAllService[item.service].status == 'Ok'; else tempUnavailable">
+                      <span [attr.id]="'status_' + item.service" class="serviceStatusTitleOk">
+                        {{ actualStatusAllService[item.service].status }}
+                      </span>
+                    </ng-container>
+                    <ng-template #tempUnavailable>
+                      <ng-container *ngIf="actualStatusAllService[item.service].status == 'TempUnavailable'; else warning">
+                        <span [attr.id]="'status_' + item.service" class="serviceStatusTitleTempUnavailable">
+                          {{ actualStatusAllService[item.service].status }}
+                        </span>
+                      </ng-container>
+                    </ng-template>
+                    <ng-template #warning>
+                      <ng-container *ngIf="actualStatusAllService[item.service].status == 'Warning'; else other">
+                        <span [attr.id]="'status_' + item.service" class="serviceStatusTitleWarning">
+                          {{ actualStatusAllService[item.service].status }}
+                        </span>
+                      </ng-container>
+                    </ng-template>
+                    <ng-template #other>
+                      <span [attr.id]="'status_' + item.service" class="serviceStatusTitleOther">
+                        {{ actualStatusAllService[item.service].status }}
+                      </span>
+                    </ng-template>
+                    
+                    <span class="changeEventSpan ReadyState" *ngIf="actualStatusAllService[item.service].state=='Ready'  ;else processingStateServiceTitle">{{ actualStatusAllService[item.service].state }} </span>
+                    <ng-template #processingStateServiceTitle >
+                      <span class="changeEventSpan ProcessingState" *ngIf="actualStatusAllService[item.service].state=='Processing'  ;else otherStateServiceTitle" >{{ actualStatusAllService[item.service].state }} </span>
+                      <ng-template #otherStateServiceTitle >
+                        <span class="changeEventSpan otherState">{{ actualStatusAllService[item.service].state }} </span>
+                      </ng-template>
+                    </ng-template>
 
-            </div>
-        </section>-->
-      <section id="status">
-        <section>
-          <h2>Status Services :</h2>
-          <div class="listStatus">
-            <section
-              *ngFor="let item of serviceUsed; let i = index"
-              class="logStatus"
-            >
-              <section
-                class="btnStatus accordion"
-                [attr.id]="'accordion_' + item.name"
-                (click)="showPanel(item.name)"
-              >
-                <h3>
-                  {{ item.name }} :
-                  <span [attr.id]="'status_' + item.name"
-                    >{{ historicStatusService[item.name][0].time }}
-                    {{ actualStatusAllService[i] }}</span
-                  >
+                    <span [attr.id]="'state_' + item.service" class="okStatusDetailTitle" *ngIf="actualStatusAllService[item.service].statusDetail == 'Ok';else otherStatusDetailTitle">
+                      {{ actualStatusAllService[item.service].statusDetail }}
+                    </span>
+                    <ng-template #otherStatusDetailTitle>
+                      <span [attr.id]="'state_' + item.service" class="otherStatusDetailTitle">
+                        {{ actualStatusAllService[item.service].statusDetail }}
+                      </span>
+                    </ng-template>
+                  </section>
                 </h3>
-                <div [attr.class]="'fleche fleche_' + item.name"></div>
-              </section>
-              <div
-                [attr.id]="'panel_' + item.name"
-                class="panel panelInformations"
-              >
-                <div *ngFor="let hour of historicStatusService[item.name]">
-                  <p class="stateInformations">
-                    {{ hour.time }} {{ hour.status }}
-                  </p>
-                </div>
-              </div>
-            </section>
-          </div>
-        </section>
-        <section>
-          <h2>State Services :</h2>
-          <div class="listStatus">
-            <section
-              *ngFor="let item of serviceUsed; let i = index"
-              class="logStatus"
-            >
-              <section
-                class="btnStatus accordion"
-                [attr.id]="'accordion_' + item.name + '_state'"
-                (click)="showPanel(item.name + '_state')"
-              >
-                <h3>
-                  {{ item.name }} :
-                  <span [attr.id]="'state_' + item.name"
-                    >{{ historicStateService[item.name][0].time }}
-                    {{ actualStateAllService[i] }}</span
-                  >
+                <h3 *ngIf="item.device!= 'N/A' && Kiosk[item.service][item.device]!=undefined">
+                  <span class="titleService">{{item.device}}</span>
+                  <section class="actualStatusService">
+                    <span [attr.id]="'status_' + item.device" class="deviceStatusTitleOk" *ngIf="actualStatusAllDevice[item.device].status=='Ok';else deviceStatusTitleTempUnavailable">
+                      {{ actualStatusAllDevice[item.device].status }}
+                    </span>
+                    <ng-template #deviceStatusTitleTempUnavailable>
+                      <span [attr.id]="'status_' + item.device" class="deviceStatusTitleTempUnavailable" *ngIf="actualStatusAllDevice[item.device].status=='TempUnavailable';else deviceStatusTitleWarning">
+                        {{ actualStatusAllDevice[item.device].status }}
+                      </span>
+                      <ng-template #deviceStatusTitleWarning>
+                        <span [attr.id]="'status_' + item.device" class="deviceStatusTitleWarning" *ngIf="actualStatusAllDevice[item.device].status=='Warning';else deviceStatusTitleOther">
+                          {{ actualStatusAllDevice[item.device].status }}
+                        </span>
+                        <ng-template #deviceStatusTitleOther>
+                          <span [attr.id]="'status_' + item.device" class="deviceStatusTitleOther">
+                            {{ actualStatusAllDevice[item.device].status }}
+                          </span>
+                        </ng-template>
+                      </ng-template>
+                    </ng-template>
+                    <span class="changeEventSpan ReadyState" *ngIf="actualStatusAllDevice[item.device].state=='Ready'  ;else processingStateDeviceTitle">{{ actualStatusAllDevice[item.device].state }} </span>
+                    <ng-template #processingStateDeviceTitle>
+                      <span class="changeEventSpan ProcessingState" *ngIf="actualStatusAllDevice[item.device].state=='Processing';else otherStateDeviceTitle" >{{ actualStatusAllDevice[item.device].state }} </span>
+                    </ng-template>
+                    <ng-template #otherStateDeviceTitle>
+                      <span class="changeEventSpan otherState">{{ actualStatusAllDevice[item.device].state }} </span>
+                    </ng-template>
+                    <span [attr.id]="'state_' + item.service" class="okStatusDetailTitle" *ngIf="actualStatusAllDevice[item.device].statusDetail == 'Ok';else otherStatusDetailTitle">
+                      {{ actualStatusAllDevice[item.device].statusDetail }}
+                    </span>
+                    <ng-template #otherStatusDetailTitle>
+                      <span [attr.id]="'state_' + item.service" class="otherStatusDetailTitle">
+                        {{ actualStatusAllDevice[item.device].statusDetail }}
+                      </span>
+                    </ng-template>
+                  </section>
                 </h3>
-                <div
-                  [attr.class]="'fleche fleche_' + item.name + '_state'"
-                ></div>
               </section>
-              <div
-                [attr.id]="'panel_' + item.name + '_state'"
-                class="panel panelInformations"
-              >
-                <div *ngFor="let hour of historicStateService[item.name]">
-                  <p class="stateInformations">
-                    {{ hour.time }} {{ hour.state }}
-                  </p>
-                </div>
-              </div>
+              <div [attr.class]="'fleche fleche_' + item.service"></div>
             </section>
-          </div>
-        </section>
-        <section>
-          <h2>Status Périphériques :</h2>
-          <div class="listStatus">
-            <section
-              *ngFor="let item of perifUsed; let i = index"
-              class="logStatus"
-            >
-              <section
-                class="btnStatus accordion"
-                [attr.id]="'accordion_' + item.name"
-                (click)="showPanel(item.name)"
-              >
-                <h3>
-                  {{ item.name }} :
-                  <span [attr.id]="'status_' + item.name">{{
-                    actualStatusAllDevice[i]
-                  }}</span>
-                </h3> 
-                <div [attr.class]="'fleche fleche_' + item.name"></div>
-              </section>
-              <div
-                [attr.id]="'panel_' + item.name"
-                class="panel panelInformations"
-              >
-                <div
-                  *ngFor="let statusHistory of historicStatusDevice[item.name]"
-                >
-                  <div *ngFor="let key of getStatusKeys(statusHistory)">
-                    <p class="stateInformations">
-                      {{ key }} - {{ statusHistory[key] }}
-                    </p>
+            <div [attr.id]="'panel_' + item.service" class="panel panelInformations">
+              <div *ngFor="let statusHistory of historicEvent[item.service]">
+                <div *ngIf="statusHistory.state!=undefined;else statusPart" class="logEventStatusElement">
+                  <span class="hourEventSpan">{{ statusHistory.hourEvent }}</span>
+                  <span class="hourReceipSpan">{{ statusHistory.hourReceiptEvent }} </span>
+                  <span class="componentSpan">{{statusHistory.component}}</span>
+                  <section class="statusHistorySection">
+                    <span class="changeEventSpan"></span>
+                    <span class="changeEventSpan ReadyState" *ngIf="statusHistory.state=='Ready';else processingState">{{ statusHistory.state }} </span>
+                    <ng-template #processingState >
+                      <span class="changeEventSpan ProcessingState" *ngIf="statusHistory.state=='Processing';else otherState" >{{ statusHistory.state }} </span>
+                      <ng-template #otherState >
+                        <span class="changeEventSpan otherState">{{ statusHistory.state }} </span>
+                      </ng-template>
+                    </ng-template>
+                    <span class="changeEventSpan"></span>
+                  </section>
+                </div>
+                <ng-template #statusPart>
+                  <div class="logEventStatusElement" id="statusPart">
+                    <span class="hourEventSpan">{{ statusHistory.hourEvent }}</span>
+                    <span class="hourReceipSpan">{{ statusHistory.hourReceiptEvent }} </span>
+                    <span class="componentSpan">{{statusHistory.component}}</span>
+                    <section class="statusHistorySection">
+                      <span class="changeEventSpan okStatus" *ngIf="statusHistory.status=='Ok' ;else TempAvailableStatus">{{ statusHistory.status }} </span>
+                      <ng-template #TempAvailableStatus>
+                        <span class="changeEventSpan tempAvailableStatus" *ngIf="statusHistory.status=='TempUnavailable' ;else WarningStatus">{{ statusHistory.status }} </span>
+                        <ng-template #WarningStatus>
+                          <span class="changeEventSpan warningStatus" *ngIf="statusHistory.status=='Warning' ;else OtherStatus">{{ statusHistory.status }} </span>
+                          <ng-template #OtherStatus>
+                            <span class="changeEventSpan otherStatus" >{{ statusHistory.status }} </span>
+                          </ng-template>
+                        </ng-template>
+                      </ng-template>
+                      <span class="changeEventSpan"> </span>
+                      <span class="changeEventSpan">{{ statusHistory.statusDetail }} </span>
+                    </section>
                   </div>
-                </div>
+                </ng-template>
               </div>
-            </section>
-          </div>
-        </section>
+            </div>
+          </section>
+        </div>
       </section>
     </div>
   </section>
 </main>
-<div id="popUpDescritionPage"></div>
-<div id="popUpDescrition">
+<div id="popUpDescriptionPage"></div>
+<div id="popUpDescription">
   <h2 id="titlePopUpDescription">Description</h2>
   <p id="idDescription">
     {{ description }}
   </p>
-  <img
-    src="./assets/DemoSKV2/all-pages-icon/cross.png"
-    alt=""
-    srcset=""
-    id="crossPopUp"
-  />
+  <img class="crossPopUp" src="./assets/DemoSKV2/all-pages-icon/cross.png" alt="" (click)="closePopUp('Description')" />
 </div>
+
+<div id="popUpCodePage"></div>
+<div id="popUpCode">
+  <h2 id="titlePopUpCode">Code du test </h2>
+  <pre><code class="language-js">
+    {{code}}
+  </code></pre>
+  <img class="crossPopUp" src="./assets/DemoSKV2/all-pages-icon/cross.png" alt="" (click)="closePopUp('Code')" />
+</div>
+
+<img src="./assets/DemoSKV2/back.png" alt="" (click)="backToChooseView()" class="icons" id="backIcon" />
+<section class="section_test" *ngFor="let item of listStopFunction; let i = index">
+  <div class="resultImageClass" id="resultImage{{i}}" cdkDrag *ngIf="imageCapture[i]!=''">
+    <h2>Retour de l'image du test n°{{i+1}}</h2>
+    <img [src]=" imageCapture[i]" alt="">
+  </div>
+</section>
