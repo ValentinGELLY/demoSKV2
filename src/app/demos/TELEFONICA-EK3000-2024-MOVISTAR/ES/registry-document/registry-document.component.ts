@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GenericComponent } from '../../../generic/generic.component';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../../softkiosk.service';
 import { AppService as telefonicaService  } from '../../telefonica.service';
-import { extend } from 'jquery';
+
 
 
 @Component({

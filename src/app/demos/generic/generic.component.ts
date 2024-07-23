@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../softkiosk.service';
 
 @Component({
   selector: 'app-generic',

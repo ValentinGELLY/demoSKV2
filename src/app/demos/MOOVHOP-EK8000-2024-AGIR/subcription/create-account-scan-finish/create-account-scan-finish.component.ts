@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MoovhopService } from '../../moovhop.service';
 import { Router } from '@angular/router';
-import { SoftKioskService } from 'src/app/softkiosk.service';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
+import { SoftKioskService } from '../../../../softkiosk.service';
+import { GenericComponent } from '../../../generic/generic.component';
 
 
 @Component({

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService as telefonica } from '../../telefonica.service';
 import { GenericComponent } from '../../../generic/generic.component';
-import { SoftKioskService } from 'src/app/softkiosk.service';
-import { extend } from 'jquery';
+import { SoftKioskService } from '../../../../softkiosk.service';
+
 
 @Component({
   selector: 'app-validation-screen',

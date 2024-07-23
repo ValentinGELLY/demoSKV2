@@ -1,12 +1,8 @@
+demoSKV2/node_modules
 node_modules
-node_modules
+
+demoSKV2/.angular/*
 
 .angular/*
 
-application/*
-
-package-lock.json
-.gitignore
-package-lock.json
-package.json
-.vscode/settings.json
+dist/*

@@ -1,0 +1,188 @@
+body {
+    overflow: hidden;
+}
+
+img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin-top: -10px;
+    margin-left: -10px;
+    z-index: 1;
+}
+
+#previous {
+    position: absolute;
+    left: 0;
+    width: 30%;
+    height: 30%;
+    z-index: 2;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#next {
+    position: absolute;
+    right: 10%;
+    width: 20%;
+    height: 30%;
+    z-index: 2;
+    top: 50%;
+    transform: translate(50%, -50%);
+}
+
+
+#goToDemo {
+    position: absolute;
+    z-index: 3;
+    width: 15%;
+    height: 20%;
+    right: 0;
+    margin-top: -10px;
+}
+
+
+#Error {
+    width: 100%;
+    height: fit-content;
+    background-color: rgb(205, 205, 205);
+
+}
+
+#PopUpAlertRestart {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+#PopUpAlertRestart button {
+    margin: 20px;
+}
+
+#closeBTN {
+    width: fit-content;
+    height: fit-content;
+    right: 5px;
+    position: absolute;
+    top: 5px;
+}
+
+ul {
+    list-style-type: none;
+    margin-left: 0;
+    padding: 0;
+}
+
+li:before {
+    content: '-';
+
+}
+
+li {
+    display: flex;
+}
+
+.PopUpError {
+    position: fixed;
+    left: 0;
+    top: 95%;
+    width: 5%;
+    height: 15%;
+    z-index: 2;
+}
+
+#moovHopCriticalService {
+    position: absolute;
+    width: 15%;
+    background: white;
+    height: fit-content;
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 3px 12.5px 1.5px #dddddd;
+    border-radius: 15px;
+    z-index: 2;
+}
+
+.moovHopCriticalService {
+    position: fixed;
+    display: flex;
+    font-family: 'GothamLight';
+    left: 5%;
+    top: 90%;
+    text-align: center;
+    width: 45%;
+    height: 5%;
+}
+
+
+#popUpManualCard{
+    position: absolute;
+    width: 15%;
+    background: white;
+    height: 15%;
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    transform: translate(0, -50%);
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 3px 12.5px 1.5px #dddddd;
+    border-radius: 15px;
+    z-index: 2;
+}
+
+
+#moovHopUndefinedServices {
+    color: red;
+    top: 80%;
+    left: 5%;
+    width: 45%;
+    height: 5%;
+}
+
+#moovHopTempUnavailableService {
+    color: violet;
+    top: 85%;
+    left: 5%;
+    width: 45%;
+    height: 5%;
+}
+
+.moovHopWarningServices {
+    color: orange;
+    top: 75%;
+    left: 5%;
+    width: 65%;
+    height: 5%;
+}
+
+#cardDispenserMessage {
+    width: 60%;
+}
+
+h3 {
+    text-align: center;
+}
+
+.moovHopGoodServices{
+    color: green;
+}
+
+.moovHopWarningServices{
+    color: orange;
+}
+
+.moovHopErrorService{
+    color: red;
+}
+
+.tempUnavailableService{
+    color: violet;
+}

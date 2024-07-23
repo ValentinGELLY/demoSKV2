@@ -1,0 +1,46 @@
+<a id="goToDemo" (click)="returnToDemo()">
+</a>
+
+<img id="diapo" src="" alt="">
+<div id="previous" (click)="previousDiapo()">
+
+</div>
+<div id="next" (click)="nextDiapo()">
+
+</div>
+
+<div class="PopUpError" id="PopUpErrorSection" (click)="showPopUp()"></div>
+<!-- affichage services en status critical -->
+<div id="moovHopCriticalService">
+    <h3>Erreur : </h3>
+    <button id="closeBTN" (click)="closePopUp()">Fermer</button>
+
+    <div id="PopUpAlertRestart">
+        <!-- affichage services en status critical -->
+        <div id="Error">
+            <ul>
+                <li id="stringServiceStatusCritical" *ngFor="let item of allActualServicesStatus">
+                    <ng-container [ngSwitch]="item.status">
+                        <label *ngSwitchCase="'Ok'" class="moovHopGoodServices stringServiceStatusabel" id="">
+                          {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''"> ( {{item.statusDetail}} )</span>
+                        </label>
+                        <label *ngSwitchCase="'Warning'" class="moovHopWarningServices stringServiceStatusabel" id="">
+                          {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''"> ( {{item.statusDetail}} )</span>
+                        </label>
+                        <label *ngSwitchCase="'TempUnavailable'" class="tempUnavailableService stringServiceStatusabel" id="">
+                          {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''"> ( {{item.statusDetail}} )</span>
+                        </label>
+                        <label *ngSwitchDefault class="moovHopErrorService stringServiceStatusabel" id="">
+                          {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''"> ( {{item.statusDetail}} )</span>
+                        </label>
+                      </ng-container>
+                </li>
+            </ul>
+        </div>
+        <div style="width: 100%; display: flex;justify-content: space-around;">
+            <button (click)="restart()">Redémarrer</button>
+            <button id="btnManualCard" (click)="changePayment()">Paiement Manuel</button>
+        </div>
+
+    </div>
+</div>

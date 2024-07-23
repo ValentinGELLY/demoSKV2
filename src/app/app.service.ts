@@ -19,6 +19,7 @@ export class AppService implements OnInit {
   @Output() currentMenuChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() currentViewChange: EventEmitter<string> = new EventEmitter<string>();
   statusSubject: any;
+  pageBeforeSwitch: string = "";
 
 
   constructor(private skService: SoftKioskService, private router: Router) {
@@ -100,6 +101,15 @@ export class AppService implements OnInit {
 
   changeView(view: string) {
     this.setCurrentView(view);
+  }
+
+  goOnCatalog(){
+    this.pageBeforeSwitch = this.router.url;
+    this.router.navigate(["/catalogIPM"]);
+  }
+
+  goBackOnPreviousPage(){
+    this.router.navigate([this.pageBeforeSwitch]);
   }
 
 }

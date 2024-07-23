@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MoovhopService } from '../../moovhop.service';
 import { Router } from '@angular/router';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { GenericComponent } from '../../../../demos/generic/generic.component';
+import { SoftKioskService } from '../../../../softkiosk.service';
 
 @Component({
   selector: 'app-validation-screen',
@@ -30,11 +30,6 @@ export class CreateAccountValidationScreen extends GenericComponent {
     this.errorSaveIdCard = this.moovhopService.errorSaveIdCard;
     this.scanVisited = this.moovhopService.scanVisited;
     this.identityValidate = this.moovhopService.identityValidate;
-    console.log('errorFace', this.errorFace);
-    console.log('errorSaveIdCard', this.errorSaveIdCard);
-    console.log('scanVisited', this.scanVisited);
-    console.log('identityValidate', this.identityValidate);   
-    
     if (this.scanVisited === 3 && this.identityValidate) {
       this.timeout = setTimeout(() => {
         this.route.navigate(['AGIR2024/createAccountHello']);
@@ -57,7 +52,6 @@ export class CreateAccountValidationScreen extends GenericComponent {
         this.route.navigate(['/AGIR2024/createAccountMenu']);
       }, 5000);
     }
-    
   }
 
   ngOnDestroy(): void {

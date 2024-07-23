@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ScenarioManager } from './helper/requestHelper';
+
 declare var Kiosk: any;
 @Injectable({
   providedIn: 'root'
@@ -172,18 +172,11 @@ export class SoftKioskService {
     Kiosk.OnscreenKbd.show(layout);
   }
 
-  activeSoftkioskScenario(scenario: string) {
-    ScenarioManager.activeScenario = scenario;
-  }
-
   restartKiosk = () => {
     Kiosk.restart();
   }
 
-  getScenarioList() {
-    return ScenarioManager.scenarioList;
-  }
-
+ 
   confirmTransaction = (confirmedAmount: number) => {
     Kiosk.CardPayment.confirmTransaction({
       "confirmAmountInCents": confirmedAmount
