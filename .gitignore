@@ -3,6 +3,10 @@ node_modules
 
 demoSKV2/.angular/*
 
-.angular/*
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
 
 dist/*
