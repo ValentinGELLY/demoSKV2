@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../../softkiosk.service';
 import { MoovopService } from '../../moovHop.service';
 import { Router } from '@angular/router';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
+import { GenericComponent } from '../../../generic/generic.component';
 @Component({
   selector: 'app-moov-hop-buy-use-case-scan-newer-identity-card',
   templateUrl: './moov-hop-buy-use-case-scan-newer-identity-card.component.html',

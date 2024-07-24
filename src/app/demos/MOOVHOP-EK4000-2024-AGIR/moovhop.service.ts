@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppService } from '../../app.service';
-import { SoftKioskService } from '../../softkiosk.service';
 
 @Injectable({
     providedIn: 'root'

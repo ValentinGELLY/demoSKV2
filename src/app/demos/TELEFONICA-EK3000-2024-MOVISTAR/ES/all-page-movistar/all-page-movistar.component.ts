@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router} from "@angular/router";
-import { AppService } from '../../telefonica.service';
+import { AppService as TelefonicaService } from '../../telefonica.service';
+import { AppService } from '../../../../app.service';
 
 @Component({
   selector: 'app-all-page-movistar',
@@ -11,7 +12,7 @@ export class AllPageMovistarComponent {
 
   PreviousPage: string = "";
 
-  constructor(private router: Router, private service:AppService) { }
+  constructor(private router: Router, private service:TelefonicaService, private appService : AppService) { }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -36,5 +37,11 @@ export class AllPageMovistarComponent {
   ngOnDestroy(): void {
     document.getElementById("loadingWhite")!.classList.remove("removeWhite");
    }
+
+   
+  navigateToError() {
+    this.appService.goOnCatalog()
+  }
+
 
 }

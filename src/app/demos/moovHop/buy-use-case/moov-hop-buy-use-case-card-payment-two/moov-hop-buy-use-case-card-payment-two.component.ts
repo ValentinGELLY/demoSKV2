@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { GenericComponent } from '../../../generic/generic.component';
+import { SoftKioskService } from '../../../../softkiosk.service';
 import { MoovopService } from '../../moovHop.service';
 import { Router } from '@angular/router';
 

@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MoovopService } from '../moovHop.service';
-import { AppService } from 'src/app/app.service';
+import { AppService } from '../../../app.service';
 import { Router } from '@angular/router';
 import { GenericComponent } from '../../generic/generic.component';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../softkiosk.service';
 @Component({
   selector: 'moov-hop-all-pages',
   templateUrl: './moov-hop-all-pages.component.html',
@@ -80,6 +80,10 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
         this.stringServiceStatusCritical += srvName + ", ";
       }
     });
+  }
+
+  navigateToError() {
+    this.appService.goOnCatalog()
   }
 
   testStatus = () => {

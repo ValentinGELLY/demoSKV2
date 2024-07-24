@@ -41,16 +41,12 @@ export class IpmCatalogComponent {
         this.nextDiapo();
     }, 60000);
     let allServices = Kiosk.services;
-    console.log("allServices");
-    console.log(allServices);
     for (let i=0; i<allServices.length; i++){
         let service = allServices[i];
         let status = Kiosk[service].status;
         let statusDetail = Kiosk[service].statusDetail;
         this.allActualServicesStatus.push({service, status, statusDetail});
     }
-    console.log("this.allActualServicesStatus");
-    console.log(this.allActualServicesStatus);
   }
 
   previousDiapo() {
@@ -60,7 +56,6 @@ export class IpmCatalogComponent {
       let link = src?.split(".")[1];
       // get the two last character from link
       numDiapo = link!.slice(-2);
-      console.log(numDiapo);
       if (numDiapo[0] !== "1") {
           if (numDiapo !== "01") {
               let numNextDiapo = parseInt(numDiapo) - 1;
@@ -87,7 +82,6 @@ export class IpmCatalogComponent {
       this.interval = setInterval(() => {
           this.previousDiapo();
       }, 60000);
-      console.log("previousDiapo", numDiapo);
   }
 
   nextDiapo() {
@@ -96,7 +90,6 @@ export class IpmCatalogComponent {
       let numDiapo = "";
       let link = src?.split(".")[1];
       
-      console.log(link);
       numDiapo = link!.slice(-2);
       console.log(numDiapo);
       if (numDiapo !== "14") {
@@ -120,7 +113,6 @@ export class IpmCatalogComponent {
       this.interval = setInterval(() => {
           this.previousDiapo();
       }, 60000);
-      console.log("previousDiapo", numDiapo);
   }
 
   changePayment(){
@@ -160,6 +152,10 @@ export class IpmCatalogComponent {
         if (popUp != null) {
             popUp.style.display = "block";
         }
+    }
+
+    retourDemoskV2(){
+        this.router.navigate(['/demoSKV2AllPagesApp']);
     }
 
 }

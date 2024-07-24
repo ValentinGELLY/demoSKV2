@@ -14,6 +14,11 @@ import { MoovHopModule4000AGIR2024 } from './demos/MOOVHOP-EK4000-2024-AGIR/moov
 import { MoovHop8000ModuleAGIR2024 } from './demos/MOOVHOP-EK8000-2024-AGIR/moovhop.module';
 import { MoovHop8000ModuleEUMO2024 } from './demos/MOOVHOP-EK4000-2024-EUMO/moovhop.module';
 import { VirtualKeyboardFeatureComponent } from './demoSKV2/virtual-keyboard-feature/virtual-keyboard-feature.component';
+import { IPMCatalogModule } from './demos/IPM-CATALOG/catalog.module';
+import { LabiziModule } from './demos/labizi/labizi.module';
+import { MoovopModule } from './demos/moovop/moovop.module';
+import { MoovhopModule } from './demos/moovHop/moovHop.module';
+
 
 const routes: Routes = [
     {
@@ -42,7 +47,13 @@ const routes: Routes = [
         Telefonica3000,
         MoovHopModule4000MWC,
         MoovHopModule4000AGIR2024,
-        MoovHop8000ModuleAGIR2024
+        MoovHop8000ModuleAGIR2024,
+        MoovHop8000ModuleEUMO2024,
+        IPMCatalogModule,
+        LabiziModule,
+        MoovopModule,
+        MoovhopModule
+
     ],
 })
 export class AppModule { }

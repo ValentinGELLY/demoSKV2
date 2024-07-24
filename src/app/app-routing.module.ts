@@ -9,7 +9,9 @@ import { MoovHop4000RoutingModuleAGIR2024 } from './demos/MOOVHOP-EK4000-2024-AG
 import { MoovHop8000RoutingModuleAGIR2024} from './demos/MOOVHOP-EK8000-2024-AGIR/moovhop-routing.module';
 import { MoovHop4000RoutingModuleEUMO2024 } from './demos/MOOVHOP-EK4000-2024-EUMO/moovhop-routing.module';
 import { IpmCatalogRooting } from './demos/IPM-CATALOG/catalog-routing.module';
-
+import { LabiziRoutingModule } from './demos/labizi/labizi-routing.module';
+import {MoovHopRoutingModule} from './demos/moovHop/moovHop-routing.module';
+import { MoovopRoutingModule } from './demos/moovop/moovop-routing.module'
 
 const routes: Routes = [
 ];
@@ -25,7 +27,10 @@ const routes: Routes = [
   MoovHop4000RoutingModuleAGIR2024,
   MoovHop8000RoutingModuleAGIR2024,
   MoovHop4000RoutingModuleEUMO2024,
-  IpmCatalogRooting
+  IpmCatalogRooting,
+  LabiziRoutingModule,
+  MoovHopRoutingModule,
+  MoovopRoutingModule
   ],
   exports: [RouterModule]
 })

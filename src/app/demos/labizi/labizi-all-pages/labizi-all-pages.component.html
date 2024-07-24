@@ -2,13 +2,18 @@
 
   <!-- bouton skip
   <div  id="skipContainer"> </div> -->
-  <div class="skip" [routerLink]="'..' + navigateTo">
+  <div class="skip" routerLink="'..' + navigateTo">
     Skip
   </div>
 
   <!-- logo IPM -->
-  <div class="labiziLogo" [routerLink]="'../labiziHomepage'"></div>
+  <div class="labiziLogo" routerLink="'../labiziHomepage'"></div>
   <!-- <div id="labiziLogoContainer" > </div> -->
+
+
+  <!-- Diapo catalogue IPM-->
+  <a class="IPMcatalog" (click)="navigateToError()"></a>
+
 
   <!-- <div class="criticalComponent"
     *ngIf="appService.currentView === 'tech' || appService.currentView === 'advancedTech' || appService.currentView === 'ivq'">
@@ -18,7 +23,7 @@
   </div> -->
   <!--
   <div class="previousSkip" *ngIf="appService.currentView === 'marketing' && currentUrl != '/labiziHomepage'"
-    [routerLink]="'..'" + navigateToPrevious>
+    routerLink="'..'" + navigateToPrevious>
     Previous
   </div> -->
 

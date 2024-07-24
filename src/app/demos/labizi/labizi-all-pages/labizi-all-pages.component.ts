@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppService } from 'src/app/app.service';
+import { AppService } from '../../../app.service';
 import { LabiziService } from '../labizi.service';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../softkiosk.service';
 
 @Component({
   selector: 'labizi-all-pages',
@@ -62,7 +62,10 @@ export class LabiziAllPagesComponent implements OnInit {
       }
     });
   }
-
+  
+  navigateToError() {
+    this.appService.goOnCatalog()
+  }
   // displayArrayServiceStatusCritical() {
   //   let _this = this;
   //   _this.arrayServiceStatusCritical.forEach((service: any) => {

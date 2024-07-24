@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { skip } from 'rxjs';
-import { SoftKioskService } from 'src/app/softkiosk.service';
 import { LabiziService } from '../labizi.service';
 
 

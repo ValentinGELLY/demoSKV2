@@ -231,11 +231,7 @@ export class MoovHopAllPagesComponent extends GenericComponent implements OnInit
   }
 
   navigateToError() {
-    Kiosk.demoSKV2.setApplicationStatus({
-      "status": "Critical",
-      "statusDetail": "",
-      "statusDescription": ""
-    });
+    this.appService.goOnCatalog()
   }
 
   showPopUp() {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../../softkiosk.service';
 import { MoovopService } from '../../moovHop.service';
 import { GenericComponent } from '../../../generic/generic.component';
 

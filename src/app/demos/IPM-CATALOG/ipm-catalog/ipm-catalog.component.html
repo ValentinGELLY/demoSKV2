@@ -20,26 +20,28 @@
         <div id="Error">
             <ul>
                 <li id="stringServiceStatusCritical" *ngFor="let item of allActualServicesStatus">
-                    <ng-container [ngSwitch]="item.status">
-                        <label *ngSwitchCase="'Ok'" class="moovHopGoodServices stringServiceStatusabel" id="">
-                          {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''"> ( {{item.statusDetail}} )</span>
-                        </label>
-                        <label *ngSwitchCase="'Warning'" class="moovHopWarningServices stringServiceStatusabel" id="">
-                          {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''"> ( {{item.statusDetail}} )</span>
-                        </label>
-                        <label *ngSwitchCase="'TempUnavailable'" class="tempUnavailableService stringServiceStatusabel" id="">
-                          {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''"> ( {{item.statusDetail}} )</span>
-                        </label>
-                        <label *ngSwitchDefault class="moovHopErrorService stringServiceStatusabel" id="">
-                          {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''"> ( {{item.statusDetail}} )</span>
-                        </label>
-                      </ng-container>
+                  <ng-container [ngSwitch]="item.status">
+                    <label *ngSwitchCase="'Ok'" class="moovHopGoodServices" id="stringServiceStatusCriticallabel">
+                      {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''">({{item.statusDetail}})</span>
+                    </label>
+                    <label *ngSwitchCase="'Warning'" class="moovHopWarningServices" id="stringServiceStatusCriticallabel">
+                      {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''">({{item.statusDetail}})</span>
+                    </label>
+                    <label *ngSwitchCase="'TempUnavailable'" class="tempUnavailableService" id="stringServiceStatusCriticallabel">
+                      {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''">({{item.statusDetail}})</span>
+                    </label>
+                    <label *ngSwitchDefault class="moovHopErrorService" id="stringServiceStatusCriticallabel">
+                      {{item.service}} : {{item.status}} <span *ngIf="item.statusDetail!=''">({{item.statusDetail}})</span>
+                    </label>
+                  </ng-container>
+                  
                 </li>
             </ul>
         </div>
-        <div style="width: 100%; display: flex;justify-content: space-around;">
+        <div style="width: 100%; display: flex;justify-content: space-around; flex-wrap: wrap;">
             <button (click)="restart()">Redémarrer</button>
             <button id="btnManualCard" (click)="changePayment()">Paiement Manuel</button>
+            <button (click)="retourDemoskV2()">Retour à DEMOSKV2</button>
         </div>
 
     </div>

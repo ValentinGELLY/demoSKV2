@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MoovopService } from '../moovop.service';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../softkiosk.service';
 
 @Component({
   selector: 'app-moovop-recup-card',

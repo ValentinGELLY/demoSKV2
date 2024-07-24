@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../../softkiosk.service';
 import { MoovopService } from '../../moovHop.service';
-import { GenericComponent } from 'src/app/demos/generic/generic.component';
+import { GenericComponent } from '../../../generic/generic.component';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-moov-hop-reload-use-case-congratulations',

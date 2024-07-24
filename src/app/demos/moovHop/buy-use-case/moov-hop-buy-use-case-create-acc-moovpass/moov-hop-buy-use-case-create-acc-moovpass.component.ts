@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../../softkiosk.service';
 @Component({
   selector: 'app-moov-hop-buy-use-case-create-acc-moovpass',
   templateUrl: './moov-hop-buy-use-case-create-acc-moovpass.component.html',

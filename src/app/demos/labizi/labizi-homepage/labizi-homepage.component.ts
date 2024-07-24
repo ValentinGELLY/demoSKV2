@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LabiziService } from '../labizi.service';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../softkiosk.service';
 
 @Component({
   selector: 'labizi-homepage',
@@ -24,7 +24,7 @@ export class LabiziHomepageComponent implements OnInit {
 
     this.labiziService.testType = "Covid";
 
-    console.log("liste des scenarios disponibles: " + _this.skService.getScenarioList());
+    //console.log("liste des scenarios disponibles: " + _this.skService.getScenarioList());
     console.log("liste des services disponibles: "  + _this.skService.getServicesList());
   }
 
@@ -32,7 +32,7 @@ export class LabiziHomepageComponent implements OnInit {
     let _this = this;
     let jaiRdvVar = "jaiRdv";
     console.log("démarrage parcours client jaiRdv");
-    _this.skService.activeSoftkioskScenario("CardPayment_Debit_Without_ReceiptPrinting.json");
+    //_this.skService.activeSoftkioskScenario("CardPayment_Debit_Without_ReceiptPrinting.json");
     console.log("Enregistrement de l'information " + jaiRdvVar + " dans le journal de session");
     _this.skService.addEventApplication("demoSKV2", jaiRdvVar);
   }

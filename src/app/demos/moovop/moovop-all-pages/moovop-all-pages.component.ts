@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MoovopService } from '../moovop.service';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../softkiosk.service';
 import { GenericComponent } from '../../generic/generic.component';
+import { AppService } from '../../../app.service';
 
 @Component({
   selector: 'moovop-all-pages',
@@ -24,7 +25,7 @@ export class MoovopAllPagesComponent extends GenericComponent implements OnInit,
   messageBarcode: string = "";
   messageCardDispenser: string = "";
 
-  constructor(moovopService: MoovopService, skService: SoftKioskService) {
+  constructor(moovopService: MoovopService, skService: SoftKioskService, private appService: AppService) {
     super(skService);
     this.moovopService = moovopService;
     this.skService = skService;
@@ -54,6 +55,10 @@ export class MoovopAllPagesComponent extends GenericComponent implements OnInit,
         console.log("DataType StatusChanged");
         break;
     }
+  }
+
+  navigateToError() {
+    this.appService.goOnCatalog()
   }
 
   testStatus = () => {

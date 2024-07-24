@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { CommonModule } from '@angular/common';
 import { IpmCatalogComponent } from './ipm-catalog/ipm-catalog.component';
 
 
@@ -10,8 +10,7 @@ import { IpmCatalogComponent } from './ipm-catalog/ipm-catalog.component';
   ],
   imports: [
     BrowserModule,
-    
-    //MoovHop4000RoutingModule
+    CommonModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

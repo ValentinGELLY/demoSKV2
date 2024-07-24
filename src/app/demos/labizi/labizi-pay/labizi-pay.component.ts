@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { SoftKioskService } from 'src/app/softkiosk.service';
+import { SoftKioskService } from '../../../softkiosk.service';
 import { GenericComponent } from '../../generic/generic.component';
 import { LabiziService } from '../labizi.service';
 import { Router } from '@angular/router';
@@ -39,7 +39,7 @@ export class LabiziPayComponent extends GenericComponent implements OnInit, OnDe
     let _this = this;
     let refShoppingCart = "ticket-1234";
     // chargement du scénario
-    _this.skService.activeSoftkioskScenario("CardPayment_Debit_Without_ReceiptPrinting.json");
+    //_this.skService.activeSoftkioskScenario("CardPayment_Debit_Without_ReceiptPrinting.json");
     // abonnement et appel d'api
     console.log("on s'abonne à l'event cardDebit de la callback onPaymentDebit");
     _this.skService.addEventListener("CardPayment", "cardDebit", this.onCardDebit);

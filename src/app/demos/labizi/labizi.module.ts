@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -31,6 +31,8 @@ import { RouterModule } from '@angular/router';
     BrowserAnimationsModule,
     RouterModule
   ],
-  providers: []
+  exports: [LabiziAllPagesComponent],
+  providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LabiziModule { }

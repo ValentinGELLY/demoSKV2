@@ -1,13 +1,16 @@
 <div class="divBody">
 
   <!-- bouton skip -->
-  <div class="moovopSkip" [routerLink]="'..' + moovopNavigateTo">
+  <div class="moovopSkip" routerLink="'..' + moovopNavigateTo">
     Skip
   </div>
 
   <!-- logo IPM -->
   <div class="moovopLogo" routerLink="/moovopRecupCard"> </div>
 
+
+  <!-- Diapo catalogue IPM-->
+  <a class="IPMcatalog" (click)="navigateToError()"></a>
   <!-- affichage services en status critical -->
   <div class="moovopCriticalService">
   </div>

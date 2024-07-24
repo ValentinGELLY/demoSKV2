@@ -1,7 +1,7 @@
 <div class="moovHopDivBody">
 
   <!-- bouton skip -->
-  <div class="moovHopSkip" [routerLink]="'..' + moovHopNavigateTo">
+  <div class="moovHopSkip" routerLink="'..' + moovHopNavigateTo">
     Skip
   </div>
 
@@ -10,6 +10,9 @@
   <!-- logo Moovop -->
   <div class="moovHopLogo" routerLink="/moovHopHomepage"> </div>
 
+
+  <!-- Diapo catalogue IPM-->
+  <a class="IPMcatalog" (click)="navigateToError()"></a>
   <!-- affichage services en status critical -->
   <div class="moovHopCriticalService">
     <label> {{ stringServiceStatusCritical }} </label>

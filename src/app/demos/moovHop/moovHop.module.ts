@@ -78,7 +78,8 @@ import { MoovHopBuyUseCaseNewerCiOneProgressingComponent } from './buy-use-case/
     MoovHopBuyUseCaseScanOlderCiFiniseComponent,
     MoovHopBuyUseCaseNewerCiScanFinishedComponent,
     MoovHopBuyUseCaseNewerCiOneProgressingComponent
-  ], exports: [MoovHopAllPagesComponent ],
+  ], 
+  exports: [MoovHopAllPagesComponent ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -88,4 +89,4 @@ import { MoovHopBuyUseCaseNewerCiOneProgressingComponent } from './buy-use-case/
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class MoovopModule { }
+export class MoovhopModule { }
