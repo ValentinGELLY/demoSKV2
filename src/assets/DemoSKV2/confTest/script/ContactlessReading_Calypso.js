@@ -10,7 +10,7 @@ function start1(){
 }
 
 function stop1(){
-    console.log("STOP - Arrêt de l'écoute du lecteur de carte ")
+    console.log("END - Arrêt de l'écoute du lecteur de carte ")
     Kiosk.ContactlessReading.removeEventListener('cardDetect', onCardDetect);
 }
 

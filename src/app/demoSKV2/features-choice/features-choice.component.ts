@@ -74,25 +74,23 @@ export class FeaturesChoiceComponent implements OnInit {
           const titleRegex = /@title\s+(.*)/;
           const descriptionRegex = /@description\s+(.*)/;
           const serviceRegex = /@service\s+([^\s]+)(?:\s+\(([^)]*)\))?/;
-
           const titleMatch = text.match(titleRegex);
           const descriptionMatch = text.match(descriptionRegex);
           const serviceMatch = text.match(serviceRegex);
-
           const title = titleMatch ? titleMatch[1].toUpperCase() : 'N/A';
           const description = descriptionMatch ? descriptionMatch[1].slice(0, 50) + "..." : 'N/A';
           const service = serviceMatch ? serviceMatch[1] : 'N/A';
           const component = serviceMatch && serviceMatch[2] ? serviceMatch[2] : 'N/A';
-          
+
           this.verifiedFeatureList.push({
             feature: this.featuresList[i],
-            title,
+            title: title.toUpperCase(),
             description,
             service,
             component,
           });
           this.verifiedFeatureList.sort((a, b) => a.feature.localeCompare(b.feature));
-          this.verifiedFeatureListFiltered =[...this.verifiedFeatureList];
+          this.verifiedFeatureListFiltered = [...this.verifiedFeatureList];
           this.missing_text = this.missing.join(', ');
         })
         .catch((error) => {
@@ -103,13 +101,12 @@ export class FeaturesChoiceComponent implements OnInit {
 
 
   onSearch(event: Event): void {
-    
     let typeSelected = document.getElementById('typeResearch') as HTMLSelectElement;
-    let type :string = typeSelected.value;
+    let type: string = typeSelected.value;
     const query = (event.target as HTMLInputElement).value.toLowerCase();
     if ((document.getElementById("searchTextId")! as HTMLInputElement).value === '') {
       this.verifiedFeatureListFiltered = this.verifiedFeatureList;
-    }else{
+    } else {
       this.verifiedFeatureListFiltered = this.verifiedFeatureList.filter(item => (item as any)[type].toLowerCase().includes(query));
     }
   }

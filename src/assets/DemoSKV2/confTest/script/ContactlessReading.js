@@ -17,7 +17,7 @@ function star1(){
  * Arrêt de l'écoute d'un lecteur sans contact
  */
 function stop1(){
-    console.log("STOP - Fin de l'écoute du lecteur sans contact");
+    console.log("END - Fin de l'écoute du lecteur sans contact");
     Kiosk.ContactlessReading.removeEventListener('cardDetect', onCardDetect);
 }
 

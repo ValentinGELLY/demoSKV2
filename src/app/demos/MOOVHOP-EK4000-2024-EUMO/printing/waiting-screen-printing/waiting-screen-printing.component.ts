@@ -26,7 +26,6 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
   override ngOnInit(): void {
 
     console.log(this.moovHopService.ActionChoosed);
-
     if (this.router.url == "/EUMO2024/waitingScreenPrinting") {
       if (this.moovHopService.ActionChoosed == 1) {
         if (this.moovHopService.textCB != '') {
@@ -43,108 +42,64 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
             '</body>' +
             '</html>'
           this.moovHopService.textCB = '';
-        } else {
-          this.moovHopService.htmlReceiptContent = '<html><meta charset="utf-8" >' +
-            '<body style="font-family:Arial; font-size: 1.2rem; font-kerning: 2px; text-rendering: optimizeLegibility;">' +
-            '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:20px; width:150px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/MoovHop/logo-app-print.png" >' +
-            '<h4 style="text-align:center"> Confirmation d\' achat</h4>' +
-            '<p style="text-align:center;">' + this.moovHopService.priceSubscription + '€</p>' +
-            '<p style="text-align:center;">.....................</p>' +
-            '<div style="width:100%; text-align:center"><img src="http://localhost:5000/DemoSKV2/application/assets/MOOVHOP-EK4000-2023-RNTP/qr_ticket.jpg"></div>' +
-            '<p style="text-align:center;">Récupérez votre carte d\'abonné en agence ou sur une borne de Click & Collect en scannant ce QR code !</p>' +
-            '</body>' +
-            '</html>'
+          this.printCallback = (e: any): any => {
+            switch (e.data.dataType) {
+              case 'RawPdfPrinted':
+                if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
+                  if (this.moovHopService.textCB != ''){
+                    this.skService.ticketPrintingPrintRawHtml(this.moovHopService.htmlReceiptContent);
+                  }
+                  setTimeout(() => {
+                    if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
+                      this.router.navigate(['/EUMO2024/subScriptionConfirmation']);
+                    }
+                  }, 10000);
+                }
+                break;
+              case 'RawPdfPrintError':
+                if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
+                  console.error(e.data.code + ": " + e.data.description);
+                  this.handlePrintError(e.data.code);
+                }
+                break;
+            }
+            try {
+              this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
+              this.skService.documentPrintingPrintRawPdf(this.pdf);
+            } catch (error) {
+              console.log("Impossible d'imprimer le pdf " + error);
+            }
+          }
         }
+      } else if (this.moovHopService.ActionChoosed == 2) {
 
         this.printCallback = (e: any): any => {
-          let navEvent;
           switch (e.data.dataType) {
             case 'RawPdfPrinted':
               if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
                 this.skService.ticketPrintingPrintRawHtml(this.moovHopService.htmlReceiptContent);
-                // traitement pour le changement de vue
-                navEvent = new CustomEvent("moovHopNav", {
-                  detail: {
-                    "delay": 0,
-                    "goTo": "/EUMO2024/printingThanks"
+                
+                setTimeout(() => {
+                  if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
+                    this.router.navigate(['/EUMO2024/subScriptionConfirmation']);
                   }
-                });
-                window.dispatchEvent(navEvent);
+                }, 10000);
               }
               break;
             case 'RawPdfPrintError':
               if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
                 console.error(e.data.code + ": " + e.data.description);
                 this.handlePrintError(e.data.code);
-                // traitement pour le changement de vue
-                navEvent = new CustomEvent("moovHopNav", {
-                  detail: {
-                    "delay": 0,
-                    "goTo": "/EUMO2024/printingThanks"
-                  }
-                });
-                window.dispatchEvent(navEvent);
               }
               break;
           }
-        }
-
-        try {
-          this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
-          this.skService.documentPrintingPrintRawPdf(this.pdf);
-        } catch (error) {
-          console.log("Impossible d'imprimer le pdf " + error);
-        }
-        setTimeout(() => {
-          if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
-            this.router.navigate(['/EUMO2024/subScriptionConfirmation']);
-          }
-        }, 10000);
-
-      } else if (this.moovHopService.ActionChoosed == 2) {
-
-        this.printCallback = (e: any): any => {
-          let navEvent;
-          switch (e.data.dataType) {
-            case 'RawPdfPrinted':
-              if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
-                // traitement pour le changement de vue
-                navEvent = new CustomEvent("moovHopNav", {
-                  detail: {
-                    "delay": 0,
-                    "goTo": "/EUMO2024/printingThanks"
-                  }
-                });
-                window.dispatchEvent(navEvent);
-              }
-              break;
-            case 'RawPdfPrintError':
-              if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
-                console.error(e.data.code + ": " + e.data.description);
-                this.handlePrintError(e.data.code);
-                // traitement pour le changement de vue
-                navEvent = new CustomEvent("moovHopNav", {
-                  detail: {
-                    "delay": 0,
-                    "goTo": "/EUMO2024/printingThanks"
-                  }
-                });
-                window.dispatchEvent(navEvent);
-              }
-              break;
+          try {
+            this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
+            this.skService.documentPrintingPrintRawPdf(this.pdf);
+          } catch (error) {
+            console.log("Impossible d'imprimer le pdf " + error);
           }
         }
-        try {
-          this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
-          this.skService.documentPrintingPrintRawPdf(this.pdf);
-        } catch (error) {
-          console.log("Impossible d'imprimer le pdf " + error);
-        }
-        setTimeout(() => {
-          if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
-            this.router.navigate(['/EUMO2024/subScriptionConfirmation']);
-          }
-        }, 10000);
 
 
       } else {
@@ -158,58 +113,36 @@ export class WaitingScreenPrintingComponent extends GenericComponent implements 
             '<p style="text-align:center;" ">' + this.moovHopService.textCB + '</p>'
           '</body>' +
             '</html>'
-        } else {
-          this.moovHopService.htmlReceiptContent = '<html><meta charset="utf-8" >' +
-            '<body style="font-family:Arial; font-size: 1.2rem; font-kerning: 2px; text-rendering: optimizeLegibility;">' +
-            '<img style="padding-top:25px; margin-left:auto; margin-right:auto; margin-bottom:25px; margin-top:20px; width:150px; display:block" src="http://localhost:5000/DemoSKV2/application/assets/MoovHop/logo-app-print.png" >' +
-            '<h4 style="text-align:center"> Confirmation d\'achat</h4>' +
-            '<p style="text-align:center;"> 60.00 €</p>' +
-            '</body>' +
-            '</html>'
-        }
-
+        } 
         this.printCallback = (e: any): any => {
-          let navEvent;
           switch (e.data.dataType) {
             case 'RawPdfPrinted':
               if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
-                // traitement pour le changement de vue
-                navEvent = new CustomEvent("moovHopNav", {
-                  detail: {
-                    "delay": 0,
-                    "goTo": "/EUMO2024/printingThanks"
+                if (this.moovHopService.textCB != ''){
+                  this.skService.ticketPrintingPrintRawHtml(this.moovHopService.htmlReceiptContent);
+                }
+                
+                setTimeout(() => {
+                  if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
+                    this.router.navigate(['/EUMO2024/subScriptionConfirmation']);
                   }
-                });
-                window.dispatchEvent(navEvent);
+                }, 10000);
               }
               break;
             case 'RawPdfPrintError':
               if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
                 console.error(e.data.code + ": " + e.data.description);
                 this.handlePrintError(e.data.code);
-                // traitement pour le changement de vue
-                navEvent = new CustomEvent("moovHopNav", {
-                  detail: {
-                    "delay": 0,
-                    "goTo": "/EUMO2024/printingThanks"
-                  }
-                });
-                window.dispatchEvent(navEvent);
               }
               break;
           }
-        }
-        try {
-          this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
-          this.skService.documentPrintingPrintRawPdf(this.pdf);
-        } catch (error) {
-          console.log("Impossible d'imprimer le pdf " + error);
-        }
-        setTimeout(() => {
-          if (this.router.url === "/EUMO2024/waitingScreenPrinting") {
-            this.router.navigate(['/EUMO2024/subScriptionConfirmation']);
+          try {
+            this.skService.addEventListener("DocumentPrinting", "rawPdfPrint", this.printCallback);
+            this.skService.documentPrintingPrintRawPdf(this.pdf);
+          } catch (error) {
+            console.log("Impossible d'imprimer le pdf " + error);
           }
-        }, 10000);
+        }
       }
     }
   }

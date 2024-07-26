@@ -4,12 +4,12 @@
   font-family: "Poppins", sans-serif;
 }
 
-p{
+p {
   margin: 0;
 }
 
-h2{
-  font-size : 115%
+h2 {
+  font-size: 115%;
 }
 
 body {
@@ -33,14 +33,13 @@ body {
   align-items: center;
   left: 50%;
   font-size: 2em;
-  width: 71%;
+  width: 90%;
   justify-content: space-around;
   top: 50px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
-
 
 #title h1 {
   width: 100%;
@@ -106,7 +105,7 @@ main {
 .accordion {
   color: #444;
   cursor: pointer;
-  padding: 18px;
+  padding-bottom: 10px;
   border: none;
   text-align: left;
   outline: none;
@@ -118,10 +117,10 @@ main {
   border-bottom: solid 1px #000;
 }
 
-.accordion h3{
+.accordion h3 {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 95%;
 }
 
 .active {
@@ -147,29 +146,30 @@ main {
   margin: 0;
 }
 
-.resetAndOpenLogs{
+.resetAndOpenLogs {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 27%;
 }
 
-.resetImage{
+.resetImage {
   width: 50px;
   height: 50px;
 }
-.accordion h2{
+
+.accordion h2 {
   display: flex;
   align-items: center;
 }
 
-.StopSessionReset{
+.StopSessionReset {
   display: flex;
   gap: 7%;
   align-items: center;
 }
 
-.StopSessionReset img{
+.StopSessionReset img {
   width: 5%;
 }
 
@@ -199,21 +199,23 @@ main {
   display: flex;
   justify-content: space-around;
   text-align: center;
-  width: 100%;
+  width: 97%;
+  border-bottom: solid 1px white;
 }
 
 .logStatus {
-  width:100%;
+  width: 100%;
 }
 
-.actualStatusService{
+.actualStatusService {
   display: flex;
   justify-content: space-around;
   width: 50%;
+  border-bottom: solid 1px white;
 }
 
-.actualStatusService span{
-  width: 33%;
+.actualStatusService span {
+  width: 39%;
   text-align: center;
 }
 
@@ -224,12 +226,12 @@ main {
   height: 100%;
 }
 
-.titleService{
-  width: 50%;
+.titleService {
   text-align: right;
+  width: 49%;
 }
 
-.invisibleTitle{
+.invisibleTitle {
   opacity: 0;
 }
 
@@ -251,17 +253,21 @@ main {
 
 .hourEventSpan,
 .hourReceipSpan {
-  width: 20%;
+  width: 19%;
+  text-align: center;
+  font-family: monospace;
+  font-size: 1.2em;
 }
 
 .componentSpan {
   width: 30%;
+  text-align: right;
+  padding-right: 5px;
 }
 
 .statusHistorySection {
   width: 69%;
   display: flex;
-  justify-content: space-around;
 }
 
 .ReadyState,
@@ -269,43 +275,39 @@ main {
 .deviceStatusTitleOk,
 .serviceStatusTitleOk,
 .serviceStateOk,
-.okStatusDetailTitle{
+.okStatusDetailTitle {
   background-color: rgb(0, 185, 0);
   color: white;
 }
 
-.ProcessingState,
+/*.ProcessingState,
 .deviceStatusTitleWarning,
 .warningStatus,
 .serviceStatusTitleWarning{
   background-color: rgb(255, 211, 91);
-}
+}*/
 
-.otherState, 
+.otherState,
 .otherStatus,
 .deviceStatusTitleOther,
 .serviceStatusTitleOther,
-.otherStatusDetailTitle{
+.otherStatusDetailTitle {
   background-color: rgb(255, 0, 0);
   color: white;
 }
 
 .tempAvailableStatus,
 .deviceStatusTitleTempUnavailable,
-.serviceStatusTitleTempUnavailable{ 
+.serviceStatusTitleTempUnavailable {
   background-color: rgb(212, 0, 255);
   color: white;
-
 }
-
-
 
 .changeEventSpan {
-  width: 33%;
+  width: 32%;
 }
 
-
-#serviceNotFound{
+#serviceNotFound {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -313,14 +315,13 @@ main {
   gap: 5px;
 }
 
-.notFoundSection{
+.notFoundSection {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-
-.serviceNotFoundItem{
+.serviceNotFoundItem {
   color: red;
 }
 
@@ -351,7 +352,7 @@ input {
   gap: 20px;
 }
 
-.titleServiceDeviceTest{
+.titleServiceDeviceTest {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -361,7 +362,7 @@ input {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 100%;
+  width: 66%;
 }
 
 #showSection section {
@@ -370,6 +371,10 @@ input {
   align-items: center;
 }
 
+#title h3 {
+  width: 23%;
+  text-align: left;
+}
 
 #btnRead,
 #btnCode {
@@ -383,7 +388,6 @@ input {
   cursor: pointer;
   padding: 20px;
 }
-
 
 #popUpDescriptionPage,
 #popUpCodePage {
@@ -419,15 +423,13 @@ input {
   margin: 33px;
   font-size: 2.2em;
   text-align: center;
-
 }
 
 #idDescription,
 #idCode {
   font-size: 1.5em;
-  overflow: scroll;
   height: 70%;
-  overflow-x: hidden;
+  overflow-y: auto;
   padding: 15px;
 }
 
@@ -535,10 +537,9 @@ input {
   width: 40%;
 }
 
-.ResultsLog_Results{
+.ResultsLog_Results {
   width: 58%;
 }
-
 
 .stopSession {
   display: flex;
@@ -553,13 +554,10 @@ input {
   justify-content: space-between;
 }
 
-
-
 table {
   width: 100%;
   border-collapse: collapse;
 }
-
 
 /**
  * Mise en forme du code
@@ -577,14 +575,15 @@ pre {
 
 code[class*="language-"],
 pre[class*="language-"] {
-  color: #393A34;
-  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  color: #393a34;
+  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier,
+    monospace;
   direction: ltr;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
-  font-size: .9em;
+  font-size: 0.9em;
   line-height: 1.2em;
 
   -moz-tab-size: 4;
@@ -597,7 +596,7 @@ pre[class*="language-"] {
   hyphens: none;
 }
 
-pre>code[class*="language-"] {
+pre > code[class*="language-"] {
   font-size: 1em;
 }
 
@@ -618,15 +617,15 @@ code[class*="language-"] ::selection {
 /* Code blocks */
 pre[class*="language-"] {
   padding: 1em;
-  margin: .5em 0;
+  margin: 0.5em 0;
   overflow: auto;
   border: 1px solid #dddddd;
   background-color: white;
 }
 
 /* Inline code */
-:not(pre)>code[class*="language-"] {
-  padding: .2em;
+:not(pre) > code[class*="language-"] {
+  padding: 0.2em;
   padding-top: 1px;
   padding-bottom: 1px;
   background: #f8f8f8;
@@ -642,7 +641,7 @@ pre[class*="language-"] {
 }
 
 .token.namespace {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .token.string,
@@ -652,7 +651,7 @@ pre[class*="language-"] {
 
 .token.punctuation,
 .token.operator {
-  color: #393A34;
+  color: #393a34;
   /* no highlight */
 }
 
@@ -698,11 +697,9 @@ pre[class*="language-"] {
   font-style: italic;
 }
 
-
-.descriptionParsed{
+.descriptionParsed {
   font-size: 0.5em;
 }
-
 
 /**
 * dragable section 
@@ -714,13 +711,13 @@ pre[class*="language-"] {
   object-fit: contain;
 }
 
-.showImage{
+.showImage {
   width: 8%;
   border: none;
-  background:none ;
+  background: none;
 }
 
-.showImage img{
+.showImage img {
   width: 100%;
 }
 
@@ -742,13 +739,34 @@ pre[class*="language-"] {
   position: absolute;
   z-index: 1;
   transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-              0 2px 2px 0 rgba(0, 0, 0, 0.14),
-              0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
 .resultImageClass:active {
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-              0 8px 10px 1px rgba(0, 0, 0, 0.14),
-              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+// style on off button
+.custom-slide-toggle {
+  background-color: #ffdcdc;
+  padding: 4px;
+  border-radius: 9px;
+  width: 26%;
+  text-align: center;
+}
+
+#statusDescriptionPopUp {
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#statusDescriptionPopUp p {
+  width: 70%;
+  height: 70%;
+}
+
+.statusDescriptionHeader{
+  width: 20%;
 }

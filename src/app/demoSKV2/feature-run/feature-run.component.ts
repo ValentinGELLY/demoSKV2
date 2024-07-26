@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, Renderer2, ChangeDetectorRef } from '@angular/core';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { AppService } from '../../app.service';
 import { GenericComponent } from '../../demos/generic/generic.component';
 import { SoftKioskService } from '../../softkiosk.service';
@@ -28,11 +29,14 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   imageCapture: string[] = [];
   Kiosk = Kiosk;
 
+  isSubscribedToEmailsMessage: string = 'Toggle to subscribe to emails';
+  isSubscribed: boolean = false;
 
   code: string = '';
   formattedCode: string = "";
   language: string = "javascript";
 
+  hour: string = "";
 
   actualStatusAllService: { [service: string]: any } = {};
   actualStatusAllDevice: { [device: string]: any } = {};
@@ -49,7 +53,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   listStopFunction: string[] = [];
   listComments: string[] = [];
   undefinedServices: string[] = [];
-  undefinedDevices: string[] = [];
+  undefinedDevices: { service: string, device: string }[] = [];
   actualLogLocation: string = "";
 
   nameMainService: string = "";
@@ -62,11 +66,30 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   compteurImageTempo: number = 0;
   //isRunning: boolean = false;
 
+  dataToShow: any = {};
+  showPopUpDescription: boolean = false;
+
   constructor(private cdr: ChangeDetectorRef, skService: SoftKioskService, private renderer: Renderer2, private appService: AppService, private router: Router) {
     super(skService);
   }
   override ngOnInit() {
+    this.showHour();
     this.buildPageWithJsFile(this.appService.filename);
+
+  }
+
+  /**
+   * Afficher l'heure actuelle
+   */
+  showHour() {
+    var today = new Date();
+    var time = today.getHours().toString().padStart(2, '0') + ":" + today.getMinutes().toString().padStart(2, '0') + ":" + today.getSeconds().toString().padStart(2, '0');
+    this.hour = time;
+    setInterval(() => {
+      var today = new Date();
+      var time = today.getHours().toString().padStart(2, '0') + ":" + today.getMinutes().toString().padStart(2, '0') + ":" + today.getSeconds().toString().padStart(2, '0');
+      this.hour = time;
+    }, 1000);
   }
 
   /**
@@ -102,7 +125,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
           i++;
           this.serviceUsed.push({ service, device });
         }
-        this.nomApp = title;
+        this.nomApp = title.toUpperCase();
         this.description = description;
         this.parsedDescription = this.getShortenedDescription();
         this.nbService = this.serviceUsed.length;
@@ -158,7 +181,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
         const lines = cleanedComment.split('\n').map(line => line.trim());
         return lines[0].split('@')[0].trim();
       }).filter(description => description.length > 0); // Filtre les chaînes vides
-
       this.buildFormFromText(text);
 
     } catch (error) {
@@ -175,45 +197,60 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
     for (let i = 0; i < nbService; i++) {
       let service = this.serviceUsed[i].service;
       if (Kiosk[service] !== undefined) {
-        let actualStatusService = this.skService.getStatus(service);
-        let actualStateService = this.skService.getState(service);
-        let statusDetailService = this.skService.getServiceStatusDetail(service);
-        this.actualStatusAllService[service] = { "status": actualStatusService, "state": actualStateService, "statusDetail": statusDetailService };
+        this.actualStatusAllService[service] = { "status": this.skService.getStatus(service), "state": this.skService.getState(service), "statusDetail": this.skService.getServiceStatusDetail(service) };
         this.historicStatusAllService[service] = [];
-        let date = this.getFormattedTime();
-        this.historicStatusAllService[service].unshift({ "hourEvent": date, "hourReceiptEvent": date, "status": actualStatusService, "state": actualStateService, "statusDetail": statusDetailService, "component": service })
+        let formattedDate = this.getFormattedTime();
+        this.historicStatusAllService[service].unshift({ "hourEvent": formattedDate, "hourReceiptEvent": formattedDate, "status": this.skService.getStatus(service), "state": this.skService.getState(service), "statusDetail": this.skService.getServiceStatusDetail(service), "component": service })
         this.historicEvent[service] = [];
         this.skService.addEventListener(service, "statusChange", (e: any) => {
+          let dateEventFromTick = this.tickToHour(e.tick);
+          const dt1 = this.parseTime(dateEventFromTick);
+          let formatedDate = this.getFormattedTime(); 
+          const dt2 = this.parseTime(formatedDate);
+          let differenceInMillis = dt2.getTime() - dt1.getTime();
           this.actualStatusAllService[service] = { "status": Kiosk[service].status, "state": Kiosk[service].state, "statusDetail": Kiosk[service].statusDetail };
-          this.historicStatusAllService[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": this.getFormattedTime(), "status": Kiosk[service].status, "statusDetail": Kiosk[service].statusDetail, "component": service });
-          this.historicEvent[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": this.getFormattedTime(), "status": Kiosk[service].status, "statusDetail": Kiosk[service].statusDetail, "component": service });
+          this.historicStatusAllService[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": formatedDate, "diffHourReceiptHourEvent": this.formatDifference(differenceInMillis), "status": Kiosk[service].status, "statusDetail": Kiosk[service].statusDetail, "component": service });
+          this.historicEvent[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": formatedDate, "diffHourReceiptHourEvent": this.formatDifference(differenceInMillis), "status": Kiosk[service].status, "statusDetail": Kiosk[service].statusDetail, "component": service , "statusDescription": Kiosk[service].statusDescription});
           this.cdr.detectChanges();
         });
         this.skService.addEventListener(service, "stateChange", (e: any) => {
+          let dateEventFromTick = this.tickToHour(e.tick);
+          const dt1 = this.parseTime(dateEventFromTick);
+          let formatedDate = this.getFormattedTime();
+          const dt2 = this.parseTime(formatedDate);
+          let differenceInMillis = dt2.getTime() - dt1.getTime();
           this.actualStatusAllService[service] = { "status": Kiosk[service].status, "state": Kiosk[service].state, "statusDetail": Kiosk[service].statusDetail };
-          this.historicStatusAllService[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": this.getFormattedTime(), "state": Kiosk[service].state, "component": service });
-          this.historicEvent[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": this.getFormattedTime(), "state": Kiosk[service].state, "component": service });
+          this.historicStatusAllService[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": formatedDate, "diffHourReceiptHourEvent": this.formatDifference(differenceInMillis), "state": Kiosk[service].state, "component": service, "statusDescription": Kiosk[service].statusDescription });
+          this.historicEvent[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": formatedDate, "diffHourReceiptHourEvent": this.formatDifference(differenceInMillis), "state": Kiosk[service].state, "component": service, "statusDescription": Kiosk[service].statusDescription });
           this.cdr.detectChanges();
         });
         if (this.serviceUsed[i].device != 'N/A') {
           device = this.serviceUsed[i].device;
           if (Kiosk[service][device] !== undefined) {
-            let actualStatusDevice = Kiosk[service][device].status;
-            let actualStateDevice = Kiosk[service][device].state;
-            let statusDetailDevice = Kiosk[service][device].statusDetail;
-            this.actualStatusAllDevice[device] = { "status": actualStatusDevice, "state": actualStateDevice, "statusDetail": statusDetailDevice };
+            this.actualStatusAllDevice[device] = { "status": Kiosk[service][device].status, "state": Kiosk[service][device].state, "statusDetail": Kiosk[service][device].statusDetail, "statusDescription": Kiosk[service][device].statusDescription };
             Kiosk[service][device].addEventListener("statusChange", (e: any) => {
-              this.actualStatusAllDevice[device] = { "status": Kiosk[service][device].status, "state": Kiosk[service][device].state, "statusDetail": Kiosk[service][device].statusDetail };
-              this.historicEvent[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": this.getFormattedTime(), "status": Kiosk[service][device].status, "statusDetail": Kiosk[service][device].statusDetail, "component": device });
+              let dateEventFromTick = this.tickToHour(e.tick);
+              const dt1 = this.parseTime(dateEventFromTick);
+              let formatedDate = this.getFormattedTime();
+              const dt2 = this.parseTime(formatedDate);
+              let differenceInMillis = dt2.getTime() - dt1.getTime();
+              this.actualStatusAllDevice[device] = { "status": Kiosk[service][device].status, "state": Kiosk[service][device].state, "statusDetail": Kiosk[service][device].statusDetail, "statusDescription": Kiosk[service][device].statusDescription };
+              this.historicEvent[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": formatedDate, "diffHourReceiptHourEvent": this.formatDifference(differenceInMillis), "status": Kiosk[service][device].status, "statusDetail": Kiosk[service][device].statusDetail, "component": device , "statusDescription": Kiosk[service][device].statusDescription});
               this.cdr.detectChanges();
             });
             Kiosk[service][device].addEventListener("stateChange", (e: any) => {
-              this.actualStatusAllDevice[device] = { "status": Kiosk[service][device].status, "state": Kiosk[service][device].state, "statusDetail": Kiosk[service][device].statusDetail };
-              this.historicEvent[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": this.getFormattedTime(), "state": Kiosk[service][device].state, "component": device });
+              let dateEventFromTick = this.tickToHour(e.tick);
+              const dt1 = this.parseTime(dateEventFromTick);
+              let formatedDate = this.getFormattedTime();
+              const dt2 = this.parseTime(formatedDate);
+
+              let differenceInMillis = dt2.getTime() - dt1.getTime();
+              this.actualStatusAllDevice[device] = { "status": Kiosk[service][device].status, "state": Kiosk[service][device].state, "statusDetail": Kiosk[service][device].statusDetail, "statusDescription": Kiosk[service][device].statusDescription };
+              this.historicEvent[service].unshift({ "hourEvent": this.tickToHour(e.tick), "hourReceiptEvent": formatedDate, "diffHourReceiptHourEvent": this.formatDifference(differenceInMillis), "state": Kiosk[service][device].state, "component": device, "statusDescription": Kiosk[service][device].statusDescription });
               this.cdr.detectChanges();
             });
           } else {
-            this.undefinedDevices.push(service);
+            this.undefinedDevices.push({ service, device });
           }
         }
       } else {
@@ -223,24 +260,54 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   }
 
   /**
+   * Met en format ss,mmm le temps en millisecondes
+   * @param milliseconds temps en millisecondes
+   * @returns le temps en secondes et millisecondes (format : ss,mmm)
+   */
+  formatDifference(milliseconds: number): string {
+    const totalSeconds = Math.floor(milliseconds / 1000);
+    const remainingMilliseconds = milliseconds % 1000;
+    if (remainingMilliseconds.toString().length === 1) {
+      return `${totalSeconds},00${remainingMilliseconds}`;
+    }else if (remainingMilliseconds.toString().length === 2) {
+      return `${totalSeconds},0${remainingMilliseconds}`;
+    }
+    return `${totalSeconds},${remainingMilliseconds}`;
+  }
+
+  /**
+   * Permet la transformation d'une date en string au format HH:MM:SS,SSS
+   * @param timeStr string d'une heure au format HH:MM:SS,SSS
+   * @returns  une date avec l'heure donnée
+   */
+  parseTime(timeStr: string): Date {
+    const [hours, minutes, secondsMilliseconds] = timeStr.split(':');
+    const [seconds, milliseconds] = secondsMilliseconds.split(',');
+
+    const date = new Date();
+    date.setHours(parseInt(hours, 10));
+    date.setMinutes(parseInt(minutes, 10));
+    date.setSeconds(parseInt(seconds, 10));
+    date.setMilliseconds(parseInt(milliseconds, 10));
+
+    return date;
+  }
+
+
+  /**
    * Obtenir l'heure actuelle formatée
    * @returns l'heure actuelle formatée
    */
   getFormattedTime() {
     let hour = new Date();
-    const heure = hour.getHours().toString().padStart(2, "0");
-    const minutes = hour.getMinutes().toString().padStart(2, "0");
-    const secondes = hour.getSeconds().toString().padStart(2, "0");
-    const milisecondes = hour.getMilliseconds().toString().padStart(3, "0");
-    const hourformated = `${heure}:${minutes}:${secondes}:${milisecondes}`;
-    return hourformated;
+    return `${hour.getHours().toString().padStart(2, "0")}:${hour.getMinutes().toString().padStart(2, "0")}:${hour.getSeconds().toString().padStart(2, "0")},${hour.getMilliseconds().toString().padStart(3, "0")}`;;
   }
 
   /**
    * Get the hour from the tick
    * @param ticksInSecs .Net tick en secondes
    */
-  tickToHour(ticksInSecs : number) {
+  tickToHour(ticksInSecs: number) {
     // Nombre de ticks à convertir
     const epochOffset = 621355968000000000; // .NET start date - Unix epoch
     const ticksPerMillisecond = 10000; // .NET ticks in a millisecond
@@ -261,7 +328,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
     const formattedMilliseconds = milliseconds.toString().padStart(3, '0'); // ensure 3 digits
 
     return `${timePart},${formattedMilliseconds}`;
-}
+  }
 
   pad(n: number, width: number) {
     var n1: string = n + '';
@@ -305,6 +372,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   async callFunctionFromScript(functionName: string, idSection: string) {
     try {
       let scriptUrl = `http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/script/${this.appService.filename}.js`;
+
       this.actualLogLocation = "test_" + idSection.split("_")[2];
       fetch(scriptUrl)
         .then(response => response.text())
@@ -381,7 +449,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
         (document.getElementById("playBtn_test_" + idSection.split("_")[2]) as HTMLInputElement)!.style.opacity = "1";
         (document.getElementById("playBtn_test_" + idSection.split("_")[2]) as HTMLInputElement)!.disabled = false;
       }
-
     } catch (error) {
       console.error('Erreur lors du chargement ou de l\'exécution du script :', error);
     }
@@ -404,47 +471,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
     return code;
   }
 
-  /**
-   * Convertir un fichier en base 64 ( de préférence un fichier de type pdf)
-   * @param fileInput un objet input (ici on veut un input de type file)
-   * @returns la base 64 du fichier
-   */
-  convertToBase64(fileInput:HTMLInputElement) : any{
-    if (fileInput != null) {
-      const file = fileInput.files![0];
-      let base64String = "";
-      console.log("file");
-      console.log(file);
-      
-      if (file) {
-        const reader = new FileReader();
-        console.log("reader");
-        console.log(reader);
-        reader.onload = function (event) {
-          console.log("event");
-          console.log(event);
-          // Assert that event.target.result is a string
-          if (event.target){
-            console.log("event.target");
-            const result = event.target.result as string;
-            if (result) {
-              console.log("result");
-              console.log(result);
-              base64String = result.split(',')[1];
 
-              
-            }
-          }
-        };
-        console.log(base64String);
-        reader.readAsDataURL(file);
-        return base64String;
-      } else {
-        alert('Veuillez sélectionner un fichier.');
-      }
-    }
-
-  }
 
   redirectLogs(actualLogLocationLocal: string) {
     let _this = this;
@@ -455,17 +482,17 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
       } else {
         panel = 'panel_Logs';
       }
-      //Rcupération du contenu du console.log
+      //Récupération du contenu du console.log
       const logMessage = Array.prototype.slice.call(arguments).join(' ');
       //Affichage du contenu du console.log dans le panneau de logs
       if (logMessage.split("-") != null) {
         const logParts = logMessage.split("-");
-        const logType = logParts[0].replace(/[^a-zA-Z]/g, '');
+        const logType = logParts[0].replace(/[^a-zA-Z]/g, '').toUpperCase();
         const logContent = logParts.slice(1).join('-');
         // cas de logType = "END" ou "ERROR" ==> fin de l'exécution du script (affichage dans la console Results)
         if (logType == "END" || logType == "ERROR") {
           const hourformated = _this.getFormattedTime();
-          document.getElementById("panel_Logs_Results_" + actualLogLocationLocal)!.innerHTML = '<div>' + hourformated + " : " + logContent + '</div>' + document.getElementById("panel_Logs_Results_" + actualLogLocationLocal)!.innerHTML;
+          document.getElementById("panel_Logs_Results_" + actualLogLocationLocal)!.innerHTML = '<div><span style="font-family: monospace; font-size:1.2em">' + hourformated + "</span>    " + logContent + '</div>' + document.getElementById("panel_Logs_Results_" + actualLogLocationLocal)!.innerHTML;
           document.getElementById("last_Result_" + actualLogLocationLocal)!.innerHTML = hourformated + "   " + logContent;
           panel = 'panel_Logs';
           document.getElementById("playBtn_" + actualLogLocationLocal)!.style.opacity = "1";
@@ -478,7 +505,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
             _this.imageCapture[Number(actualLogLocationLocal.split('_')[1])] = "data:image/png;base64," + logContent;
           }
           const hourformated = _this.getFormattedTime();
-          document.getElementById("panel_Logs_Results_" + actualLogLocationLocal)!.innerHTML = "<div>" + hourformated + " : " + logContent.slice(0, 20) + "...</div>" + document.getElementById("panel_Logs_Results_" + actualLogLocationLocal)!.innerHTML;
+          document.getElementById("panel_Logs_Results_" + actualLogLocationLocal)!.innerHTML = "<div><span style='font-family: monospace; font-size:1.2em'>" + hourformated + "</span>    " + logContent.slice(0, 20) + "...</div>" + document.getElementById("panel_Logs_Results_" + actualLogLocationLocal)!.innerHTML;
           document.getElementById("playBtn_" + actualLogLocationLocal)!.style.opacity = "1";
           (document.getElementById("playBtn_" + actualLogLocationLocal) as HTMLButtonElement)!.disabled = false;
         }
@@ -490,7 +517,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
           } else {
             var logElement = document.getElementById("panel_Logs_" + actualLogLocationLocal);
             const hourformated = _this.getFormattedTime();
-            logElement!.innerHTML = "<div style='width:100%; display:flex'> <span style='width:28%' >" + hourformated + "</span> : " + logContent.slice(0, 20) + "... </div>" + logElement!.innerHTML;
+            logElement!.innerHTML = "<div style='width:100%; display:flex'> <span style='width:28%; font-family: monospace; font-size:1.2em'  >" + hourformated + "</span>    " + logContent.slice(0, 20) + "... </div>" + logElement!.innerHTML;
             _this.compteurImageTempo = 0;
           }
         }
@@ -498,7 +525,7 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
         else if (logType == "START" || logType == "USER") {
           const hourformated = _this.getFormattedTime();
           var logElement = document.getElementById("panel_Logs_" + actualLogLocationLocal);
-          logElement!.innerHTML = "<div>" + hourformated + " : " + logContent + "</div>";
+          logElement!.innerHTML = "<div><span style='font-family: monospace; font-size:1.2em'>" + hourformated + "</span>    " + logContent + "</div>";
         }
       }
       _this.cdr.detectChanges();
@@ -541,7 +568,6 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
   buildFormFromText(text: string) {
     this.parameters = this.extractParameterDetails(text);
     for (let i = 0; i < this.parameters.length; i++) {
-      console.log((this.parameters[i].type === 'file'))
       if (!(this.parameters[i].type === 'file')) {
         let jsonElement = {
           "type": this.parameters[i].type !== undefined ? this.parameters[i].type : "textfield",
@@ -711,6 +737,38 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
     } else {
       document.getElementById("resultImage" + i)!.style.display = "flex";
     }
+  }
+
+
+
+  /**
+   * affichage de la popup avec la description du status
+   * @param data contenu à afficher dans la popup 
+   */
+  showPupUpStatusDescription(data: any) {
+    if (document.getElementById("statusDescriptionPopUp")!.style.display === "flex") {
+      document.getElementById("statusDescriptionPopUp")!.style.display = "none";
+    } else {
+      document.getElementById("statusDescriptionPopUp")!.style.display = "flex";
+    }
+    this.dataToShow = data;
+  }
+
+  /**
+   * raccourcir le statusDescription pour un service et l'afficher dans les logs de suivi
+   * @param description statusDescription for a service
+   * @returns string with the first 10 characters of the description
+   */
+  getShortenedStatusDescription(description: string) : string {
+    if (description !=undefined){
+      if (description.length <= 10) {
+        return description;
+      } else {
+        let string = description.slice(0, 10) + "...";
+        return string
+      }
+    }
+    return "";
   }
 }
 

@@ -36,7 +36,7 @@ function start1(){
 }
 
 function stop1(){
-    console.log("STOP - Arret de l'impression du document");
+    console.log("END - Arret de l'impression du document");
     Kiosk.DocumentPrinting.removeEventListener("rawHtmlPrint", onRawHtmlPrint);
 }
 

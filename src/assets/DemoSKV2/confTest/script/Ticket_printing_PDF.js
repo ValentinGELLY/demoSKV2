@@ -35,6 +35,6 @@ function onPdfPrint(e) {
 }
 
 function stop1(){
-    console.log("STOP - Impression d'un ticket PDF");
+    console.log("END - Impression d'un ticket PDF");
     Kiosk.ReceiptPrinting.removeEventListener('rawPdfPrint', onPdfPrint);
 }
