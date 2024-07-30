@@ -63,7 +63,7 @@
 
     <div id="right">
       <section class="StopSessionReset">
-        <button class="stopSession stopBtn" id="stopSession" (click)="stopSession()">
+        <button class="stopSession" id="stopSession" (click)="stopSession()">
           Fin de Session
         </button>
         <img src="./assets/DemoSKV2/all-pages-icon/resetLog.png" alt="" (click)="resetHistoricEvent()">
@@ -85,8 +85,8 @@
       <section>
         <div class="listStatus">
           <section>
-            <mat-slide-toggle [aria-label]="isSubscribedToEmailsMessage" [(ngModel)]="isSubscribed" thumbLabel  class="custom-slide-toggle">
-              Affiché : <span *ngIf="isSubscribed==true"> l'heure de reception </span> <span *ngIf="isSubscribed==false">la différence</span>
+            <mat-slide-toggle [(ngModel)]="showDiffOrHour" thumbLabel  class="custom-slide-toggle">
+              Affiché : <span *ngIf="showDiffOrHour==true"> l'heure de reception </span> <span *ngIf="showDiffOrHour==false">la différence</span>
             </mat-slide-toggle>
           </section>
           <section *ngFor="let item of serviceUsed ; let i = index" class="logStatus">
@@ -215,8 +215,8 @@
               <div *ngFor="let statusHistory of historicEvent[item.service]">
                 <div *ngIf="statusHistory.state!=undefined;else statusPart" class="logEventStatusElement">
                   <span class="hourEventSpan" >{{ statusHistory.hourEvent }}</span>
-                  <span class="hourReceipSpan" *ngIf="isSubscribed==true">{{ statusHistory.hourReceiptEvent }} </span>
-                  <span class="hourReceipSpan"*ngIf="isSubscribed==false">+{{statusHistory.diffHourReceiptHourEvent}}</span>
+                  <span class="hourReceipSpan" *ngIf="showDiffOrHour==true">{{ statusHistory.hourReceiptEvent }} </span>
+                  <span class="hourReceipSpan"*ngIf="showDiffOrHour==false">+{{statusHistory.diffHourReceiptHourEvent}}</span>
                   <span class="componentSpan">{{statusHistory.component}}</span>
                   <section class="statusHistorySection">
                     <span class="changeEventSpan ">{{ statusHistory.state }} </span>
@@ -228,8 +228,8 @@
                 <ng-template #statusPart>
                   <div class="logEventStatusElement" id="statusPart">
                     <span class="hourEventSpan">{{ statusHistory.hourEvent }}</span>
-                    <span class="hourReceipSpan" *ngIf="isSubscribed==true">{{ statusHistory.hourReceiptEvent }} </span>
-                    <span class="hourReceipSpan" *ngIf="isSubscribed==false">+{{statusHistory.diffHourReceiptHourEvent}}</span>
+                    <span class="hourReceipSpan" *ngIf="showDiffOrHour==true">{{ statusHistory.hourReceiptEvent }} </span>
+                    <span class="hourReceipSpan" *ngIf="showDiffOrHour==false">+{{statusHistory.diffHourReceiptHourEvent}}</span>
                     <span class="componentSpan">{{statusHistory.component}}</span>
                     <section class="statusHistorySection">
                       <!-- partie sur le status décommenter si besoin de remettre la colonne status
@@ -266,6 +266,8 @@
     </div>
   </section>
 </main>
+
+<!-- Pop Up pour la description du test -->
 <div id="popUpDescriptionPage"></div>
 <div id="popUpDescription">
   <h2 id="titlePopUpDescription">Description</h2>
@@ -275,6 +277,7 @@
   <img class="crossPopUp" src="./assets/DemoSKV2/all-pages-icon/cross.png" alt="" (click)="closePopUp('Description')" />
 </div>
 
+<!-- Pop Up pour visionner le code du test-->
 <div id="popUpCodePage"></div>
 <div id="popUpCode">
   <h2 id="titlePopUpCode">Code du test </h2>
@@ -284,15 +287,17 @@
   <img class="crossPopUp" src="./assets/DemoSKV2/all-pages-icon/cross.png" alt="" (click)="closePopUp('Code')" />
 </div>
 
+<!-- Pop Up dragable pour visionner le retour vidéo du test -->
 <img src="./assets/DemoSKV2/back.png" alt="" (click)="backToChooseView()" class="icons" id="backIcon" />
 <section class="section_test" *ngFor="let item of listStopFunction; let i = index">
-  <div class="resultImageClass" id="resultImage{{i}}" cdkDrag *ngIf="imageCapture[i]!=''">
+  <div class="resultImageClass" id="resultImage{{i}}" cdkDrag *ngIf="imageCapture[i]!=''" (click)="closeImagePopUp('resultImage'+i)">
     <h2>Retour de l'image du test n°{{i+1}}</h2>
     <img [src]=" imageCapture[i]" alt="">
   </div>
 </section>
 
 
+<!-- Pop Up dragable pour visionner le status Description du service ou du device -->
 <section class="section_test" >
   <div class="resultImageClass" id="statusDescriptionPopUp" cdkDrag (click)="showPupUpStatusDescription({})">
     <h2>StatusDescription de <i>{{dataToShow.device}}</i> à <i *ngIf="dataToShow.hourReceiptEvent!=''"> {{dataToShow.hourReceiptEvent}}</i></h2>

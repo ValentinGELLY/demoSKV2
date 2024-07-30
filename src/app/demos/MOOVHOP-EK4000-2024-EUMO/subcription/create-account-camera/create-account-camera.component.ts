@@ -162,10 +162,6 @@ export class CreateAccountCameraComponent extends GenericComponent implements On
   
 
   onCapture = (e: any) => {
-    console.log("Capture Image");
-    
-    console.log(e.data.dataType);
-    
     switch (e.data.dataType) {
       case 'ImageCaptured':
         if (this.router.url === "/EUMO2024/createAccountCamera") {

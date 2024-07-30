@@ -48,3 +48,13 @@ h1 {
     left: 50%;
     width: 7%;
   }
+
+  #error{
+    display: none;
+    width: 100%;
+    position: fixed;
+    text-align: center;
+    bottom: 10px;
+    color: red;    
+    font-family: 'GothamLight';
+  }

@@ -43,7 +43,7 @@ export class FeaturesChoiceComponent implements OnInit {
 
   getAllScript() {
     fetch(
-      `http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/script/toc.txt`
+      `http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/toc.txt`
     )
       .then((response) => {
         if (!response.ok) {
@@ -60,7 +60,7 @@ export class FeaturesChoiceComponent implements OnInit {
   createAllElement() {
     for (let i = 0; i < this.featuresList.length; i++) {
       fetch(
-        `http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/script/${this.featuresList[i]}.js`
+        `http://localhost:5000/demoSKV2/application/assets/DemoSKV2/confTest/${this.featuresList[i]}.js`
       )
         .then((response) => {
           if (!response.ok) {

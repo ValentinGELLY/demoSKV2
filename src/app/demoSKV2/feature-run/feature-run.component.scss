@@ -33,7 +33,7 @@ body {
   align-items: center;
   left: 50%;
   font-size: 2em;
-  width: 90%;
+  width: 100%;
   justify-content: space-around;
   top: 50px;
   margin-left: auto;
@@ -362,7 +362,7 @@ input {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 66%;
+  width: 68%;
 }
 
 #showSection section {
@@ -481,7 +481,7 @@ input {
 #panel_Logs {
   max-height: 200px;
   overflow-y: auto;
-}
+} 
 
 .section_test {
   display: flex;
@@ -492,7 +492,8 @@ input {
 
 .playBtn,
 .stopBtn,
-.restBtn {
+.restBtn,
+.stopSession {
   border: none;
   color: #fff;
   padding: 4px 15px;
@@ -546,6 +547,7 @@ input {
   justify-content: center;
   align-items: center;
   gap: 20px;
+  background-color: #f44336;
 }
 
 .formio-form {

@@ -55,7 +55,7 @@ Lors de la création d'une nouvelle application de démonstration il faut :
    - `Application transports - version complète`: la description de l'application
 
    Résultat :
-   !['../../assets/DemoSKV2/doc/btnDemoChoice.PNG'](../../assets/DemoSKV2/doc/btnDemoChoice.PNG "Bouton de choix d'application")
+   !['../../assets/DemoSKV2/documentation/btnDemoChoice.PNG'](../../assets/DemoSKV2/documentation/btnDemoChoice.PNG "Bouton de choix d'application")
 
 
 
@@ -187,15 +187,15 @@ Pour ajouter un test il faut :
    Chaque élément de la liste va créer un bouton dans l'interface de l'application.
 
 Exemple de boutons :
-!['bouton pour choisir un test']( ../../assets/DemoSKV2/doc/choix_feature.JPG "Bouton de choix de test")
+!['bouton pour choisir un test']( ../../assets/DemoSKV2/documentation/choix_feature.JPG "Bouton de choix de test")
 
 Interface résultat pour le test du scanner de document :
 
-![Interface_de_paiement_par_carte_bancaire]( ../../assets/DemoSKV2/doc/interfacebefore.JPG "Interface_de_paiement_par_carte_bancaire")
+![Interface_de_paiement_par_carte_bancaire]( ../../assets/DemoSKV2/documentation/interfacebefore.JPG "Interface_de_paiement_par_carte_bancaire")
 
-Ci-dessous un exemple d'interface après le lancement d'un test :
+Ci-dessous la même interface mais après le lancement du test numéro 1 :
 
-![Interface_de_paiement_par_carte_bancaire_apres_lancement]( ../../assets/DemoSKV2/doc/interfaceAfter.JPG "Logs")
+![Interface_de_paiement_par_carte_bancaire_apres_lancement]( ../../assets/DemoSKV2/documentation/interfaceAfter.JPG "Logs")
 
 Ci dessous le fichier pour réaliser l'interface et le test :
 
@@ -236,4 +236,55 @@ Pour ajouter un type de log il faut créer une condition dans la redéfintion du
 ```
 
 Avec `nouveauTypeDeLog` le nouveau type de log.
+
+--- 
+
+### Remarque
+
+1. Dans le code HTML certains parties sont en commentaires. Elles peuvent être décommentés si les informations sont nécessaires. Le code Javascript pour son fonctionnement est déjà présent.
+
+2. L'historique des status/state/statusDescription/statusDetails : 
+`historicEvent` : contient l'historique des changements de status. Il est mis à jour à chaque changement de status. A chaque evenement un objet est ajouté dans le tableau. Cet objet peut contenir les informations suivantes : 
+    - "component": le composant qui a émis l'évènement
+    - "service": le service qui a émis l'évènement
+    - "hourEvent": heure de l'émission de lévènement
+    - "hourReceiptEvent":  heure de réception de l'évènement par le javascript
+    - "diffHourReceiptHourEvent": le delta entre l'horaire de l'évènement et l'horaire de réception
+    - "status": le status du service
+    - "statusDetail": le détail du status
+    - "statusDescription": la description du status
+    - "state": l'état de l'élément
+
+    Ces informations sont stockés que se soit le service ou le device qui a émis l'évènement. 
+
+2. la gestion des états actuel du service ou du device : 
+`actualStatusAllDevice` : est indenté avecle nom de chaque device et service. On donne alors les informations suivantes à chaque évènement de changement de status : 
+    - "status": le status du service
+    - "statusDetail": le détail du status
+    - "statusDescription": la description du status
+    - "state": l'état de l'élément
+
+3. actualisation de la page avec les historique des status : ```this.cdr.detectChanges();```
+
+4. Gestion des services et device qui n'exitent pas : lors de la lecture du fichier js on vérifie si les éléments éxistent. L'objet `undefinedDevices` récupère le device qui est assimilé à un service. Les Services qui ne sont pas trouvé sont enregistré dans `undefinedServices`.
+
+5. Parametrage du fichier à imprimer : C'est une idée à explorer pour les prochaines versions. L'utilisateur peut mettre dans le fichier de test une variable de type file ```@param {file} fileToPrint - Default: fileToPrint - Fichier à imprimer```(voir le fonctionnement des paramètres plus haut dans ce document). Ce type devra permettre de selectionner un fichier pdf dans l'exploateur de fichier. Le fichier sera transformer en base64 pour etre ensuite utiliser dans l'impression. ( cette fonctionnalité est partiellement développer, il faut voir pour donner les droits à l'application pour accéder au fichier via l'explorateur de fichier). 
+
+
+
+## Utilisation de DEMOSKV2 dans la VM
+
+1. Installation de l'application dans la VM (même principe que l'installation d'une application sur une borne)
+
+2. Lancer l'application ( l'application peut etre mise en autolog)
+
+3. Choix du profil utilisateur (chaque utilisateur à accés ou non à certaines fonctionnalité : Technique pour lancer des tests)
+
+4. Chosiir un test ( la recherche de test peut se faire via le champ text et le choix du type de recherche)
+
+5. Lancement d'un scénario (Les scénario sont accéssible via l'onglet numéro 4 du navigateur). Il faut lancer le scénario correspondant au test. 
+
+6. Fermer la session grace au bouton présent dans l'application
+
+7. lancer le test et observer les logs ( les résultat seront les même que sur une borne mise à part le comportement des services et périphériques qui n'évoluront pas).
 
