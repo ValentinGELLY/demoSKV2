@@ -7,7 +7,9 @@ Session
 ContactlessReading
 ContactLessReading_Calypso
 Camera_Shooting
-Ticket_Printing_PDF
+ReceiptPrinting_PDF
 VitaleCardReading_CheckCard
 Session_PresenceCaptor
 CashPayment_Bank
+CardDispensing
+TicketPrinting_PDF

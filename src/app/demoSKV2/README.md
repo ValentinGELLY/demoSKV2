@@ -202,9 +202,8 @@ Ci dessous le fichier pour réaliser l'interface et le test :
 - [Barcode_Reading.js](../../assets/DemoSKV2/confTest/script/Document_Scanning.js)
 
 
-## DemoSKV2
-
-### Ajout d'un type de log
+---
+### 5. Ajout d'un type de log
 
 Pour ajouter un type de log il faut créer une condition dans la redéfintion du `console.log` dans le fichier `feature-run.component.ts` à la ligne 340.  
 - **Ajout d'un log simple** : Le code ci-dessous est un exemple de condition pour un nouveau type de log . Le contenu du log est affiché dans une balise `<div>` dans la section Logs du test.
@@ -272,7 +271,7 @@ Avec `nouveauTypeDeLog` le nouveau type de log.
 
 
 
-## Utilisation de DEMOSKV2 dans la VM
+### Utilisation de DEMOSKV2 dans la VM
 
 1. Installation de l'application dans la VM (même principe que l'installation d'une application sur une borne)
 

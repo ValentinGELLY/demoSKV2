@@ -12,9 +12,6 @@
  * @param {string} refShoppingCart - Default: ticket-1234 - Référence du panier
  */
 function start1() {
-    let amountInCents = 100;
-    let refTransaction = "ref-deb-0000";
-    let refShoppingCart = "ticket-123";
     Kiosk.CardPayment.addEventListener("cardDebit", onCardDebit);
     console.log("START - lancement d'une transaction de "+amountInCents/100+"€")
     Kiosk.CardPayment.debitCard({
@@ -54,7 +51,6 @@ function onCardDebit(e) {
 function start2() {
     console.log("START - confirmation de transaction");
     Kiosk.CardPayment.addEventListener("transactionConfirm", onTransactionConfirm);
-
     Kiosk.CardPayment.confirmTransaction({
         "confirmAmountInCents": Kiosk.CardPayment.currentTransaction.amountInCents
     });

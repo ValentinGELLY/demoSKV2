@@ -210,7 +210,7 @@
               <div [attr.class]="'fleche fleche_' + item.service"></div>
             </section>
 
-            <!-- ligne afficher lors d'un changement de state d'un service -->
+            <!-- ligne afficher lors d'un changement de state d'un service/device -->
             <div [attr.id]="'panel_' + item.service" class="panel panelInformations">
               <div *ngFor="let statusHistory of historicEvent[item.service]">
                 <div *ngIf="statusHistory.state!=undefined;else statusPart" class="logEventStatusElement">
@@ -224,7 +224,7 @@
                     <span class="changeEventSpan"></span>
                   </section>
                 </div>
-                <!-- ligne afficher lors d'un changement de status d'un service -->
+                <!-- ligne afficher lors d'un changement de status d'un service/device -->
                 <ng-template #statusPart>
                   <div class="logEventStatusElement" id="statusPart">
                     <span class="hourEventSpan">{{ statusHistory.hourEvent }}</span>

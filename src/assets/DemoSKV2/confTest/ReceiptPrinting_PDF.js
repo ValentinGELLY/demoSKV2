@@ -20,11 +20,11 @@ function start1() {
 
 function onPdfPrint(e) {
     switch (e.data.dataType) {
-        case 'PdfPrinted':
+        case 'RawPdfPrinted':
             console.log("END - Ticket PDF imprimé");
             Kiosk.ReceiptPrinting.removeEventListener('rawPdfPrint', onPdfPrint);
             break;
-        case 'PdfPrintError':
+        case 'RawPdfPrintError':
             console.error(e.data.code + ": " + e.data.description);
             // Le cas Timout est à traiter comme un cas fonctionnel dégradé
             if (e.data.code == 'Timeout') {
