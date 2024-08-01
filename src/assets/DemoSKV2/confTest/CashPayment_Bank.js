@@ -4,21 +4,21 @@
  * @service CashPayment (CashColumn)
  */
 
+let amountInCents;
+let refTransaction;
+let refShoppingCart;
+
 
 /**
  * Lancement de la transaction Cash
 * @param {number} amountInCents - Default: 100 - Montant en centimes
- * @param {string} refTransaction - Default: ref-deb-0000 - Référence de la transaction
- * @param {string} refShoppingCart - Default: ticket-1234 - Référence du panier
+ * @param refTransaction - Default: ref-deb-0000 - Référence de la transaction
+ * @param refShoppingCart - Default: ticket-1234 - Référence du panier
  */
 function start1() {
-    let amountInCents = 100;
-    let refTransaction = "ref-deb-0000";
-    let refShoppingCart = "ticket-123";
     console.log("START - lancement de la transaction Cash d'une valeur de " + amountInCents / 100 + " €");
 	// Écoute de l'événement de surveillance de la transaction Cash
 	Kiosk.CashPayment.addEventListener("transactionBank", onTransactionBank);
-
 	// Démarrage de la transaction
 	Kiosk.CashPayment.bankTransaction({
 		amountInCents: amountInCents,

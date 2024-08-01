@@ -109,15 +109,15 @@ Pour ajouter un test il faut :
          - `ERROR` : Pour indiquer une erreur donc la fin du script.
          - `END` : Pour indiquer la fin de l'action.
 
-       - Le Message contient les informations que le dveloppeurs souhaite afficher. C'est la seul partie qui sera présente dans l'application.
+       - Le message contient les informations que le développeurs souhaite afficher. C'est la seul partie du console.log qui sera affiché dans l'application.
 
-     - Le fichier doit contenir les différentes variables qui peuvent être modifié par l'utilisateur.
+     - Le fichier doit contenir les différentes variables qui peuvent être modifié par l'utilisateur. il n'est pas nécessaire de spécifier le type dans le cas d'une variable de type string. Mais il faut le spécifier pour les autres types de variables (exemple : number). 
 
         ```javascript
         /**
           * @param {number} amountInCents - Default: 100 - Montant en centimes
-          * @param {string} refTransaction - Default: ref-deb-0000 - Référence de la transaction
-          * @param {string} refShoppingCart - Default: ticket-1234 - Référence du panier
+          * @param refTransaction - Default: ref-deb-0000 - Référence de la transaction
+          * @param refShoppingCart - Default: ticket-1234 - Référence du panier
         */
         ```
 
@@ -170,7 +170,7 @@ Pour ajouter un test il faut :
 
 2. Ajouter le nom du test dans le fichier poc.txt du dossier assets de DemoSKV2.
 
-    - Il faut ajouter le nom du test dans la liste `featuresList` du fichier `poc.txt`.
+    - Il faut ajouter le nom du test dans la liste `featuresList` du fichier `toc.txt`.
 
     Exemple :
    ```txt

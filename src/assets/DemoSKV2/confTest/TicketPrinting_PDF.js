@@ -57,7 +57,7 @@ function onRawMultiplePdfPrint(e) {
             if (nTickets > 0) {
                 setTimeout(printTicket, 100);
             }else{
-                console.log("USER - Fin d'impression des tickets : "+ nTickets);
+                console.log("USER - Fin d'impression des tickets");
                 Kiosk.TicketPrinting.removeEventListener("rawPdfPrint", onRawMultiplePdfPrint);
                 console.log("END - Fin d'impression des tickets");
             }
@@ -93,6 +93,7 @@ function stop1(){
 }
 
 function stop2(){
+    nTickets = 0;
     console.log("END - Fin d'impression des tickets");
     Kiosk.TicketPrinting.removeEventListener('rawPdfPrint', onRawMultiplePdfPrint);
     Kiosk.TicketPrinting.cancelJobs();

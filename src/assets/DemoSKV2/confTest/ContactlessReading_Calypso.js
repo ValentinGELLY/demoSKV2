@@ -20,8 +20,8 @@ function onCardDetect(e){
 			console.log("USER - Carte détectée: ATR(" + e.data.atr + ") - support (" + e.data.cardType + ")");
       // Ouverture de session Calypso
 			console.log("USER - Ouverture de session..."); 
-      Kiosk.ContactlessReading.addEventListener("calypsoSessionRun", onCalypsoSessionRun);
-      Kiosk.ContactlessReading.runCalypsoSession();
+			Kiosk.ContactlessReading.addEventListener("calypsoSessionRun", onCalypsoSessionRun);
+			Kiosk.ContactlessReading.runCalypsoSession();
 			break;
 	}
 }

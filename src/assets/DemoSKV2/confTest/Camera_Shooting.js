@@ -32,6 +32,7 @@ function start2(){
 function start3(){
     console.log("START - lancement de la preview de la camera + capture de la photo");
     Kiosk.CameraShooting.addEventListener("previewStart", onPreview);
+    Kiosk.CameraShooting.addEventListener("previewStop", onPreview);
     Kiosk.CameraShooting.startPreview();
     timeoutCameraBeforeCapture();
 }
@@ -48,7 +49,11 @@ function onPreview(e) {
             };
             break;
         case 'PreviewStopped':
-            
+            Kiosk.CameraShooting.removeEventListener("previewStop", onPreview);
+            Kiosk.CameraShooting.addEventListener("imageCapture", onImageCameraCapture);
+            setTimeout(() => {
+                Kiosk.CameraShooting.captureImage();
+              }, 500);
             break;
         default:
             console.error(e.data.code + ": " + e.data.description);
@@ -59,9 +64,9 @@ function onPreview(e) {
 
 function timeoutCameraBeforeCapture(){
     timeout = setTimeout(() => {
+        console.log("USER - Fin de la preview de la camera");
+        Kiosk.CameraShooting.removeEventListener("previewStart", onPreview);
         Kiosk.CameraShooting.stopPreview();
-        Kiosk.CameraShooting.addEventListener("imageCapture", onImageCameraCapture);
-        Kiosk.CameraShooting.captureImage();
     }, 5000);
 }
 
@@ -75,6 +80,7 @@ function timeoutCamera() {
 
 
 function onImageCameraCapture(e){
+    console.log("USER - test de capture de la photo");
     switch (e.data.dataType) {
         case 'ImageCaptured':
             console.log("USER - Image de la caméra capturée");

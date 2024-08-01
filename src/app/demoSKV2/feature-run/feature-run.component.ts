@@ -616,7 +616,8 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
           "value": this.parameters[i].default !== undefined ? this.parameters[i].default : "",
           "tooltip": this.parameters[i].name !== undefined ? this.parameters[i].name : "",
           "input": true,
-          "customId": this.parameters[i].name
+          "customId": this.parameters[i].name,
+          "description":this.parameters[i].description !== undefined ? this.parameters[i].description : "",
         };
         this.FormJSON.push(jsonElement);
       } else {
@@ -639,15 +640,34 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
       _this.FormJSON.forEach((element: { type: string; }) => {
         if (element.type === "number") {
           allInput[i].type = "number";
-        } else if (element.type === "textfield") {
+        } else{
           allInput[i].type = "text";
-        } else if (element.type === "number") {
-          allInput[i].type = "number";
-        } else if (element.type === "boolean") {
-          allInput[i].type = "checkbox";
         }
         i++;
       });
+      let allFormioGroup =  document.getElementsByClassName("formio-form-group");
+      let listAllFormioGroup = Array.prototype.slice.call(allFormioGroup)
+      for (let index = 0; index < listAllFormioGroup.length; index++) {
+        const element = allFormioGroup[index] as HTMLElement;
+        element.style.display = "flex";
+        element.style.flexDirection = "row-reverse";
+        element.style.justifyContent = "flex-end";
+        element.style.gap = "1%";
+      }
+
+      let allFormText = document.getElementsByClassName("form-text");
+      let listAllFormText = Array.prototype.slice.call(allFormText)
+      for (let index = 0; index < listAllFormText.length; index++) {
+        const element = allFormText[index] as HTMLElement;
+        element.style.width = "30%";
+      }
+
+      let allTypeOnly = document.getElementsByClassName("visually-hidden");
+      let listAllTypeOnly = Array.prototype.slice.call(allTypeOnly)
+      for (let index = 0; index < listAllTypeOnly.length; index++) {
+        const element = allTypeOnly[index] as HTMLElement;
+        element.style.display = "none";
+      }
 
     });
   }
@@ -674,26 +694,16 @@ export class FeatureRunComponent extends GenericComponent implements OnInit {
    * @param script script de la fonction
    */
   extractParameterDetails(script: string) {
-    console.log(script);
-    const parameterPattern = /@param {([^}]+)} ([^ ]+) - Default: ([^ ]+)\s+-/g;
+    const parameterPattern = /@param\s+(\{([^}]+)\}\s+)?([^ ]+) - Default: ([^ ]+)\s+-\s+(.+)/g;
     let match;
     const matches = [];
     while ((match = parameterPattern.exec(script)) !== null) {
       matches.push({
-        type: match[1],
-        name: match[2],
-        default: match[3]
+        type: match[2] || "textfield",
+        name: match[3],
+        default: match[4],
+        description : match[5]
       });
-    }
-    // traitement des type de paramètre
-    for (let i = 0; i < matches.length; i++) {
-      if (matches[i].type === "string") {
-        matches[i].type = "textfield";
-      } else if (matches[i].type === "number") {
-        matches[i].type = "number";
-      } else if (matches[i].type === "boolean") {
-        matches[i].type = "checkbox";
-      }
     }
     return matches;
   }

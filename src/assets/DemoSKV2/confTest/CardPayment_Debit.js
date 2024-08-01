@@ -5,11 +5,15 @@
  * @service ReceiptPrinting 
 */
 
+let amountInCents;
+let refTransaction ;
+let refShoppingCart;
+
 /**
  * Fonction de lancement d'un débit de X centimes
  * @param {number} amountInCents - Default: 100 - Montant en centimes
- * @param {string} refTransaction - Default: ref-deb-0000 - Référence de la transaction
- * @param {string} refShoppingCart - Default: ticket-1234 - Référence du panier
+ * @param refTransaction - Default: ref-deb-0000 - Référence de la transaction
+ * @param refShoppingCart - Default: ticket-1234 - Référence du panier
  */
 function start1() {
     Kiosk.CardPayment.addEventListener("cardDebit", onCardDebit);

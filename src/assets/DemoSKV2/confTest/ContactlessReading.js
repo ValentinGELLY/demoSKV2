@@ -8,7 +8,7 @@
 /**
  * Ecoute d'un lecteur sans contact
  */
-function star1(){
+function start1(){
     console.log("START - Début de l'écoute du lecteur sans contact");
     Kiosk.ContactlessReading.addEventListener('cardDetect', onCardDetect);
 }

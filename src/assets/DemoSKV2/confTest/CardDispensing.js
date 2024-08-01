@@ -7,16 +7,25 @@
 
 function start1(){
     console.log("START - Lancement de la distribution de carte");
-    Kiosk.CardDispensing.addEventListener("CardDispensed", onCardDispensed);
+    Kiosk.CardDispensing.addEventListener("cardDispense", onCardDispensed);
     Kiosk.CardDispensing.dispenseCard();
 }
 
-function onCardDispensed(){
-    console.log("END - Carte Distribué");
-    Kiosk.CardDispensing.removeEventListener("CardDispensed", onCardDispensed);
+function onCardDispensed(e){
+    console.log("USER - Carte en cours de distribution");
+    switch (e.data.dataType) {
+        case 'CardDispensed':
+            console.log("USER - Carte Distribué");
+            console.log("END - Carte Distribué");
+            Kiosk.CardDispensing.removeEventListener("cardDispense", onCardDispensed);
+            break;
+        case 'CardDispenseError':
+            console.error("ERROR - "+e.data.code + ": " + e.data.description);
+            break;
+    }
 }
 
 function stop1(){
     console.log("END - Arret de la distribution de carte");
-    Kiosk.CardDispensing.removeEventListener("CardDispensed", onCardDispensed);
+    Kiosk.CardDispensing.removeEventListener("cardDispense", onCardDispensed);
 }

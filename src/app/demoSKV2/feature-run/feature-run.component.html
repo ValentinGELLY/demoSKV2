@@ -4,7 +4,9 @@
 <main>
   <section id="doc">
     <section id="title">
-      <h1>{{ nomApp }}</h1>
+      <section id="titleH1">
+        <h1>{{ nomApp }}</h1>
+      </section>
       <section id="showSection">
         <section>
           <button id="btnRead" (click)="showPopUp('Description')">Description ></button>
@@ -116,7 +118,7 @@
                   <span class="titleService">
                     {{ item.service }}
                   </span>
-                  <section class="actualStatusService">  
+                  <section class="actualStatusService actualStatusServiceSection">  
                     <!-- partie sur le status décommenter si besoin de remettre la colonne status
                     
                     <ng-container *ngIf="actualStatusAllService[item.service].status == 'Ok'; else tempUnavailable">
@@ -144,29 +146,48 @@
                       </span>
                     </ng-template>-->
                     
-                    <span class="changeEventSpan " *ngIf="actualStatusAllService[item.service].state=='Ready'  ;else processingStateServiceTitle">{{ actualStatusAllService[item.service].state }} </span>
+                    <span class="changeEventSpan ">{{ actualStatusAllService[item.service].state }} </span>
+                    <!-- à réactiver si besoin de remettre les changements de couleurs
                     <ng-template #processingStateServiceTitle >
                       <span class="changeEventSpan ProcessingState" *ngIf="actualStatusAllService[item.service].state=='Processing'  ;else otherStateServiceTitle" >{{ actualStatusAllService[item.service].state }} </span>
                       <ng-template #otherStateServiceTitle >
-                        <span class="changeEventSpan otherState">{{ actualStatusAllService[item.service].state }} </span>
+                        <span class="changeEventSpan">{{ actualStatusAllService[item.service].state }} </span>
                       </ng-template>
-                    </ng-template>
+                    </ng-template>-->
 
-                    <span [attr.id]="'state_' + item.service" class="okStatusDetailTitle" *ngIf="actualStatusAllService[item.service].statusDetail == 'Ok';else otherStatusDetailTitle">
+                    <span [attr.id]="'state_' + item.service" class="okStatusDetailTitle" *ngIf="actualStatusAllService[item.service].status == 'Ok';else warningStatusDetailTitleService">
                       {{ actualStatusAllService[item.service].statusDetail }}
                     </span>
-                    <ng-template #otherStatusDetailTitle>
-                      <span [attr.id]="'state_' + item.service" class="otherStatusDetailTitle">
+                    <ng-template #warningStatusDetailTitleService>
+                      <span [attr.id]="'state_' + item.service" class="warningStatusDetailTitle" *ngIf="actualStatusAllService[item.service].status =='Warning'; else criticalStatusDetailTitleService">
+                        {{ actualStatusAllService[item.service].statusDetail }}
+                      </span>
+                    </ng-template>
+                    <ng-template #criticalStatusDetailTitleService>
+                      <span [attr.id]="'state_' + item.service" class="criticalStatusDetailTitle" *ngIf="actualStatusAllService[item.service].status =='Critical'; else tempUnvalaibleStatusDetailTitleService">
+                        {{ actualStatusAllService[item.service].statusDetail }}
+                      </span>
+                    </ng-template>
+                    <ng-template #tempUnvalaibleStatusDetailTitleService>
+                      <span [attr.id]="'state_' + item.service" class="tempUnvalaibleStatusDetailTitle" *ngIf="actualStatusAllService[item.service].status =='TempUnavailable'; else UnknownStatusDetailTitleService">
+                        {{ actualStatusAllService[item.service].statusDetail }}
+                      </span>
+                    </ng-template>
+                    <ng-template #UnknownStatusDetailTitleService>
+                      <span [attr.id]="'state_' + item.service" class="UnknownStatusDetailTitle" >
                         {{ actualStatusAllService[item.service].statusDetail }}
                       </span>
                     </ng-template>
                     <span class="changeEventSpan" class="statusDescriptionHeader"><span *ngIf="actualStatusAllService[item.service].statusDescription!=''" (click)="showPupUpStatusDescription(actualStatusAllService[item.service])" >{{getShortenedStatusDescription(actualStatusAllService[item.service].statusDescription)}}</span></span>
                   </section>
                 </h3>
+
+
+
                 <!-- Ligne etat actuel du device-->
                 <h3 *ngIf="item.device!= 'N/A' && Kiosk[item.service][item.device]!=undefined">
                   <span class="titleService">{{item.device}}</span>
-                  <section class="actualStatusService">
+                  <section class="actualStatusService actualStatusServiceSection">
                    <!--  partie sur le status décommenter si besoin de remettre la colonne status 
                     
                    <span [attr.id]="'status_' + item.device" class="deviceStatusTitleOk" *ngIf="actualStatusAllDevice[item.device].status=='Ok';else deviceStatusTitleTempUnavailable">
@@ -188,18 +209,27 @@
                       </ng-template>
                     </ng-template>-->
 
-                    <span class="changeEventSpan" *ngIf="actualStatusAllDevice[item.device].state=='Ready'  ;else processingStateDeviceTitle">{{ actualStatusAllDevice[item.device].state }} </span>
-                    <ng-template #processingStateDeviceTitle>
-                      <span class="changeEventSpan" *ngIf="actualStatusAllDevice[item.device].state=='Processing';else otherStateDeviceTitle" >{{ actualStatusAllDevice[item.device].state }} </span>
-                    </ng-template>
-                    <ng-template #otherStateDeviceTitle>
-                      <span class="changeEventSpan otherState">{{ actualStatusAllDevice[item.device].state }} </span>
-                    </ng-template>
-                    <span [attr.id]="'state_' + item.service" class="okStatusDetailTitle" *ngIf="actualStatusAllDevice[item.device].statusDetail == 'Ok';else otherStatusDetailTitle">
+                    <span class="changeEventSpan" >{{ actualStatusAllDevice[item.device].state }} </span>
+                    <span [attr.id]="'state_' + item.service" class="okStatusDetailTitle" *ngIf="actualStatusAllDevice[item.device].status == 'Ok';else warningStatusDetailTitle">
                       {{ actualStatusAllDevice[item.device].statusDetail }}
                     </span>
-                    <ng-template #otherStatusDetailTitle>
-                      <span [attr.id]="'state_' + item.service" class="otherStatusDetailTitle">
+                    <ng-template #warningStatusDetailTitle>
+                      <span [attr.id]="'state_' + item.service" class="warningStatusDetailTitle" *ngIf="actualStatusAllDevice[item.device].status =='Warning'; else criticalStatusDetailTitle">
+                        {{ actualStatusAllDevice[item.device].statusDetail }}
+                      </span>
+                    </ng-template>
+                    <ng-template #criticalStatusDetailTitle>
+                      <span [attr.id]="'state_' + item.service" class="criticalStatusDetailTitle" *ngIf="actualStatusAllDevice[item.device].status =='Critical'; else tempUnvalaibleStatusDetailTitle">
+                        {{ actualStatusAllDevice[item.device].statusDetail }}
+                      </span>
+                    </ng-template>
+                    <ng-template #tempUnvalaibleStatusDetailTitle>
+                      <span [attr.id]="'state_' + item.service" class="tempUnvalaibleStatusDetailTitle" *ngIf="actualStatusAllDevice[item.device].status =='TempUnavailable'; else UnknownStatusDetailTitle">
+                        {{ actualStatusAllDevice[item.device].statusDetail }}
+                      </span>
+                    </ng-template>
+                    <ng-template #UnknownStatusDetailTitle>
+                      <span [attr.id]="'state_' + item.service" class="UnknownStatusDetailTitle" >
                         {{ actualStatusAllDevice[item.device].statusDetail }}
                       </span>
                     </ng-template>
@@ -244,14 +274,18 @@
                         </ng-template>
                       </ng-template>-->
                       <span class="changeEventSpan"></span>
-                      <span class="changeEventSpan okStatus" *ngIf="statusHistory.statusDetail=='Ok' ;else TempAvailableStatus">{{ statusHistory.statusDetail }} </span>
-                      <ng-template #TempAvailableStatus>
+                      <span class="changeEventSpan okStatus" *ngIf="statusHistory.statusDetail=='Ok' ;else TmpAvailableStatus">{{ statusHistory.statusDetail }} </span>
+                      <ng-template #TmpAvailableStatus>
                         <span class="changeEventSpan tempAvailableStatus" *ngIf="statusHistory.statusDetail=='TempUnavailable' ;else WarningStatus">{{ statusHistory.statusDetail }} </span>
                         <ng-template #WarningStatus>
-                          <span class="changeEventSpan warningStatus" *ngIf="statusHistory.statusDetail=='Warning' ;else OtherStatus">{{ statusHistory.statusDetail }} </span>
-                          <ng-template #OtherStatus>
-                            <span class="changeEventSpan otherStatus" >{{ statusHistory.statusDetail }} </span>
+                          <span class="changeEventSpan warningStatus" *ngIf="statusHistory.statusDetail=='Warning' ;else CriticalStatus">{{ statusHistory.statusDetail }} </span>
+                          <ng-template #CriticalStatus>
+                            <span class="changeEventSpan criticalStatus" *ngIf="statusHistory.statusDetail=='Warning' ;else UnknowStatus">{{ statusHistory.statusDetail }} </span>
+                            <ng-template #UnknowStatus>
+                              <span class="changeEventSpan UnknownStatusDetailTitle" >{{ statusHistory.statusDetail }} </span>
+                            </ng-template>
                           </ng-template>
+                          
                         </ng-template>
                       </ng-template>
                       <span class="changeEventSpan"><span *ngIf="statusHistory.statusDescription!=''" (click)="showPupUpStatusDescription(statusHistory)" >{{getShortenedStatusDescription(statusHistory.statusDescription)}}</span></span>

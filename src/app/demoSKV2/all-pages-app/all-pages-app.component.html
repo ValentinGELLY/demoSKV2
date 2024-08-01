@@ -44,7 +44,7 @@
     <!-- pour les parcours clients  -->
     <button *ngIf="currentView === 'ivq' || currentView === 'tech' || currentView === 'advancedTech'"
       class="customerExperienceButton"
-      (click)="changeCurrentMenuButtonList('parcoursClient', 'customerExperienceButton')">
+      (click)="changeCurrentMenuButtonList('parcoursClient', 'customerExperienceButton')" disabled>
       Parcours clients
     </button>
 
@@ -56,7 +56,7 @@
 
     <!-- pour les tests  -->
     <button *ngIf="currentView === 'ivq'" class="testsButton"
-      (click)="changeCurrentMenuButtonList('tests', 'testsButton')">
+      (click)="changeCurrentMenuButtonList('tests', 'testsButton')" disabled>
       Tests
     </button>
   </div>
